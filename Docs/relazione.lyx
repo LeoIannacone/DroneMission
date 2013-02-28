@@ -26,7 +26,16 @@
 \index_command default
 \paperfontsize default
 \spacing single
-\use_hyperref false
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
 \papersize default
 \use_geometry false
 \use_amsmath 1
@@ -101,7 +110,7 @@ Per esplorare territori difficilmente accessibili, sia per condizioni ambientali
 \end_layout
 
 \begin_layout Chapter
-Goals
+Obiettivi
 \end_layout
 
 \begin_layout Standard
@@ -112,7 +121,7 @@ L'applicazione intende fornire alla protezione civile un maggiore supporto
 \end_layout
 
 \begin_layout Chapter
-Requirements
+Requisiti
 \end_layout
 
 \begin_layout Section
@@ -275,15 +284,200 @@ Si ricorda che l'obiettivo del lavoro non è solo la produzione di un sistema
 \end_layout
 
 \begin_layout Chapter
-Requirements analysis
+Analisi dei requisiti
 \end_layout
 
 \begin_layout Section
 Use cases
 \end_layout
 
+\begin_layout Standard
+Dalle specifiche del committente si è capito che questi desidera il sistema
+ fornisca tre funzionalità principali: ricezione di informazioni territoriali,
+ controllo della missione e ricezione di informazioni relative ai sensori
+ di stato del drone.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Img/use_cases.png
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Use cases
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
-Scenarios
+Glossario
+\end_layout
+
+\begin_layout Description
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top" width="0">
+<column alignment="left" valignment="top" width="0pt">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Termine
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Significato
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Centrale Operativa
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Elemento esterno al sistema da sviluppare.
+ Ha il compito di controllare la missione e ricevere dal drone informazioni
+ relative ai suoi sensori e memorizzare le fotografie scattate.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Smartphone
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Elemento esterno al sistema.
+ Consente al Chief e al Commander di avere informazioni sullo stato del
+ drone.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Drone
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Elemento esterno al sistema.
+ È un velivolo privo di pilota che ha il compito di esplorare 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Informazioni territoriali
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Immagine che rappresenta lo stato del territorio esplorato 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Controllo missione
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Inieme di funzionalità che consentono alla centrale operativa di inviare
+ comandi al drone
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Scenari
 \end_layout
 
 \begin_layout Section
@@ -295,7 +489,7 @@ Test plan
 \end_layout
 
 \begin_layout Chapter
-Problem analysis
+Analisi del problema
 \end_layout
 
 \begin_layout Section
@@ -311,19 +505,19 @@ Risk analysis
 \end_layout
 
 \begin_layout Chapter
-Work plan
+Piano di lavoro
 \end_layout
 
 \begin_layout Chapter
-Project
+Progetto
 \end_layout
 
 \begin_layout Section
-Structure
+Struttura
 \end_layout
 
 \begin_layout Section
-Interaction
+Interazione
 \end_layout
 
 \begin_layout Section
@@ -331,7 +525,7 @@ Behavior
 \end_layout
 
 \begin_layout Chapter
-Implementation
+Implementazione
 \end_layout
 
 \begin_layout Chapter
