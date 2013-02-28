@@ -68,12 +68,220 @@ Drone mission
 Carlo Antenucci, Leonardo Iannacone, Gonzalo Junquera
 \end_layout
 
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FloatList algorithm
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Chapter
 Introduction
 \end_layout
 
-\begin_layout Standard
+\begin_layout Chapter
+Vision
+\end_layout
 
+\begin_layout Chapter
+Goals
+\end_layout
+
+\begin_layout Chapter
+Requirements
+\end_layout
+
+\begin_layout Section
+Lo scenario applicativo 
+\end_layout
+
+\begin_layout Standard
+La protezione civile decide di inviare su un luogo diffcilmente accessibile
+ un aeromobile senza pilota (drone), capace di operare in modo teleguidato.
+ Il drone è dotato di un insieme di sensori di stato in grado di rilevare
+ la velocità corrente (speed) e il carburante disponibile (fuel).
+ Il drone dispone anche di un dispositivo GPS in grado di determinarne la
+ posizione in termini di latitudine e longitudine.
+ 
+\end_layout
+
+\begin_layout Standard
+Il compito del drone è scattare fotografie del territorio ogni DTF (DTF>0)
+ secondi e inviare le immagini a un server installato presso una unità operativa.
+ Il server provvede a memorizzare le immagini ricevute (in un file o in
+ un database) associandole ai dati dei sensori di stato disponibili al momento
+ dello scatto della foto.
+ Il server provvede inoltre a visualizzare su un display dell'unità operativa
+ i valori di stato ricevuti dal drone in una dashboard detta DroneControlDashboa
+rd.
+\end_layout
+
+\begin_layout Standard
+La DroneControlDashboard viene concepita come un dispositivo composto di
+ due parti: una parte detta GaugeDisplay e una parte detta CmdDisplay.
+ La parte GaugeDisplay della DroneControlDashboard visualizza i dati provenienti
+ dai sensori del drone riconducendoli ciascuno a uno specifico strumento
+ di misura; uno Speedometer (velocità in km/h) un Odometer (numero di km
+ percorsi) un FuelOmeter (livello corrente di carburante in litri) e un
+ LocTracker (posizione del drone).
+ La GaugeDisplay può visualizzare i dati in forma digitale e/o grafica;
+ la posizione viene preferibilmente visualizzata fornendo una rappresentazione
+ del drone su una mappa del territorio.
+ La parte CmdDisplay della DroneCon- trolDashboard include pulsanti di comando
+ per 􏰁ssare la valocità di crociera (setSpeed) avviare (start) e fermare
+ (stop) il drone1 e per incrementarne (incSpeed) e decrementarne (decSpeed)
+ la velocità corrente di una quantità prefissata DS (DS>0 km/h).
+ 
+\end_layout
+
+\begin_layout Standard
+I dati dei sensori del drone sono anche resi disponibili sugli smart device
+ in dotazione al responsabile della protezione civile (Chief) e al comandante
+ (Commander) della unità operativa.
+ Ogni smartdevice provvederà a visualizzare (su richiesta dell'utente) i
+ dati in una dashboard (SmartDeviceDahboard) opportunamente definita per
+ lo specifico dispositivo, preferibilmente in modo analogo alla GaugeDisplay.
+ 
+\end_layout
+
+\begin_layout Standard
+Il server deve operare in modo che : 
+\end_layout
+
+\begin_layout Itemize
+Il drone si suppone abbia un sistema di controllo capace di eseguire i comandi
+ di start e di stop in modo opportuno.
+ ￼ 
+\end_layout
+
+\begin_layout Itemize
+la missione del drone possa iniziare solo dopo che il drone ha dato conferma
+ della ricezione del comando setSpeed che 􏰁ssa la velocità iniziale di crociera;
+ 􏰀 la speed del drone sia sempre compresa tra due valori-limite prestabiliti
+ speedMin a speedMax2; 
+\end_layout
+
+\begin_layout Itemize
+all'avvio di ogni missione, ogni smartdevice Android sia messo in grado
+ di generare una notification all'utente, la cui selezione provvede ad aprire
+ una applicazione che mostri la SmartDeviceDahboard.
+ 
+\end_layout
+
+\begin_layout Itemize
+gli smartdevice siano in grado di visualizzare lo stato del drone anche
+ in caso di guasto del server centrale.
+ 
+\end_layout
+
+\begin_layout Itemize
+il comando di stop sia inviato in modo automatico non appena il livello
+ del carburante risulta inferiore a un livello prefissato MinFuel.
+\end_layout
+
+\begin_layout Section
+Il lavoro da svolgere 
+\end_layout
+
+\begin_layout Itemize
+In questo quadro, si chiede di de􏰁nire il software da installare sul server
+ della unità operativa e su smartdevice dotati di sistema operativo Android3.
+ Opzion- amente: si chiede di de􏰁nire uno strumento capace di visualizzare
+ le informazioni memorizate dal server dopo una missione del drone.
+ Si chiede anche di costru- ire un opportuno simulatore delle attività del
+ drone con riferimento ai seguenti parametri: Parametri per la simulazione
+ del drone DTF=5 sec, DS=10 km/h, livello fuel iniziale = 30 litri ￼￼￼￼￼￼￼￼livel
+lo minimo fuel per operatività: speed di crociera compresa tra: consumo
+ di carburante = percorso del drone: in linea retta a una quota fissa di
+ 100m MinFuel = 0,5 litri speedMin=60 e speedMax=120 km/h (speed * 30) litri/h
+ ￼￼￼￼￼￼￼￼￼1.2 Remark Si ricorda che l'obiettivo del lavoro non è solo la
+ produzione di un sistema software in grado di soddisfare i requisiti funzionial
+i ma anche (e in primis) il rapporto tra il prodotto e il processo adotttato
+ per generarlo.
+ 2 Le fasi di decollo e atterraggio sono qui ignorate.
+ 3 Per il primo protoipo lo smartdevice può essere un computer convenzionale
+\end_layout
+
+\begin_layout Chapter
+Requirements analysis
+\end_layout
+
+\begin_layout Section
+Use cases
+\end_layout
+
+\begin_layout Section
+Scenarios
+\end_layout
+
+\begin_layout Section
+(Domain) Model
+\end_layout
+
+\begin_layout Section
+Test plan
+\end_layout
+
+\begin_layout Chapter
+Problem analysis
+\end_layout
+
+\begin_layout Section
+Logic architecture
+\end_layout
+
+\begin_layout Section
+Abstraction gap
+\end_layout
+
+\begin_layout Section
+Risk analysis
+\end_layout
+
+\begin_layout Chapter
+Work plan
+\end_layout
+
+\begin_layout Chapter
+Project
+\end_layout
+
+\begin_layout Section
+Structure
+\end_layout
+
+\begin_layout Section
+Interaction
+\end_layout
+
+\begin_layout Section
+Behavior
+\end_layout
+
+\begin_layout Chapter
+Implementation
+\end_layout
+
+\begin_layout Chapter
+Testing
+\end_layout
+
+\begin_layout Chapter
+Deployment
+\end_layout
+
+\begin_layout Chapter
+Maintenance
 \end_layout
 
 \end_body
