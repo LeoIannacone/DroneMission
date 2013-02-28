@@ -68,109 +68,12 @@ Drone mission
 Carlo Antenucci, Leonardo Iannacone, Gonzalo Junquera
 \end_layout
 
-\begin_layout Standard
-\begin_inset CommandInset toc
-LatexCommand tableofcontents
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset FloatList algorithm
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Chapter
 Introduction
 \end_layout
 
-\begin_layout Chapter
-Vision
-\end_layout
+\begin_layout Standard
 
-\begin_layout Chapter
-Goals
-\end_layout
-
-\begin_layout Chapter
-Requirements
-\end_layout
-
-\begin_layout Chapter
-Requirements analysis
-\end_layout
-
-\begin_layout Section
-Use cases
-\end_layout
-
-\begin_layout Section
-Scenarios
-\end_layout
-
-\begin_layout Section
-(Domain) Model
-\end_layout
-
-\begin_layout Section
-Test plan
-\end_layout
-
-\begin_layout Chapter
-Problem analysis
-\end_layout
-
-\begin_layout Section
-Logic architecture
-\end_layout
-
-\begin_layout Section
-Abstraction gap
-\end_layout
-
-\begin_layout Section
-Risk analysis
-\end_layout
-
-\begin_layout Chapter
-Work plan
-\end_layout
-
-\begin_layout Chapter
-Project
-\end_layout
-
-\begin_layout Section
-Structure
-\end_layout
-
-\begin_layout Section
-Interaction
-\end_layout
-
-\begin_layout Section
-Behavior
-\end_layout
-
-\begin_layout Chapter
-Implementation
-\end_layout
-
-\begin_layout Chapter
-Testing
-\end_layout
-
-\begin_layout Chapter
-Deployment
-\end_layout
-
-\begin_layout Chapter
-Maintenance
 \end_layout
 
 \end_body
