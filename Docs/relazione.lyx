@@ -60,6 +60,8 @@
 \papercolumns 1
 \papersides 1
 \paperpagestyle default
+\bullet 0 0 0 4
+\bullet 1 0 8 -1
 \tracking_changes false
 \output_changes false
 \html_math_output 0
@@ -130,11 +132,29 @@ Lo scenario applicativo
 
 \begin_layout Standard
 La protezione civile decide di inviare su un luogo diffcilmente accessibile
- un aeromobile senza pilota (drone), capace di operare in modo teleguidato.
- Il drone è dotato di un insieme di sensori di stato in grado di rilevare
- la velocità corrente (speed) e il carburante disponibile (fuel).
- Il drone dispone anche di un dispositivo GPS in grado di determinarne la
- posizione in termini di latitudine e longitudine.
+ un aeromobile senza pilota (
+\shape italic
+drone
+\shape default
+), capace di operare in modo teleguidato.
+ Il drone è dotato di un insieme di 
+\shape italic
+sensori di stato
+\shape default
+ in grado di rilevare la velocità corrente (
+\shape italic
+speed
+\shape default
+) e il carburante disponibile (
+\shape italic
+fuel
+\shape default
+).
+ Il drone dispone anche di un dispositivo 
+\shape italic
+GPS
+\shape default
+ in grado di determinarne la posizione in termini di latitudine e longitudine.
  
 \end_layout
 
@@ -145,35 +165,138 @@ Il compito del drone è scattare fotografie del territorio ogni DTF (DTF>0)
  un database) associandole ai dati dei sensori di stato disponibili al momento
  dello scatto della foto.
  Il server provvede inoltre a visualizzare su un display dell'unità operativa
- i valori di stato ricevuti dal drone in una dashboard detta DroneControlDashboa
-rd.
+ i valori di stato ricevuti dal drone in una dashboard detta 
+\shape italic
+DroneControlDashboard
+\shape default
+.
 \end_layout
 
 \begin_layout Standard
-La DroneControlDashboard viene concepita come un dispositivo composto di
- due parti: una parte detta GaugeDisplay e una parte detta CmdDisplay.
- La parte GaugeDisplay della DroneControlDashboard visualizza i dati provenienti
- dai sensori del drone riconducendoli ciascuno a uno specifico strumento
- di misura; uno Speedometer (velocità in km/h) un Odometer (numero di km
- percorsi) un FuelOmeter (livello corrente di carburante in litri) e un
- LocTracker (posizione del drone).
- La GaugeDisplay può visualizzare i dati in forma digitale e/o grafica;
- la posizione viene preferibilmente visualizzata fornendo una rappresentazione
- del drone su una mappa del territorio.
- La parte CmdDisplay della DroneCon- trolDashboard include pulsanti di comando
- per fissare la valocità di crociera (setSpeed) avviare (start) e fermare
- (stop) il drone1 e per incrementarne (incSpeed) e decrementarne (decSpeed)
- la velocità corrente di una quantità prefissata DS (DS>0 km/h).
+La 
+\shape italic
+DroneControlDashboard
+\shape default
+ viene concepita come un dispositivo composto di due parti: una parte detta
+ 
+\shape italic
+GaugeDisplay
+\shape default
+ e una parte detta 
+\shape italic
+CmdDisplay
+\shape default
+.
+ La parte 
+\shape italic
+GaugeDisplay
+\shape default
+ della 
+\shape italic
+DroneControlDashboard
+\shape default
+ visualizza i dati provenienti dai sensori del drone riconducendoli ciascuno
+ a uno specifico strumento di misura; uno 
+\shape italic
+Speedometer
+\shape default
+ (velocità in km/h) un 
+\shape italic
+Odometer
+\shape default
+ (numero di km percorsi) un 
+\shape italic
+FuelOmeter
+\shape default
+ (livello corrente di carburante in litri) e un 
+\shape italic
+LocTracker
+\shape default
+ (posizione del drone).
+ La 
+\shape italic
+GaugeDisplay
+\shape default
+ può visualizzare i dati in forma digitale e/o grafica; la posizione viene
+ preferibilmente visualizzata fornendo una rappresentazione del drone su
+ una mappa del territorio.
+ La parte 
+\shape italic
+CmdDisplay
+\shape default
+ della 
+\shape italic
+DroneControlDashboard
+\shape default
+ include pulsanti di comando per fissare la valocità di crociera (
+\shape italic
+setSpeed
+\shape default
+) avviare (
+\shape italic
+start
+\shape default
+) e fermare (
+\shape italic
+stop
+\shape default
+) il drone
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Il drone si suppone abbia un sistema di controllo capace di eseguire i comandi
+ di 
+\shape italic
+\size normal
+start
+\shape default
+\size default
+ e di 
+\shape italic
+\size normal
+stop
+\shape default
+\size default
+ in modo opportuno.
+\end_layout
+
+\end_inset
+
+ e per incrementarne (
+\shape italic
+incSpeed
+\shape default
+) e decrementarne (
+\shape italic
+decSpeed
+\shape default
+) la velocità corrente di una quantità prefissata DS (DS>0 km/h).
  
 \end_layout
 
 \begin_layout Standard
 I dati dei sensori del drone sono anche resi disponibili sugli smart device
- in dotazione al responsabile della protezione civile (Chief) e al comandante
- (Commander) della unità operativa.
+ in dotazione al responsabile della protezione civile (
+\shape italic
+Chief
+\shape default
+) e al comandante (
+\shape italic
+Commander
+\shape default
+) della unità operativa.
  Ogni smartdevice provvederà a visualizzare (su richiesta dell'utente) i
- dati in una dashboard (SmartDeviceDahboard) opportunamente definita per
- lo specifico dispositivo, preferibilmente in modo analogo alla GaugeDisplay.
+ dati in una dashboard (
+\shape italic
+SmartDeviceDahboard
+\shape default
+) opportunamente definita per lo specifico dispositivo, preferibilmente
+ in modo analogo alla 
+\shape italic
+GaugeDisplay
+\shape default
+.
  
 \end_layout
 
@@ -182,26 +305,52 @@ Il server deve operare in modo che :
 \end_layout
 
 \begin_layout Itemize
-Il drone si suppone abbia un sistema di controllo capace di eseguire i comandi
- di start e di stop in modo opportuno.
- 
-\end_layout
-
-\begin_layout Itemize
 la missione del drone possa iniziare solo dopo che il drone ha dato conferma
- della ricezione del comando setSpeed che fissa la velocità iniziale di
- crociera;
+ della ricezione del comando 
+\shape italic
+setSpeed
+\shape default
+ che fissa la velocità iniziale di crociera;
 \end_layout
 
 \begin_layout Itemize
 la speed del drone sia sempre compresa tra due valori-limite prestabiliti
- speedMin a speedMax2;
+ 
+\family typewriter
+speedMin
+\family default
+ a 
+\family typewriter
+speedMax
+\family default
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Le fasi di decollo e atterraggio sono qui ignorate.
+\end_layout
+
+\end_inset
+
+;
 \end_layout
 
 \begin_layout Itemize
-all'avvio di ogni missione, ogni smartdevice Android sia messo in grado
- di generare una notification all'utente, la cui selezione provvede ad aprire
- una applicazione che mostri la SmartDeviceDahboard.
+all'avvio di ogni missione, ogni smartdevice 
+\family typewriter
+Android
+\family default
+ sia messo in grado di generare una 
+\shape italic
+notification
+\shape default
+ all'utente, la cui selezione provvede ad aprire una applicazione che mostri
+ la 
+\shape italic
+SmartDeviceDahboard
+\shape default
+.
 \end_layout
 
 \begin_layout Itemize
@@ -211,7 +360,11 @@ gli smartdevice siano in grado di visualizzare lo stato del drone anche
 
 \begin_layout Itemize
 il comando di stop sia inviato in modo automatico non appena il livello
- del carburante risulta inferiore a un livello prefissato MinFuel.
+ del carburante risulta inferiore a un livello prefissato 
+\family typewriter
+MinFuel
+\family default
+.
 \end_layout
 
 \begin_layout Section
@@ -220,7 +373,17 @@ Il lavoro da svolgere
 
 \begin_layout Standard
 In questo quadro, si chiede di definire il software da installare sul server
- della unità operativa e su smartdevice dotati di sistema operativo Android3.
+ della unità operativa e su smartdevice dotati di sistema operativo Android
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Per il primo protoipo lo smartdevice può essere un computer convenzionale.
+\end_layout
+
+\end_inset
+
+.
  Opzionalmente: si chiede di definire uno strumento capace di visualizzare
  le informazioni memorizate dal server dopo una missione del drone.
  Si chiede anche di costruire un opportuno simulatore delle attività del
@@ -229,40 +392,59 @@ In questo quadro, si chiede di definire il software da installare sul server
 
 \begin_layout Standard
 \align center
-\begin_inset Box Boxed
+\begin_inset Box Doublebox
 position "t"
 hor_pos "c"
 has_inner_box 1
 inner_pos "t"
-use_parbox 1
+use_parbox 0
 use_makebox 0
-width "75text%"
+width "100text%"
 special "none"
 height "1in"
 height_special "totalheight"
-status collapsed
+status open
 
 \begin_layout Plain Layout
+\align center
+
+\family typewriter
+\series bold
 Parametri per la simulazione del drone 
 \end_layout
 
 \begin_layout Plain Layout
+
+\family typewriter
+\size small
 DTF=5 sec, DS=10 km/h, livello fuel iniziale = 30 litri 
 \end_layout
 
 \begin_layout Plain Layout
+
+\family typewriter
+\size small
 livello minimo fuel per operatività: MinFuel = 0,5 litri
 \end_layout
 
 \begin_layout Plain Layout
+
+\family typewriter
+\size small
 speed di crociera compresa tra: speedMin=60 e speedMax=120 km/h
 \end_layout
 
 \begin_layout Plain Layout
+
+\family typewriter
+\size small
 consumo di carburante = (speed * 30) litri/h
 \end_layout
 
 \begin_layout Plain Layout
+
+\family typewriter
+\size small
 percorso del drone: in linea retta a una quota fissa di 100m.
 \end_layout
 
