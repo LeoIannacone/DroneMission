@@ -325,8 +325,7 @@ o e si comportano al fine di ottenere quanto richiesto dal committente.
 Il compito del system designer, quindi, è quello di realizzare un modello
  concettuale del sistema, definendo come detto le entità che entrano in
  gioco, le loro interazioni e il loro comportamento, e fornire all'application
- designer tutto ciò che può essere utile a rendere il suo lavoro il più
- indipendente possibile dalla tecnologia che si dovrà realizzare.
+ designer un meta-modello dello stesso.
 \end_layout
 
 \begin_layout Standard
@@ -341,6 +340,10 @@ L'idea di utilizzare un approccio Model Driven, anziché uno Top Down o Bottom
  Inoltre l'approccio Model Driven consente di formalizzare ed esplicitare,
  attraverso la costruzione di una serie di diagrammi che non lasciano spazio
  ad ambiguità, le conoscenze utili alla risoluzione del problema da risolvere.
+\end_layout
+
+\begin_layout Standard
+
 \end_layout
 
 \begin_layout Chapter
