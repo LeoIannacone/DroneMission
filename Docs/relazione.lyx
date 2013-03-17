@@ -105,10 +105,242 @@ Visione
 \end_layout
 
 \begin_layout Standard
-Per esplorare territori difficilmente accessibili, sia per condizioni ambientali
- che per disastri naturali, potrebbe essere utile un drone teleguidato da
- una centrale operatva che rilevi i dati territoriali mediante fotografie
- e li comunichi alla stessa.
+Lo sviluppo di un prodotto software necessita di un processo di produzione
+ maturo, che, al fine di garantire un'elevata qualità e produttività, necessita
+ di una opportuna organizzazione.
+ Per migliorare il processo produttivo il 
+\shape italic
+Software Engineer Institute
+\shape default
+ (
+\family typewriter
+\shape italic
+\noun on
+SEI
+\family default
+\shape default
+\noun default
+) ha introdotto il sistema 
+\shape italic
+Capability Maturity Model
+\shape default
+ (
+\family typewriter
+CMM
+\family default
+).
+ Tale sistema suddivide le organizzazioni in cinque fasi:
+\end_layout
+
+\begin_layout Description
+Livello
+\begin_inset space \space{}
+\end_inset
+
+1:
+\begin_inset space \space{}
+\end_inset
+
+
+\shape italic
+Initial
+\shape default
+
+\begin_inset space \space{}
+\end_inset
+
+(Chaotic): i processi sono ad-hoc, caotici, o pochi processi sono definiti
+\end_layout
+
+\begin_layout Description
+Livello
+\begin_inset space \space{}
+\end_inset
+
+2:
+\begin_inset space \space{}
+\end_inset
+
+
+\shape italic
+Repeteable
+\shape default
+: i processi di base sono stabiliti e c'è un livello di disciplina a cui
+ attenersi in questi processi
+\end_layout
+
+\begin_layout Description
+Livello
+\begin_inset space \space{}
+\end_inset
+
+3:
+\begin_inset space \space{}
+\end_inset
+
+
+\shape italic
+Defined
+\shape default
+: tutti i processi sono definiti, documentati, standardizzati ed integrati
+ a vicenda
+\end_layout
+
+\begin_layout Description
+Livello
+\begin_inset space \space{}
+\end_inset
+
+4:
+\begin_inset space \space{}
+\end_inset
+
+
+\shape italic
+Managed
+\shape default
+: i processi sono misurati raccogliendo dati dettagliati sui processi e
+ sulla loro qualità
+\end_layout
+
+\begin_layout Description
+Livello
+\begin_inset space \space{}
+\end_inset
+
+5:
+\begin_inset space \space{}
+\end_inset
+
+
+\shape italic
+Optimized
+\shape default
+: è in atto il processo di miglioramento continuo tramite feedback quantitativi
+ e la fornitura di linee guida per nuove idee e tecnologie
+\end_layout
+
+\begin_layout Standard
+La costruzione di un software, inoltre, è spesso legata alle piattaforme
+ operative su cui il prodotto dovrà operare, che in ogni caso hanno una
+ espressività molto maggiore della 
+\emph on
+Macchina di Minsky
+\emph default
+.
+ Per questo motivo, solitamente, le organizzazioni tendono ad utilizzare
+ approcci diversi per la produzione del software.
+ Le possibili strategie prevedono:
+\end_layout
+
+\begin_layout Itemize
+l'elaborazione di una soluzione partendo da un'analisi del problema, che
+ porta alla stesura di un codice ad hoc per quel determinato contesto (
+\shape italic
+Top Down
+\shape default
+)
+\end_layout
+
+\begin_layout Itemize
+lo sviluppo di una soluzione utilizzando le funzionalità messe a disposizione
+ di una tecnologia (
+\shape italic
+Bottom Up
+\shape default
+)
+\end_layout
+
+\begin_layout Itemize
+la realizzazione di un modello del sistema software da realizzare in modo
+ tale da rendere il prodotto che si sta sviluppando indipendente dalla tecnologi
+a e, allo stesso tempo, riutilizzabile in più contesti (
+\shape italic
+Model Driven Software Development
+\shape default
+)
+\end_layout
+
+\begin_layout Standard
+Le figure professionali che entrano in gioco all'interno di un processo
+ di produzione software sono principalmente tre:
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+
+\shape italic
+Project
+\begin_inset space \space{}
+\end_inset
+
+manager
+\shape default
+ è colui che coordina lo svolgimento del progetto.
+ Avvalendosi di consulenze tecniche prenderà decisioni in merito alle risorse
+ necessarie per il progetto e distribuirà i compiti agli altri due soggetti
+ in gioco definendo cosa dovrà essere realizzato e come.
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+
+\shape italic
+System
+\begin_inset space \space{}
+\end_inset
+
+designer
+\shape default
+ è colui che specifica cosa il sistema software deve essere in grado di
+ fare.
+ Il suo compito è quello di specificare la struttura del sistema, i suoi
+ componenti, le sue interfacce ed i suoi moduli.
+ Nell'approccio 
+\shape italic
+Model Driven Software Development
+\shape default
+ il lavoro che svolge consiste nel modellare le entità del sistema su tre
+ dimensioni: struttura, interazione e comportamento.
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+
+\shape italic
+Application
+\begin_inset space \space{}
+\end_inset
+
+designer
+\shape default
+ è colui che specifica come le entità descritte dal system designer interagiscon
+o e si comportano al fine di ottenere quanto richiesto dal committente.
+ Il suo compito è, quindi, quello di definire, utilizzando gli strumenti
+ messi a disposizione dalla tecnologia scelta, ed eventualmente dal system
+ designer stesso, la business logic del sistema software.
+\end_layout
+
+\begin_layout Standard
+Il compito del system designer, quindi, è quello di realizzare un modello
+ concettuale del sistema, definendo come detto le entità che entrano in
+ gioco, le loro interazioni e il loro comportamento, e fornire all'application
+ designer tutto ciò che può essere utile a rendere il suo lavoro il più
+ indipendente possibile dalla tecnologia che si dovrà realizzare.
+\end_layout
+
+\begin_layout Standard
+L'idea di utilizzare un approccio Model Driven, anziché uno Top Down o Bottom
+ Up, consente, quindi, lo sviluppo di un prodotto software, non legato in
+ maniera eccessiva alla tecnologia alla base del sistema, né tanto meno
+ alla business logic.
+ Questo garantisce al sistema sviluppato un alto grado di riutilizzabilità
+ in quanto, una volta definito il modello, sarà sufficiente modificare il
+ comportamento o l'interazione dei componenti per far si che questo si adatti
+ ad un nuovo problema.
+ Inoltre l'approccio Model Driven consente di formalizzare ed esplicitare,
+ attraverso la costruzione di una serie di diagrammi che non lasciano spazio
+ ad ambiguità, le conoscenze utili alla risoluzione del problema da risolvere.
 \end_layout
 
 \begin_layout Chapter
