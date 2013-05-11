@@ -1,0 +1,12 @@
+package it.unibo.gauge.interfaces;
+
+public interface ISpeedOmeter {
+	/**
+	 * @model 
+	 */
+	public static final int MAX = 120;
+	/**
+	 * @model 
+	 */
+	public static final int MIN = 60;
+}

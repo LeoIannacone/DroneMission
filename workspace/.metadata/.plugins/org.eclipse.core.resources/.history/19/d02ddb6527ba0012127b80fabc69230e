@@ -1,0 +1,10 @@
+package it.unibo.gauge.interfaces;
+/**
+ * @model 
+ */
+public interface IOdometer {
+	/**
+	 * @model 
+	 */
+	public static final int MAX = 999999;
+}

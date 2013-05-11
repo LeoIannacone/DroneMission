@@ -1,0 +1,16 @@
+package it.unibo.gauge.interfaces;
+
+public interface ISpeedOmeter {
+	/**
+	 * @model 
+	 */
+	public static final int MAX = 120; //velocitˆ massima
+	/**
+	 * @model 
+	 */
+	public static final int MIN = 60; //velocitˆ minima
+	/**
+	 * @model 
+	 */
+	public static final int DS = 10; //variazione di velocitˆ
+}

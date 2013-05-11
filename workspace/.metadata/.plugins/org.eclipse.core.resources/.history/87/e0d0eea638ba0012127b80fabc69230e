@@ -1,0 +1,7 @@
+package it.unibo.droneMission.interfaces;
+
+public interface IControlDashboard {
+	public void startMission();
+	public void stopMission();
+	public void setSpeed(int s);
+}

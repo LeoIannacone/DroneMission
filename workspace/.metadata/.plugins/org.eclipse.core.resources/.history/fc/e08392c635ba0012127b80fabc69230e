@@ -1,0 +1,7 @@
+package it.unibo.display.interfaces;
+import it.unibo.gauge.interfaces.*;
+
+public interface IGaugeDisplay extends IDisplay{
+	public String getDisplayedVal();
+	public void update(IGaugeValue v);
+}

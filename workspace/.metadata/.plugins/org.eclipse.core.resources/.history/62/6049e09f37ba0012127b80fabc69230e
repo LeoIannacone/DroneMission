@@ -1,0 +1,14 @@
+package it.unibo.gaugedisplay.interfaces;
+/**
+ * @model 
+ */
+public interface IFuelOmeter extends IGaugeMonotonic {
+	/**
+	 * @model 
+	 */
+	public static final double MAX = 30;
+	/**
+	 * @model 
+	 */
+	public static final double MIN = 0.5;
+}

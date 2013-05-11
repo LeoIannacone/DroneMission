@@ -1,0 +1,7 @@
+package it.unibo.gaugedisplay.interfaces;
+/**
+ * @model 
+ */
+public interface IGaugeAnalogicDisplay extends IGaugeDisplay {
+
+}

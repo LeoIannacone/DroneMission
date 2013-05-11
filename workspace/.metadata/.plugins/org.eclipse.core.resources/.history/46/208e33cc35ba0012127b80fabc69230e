@@ -1,0 +1,6 @@
+package it.unibo.display.interfaces;
+
+public interface IGaugeDigitalDisplay extends IGaugeDisplay {
+	
+
+}

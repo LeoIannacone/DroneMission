@@ -1,0 +1,14 @@
+package it.unibo.gauge.interfaces;
+/**
+ * @model 
+ */
+public interface ILocTracker extends IGaugeVariant{
+	/**
+	 * @model 
+	 */
+	public static final double MAX=90;	
+	/**
+	 * @model 
+	 */
+	public static final double MIN=-90;
+}

@@ -1,0 +1,14 @@
+package it.unibo.droneMission.interfaces;
+/**
+ * @model 
+ */
+public interface IOdometer extends IGaugeMonotonic{
+	/**
+	 * @model 
+	 */
+	public static final int MAX = 999999;
+	/**
+	 * @model 
+	 */
+	public static final int INIT = 0;
+}

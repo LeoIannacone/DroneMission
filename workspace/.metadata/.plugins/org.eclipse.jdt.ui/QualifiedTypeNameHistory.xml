@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="it.unibo.gauge.interfaces.IGaugeValue"/>
+<fullyQualifiedTypeName name="it.unibo.droneMission.interfaces.IFuelOmeter"/>
+<fullyQualifiedTypeName name="it.unibo.droneMission.interfaces.DefaultValues"/>
+<fullyQualifiedTypeName name="java.util.Observer"/>
+</qualifiedTypeNameHistroy>

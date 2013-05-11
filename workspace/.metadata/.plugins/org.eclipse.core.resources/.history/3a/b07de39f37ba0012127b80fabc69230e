@@ -1,0 +1,14 @@
+package it.unibo.gaugedisplay.interfaces;
+/**
+ * @model 
+ */
+public interface IDisplay{
+	/**
+	 * @model 
+	 */
+	public String getCurVal();
+	/**
+	 * @model 
+	 */
+	public void update();
+}

@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: it.unibo.emf.gauge
+Bundle-SymbolicName: it.unibo.emf.gauge
+Bundle-Version: 0.1.0
+Require-Bundle: org.eclipse.emf.ecore
