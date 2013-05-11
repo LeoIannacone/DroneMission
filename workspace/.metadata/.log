@@ -1,0 +1,13 @@
+!SESSION 2013-05-11 12:11:27.263 -----------------------------------------------
+eclipse.buildId=M20110909-1335
+java.version=1.6.0_45
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=it_IT
+Framework arguments:  -keyring /Users/carloantenucci/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -keyring /Users/carloantenucci/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2013-05-11 12:12:57.861
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2013-05-11 12:13:04.407
+!MESSAGE An Android SDK is already being loaded. Please try again later.
