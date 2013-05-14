@@ -1,0 +1,16 @@
+import junit.framework.TestCase;
+
+
+public class OdometerTest extends TestCase {
+	protected Odometer od;
+
+	protected void setUp() throws Exception {
+		super.setUp();
+		od = new Odometer();
+	}
+
+	protected void tearDown() throws Exception {
+		super.tearDown();
+	}
+
+}

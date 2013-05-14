@@ -1,0 +1,11 @@
+package it.unibo.gauge.interfaces;
+
+/**
+ * 
+ * @model
+ */
+public interface IGaugeValue {
+	public double valAsDouble();
+	public int valAsInt();
+	public String valAsString();
+}

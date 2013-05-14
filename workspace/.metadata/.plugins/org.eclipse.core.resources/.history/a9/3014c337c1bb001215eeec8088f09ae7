@@ -1,0 +1,13 @@
+package it.unibo.droneMission.gauge;
+
+import it.unibo.droneMission.interfaces.IGaugeDisplay;
+
+public class OdometerWithDisplay extends Odometer{
+	protected IGaugeDisplay Dis;
+	protected String DisplayedVal;
+	OdometerWithDisplay(IGaugeDisplay D){
+		super();
+		Dis = D;
+		Dis.update(km);
+	}
+}

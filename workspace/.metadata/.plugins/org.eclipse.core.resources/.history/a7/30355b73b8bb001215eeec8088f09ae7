@@ -1,0 +1,5 @@
+package it.unibo.droneMinnion.interfaces;
+
+public interface IGaugeValueInt extends IGaugeValue{
+
+}

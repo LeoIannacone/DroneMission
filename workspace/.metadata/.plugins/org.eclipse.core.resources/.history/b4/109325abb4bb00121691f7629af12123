@@ -1,0 +1,7 @@
+import it.unibo.droneMinnion.interfaces.*;
+
+
+public class Odometer implements IOdometer{
+	
+
+}

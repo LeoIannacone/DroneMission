@@ -1,0 +1,43 @@
+/**
+ * <copyright>
+ * </copyright>
+ *
+ * $Id$
+ */
+package it.unibo.gauge.interfaces.impl;
+
+import it.unibo.gauge.interfaces.IFuelOmeter;
+import it.unibo.gauge.interfaces.InterfacesPackage;
+
+import org.eclipse.emf.ecore.EClass;
+
+/**
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>IFuel Ometer</b></em>'.
+ * <!-- end-user-doc -->
+ * <p>
+ * </p>
+ *
+ * @generated
+ */
+public class IFuelOmeterImpl extends IGaugeMonotonicImpl implements IFuelOmeter {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected IFuelOmeterImpl() {
+		super();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return InterfacesPackage.Literals.IFUEL_OMETER;
+	}
+
+} //IFuelOmeterImpl

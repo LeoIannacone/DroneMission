@@ -1,0 +1,13 @@
+package it.unibo.gauge.interfaces;
+
+import org.eclipse.emf.ecore.EObject;
+
+/**
+ * 
+ * @model
+ */
+public interface IGaugeValue extends EObject {
+	public double valAsDouble();
+	public int valAsInt();
+	public String valAsString();
+}

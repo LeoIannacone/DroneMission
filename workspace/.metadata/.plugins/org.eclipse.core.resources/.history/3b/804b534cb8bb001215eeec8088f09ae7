@@ -1,0 +1,36 @@
+package it.unibo.droneMission.gauge;
+
+import it.unibo.droneMinnion.interfaces.IGaugeValueInt;
+
+public class GaugeValueInt implements IGaugeValueInt{
+	
+	protected int val;
+	
+	public GaugeValueInt(int V){
+		val=V;
+	}
+
+	@Override
+	public double valAsDouble() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int valAsInt() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public String valAsString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void set(int V) {
+		// TODO Auto-generated method stub
+		val = V;
+	}
+
+}

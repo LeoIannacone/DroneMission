@@ -1,0 +1,7 @@
+package it.unibo.droneMission.tests;
+
+import junit.framework.TestCase;
+
+public class SpeedometerTest extends TestCase {
+
+}

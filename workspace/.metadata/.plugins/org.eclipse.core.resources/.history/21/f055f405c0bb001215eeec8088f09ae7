@@ -1,0 +1,8 @@
+package it.unibo.droneMission.gauge;
+
+import it.unibo.droneMinnion.interfaces.IGaugeDisplay;
+
+public class OdometerWithDisplay extends Odometer{
+	protected IGaugeDisplay DIS;
+	Odometer
+}

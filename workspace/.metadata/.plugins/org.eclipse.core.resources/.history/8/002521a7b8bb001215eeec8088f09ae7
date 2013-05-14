@@ -1,0 +1,31 @@
+package it.unibo.droneMission.gauge;
+
+public class GaugeValueDouble {
+	
+	protected double val;
+	
+	public GaugeValueDouble(double V){
+		val=V;
+	}
+
+	public double valAsDouble() {
+		// TODO Auto-generated method stub
+		return val;
+	}
+
+	public int valAsInt() {
+		// TODO Auto-generated method stub
+		return (int)val;
+	}
+
+	public String valAsString() {
+		// TODO Auto-generated method stub
+		return ""+val;
+	}
+
+	public void set(int V) {
+		// TODO Auto-generated method stub
+		val = V;
+	}
+
+}

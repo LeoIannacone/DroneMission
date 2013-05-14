@@ -1,0 +1,9 @@
+package it.unibo.droneMission.display;
+
+import it.unibo.droneMission.interfaces.IGaugeDisplay;
+
+import java.awt.Panel;
+
+public class DisplayGuiOdometer extends Panel implements IGaugeDisplay{
+
+}

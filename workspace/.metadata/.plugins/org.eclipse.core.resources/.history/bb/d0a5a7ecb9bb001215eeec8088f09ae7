@@ -1,0 +1,6 @@
+package it.unibo.droneMission.gauge;
+
+public class OdometerWithDisplay extends Odometer{
+	protected IDisplay DIS;
+	Odometer
+}

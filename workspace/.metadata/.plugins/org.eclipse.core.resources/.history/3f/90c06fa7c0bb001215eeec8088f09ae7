@@ -1,0 +1,7 @@
+package it.unibo.droneMinnion.interfaces;
+/**
+ * @model 
+ */
+public interface IGaugeAnalogicDisplay extends IGaugeDisplay {
+
+}

@@ -1,0 +1,5 @@
+package it.unibo.droneMission.gauge;
+
+public class GaugeValueInt implements IGaugeValueInt{
+
+}
