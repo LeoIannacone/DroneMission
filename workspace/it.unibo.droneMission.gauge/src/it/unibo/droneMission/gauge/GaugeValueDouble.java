@@ -1,6 +1,10 @@
 package it.unibo.droneMission.gauge;
 
-public class GaugeValueDouble {
+import java.text.DecimalFormat;
+
+import it.unibo.droneMission.interfaces.IGaugeValueDouble;
+
+public class GaugeValueDouble implements IGaugeValueDouble {
 	
 	protected double val;
 	

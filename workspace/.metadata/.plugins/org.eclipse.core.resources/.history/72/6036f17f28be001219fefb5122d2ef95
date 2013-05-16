@@ -1,0 +1,5 @@
+package it.unibo.droneMission.display;
+
+public class DisplayGuiLocation implements IGaugeDisplay {
+	
+}

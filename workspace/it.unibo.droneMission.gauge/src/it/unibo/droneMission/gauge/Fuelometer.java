@@ -1,16 +1,30 @@
 package it.unibo.droneMission.gauge;
 
+import java.math.BigDecimal;
 import java.util.Observer;
 
 import it.unibo.droneMission.interfaces.IFuelometer;
 import it.unibo.droneMission.interfaces.IGaugeValue;
+import it.unibo.droneMission.interfaces.IGaugeValueDouble;
 
 public class Fuelometer implements IFuelometer {
+	
+	protected IGaugeValueDouble fuel;
+	
+	public Fuelometer(){
+		fuel=new GaugeValueDouble(MAX);
+	}
 
 	@Override
 	public void update() throws Exception {
 		// TODO Auto-generated method stub
-		
+		if (fuel.valAsDouble() > MIN){
+			//decremento carburante con arrotondamento ad una cifra decimale per visualizzazione 
+			fuel.set(new BigDecimal(fuel.valAsDouble()-0.5).setScale(1 , BigDecimal.ROUND_UP).doubleValue());
+		}
+		else{
+			//fine missione
+		}
 	}
 
 	@Override
@@ -28,7 +42,10 @@ public class Fuelometer implements IFuelometer {
 	@Override
 	public String getCurValRepDisplayed() {
 		// TODO Auto-generated method stub
-		return null;
+		String S=""+fuel.valAsDouble();
+		while(S.length()<4)
+			S="0"+S;
+		return S;
 	}
 
 	@Override
@@ -46,7 +63,7 @@ public class Fuelometer implements IFuelometer {
 	@Override
 	public void setVal(IGaugeValue value) {
 		// TODO Auto-generated method stub
-		
+	
 	}
 
 }

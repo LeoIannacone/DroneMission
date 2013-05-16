@@ -11,4 +11,6 @@ public interface ILocTracker extends IGaugeVariant{
 	 * @model 
 	 */
 	public static final double MIN=DefaultValues.MINLOC;
+	
+	void setVal(IGaugeValue[] value);
 }
