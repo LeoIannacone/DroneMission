@@ -1,6 +1,0 @@
-package it.unibo.display.interfaces;
-
-public interface IDisplay extends Observer{
-	public String getCurVal();
-	public void update();
-}

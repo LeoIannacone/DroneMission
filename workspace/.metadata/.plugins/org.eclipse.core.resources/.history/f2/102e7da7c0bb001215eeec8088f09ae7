@@ -1,8 +1,0 @@
-package it.unibo.droneMinnion.interfaces;
-/**
- * @model 
- */
-public interface IGaugeDigitalDisplay extends IGaugeDisplay {
-	
-
-}

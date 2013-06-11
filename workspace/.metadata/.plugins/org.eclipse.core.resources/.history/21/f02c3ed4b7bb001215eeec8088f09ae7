@@ -1,5 +1,0 @@
-package it.unibo.droneMinnion.interfaces;
-
-public interface IGaugeValueDouble extends IGaugeValue{
-	public void set(double V)
-}

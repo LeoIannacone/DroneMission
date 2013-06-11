@@ -57,7 +57,7 @@ public class Fuelometer implements IFuelometer {
 	@Override
 	public IGaugeValue getVal() {
 		// TODO Auto-generated method stub
-		return null;
+		return fuel;
 	}
 
 	@Override

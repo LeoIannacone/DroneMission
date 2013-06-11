@@ -1,5 +1,0 @@
-package it.unibo.droneMission.display;
-
-public class DisplayGuiGauge extends DisplayGui implements IGaugeDisplay {
-
-}

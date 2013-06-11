@@ -1,5 +1,0 @@
-package it.unibo.gaugedisplay.interfaces;
-
-public interface IGaugeValueDouble extends IGaugeValue{
-
-}

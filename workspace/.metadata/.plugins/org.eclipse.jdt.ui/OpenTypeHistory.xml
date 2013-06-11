@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <typeInfoHistroy>
-<typeInfo handle="=it.unibo.droneMission.gauge/src&lt;it.unibo.droneMission.gauge{Speedometer.java[Speedometer" modifiers="1" timestamp="1368535926000"/>
-<typeInfo handle="=it.unibo.droneMission.interfaces/src&lt;it.unibo.droneMission.interfaces{ILocTracker.java[ILocTracker" modifiers="513" timestamp="1368697075000"/>
+<typeInfo handle="=it.unibo.droneMission.gauge/src&lt;it.unibo.droneMission.gauge{Speedometer.java[Speedometer" modifiers="1" timestamp="1370940997000"/>
+<typeInfo handle="=it.unibo.droneMission.interfaces/src&lt;it.unibo.droneMission.interfaces{ILocTracker.java[ILocTracker" modifiers="513" timestamp="1370941506000"/>
+<typeInfo handle="=it.unibo.droneMission.gauge/src&lt;it.unibo.droneMission.gauge{LocTracker.java[LocTracker" modifiers="1" timestamp="1370942380000"/>
 </typeInfoHistroy>

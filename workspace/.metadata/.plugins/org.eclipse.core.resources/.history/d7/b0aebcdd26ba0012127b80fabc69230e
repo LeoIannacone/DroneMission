@@ -1,5 +1,0 @@
-package it.unibo.gauge.interfaces;
-
-public interface ISpeedOmeter {
-
-}

@@ -1,5 +1,0 @@
-package it.unibo.display.interfaces;
-
-public interface IGaugeDigitalDisplay {
-
-}

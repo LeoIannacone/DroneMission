@@ -10,6 +10,18 @@ public class LocTracker implements ILocTracker {
 	
 	protected IGaugeValueDouble latitude;
 	protected IGaugeValueDouble longitude;
+	
+	public LocTracker(){
+		latitude = new GaugeValueDouble(LocTracker.INITLAT);
+		System.out.println("caz" + latitude.valAsDouble());
+		longitude = new GaugeValueDouble(LocTracker.INITLON);
+		System.out.println(longitude.valAsDouble());
+	}
+	
+	public LocTracker(GaugeValueDouble la, GaugeValueDouble lo){
+		latitude.set(la.valAsDouble());
+		longitude.set(lo.valAsDouble());
+	}
 
 	@Override
 	public void update() throws Exception {
@@ -63,6 +75,18 @@ public class LocTracker implements ILocTracker {
 			latitude.set(lat.valAsDouble());
 			longitude.set(lon.valAsDouble());
 		}
+	}
+
+	@Override
+	public IGaugeValue getLat() {
+		// TODO Auto-generated method stub
+		return latitude;
+	}
+
+	@Override
+	public IGaugeValue getLon() {
+		// TODO Auto-generated method stub
+		return longitude;
 	}
 
 }

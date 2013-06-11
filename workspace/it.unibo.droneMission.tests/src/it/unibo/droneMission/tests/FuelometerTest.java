@@ -19,8 +19,8 @@ public class FuelometerTest extends TestCase {
 	}
 	
 	//invariant fuelometer
-	protected boolean invariant(Fuelometer O){
-		return((((O.getVal().valAsDouble()>=Fuelometer.MIN) && (O.getVal().valAsInt()<=Fuelometer.MAX))));
+	protected boolean invariant(Fuelometer F){
+		return((((F.getVal().valAsDouble()>=Fuelometer.MIN) && (F.getVal().valAsDouble()<=Fuelometer.MAX))));
 	}
 
 	public void testOnCreate(){
@@ -41,7 +41,7 @@ public class FuelometerTest extends TestCase {
 	
 	public void testMinLimit(){
 		try{
-			while (fu.getVal().valAsDouble()>=0.5){
+			while (fu.getVal().valAsDouble()>Fuelometer.MIN){
 				fu.update();
 			}
 			fu.update();

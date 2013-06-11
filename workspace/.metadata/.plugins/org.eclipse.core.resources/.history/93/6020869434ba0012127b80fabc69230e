@@ -1,6 +1,0 @@
-package it.unibo.display.interfaces;
-
-public interface IDisplay {
-	public String getCurVal();
-	public void update();
-}
