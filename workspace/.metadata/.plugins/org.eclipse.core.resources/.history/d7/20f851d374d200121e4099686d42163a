@@ -62,7 +62,7 @@ public class Speedometer implements ISpeedometer{
 		}
 		else if(value.valAsInt()<Speedometer.MIN)
 			speed.set(Speedometer.MIN);
-		else if(value.valAsInt()>Speedometer.MAX)
+		else if(value.valAsInt()<Speedometer.MAX)
 			speed.set(Speedometer.MAX);
 	}
 

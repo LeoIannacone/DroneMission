@@ -12,9 +12,5 @@ public interface ILocTracker extends IGaugeVariant{
 	 */
 	public static final double MIN=DefaultValues.MINLOC;
 	
-	public static final double INITLAT = DefaultValues.INITLAT;
-	
-	public static final double INITLON = DefaultValues.INITLON;
-	
-	void setVal(IGaugeValue lat, IGaugeValue lon);
+	void setVal(IGaugeValue[] value);
 }
