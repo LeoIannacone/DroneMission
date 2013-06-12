@@ -14,4 +14,10 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<variableList>
+		<variable>
+			<name>ISS_LIBRARIES</name>
+			<value>file:/home/l3on/dronemission/libs</value>
+		</variable>
+	</variableList>
 </projectDescription>

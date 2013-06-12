@@ -3,9 +3,9 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="src" path="/it.unibo.contaKm.interfaces"/>
-	<classpathentry kind="lib" path="/Users/carloantenucci/Documents/unibo/2012.Ingegneria dei Sistemi Software/ws/Librerie/it.unibo.interfaces_1.6.0.jar"/>
-	<classpathentry kind="lib" path="/Users/carloantenucci/Documents/unibo/2012.Ingegneria dei Sistemi Software/ws/Librerie/it.unibo.envBaseAwt_1.6.0.jar"/>
-	<classpathentry kind="lib" path="/Users/carloantenucci/Documents/unibo/2012.Ingegneria dei Sistemi Software/ws/Librerie/it.unibo.tuprolog_1.0.1.jar"/>
-	<classpathentry kind="lib" path="/Users/carloantenucci/Documents/unibo/2012.Ingegneria dei Sistemi Software/ws/Librerie/org.eclipse.xtext.xbase.lib_2.2.1.v201112130541.jar"/>
+	<classpathentry kind="lib" path="${ISS_LIBRARIES}/libs//it.unibo.interfaces_1.6.0.jar"/>
+	<classpathentry kind="lib" path="${ISS_LIBRARIES}/libs//it.unibo.envBaseAwt_1.6.0.jar"/>
+	<classpathentry kind="lib" path="${ISS_LIBRARIES}/libs/jars/it.unibo.tuprolog_1.0.1.jar"/>
+	<classpathentry kind="lib" path="${ISS_LIBRARIES}/libs/jars/org.eclipse.xtext.xbase.lib_2.2.1.v201112130541.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
