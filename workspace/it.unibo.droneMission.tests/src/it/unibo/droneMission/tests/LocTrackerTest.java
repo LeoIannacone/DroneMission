@@ -30,8 +30,6 @@ public class LocTrackerTest extends TestCase {
 	}
 
 	public void testOnCreate(){
-		System.out.println(lt.getLat().valAsDouble());
-		System.out.println(lt.getLon().valAsDouble());
 		assertTrue("testOnCreate",(invariant(lt))); 
 	}
 	

@@ -1,6 +1,5 @@
 package it.unibo.droneMission.gauge;
 
-import java.text.DecimalFormat;
 
 import it.unibo.droneMission.interfaces.IGaugeValueDouble;
 

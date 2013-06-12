@@ -13,9 +13,7 @@ public class LocTracker implements ILocTracker {
 	
 	public LocTracker(){
 		latitude = new GaugeValueDouble(LocTracker.INITLAT);
-		System.out.println("caz" + latitude.valAsDouble());
 		longitude = new GaugeValueDouble(LocTracker.INITLON);
-		System.out.println(longitude.valAsDouble());
 	}
 	
 	public LocTracker(GaugeValueDouble la, GaugeValueDouble lo){
