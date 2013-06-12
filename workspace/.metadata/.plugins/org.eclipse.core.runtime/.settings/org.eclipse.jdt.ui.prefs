@@ -1,10 +1,10 @@
-#Tue Jun 11 13:26:15 CEST 2013
+#Wed Jun 12 10:59:43 CEST 2013
 content_assist_proposals_foreground=0,0,0
 spelling_locale_initialized=true
 org.eclipse.jdt.ui.text.templates_migrated=true
 useAnnotationsPrefPage=true
 eclipse.preferences.version=1
-org.eclipse.jface.textfont=1|Monaco|11.0|0|COCOA|1|;
+org.eclipse.jface.textfont=1|Monospace|10.0|0|GTK|1|;
 tabWidthPropagated=true
 org.eclipse.jdt.ui.editor.tab.width=
 fontPropagated=true
