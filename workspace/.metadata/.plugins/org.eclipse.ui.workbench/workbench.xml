@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="22" version="2.0">
+<workbench progressCount="19" version="2.0">
 <workbenchAdvisor/>
 <window height="772" maximized="true" width="1198" x="6" y="24">
 <fastViewData fastViewLocation="1024"/>
@@ -8,25 +8,25 @@
 </perspectiveBar>
 <coolbarLayout>
 <coolItem id="group.file" itemType="typeGroupMarker"/>
-<coolItem id="org.eclipse.ui.workbench.file" itemType="typeToolBarContribution" x="106" y="22"/>
+<coolItem id="org.eclipse.ui.workbench.file" itemType="typeToolBarContribution" x="132" y="30"/>
 <coolItem id="additions" itemType="typeGroupMarker"/>
 <coolItem id="adt.actionSet.avdManager" itemType="typeToolBarContribution" x="54" y="22"/>
 <coolItem id="adt.actionSet.lint" itemType="typeToolBarContribution" x="40" y="22"/>
 <coolItem id="adt.actionSet.wizards" itemType="typeToolBarContribution" x="32" y="22"/>
-<coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="100" y="22"/>
-<coolItem id="org.eclipse.jdt.ui.JavaElementCreationActionSet" itemType="typeToolBarContribution" x="62" y="22"/>
-<coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="84" y="22"/>
-<coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="98" y="22"/>
+<coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="120" y="30"/>
+<coolItem id="org.eclipse.jdt.ui.JavaElementCreationActionSet" itemType="typeToolBarContribution" x="76" y="30"/>
+<coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="104" y="30"/>
+<coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="68" y="30"/>
 <coolItem id="org.eclipse.wst.xml.ui.perspective.NewFileToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="org.eclipse.wst.xml.ui.design.DesignToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="group.nav" itemType="typeGroupMarker"/>
-<coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="152" y="22"/>
+<coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="184" y="30"/>
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.jdt.ui.ClassFileEditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="org.eclipse.emf.ecore.presentation.EcoreEditorID" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="org.eclipse.emf.ecoretools.diagram.part.EcoreDiagramEditorID" itemType="typePlaceholder" x="959" y="22"/>
 <coolItem id="org.eclipse.emf.codegen.ecore.genmodel.presentation.GenModelEditorID" itemType="typePlaceholder" x="-1" y="-1"/>
-<coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="group.help" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
 </coolbarLayout>
@@ -35,61 +35,10 @@
 <editorArea activeWorkbook="DefaultEditorWorkbook">
 <info part="DefaultEditorWorkbook">
 <folder appearance="1" expanded="2">
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
-<part id="1"/>
-<part id="2"/>
-<part id="3"/>
-<part id="4"/>
-<part id="5"/>
-<part id="6"/>
-<part id="7"/>
-<part id="8"/>
-<part id="9"/>
-</presentation>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
 </editorArea>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="OdometerTest.java" partName="OdometerTest.java" path="/Users/carloantenucci/Documents/unibo/2012.Ingegneria dei Sistemi Software/DroneMission/workspace/it.unibo.droneMission.tests/src/it/unibo/droneMission/tests/OdometerTest.java" title="OdometerTest.java" tooltip="it.unibo.droneMission.tests/src/it/unibo/droneMission/tests/OdometerTest.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/it.unibo.droneMission.tests/src/it/unibo/droneMission/tests/OdometerTest.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="957" selectionOffset="384" selectionTopPixel="399"/>
-</editor>
-<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="LocTrackerTest.java" partName="LocTrackerTest.java" path="/Users/carloantenucci/Documents/unibo/2012.Ingegneria dei Sistemi Software/DroneMission/workspace/it.unibo.droneMission.tests/src/it/unibo/droneMission/tests/LocTrackerTest.java" title="LocTrackerTest.java" tooltip="it.unibo.droneMission.tests/src/it/unibo/droneMission/tests/LocTrackerTest.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/it.unibo.droneMission.tests/src/it/unibo/droneMission/tests/LocTrackerTest.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="364" selectionTopPixel="81"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="LocTracker.java" partName="LocTracker.java" path="/Users/carloantenucci/Documents/unibo/2012.Ingegneria dei Sistemi Software/DroneMission/workspace/it.unibo.droneMission.gauge/src/it/unibo/droneMission/gauge/LocTracker.java" title="LocTracker.java" tooltip="it.unibo.droneMission.gauge/src/it/unibo/droneMission/gauge/LocTracker.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/it.unibo.droneMission.gauge/src/it/unibo/droneMission/gauge/LocTracker.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="548" selectionTopPixel="0"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ILocTracker.java" partName="ILocTracker.java" path="/Users/carloantenucci/Documents/unibo/2012.Ingegneria dei Sistemi Software/DroneMission/workspace/it.unibo.droneMission.interfaces/src/it/unibo/droneMission/interfaces/ILocTracker.java" title="ILocTracker.java" tooltip="it.unibo.droneMission.interfaces/src/it/unibo/droneMission/interfaces/ILocTracker.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/it.unibo.droneMission.interfaces/src/it/unibo/droneMission/interfaces/ILocTracker.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="345" selectionTopPixel="39"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="IGauge.java" partName="IGauge.java" path="/Users/carloantenucci/Documents/unibo/2012.Ingegneria dei Sistemi Software/DroneMission/workspace/it.unibo.droneMission.interfaces/src/it/unibo/droneMission/interfaces/IGauge.java" title="IGauge.java" tooltip="it.unibo.droneMission.interfaces/src/it/unibo/droneMission/interfaces/IGauge.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/it.unibo.droneMission.interfaces/src/it/unibo/droneMission/interfaces/IGauge.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="9"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="LocTrackerWithDisplay.java" partName="LocTrackerWithDisplay.java" path="/Users/carloantenucci/Documents/unibo/2012.Ingegneria dei Sistemi Software/DroneMission/workspace/it.unibo.droneMission.gauge/src/it/unibo/droneMission/gauge/LocTrackerWithDisplay.java" title="LocTrackerWithDisplay.java" tooltip="it.unibo.droneMission.gauge/src/it/unibo/droneMission/gauge/LocTrackerWithDisplay.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/it.unibo.droneMission.gauge/src/it/unibo/droneMission/gauge/LocTrackerWithDisplay.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="337" selectionTopPixel="0"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Odometer.java" partName="Odometer.java" path="/Users/carloantenucci/Documents/unibo/2012.Ingegneria dei Sistemi Software/DroneMission/workspace/it.unibo.droneMission.gauge/src/it/unibo/droneMission/gauge/Odometer.java" title="Odometer.java" tooltip="it.unibo.droneMission.gauge/src/it/unibo/droneMission/gauge/Odometer.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/it.unibo.droneMission.gauge/src/it/unibo/droneMission/gauge/Odometer.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="FuelometerTest.java" partName="FuelometerTest.java" path="/Users/carloantenucci/Documents/unibo/2012.Ingegneria dei Sistemi Software/DroneMission/workspace/it.unibo.droneMission.tests/src/it/unibo/droneMission/tests/FuelometerTest.java" title="FuelometerTest.java" tooltip="it.unibo.droneMission.tests/src/it/unibo/droneMission/tests/FuelometerTest.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/it.unibo.droneMission.tests/src/it/unibo/droneMission/tests/FuelometerTest.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="20" selectionOffset="297" selectionTopPixel="0"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DefaultValues.java" partName="DefaultValues.java" path="/Users/carloantenucci/Documents/unibo/2012.Ingegneria dei Sistemi Software/DroneMission/workspace/it.unibo.droneMission.interfaces/src/it/unibo/droneMission/interfaces/DefaultValues.java" title="DefaultValues.java" tooltip="it.unibo.droneMission.interfaces/src/it/unibo/droneMission/interfaces/DefaultValues.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/it.unibo.droneMission.interfaces/src/it/unibo/droneMission/interfaces/DefaultValues.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="7" selectionOffset="514" selectionTopPixel="0"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GaugeValueDouble.java" partName="GaugeValueDouble.java" path="/Users/carloantenucci/Documents/unibo/2012.Ingegneria dei Sistemi Software/DroneMission/workspace/it.unibo.droneMission.gauge/src/it/unibo/droneMission/gauge/GaugeValueDouble.java" title="GaugeValueDouble.java" tooltip="it.unibo.droneMission.gauge/src/it/unibo/droneMission/gauge/GaugeValueDouble.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/it.unibo.droneMission.gauge/src/it/unibo/droneMission/gauge/GaugeValueDouble.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="32" selectionOffset="38" selectionTopPixel="54"/>
-</editor>
 </editors>
 <views>
 <view id="org.eclipse.jdt.junit.ResultView" partName="JUnit">
@@ -98,33 +47,21 @@
 <view id="org.eclipse.debug.ui.DebugView" partName="Debug">
 <viewState/>
 </view>
-<view id="org.eclipse.cdt.debug.ui.executablesView" partName="Executables"/>
-<view id="org.eclipse.ui.views.TaskList" partName="Tasks"/>
-<view id="org.eclipse.debug.ui.VariableView" partName="Variables">
-<viewState/>
-</view>
-<view id="org.eclipse.debug.ui.BreakpointView" partName="Breakpoints">
-<viewState/>
-</view>
-<view id="org.eclipse.ui.views.ContentOutline" partName="Outline">
-<viewState/>
-</view>
-<view id="com.android.ide.eclipse.ddms.views.LogCatView" partName="LogCat">
-<viewState/>
-</view>
 <view id="org.eclipse.ui.views.ProblemView" partName="Problems">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
 <expanded>
-<category IMemento.internal.id="Warnings (4 items)"/>
-<category IMemento.internal.id="Warnings"/>
+<category IMemento.internal.id="Errors"/>
 </expanded>
-<columnWidths org.eclipse.ui.ide.locationField="90" org.eclipse.ui.ide.markerType="90" org.eclipse.ui.ide.pathField="120" org.eclipse.ui.ide.resourceField="90" org.eclipse.ui.ide.severityAndDescriptionField="544"/>
+<columnWidths org.eclipse.ui.ide.locationField="90" org.eclipse.ui.ide.markerType="90" org.eclipse.ui.ide.pathField="120" org.eclipse.ui.ide.resourceField="90" org.eclipse.ui.ide.severityAndDescriptionField="1109"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.resourceField"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.pathField"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.locationField"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.markerType"/>
 </viewState>
+</view>
+<view id="org.eclipse.ui.console.ConsoleView" partName="Console">
+<viewState/>
 </view>
 <view id="org.eclipse.jdt.ui.PackageExplorer" partName="Package Explorer">
 <viewState group_libraries="1" layout="2" linkWithEditor="0" rootMode="1" workingSetName="Aggregate for window 1368267173548">
@@ -155,17 +92,24 @@
 </customFilters>
 </viewState>
 </view>
-<view id="org.eclipse.ui.console.ConsoleView" partName="Console">
+<view id="org.eclipse.ui.views.TaskList" partName="Tasks"/>
+<view id="org.eclipse.debug.ui.BreakpointView" partName="Breakpoints">
+<viewState/>
+</view>
+<view id="org.eclipse.debug.ui.VariableView" partName="Variables">
 <viewState/>
 </view>
 <view id="org.eclipse.jdt.ui.SourceView" partName="Declaration">
+<viewState/>
+</view>
+<view id="org.eclipse.ui.views.ContentOutline" partName="Outline">
 <viewState/>
 </view>
 <view id="org.eclipse.jdt.ui.JavadocView" partName="Javadoc">
 <viewState/>
 </view>
 </views>
-<perspectives activePart="org.eclipse.jdt.ui.CompilationUnitEditor" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
+<perspectives activePart="org.eclipse.jdt.ui.PackageExplorer" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="org.eclipse.jdt.internal.ui.JavaPerspectiveFactory" id="org.eclipse.jdt.ui.JavaPerspective" label="Java"/>
 <alwaysOnActionSet id="org.eclipse.egit.ui.navigation"/>
@@ -181,10 +125,6 @@
 <alwaysOnActionSet id="org.eclipse.jdt.ui.JavaActionSet"/>
 <alwaysOnActionSet id="org.eclipse.jdt.ui.JavaElementCreationActionSet"/>
 <alwaysOnActionSet id="org.eclipse.ui.NavigateActionSet"/>
-<alwaysOnActionSet id="adt.actionSet.wizards"/>
-<alwaysOnActionSet id="adt.actionSet.avdManager"/>
-<alwaysOnActionSet id="adt.actionSet.lint"/>
-<alwaysOnActionSet id="adt.actionSet.refactorings"/>
 <alwaysOnActionSet id="org.eclipse.debug.ui.breakpointActionSet"/>
 <alwaysOnActionSet id="org.eclipse.jdt.debug.ui.JDTDebugActionSet"/>
 <alwaysOnActionSet id="org.eclipse.jdt.junit.JUnitActionSet"/>
@@ -239,7 +179,7 @@
 <layout>
 <mainWindow>
 <info folder="true" part="left">
-<folder activePageID="org.eclipse.jdt.junit.ResultView" appearance="2" expanded="2">
+<folder activePageID="org.eclipse.jdt.ui.PackageExplorer" appearance="2" expanded="2">
 <page content="org.eclipse.jdt.ui.PackageExplorer" label="Package Explorer"/>
 <page content="org.eclipse.jdt.junit.ResultView" label="JUnit"/>
 <page content="org.eclipse.jdt.ui.TypeHierarchy" label="LabelNotFound"/>
@@ -260,8 +200,8 @@
 </folder>
 </info>
 <info part="org.eclipse.ui.editorss" ratio="0.36958236" ratioLeft="469" ratioRight="800" relationship="2" relative="left"/>
-<info folder="true" part="bottom" ratio="0.74963397" ratioLeft="512" ratioRight="171" relationship="4" relative="org.eclipse.ui.editorss">
-<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
+<info folder="true" part="bottom" ratio="0.46228448" ratioLeft="429" ratioRight="499" relationship="4" relative="org.eclipse.ui.editorss">
+<folder activePageID="org.eclipse.ui.views.ProblemView" appearance="2" expanded="2">
 <page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
 <page content="org.eclipse.jdt.ui.JavadocView" label="Javadoc"/>
 <page content="org.eclipse.jdt.ui.SourceView" label="Declaration"/>
@@ -343,35 +283,26 @@
 <view id="org.eclipse.ui.console.ConsoleView"/>
 <view id="org.eclipse.ui.views.TaskList"/>
 <view id="org.eclipse.ui.views.ProblemView"/>
-<view id="org.eclipse.cdt.debug.ui.executablesView"/>
+<view id="org.eclipse.cdt.debug.ui.executablesView" removed="true"/>
 <view id="org.eclipse.ui.views.ContentOutline"/>
-<view id="com.android.ide.eclipse.ddms.views.LogCatView"/>
+<view id="com.android.ide.eclipse.ddms.views.LogCatView" removed="true"/>
 <view id="org.eclipse.jdt.junit.ResultView"/>
 <view id="org.eclipse.debug.ui.DebugView"/>
 <fastViewBars/>
-<layout>
-<mainWindow>
-<info folder="true" part="org.eclipse.debug.internal.ui.NavigatorFolderView">
-<folder activePageID="org.eclipse.debug.ui.DebugView" appearance="2" expanded="2">
-<page content="org.eclipse.debug.ui.DebugView" label="Debug"/>
+<layout>&#x0A;<mainWindow>&#x0A;<info folder="true" part="org.eclipse.debug.internal.ui.NavigatorFolderView">&#x0A;<folder activePageID="org.eclipse.debug.ui.DebugView" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.debug.ui.DebugView" label="Debug"/>
 <page content="org.eclipse.ui.views.ResourceNavigator" label="LabelNotFound"/>
 <page content="org.eclipse.jdt.ui.PackageExplorer" label="LabelNotFound"/>
 <page content="org.eclipse.jdt.ui.TypeHierarchy" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
 </presentation>
 </folder>
 </info>
-<info folder="true" part="stickyFolderRight" ratio="0.75" ratioLeft="954" ratioRight="318" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
-<folder appearance="2" expanded="2">
-<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
+<info folder="true" part="stickyFolderRight" ratio="0.75" ratioLeft="954" ratioRight="318" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
 <page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
 <page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.debug.internal.ui.ConsoleFolderView" ratio="0.74891144" ratioLeft="516" ratioRight="173" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
-<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
-<page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
+<info folder="true" part="org.eclipse.debug.internal.ui.ConsoleFolderView" ratio="0.74891144" ratioLeft="516" ratioRight="173" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">&#x0A;<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
 <page content="org.eclipse.ui.views.TaskList" label="Tasks"/>
 <page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
 <page content="org.eclipse.cdt.debug.ui.executablesView" label="Executables"/>
@@ -379,46 +310,36 @@
 <page content="org.eclipse.ui.views.PropertySheet" label="LabelNotFound"/>
 <page content="org.eclipse.jdt.debug.ui.DisplayView" label="LabelNotFound"/>
 <page content="org.eclipse.search.SearchResultView" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
 <part id="1"/>
 <part id="2"/>
 <part id="3"/>
 </presentation>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.ui.internal.ViewStack@38ad2630" ratio="0.5" ratioLeft="636" ratioRight="636" relationship="2" relative="org.eclipse.debug.internal.ui.ConsoleFolderView">
-<folder activePageID="org.eclipse.jdt.junit.ResultView" appearance="2" expanded="2">
-<page content="com.android.ide.eclipse.ddms.views.LogCatView" label="LogCat"/>
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@38ad2630" ratio="0.5" ratioLeft="636" ratioRight="636" relationship="2" relative="org.eclipse.debug.internal.ui.ConsoleFolderView">&#x0A;<folder activePageID="org.eclipse.jdt.junit.ResultView" appearance="2" expanded="2">&#x0A;<page content="com.android.ide.eclipse.ddms.views.LogCatView" label="LogCat"/>
 <page content="org.eclipse.jdt.junit.ResultView" label="JUnit"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
 <part id="1"/>
 </presentation>
 </folder>
 </info>
 <info part="org.eclipse.ui.editorss" ratio="0.4496124" ratioLeft="232" ratioRight="284" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView"/>
-<info folder="true" part="org.eclipse.debug.internal.ui.OutlineFolderView" ratio="0.75" ratioLeft="954" ratioRight="318" relationship="2" relative="org.eclipse.ui.editorss">
-<folder activePageID="org.eclipse.ui.views.ContentOutline" appearance="2" expanded="2">
-<page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
+<info folder="true" part="org.eclipse.debug.internal.ui.OutlineFolderView" ratio="0.75" ratioLeft="954" ratioRight="318" relationship="2" relative="org.eclipse.ui.editorss">&#x0A;<folder activePageID="org.eclipse.ui.views.ContentOutline" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
 <page content="org.eclipse.ant.ui.views.AntView" label="LabelNotFound"/>
 <page content="org.eclipse.cdt.dsf.gdb.ui.tracecontrol.view" label="LabelNotFound"/>
 <page content="org.eclipse.cdt.dsf.debug.ui.disassembly.view" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
 </presentation>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.debug.internal.ui.ToolsFolderView" ratio="0.5" ratioLeft="636" ratioRight="636" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
-<folder activePageID="org.eclipse.debug.ui.VariableView" appearance="2" expanded="2">
-<page content="org.eclipse.debug.ui.VariableView" label="Variables"/>
+<info folder="true" part="org.eclipse.debug.internal.ui.ToolsFolderView" ratio="0.5" ratioLeft="636" ratioRight="636" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">&#x0A;<folder activePageID="org.eclipse.debug.ui.VariableView" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.debug.ui.VariableView" label="Variables"/>
 <page content="org.eclipse.debug.ui.BreakpointView" label="Breakpoints"/>
 <page content="org.eclipse.debug.ui.ExpressionView" label="LabelNotFound"/>
 <page content="org.eclipse.debug.ui.RegisterView" label="LabelNotFound"/>
 <page content="org.eclipse.cdt.debug.ui.SignalsView" label="LabelNotFound"/>
 <page content="org.eclipse.debug.ui.ModuleView" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
 <part id="1"/>
 </presentation>
 </folder>
@@ -428,171 +349,12 @@
 </perspective>
 </perspectives>
 <workingSets/>
-<navigationHistory>
-<editors>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/it.unibo.droneMission.tests/src/it/unibo/droneMission/tests/LocTrackerTest.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/it.unibo.droneMission.gauge/src/it/unibo/droneMission/gauge/LocTracker.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/it.unibo.droneMission.interfaces/src/it/unibo/droneMission/interfaces/ILocTracker.java"/>
-<editor factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" org.eclipse.jdt.ui.ClassFileIdentifier="=it.unibo.droneMission.tests/\/Applications\/eclipse_indigo\/plugins\/org.junit_3.8.2.v3_8_2_v20100427-1100\/junit.jar&lt;junit.framework(TestCase.class"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/it.unibo.droneMission.interfaces/src/it/unibo/droneMission/interfaces/DefaultValues.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/it.unibo.droneMission.interfaces/src/it/unibo/droneMission/interfaces/IGaugeValueDouble.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/it.unibo.droneMission.gauge/src/it/unibo/droneMission/gauge/GaugeValueDouble.java"/>
-<editor factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" org.eclipse.jdt.ui.ClassFileIdentifier="=it.unibo.droneMission.tests/\/Applications\/eclipse_indigo\/plugins\/org.junit_3.8.2.v3_8_2_v20100427-1100\/junit.jar&lt;junit.framework(TestResult.class"/>
-<editor factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" org.eclipse.jdt.ui.ClassFileIdentifier="=it.unibo.droneMission.tests/\/Applications\/eclipse_indigo\/plugins\/org.junit_3.8.2.v3_8_2_v20100427-1100\/junit.jar&lt;junit.framework(TestSuite.class"/>
-</editors>
-<item historyLabel="LocTracker.java" index="1">
-<position info="not_deleted" x="386" y="109"/>
-</item>
-<item historyLabel="LocTrackerTest.java" index="0">
-<position info="not_deleted" x="347" y="25"/>
-</item>
-<item historyLabel="LocTracker.java" index="1">
-<position/>
-</item>
-<item historyLabel="LocTrackerTest.java" index="0">
-<position info="not_deleted" x="347" y="25"/>
-</item>
-<item historyLabel="LocTracker.java" index="1">
-<position info="not_deleted" x="386" y="109"/>
-</item>
-<item historyLabel="DefaultValues.java" index="4">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="ILocTracker.java" index="2">
-<position info="not_deleted" x="480" y="0"/>
-</item>
-<item historyLabel="LocTracker.java" index="1">
-<position info="not_deleted" x="1643" y="0"/>
-</item>
-<item historyLabel="IGaugeValueDouble.java" index="5">
-<position info="not_deleted" x="112" y="3"/>
-</item>
-<item historyLabel="GaugeValueDouble.java" index="6">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="LocTracker.java" index="1">
-<position/>
-</item>
-<item historyLabel="LocTrackerTest.java" index="0">
-<position info="not_deleted" x="347" y="25"/>
-</item>
-<item historyLabel="LocTrackerTest.java" index="0">
-<position info="not_deleted" x="347" y="0"/>
-</item>
-<item historyLabel="TestResult.class" index="7">
-<position/>
-</item>
-<item historyLabel="TestResult.class" index="7">
-<position/>
-</item>
-<item historyLabel="TestResult.class" index="7">
-<position/>
-</item>
-<item historyLabel="TestResult.class" index="7">
-<position/>
-</item>
-<item historyLabel="TestCase.class" index="3">
-<position info="not_deleted" x="3477" y="0"/>
-</item>
-<item historyLabel="TestSuite.class" index="8">
-<position info="not_deleted" x="6262" y="0"/>
-</item>
-<item historyLabel="TestSuite.class" index="8">
-<position info="not_deleted" x="6155" y="0"/>
-</item>
-<item historyLabel="TestSuite.class" index="8">
-<position info="not_deleted" x="6018" y="0"/>
-</item>
-<item historyLabel="LocTrackerTest.java" index="0">
-<position info="not_deleted" x="347" y="0"/>
-</item>
-<item historyLabel="TestResult.class" index="7">
-<position info="not_deleted" x="3292" y="0"/>
-</item>
-<item historyLabel="LocTrackerTest.java" index="0">
-<position info="not_deleted" x="347" y="0"/>
-</item>
-<item historyLabel="LocTracker.java" index="1">
-<position/>
-</item>
-<item historyLabel="LocTracker.java" index="1">
-<position/>
-</item>
-<item historyLabel="LocTrackerTest.java" index="0">
-<position info="not_deleted" x="347" y="0"/>
-</item>
-<item historyLabel="LocTracker.java" index="1">
-<position info="not_deleted" x="451" y="0"/>
-</item>
-<item historyLabel="LocTrackerTest.java" index="0">
-<position info="not_deleted" x="347" y="0"/>
-</item>
-<item historyLabel="LocTracker.java" index="1">
-<position/>
-</item>
-<item historyLabel="ILocTracker.java" index="2">
-<position info="not_deleted" x="345" y="0"/>
-</item>
-<item historyLabel="DefaultValues.java" index="4">
-<position info="not_deleted" x="514" y="7"/>
-</item>
-<item historyLabel="ILocTracker.java" index="2">
-<position info="not_deleted" x="345" y="0"/>
-</item>
-<item historyLabel="LocTracker.java" index="1">
-<position/>
-</item>
-<item historyLabel="IGaugeValueDouble.java" index="5">
-<position info="not_deleted" x="112" y="3"/>
-</item>
-<item historyLabel="ILocTracker.java" index="2">
-<position info="not_deleted" x="345" y="0"/>
-</item>
-<item historyLabel="LocTracker.java" index="1">
-<position info="not_deleted" x="334" y="0"/>
-</item>
-<item historyLabel="LocTrackerTest.java" index="0">
-<position info="not_deleted" x="364" y="0"/>
-</item>
-<item historyLabel="LocTracker.java" index="1">
-<position/>
-</item>
-<item historyLabel="GaugeValueDouble.java" index="6">
-<position info="not_deleted" x="38" y="32"/>
-</item>
-<item historyLabel="ILocTracker.java" index="2">
-<position info="not_deleted" x="345" y="0"/>
-</item>
-<item historyLabel="LocTracker.java" index="1">
-<position/>
-</item>
-<item historyLabel="LocTrackerTest.java" index="0">
-<position info="not_deleted" x="364" y="0"/>
-</item>
-<item historyLabel="LocTracker.java" index="1">
-<position info="not_deleted" x="548" y="0"/>
-</item>
-<item active="true" historyLabel="LocTrackerTest.java" index="0">
-<position info="not_deleted" x="364" y="0"/>
-</item>
-</navigationHistory>
+<navigationHistory/>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
 <workbenchWindowAdvisor/>
 <actionBarAdvisor/>
 <trimLayout>
-<trimArea IMemento.internal.id="16384">
-<trimItem IMemento.internal.id="left"/>
-<trimItem IMemento.internal.id="org.eclipse.debug.internal.ui.NavigatorFolderView"/>
-</trimArea>
-<trimArea IMemento.internal.id="131072">
-<trimItem IMemento.internal.id="right"/>
-<trimItem IMemento.internal.id="org.eclipse.ui.editorss"/>
-<trimItem IMemento.internal.id="org.eclipse.debug.internal.ui.ConsoleFolderView"/>
-<trimItem IMemento.internal.id="org.eclipse.debug.internal.ui.ToolsFolderView"/>
-<trimItem IMemento.internal.id="org.eclipse.debug.internal.ui.OutlineFolderView"/>
-<trimItem IMemento.internal.id="org.eclipse.ui.internal.ViewStack@38ad2630"/>
-</trimArea>
 <trimArea IMemento.internal.id="128">
 <trimItem IMemento.internal.id="org.eclipse.ui.internal.WorkbenchWindow.topBar"/>
 </trimArea>
@@ -600,11 +362,13 @@
 <trimItem IMemento.internal.id="org.eclise.ui.internal.FastViewBar"/>
 <trimItem IMemento.internal.id="org.eclipse.jface.action.StatusLineManager"/>
 <trimItem IMemento.internal.id="org.eclipse.ui.internal.progress.ProgressRegion"/>
-<trimItem IMemento.internal.id="bottom"/>
 </trimArea>
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="LocTrackerTest.java" tooltip="it.unibo.droneMission.tests/src/it/unibo/droneMission/tests/LocTrackerTest.java">
+<persistable path="/it.unibo.droneMission.tests/src/it/unibo/droneMission/tests/LocTrackerTest.java"/>
+</file>
 <file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="TestResult.class" tooltip="junit.framework.TestResult">
 <persistable org.eclipse.jdt.ui.ClassFileIdentifier="=it.unibo.droneMission.tests/\/Applications\/eclipse_indigo\/plugins\/org.junit_3.8.2.v3_8_2_v20100427-1100\/junit.jar&lt;junit.framework(TestResult.class"/>
 </file>
@@ -637,9 +401,6 @@
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="LocTracker.java" tooltip="it.unibo.droneMission.gauge/src/it/unibo/droneMission/gauge/LocTracker.java">
 <persistable path="/it.unibo.droneMission.gauge/src/it/unibo/droneMission/gauge/LocTracker.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="LocTrackerTest.java" tooltip="it.unibo.droneMission.tests/src/it/unibo/droneMission/tests/LocTrackerTest.java">
-<persistable path="/it.unibo.droneMission.tests/src/it/unibo/droneMission/tests/LocTrackerTest.java"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="OdometerTest.java" tooltip="it.unibo.droneMission.tests/src/it/unibo/droneMission/tests/OdometerTest.java">
 <persistable path="/it.unibo.droneMission.tests/src/it/unibo/droneMission/tests/OdometerTest.java"/>
