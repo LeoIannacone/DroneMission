@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring accessors="true" comment="Delete 2 elements from project &apos;it.unibo.droneMission.interfaces&apos;&#x0A;- Original project: &apos;it.unibo.droneMission.interfaces&apos;&#x0A;- Original elements:&#x0A;     interfaces.ecore&#x0A;     interfaces.genmodel" description="Delete elements" element1="interfaces.genmodel" element2="interfaces.ecore" elements="0" flags="589830" id="org.eclipse.jdt.ui.delete" resources="2" stamp="1370939985436" subPackages="false" version="1.0"/>
-</session>
