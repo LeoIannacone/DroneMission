@@ -1,0 +1,931 @@
+/**
+ * <copyright>
+ * </copyright>
+ *
+ * $Id$
+ */
+package it.unibo.gauge.interfaces;
+
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
+
+/**
+ * <!-- begin-user-doc -->
+ * The <b>Package</b> for the model.
+ * It contains accessors for the meta objects to represent
+ * <ul>
+ *   <li>each class,</li>
+ *   <li>each feature of each class,</li>
+ *   <li>each enum,</li>
+ *   <li>and each data type</li>
+ * </ul>
+ * <!-- end-user-doc -->
+ * @see it.unibo.gauge.interfaces.InterfacesFactory
+ * @model kind="package"
+ * @generated
+ */
+public interface InterfacesPackage extends EPackage {
+	/**
+	 * The package name.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	String eNAME = "interfaces";
+
+	/**
+	 * The package namespace URI.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	String eNS_URI = "http:///it/unibo/gauge/interfaces.ecore";
+
+	/**
+	 * The package namespace name.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	String eNS_PREFIX = "it.unibo.gauge.interfaces";
+
+	/**
+	 * The singleton instance of the package.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	InterfacesPackage eINSTANCE = it.unibo.gauge.interfaces.impl.InterfacesPackageImpl.init();
+
+	/**
+	 * The meta object id for the '{@link it.unibo.gauge.interfaces.impl.IControlDashboardImpl <em>IControl Dashboard</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.unibo.gauge.interfaces.impl.IControlDashboardImpl
+	 * @see it.unibo.gauge.interfaces.impl.InterfacesPackageImpl#getIControlDashboard()
+	 * @generated
+	 */
+	int ICONTROL_DASHBOARD = 0;
+
+	/**
+	 * The number of structural features of the '<em>IControl Dashboard</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ICONTROL_DASHBOARD_FEATURE_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link java.util.Observer <em>Observer</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see java.util.Observer
+	 * @see it.unibo.gauge.interfaces.impl.InterfacesPackageImpl#getObserver()
+	 * @generated
+	 */
+	int OBSERVER = 13;
+
+	/**
+	 * The number of structural features of the '<em>Observer</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OBSERVER_FEATURE_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link it.unibo.gauge.interfaces.impl.IDisplayImpl <em>IDisplay</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.unibo.gauge.interfaces.impl.IDisplayImpl
+	 * @see it.unibo.gauge.interfaces.impl.InterfacesPackageImpl#getIDisplay()
+	 * @generated
+	 */
+	int IDISPLAY = 1;
+
+	/**
+	 * The feature id for the '<em><b>Cur Val</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IDISPLAY__CUR_VAL = OBSERVER_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>IDisplay</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IDISPLAY_FEATURE_COUNT = OBSERVER_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link it.unibo.gauge.interfaces.impl.IGaugeImpl <em>IGauge</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.unibo.gauge.interfaces.impl.IGaugeImpl
+	 * @see it.unibo.gauge.interfaces.impl.InterfacesPackageImpl#getIGauge()
+	 * @generated
+	 */
+	int IGAUGE = 3;
+
+	/**
+	 * The feature id for the '<em><b>Cur Val Rep Displayed</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IGAUGE__CUR_VAL_REP_DISPLAYED = 0;
+
+	/**
+	 * The feature id for the '<em><b>Val</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IGAUGE__VAL = 1;
+
+	/**
+	 * The number of structural features of the '<em>IGauge</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IGAUGE_FEATURE_COUNT = 2;
+
+	/**
+	 * The meta object id for the '{@link it.unibo.gauge.interfaces.impl.IGaugeMonotonicImpl <em>IGauge Monotonic</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.unibo.gauge.interfaces.impl.IGaugeMonotonicImpl
+	 * @see it.unibo.gauge.interfaces.impl.InterfacesPackageImpl#getIGaugeMonotonic()
+	 * @generated
+	 */
+	int IGAUGE_MONOTONIC = 7;
+
+	/**
+	 * The feature id for the '<em><b>Cur Val Rep Displayed</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IGAUGE_MONOTONIC__CUR_VAL_REP_DISPLAYED = IGAUGE__CUR_VAL_REP_DISPLAYED;
+
+	/**
+	 * The feature id for the '<em><b>Val</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IGAUGE_MONOTONIC__VAL = IGAUGE__VAL;
+
+	/**
+	 * The number of structural features of the '<em>IGauge Monotonic</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IGAUGE_MONOTONIC_FEATURE_COUNT = IGAUGE_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link it.unibo.gauge.interfaces.impl.IFuelOmeterImpl <em>IFuel Ometer</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.unibo.gauge.interfaces.impl.IFuelOmeterImpl
+	 * @see it.unibo.gauge.interfaces.impl.InterfacesPackageImpl#getIFuelOmeter()
+	 * @generated
+	 */
+	int IFUEL_OMETER = 2;
+
+	/**
+	 * The feature id for the '<em><b>Cur Val Rep Displayed</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IFUEL_OMETER__CUR_VAL_REP_DISPLAYED = IGAUGE_MONOTONIC__CUR_VAL_REP_DISPLAYED;
+
+	/**
+	 * The feature id for the '<em><b>Val</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IFUEL_OMETER__VAL = IGAUGE_MONOTONIC__VAL;
+
+	/**
+	 * The number of structural features of the '<em>IFuel Ometer</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IFUEL_OMETER_FEATURE_COUNT = IGAUGE_MONOTONIC_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link it.unibo.gauge.interfaces.impl.IGaugeDisplayImpl <em>IGauge Display</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.unibo.gauge.interfaces.impl.IGaugeDisplayImpl
+	 * @see it.unibo.gauge.interfaces.impl.InterfacesPackageImpl#getIGaugeDisplay()
+	 * @generated
+	 */
+	int IGAUGE_DISPLAY = 6;
+
+	/**
+	 * The feature id for the '<em><b>Cur Val</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IGAUGE_DISPLAY__CUR_VAL = IDISPLAY__CUR_VAL;
+
+	/**
+	 * The feature id for the '<em><b>Displayed Val</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IGAUGE_DISPLAY__DISPLAYED_VAL = IDISPLAY_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>IGauge Display</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IGAUGE_DISPLAY_FEATURE_COUNT = IDISPLAY_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link it.unibo.gauge.interfaces.impl.IGaugeAnalogicDisplayImpl <em>IGauge Analogic Display</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.unibo.gauge.interfaces.impl.IGaugeAnalogicDisplayImpl
+	 * @see it.unibo.gauge.interfaces.impl.InterfacesPackageImpl#getIGaugeAnalogicDisplay()
+	 * @generated
+	 */
+	int IGAUGE_ANALOGIC_DISPLAY = 4;
+
+	/**
+	 * The feature id for the '<em><b>Cur Val</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IGAUGE_ANALOGIC_DISPLAY__CUR_VAL = IGAUGE_DISPLAY__CUR_VAL;
+
+	/**
+	 * The feature id for the '<em><b>Displayed Val</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IGAUGE_ANALOGIC_DISPLAY__DISPLAYED_VAL = IGAUGE_DISPLAY__DISPLAYED_VAL;
+
+	/**
+	 * The number of structural features of the '<em>IGauge Analogic Display</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IGAUGE_ANALOGIC_DISPLAY_FEATURE_COUNT = IGAUGE_DISPLAY_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link it.unibo.gauge.interfaces.impl.IGaugeDigitalDisplayImpl <em>IGauge Digital Display</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.unibo.gauge.interfaces.impl.IGaugeDigitalDisplayImpl
+	 * @see it.unibo.gauge.interfaces.impl.InterfacesPackageImpl#getIGaugeDigitalDisplay()
+	 * @generated
+	 */
+	int IGAUGE_DIGITAL_DISPLAY = 5;
+
+	/**
+	 * The feature id for the '<em><b>Cur Val</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IGAUGE_DIGITAL_DISPLAY__CUR_VAL = IGAUGE_DISPLAY__CUR_VAL;
+
+	/**
+	 * The feature id for the '<em><b>Displayed Val</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IGAUGE_DIGITAL_DISPLAY__DISPLAYED_VAL = IGAUGE_DISPLAY__DISPLAYED_VAL;
+
+	/**
+	 * The number of structural features of the '<em>IGauge Digital Display</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IGAUGE_DIGITAL_DISPLAY_FEATURE_COUNT = IGAUGE_DISPLAY_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link it.unibo.gauge.interfaces.impl.IGaugeValueImpl <em>IGauge Value</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.unibo.gauge.interfaces.impl.IGaugeValueImpl
+	 * @see it.unibo.gauge.interfaces.impl.InterfacesPackageImpl#getIGaugeValue()
+	 * @generated
+	 */
+	int IGAUGE_VALUE = 8;
+
+	/**
+	 * The number of structural features of the '<em>IGauge Value</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IGAUGE_VALUE_FEATURE_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link it.unibo.gauge.interfaces.impl.IGaugeVariantImpl <em>IGauge Variant</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.unibo.gauge.interfaces.impl.IGaugeVariantImpl
+	 * @see it.unibo.gauge.interfaces.impl.InterfacesPackageImpl#getIGaugeVariant()
+	 * @generated
+	 */
+	int IGAUGE_VARIANT = 9;
+
+	/**
+	 * The feature id for the '<em><b>Cur Val Rep Displayed</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IGAUGE_VARIANT__CUR_VAL_REP_DISPLAYED = IGAUGE__CUR_VAL_REP_DISPLAYED;
+
+	/**
+	 * The feature id for the '<em><b>Val</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IGAUGE_VARIANT__VAL = IGAUGE__VAL;
+
+	/**
+	 * The number of structural features of the '<em>IGauge Variant</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IGAUGE_VARIANT_FEATURE_COUNT = IGAUGE_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link it.unibo.gauge.interfaces.impl.ILocTrackerImpl <em>ILoc Tracker</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.unibo.gauge.interfaces.impl.ILocTrackerImpl
+	 * @see it.unibo.gauge.interfaces.impl.InterfacesPackageImpl#getILocTracker()
+	 * @generated
+	 */
+	int ILOC_TRACKER = 10;
+
+	/**
+	 * The feature id for the '<em><b>Cur Val Rep Displayed</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ILOC_TRACKER__CUR_VAL_REP_DISPLAYED = IGAUGE_VARIANT__CUR_VAL_REP_DISPLAYED;
+
+	/**
+	 * The feature id for the '<em><b>Val</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ILOC_TRACKER__VAL = IGAUGE_VARIANT__VAL;
+
+	/**
+	 * The number of structural features of the '<em>ILoc Tracker</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ILOC_TRACKER_FEATURE_COUNT = IGAUGE_VARIANT_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link it.unibo.gauge.interfaces.impl.IOdometerImpl <em>IOdometer</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.unibo.gauge.interfaces.impl.IOdometerImpl
+	 * @see it.unibo.gauge.interfaces.impl.InterfacesPackageImpl#getIOdometer()
+	 * @generated
+	 */
+	int IODOMETER = 11;
+
+	/**
+	 * The feature id for the '<em><b>Cur Val Rep Displayed</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IODOMETER__CUR_VAL_REP_DISPLAYED = IGAUGE_MONOTONIC__CUR_VAL_REP_DISPLAYED;
+
+	/**
+	 * The feature id for the '<em><b>Val</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IODOMETER__VAL = IGAUGE_MONOTONIC__VAL;
+
+	/**
+	 * The number of structural features of the '<em>IOdometer</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IODOMETER_FEATURE_COUNT = IGAUGE_MONOTONIC_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link it.unibo.gauge.interfaces.impl.ISpeedOmeterImpl <em>ISpeed Ometer</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.unibo.gauge.interfaces.impl.ISpeedOmeterImpl
+	 * @see it.unibo.gauge.interfaces.impl.InterfacesPackageImpl#getISpeedOmeter()
+	 * @generated
+	 */
+	int ISPEED_OMETER = 12;
+
+	/**
+	 * The feature id for the '<em><b>Cur Val Rep Displayed</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ISPEED_OMETER__CUR_VAL_REP_DISPLAYED = IGAUGE_VARIANT__CUR_VAL_REP_DISPLAYED;
+
+	/**
+	 * The feature id for the '<em><b>Val</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ISPEED_OMETER__VAL = IGAUGE_VARIANT__VAL;
+
+	/**
+	 * The number of structural features of the '<em>ISpeed Ometer</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ISPEED_OMETER_FEATURE_COUNT = IGAUGE_VARIANT_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '<em>Exception</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see java.lang.Exception
+	 * @see it.unibo.gauge.interfaces.impl.InterfacesPackageImpl#getException()
+	 * @generated
+	 */
+	int EXCEPTION = 14;
+
+
+	/**
+	 * Returns the meta object for class '{@link it.unibo.gauge.interfaces.IControlDashboard <em>IControl Dashboard</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>IControl Dashboard</em>'.
+	 * @see it.unibo.gauge.interfaces.IControlDashboard
+	 * @generated
+	 */
+	EClass getIControlDashboard();
+
+	/**
+	 * Returns the meta object for class '{@link it.unibo.gauge.interfaces.IDisplay <em>IDisplay</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>IDisplay</em>'.
+	 * @see it.unibo.gauge.interfaces.IDisplay
+	 * @generated
+	 */
+	EClass getIDisplay();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.unibo.gauge.interfaces.IDisplay#getCurVal <em>Cur Val</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Cur Val</em>'.
+	 * @see it.unibo.gauge.interfaces.IDisplay#getCurVal()
+	 * @see #getIDisplay()
+	 * @generated
+	 */
+	EAttribute getIDisplay_CurVal();
+
+	/**
+	 * Returns the meta object for class '{@link it.unibo.gauge.interfaces.IFuelOmeter <em>IFuel Ometer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>IFuel Ometer</em>'.
+	 * @see it.unibo.gauge.interfaces.IFuelOmeter
+	 * @generated
+	 */
+	EClass getIFuelOmeter();
+
+	/**
+	 * Returns the meta object for class '{@link it.unibo.gauge.interfaces.IGauge <em>IGauge</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>IGauge</em>'.
+	 * @see it.unibo.gauge.interfaces.IGauge
+	 * @generated
+	 */
+	EClass getIGauge();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.unibo.gauge.interfaces.IGauge#getCurValRepDisplayed <em>Cur Val Rep Displayed</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Cur Val Rep Displayed</em>'.
+	 * @see it.unibo.gauge.interfaces.IGauge#getCurValRepDisplayed()
+	 * @see #getIGauge()
+	 * @generated
+	 */
+	EAttribute getIGauge_CurValRepDisplayed();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.unibo.gauge.interfaces.IGauge#getVal <em>Val</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Val</em>'.
+	 * @see it.unibo.gauge.interfaces.IGauge#getVal()
+	 * @see #getIGauge()
+	 * @generated
+	 */
+	EReference getIGauge_Val();
+
+	/**
+	 * Returns the meta object for class '{@link it.unibo.gauge.interfaces.IGaugeAnalogicDisplay <em>IGauge Analogic Display</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>IGauge Analogic Display</em>'.
+	 * @see it.unibo.gauge.interfaces.IGaugeAnalogicDisplay
+	 * @generated
+	 */
+	EClass getIGaugeAnalogicDisplay();
+
+	/**
+	 * Returns the meta object for class '{@link it.unibo.gauge.interfaces.IGaugeDigitalDisplay <em>IGauge Digital Display</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>IGauge Digital Display</em>'.
+	 * @see it.unibo.gauge.interfaces.IGaugeDigitalDisplay
+	 * @generated
+	 */
+	EClass getIGaugeDigitalDisplay();
+
+	/**
+	 * Returns the meta object for class '{@link it.unibo.gauge.interfaces.IGaugeDisplay <em>IGauge Display</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>IGauge Display</em>'.
+	 * @see it.unibo.gauge.interfaces.IGaugeDisplay
+	 * @generated
+	 */
+	EClass getIGaugeDisplay();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.unibo.gauge.interfaces.IGaugeDisplay#getDisplayedVal <em>Displayed Val</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Displayed Val</em>'.
+	 * @see it.unibo.gauge.interfaces.IGaugeDisplay#getDisplayedVal()
+	 * @see #getIGaugeDisplay()
+	 * @generated
+	 */
+	EAttribute getIGaugeDisplay_DisplayedVal();
+
+	/**
+	 * Returns the meta object for class '{@link it.unibo.gauge.interfaces.IGaugeMonotonic <em>IGauge Monotonic</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>IGauge Monotonic</em>'.
+	 * @see it.unibo.gauge.interfaces.IGaugeMonotonic
+	 * @generated
+	 */
+	EClass getIGaugeMonotonic();
+
+	/**
+	 * Returns the meta object for class '{@link it.unibo.gauge.interfaces.IGaugeValue <em>IGauge Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>IGauge Value</em>'.
+	 * @see it.unibo.gauge.interfaces.IGaugeValue
+	 * @generated
+	 */
+	EClass getIGaugeValue();
+
+	/**
+	 * Returns the meta object for class '{@link it.unibo.gauge.interfaces.IGaugeVariant <em>IGauge Variant</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>IGauge Variant</em>'.
+	 * @see it.unibo.gauge.interfaces.IGaugeVariant
+	 * @generated
+	 */
+	EClass getIGaugeVariant();
+
+	/**
+	 * Returns the meta object for class '{@link it.unibo.gauge.interfaces.ILocTracker <em>ILoc Tracker</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>ILoc Tracker</em>'.
+	 * @see it.unibo.gauge.interfaces.ILocTracker
+	 * @generated
+	 */
+	EClass getILocTracker();
+
+	/**
+	 * Returns the meta object for class '{@link it.unibo.gauge.interfaces.IOdometer <em>IOdometer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>IOdometer</em>'.
+	 * @see it.unibo.gauge.interfaces.IOdometer
+	 * @generated
+	 */
+	EClass getIOdometer();
+
+	/**
+	 * Returns the meta object for class '{@link it.unibo.gauge.interfaces.ISpeedOmeter <em>ISpeed Ometer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>ISpeed Ometer</em>'.
+	 * @see it.unibo.gauge.interfaces.ISpeedOmeter
+	 * @generated
+	 */
+	EClass getISpeedOmeter();
+
+	/**
+	 * Returns the meta object for class '{@link java.util.Observer <em>Observer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Observer</em>'.
+	 * @see java.util.Observer
+	 * @model instanceClass="java.util.Observer"
+	 * @generated
+	 */
+	EClass getObserver();
+
+	/**
+	 * Returns the meta object for data type '{@link java.lang.Exception <em>Exception</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Exception</em>'.
+	 * @see java.lang.Exception
+	 * @model instanceClass="java.lang.Exception"
+	 * @generated
+	 */
+	EDataType getException();
+
+	/**
+	 * Returns the factory that creates the instances of the model.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the factory that creates the instances of the model.
+	 * @generated
+	 */
+	InterfacesFactory getInterfacesFactory();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * Defines literals for the meta objects that represent
+	 * <ul>
+	 *   <li>each class,</li>
+	 *   <li>each feature of each class,</li>
+	 *   <li>each enum,</li>
+	 *   <li>and each data type</li>
+	 * </ul>
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	interface Literals {
+		/**
+		 * The meta object literal for the '{@link it.unibo.gauge.interfaces.impl.IControlDashboardImpl <em>IControl Dashboard</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.unibo.gauge.interfaces.impl.IControlDashboardImpl
+		 * @see it.unibo.gauge.interfaces.impl.InterfacesPackageImpl#getIControlDashboard()
+		 * @generated
+		 */
+		EClass ICONTROL_DASHBOARD = eINSTANCE.getIControlDashboard();
+
+		/**
+		 * The meta object literal for the '{@link it.unibo.gauge.interfaces.impl.IDisplayImpl <em>IDisplay</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.unibo.gauge.interfaces.impl.IDisplayImpl
+		 * @see it.unibo.gauge.interfaces.impl.InterfacesPackageImpl#getIDisplay()
+		 * @generated
+		 */
+		EClass IDISPLAY = eINSTANCE.getIDisplay();
+
+		/**
+		 * The meta object literal for the '<em><b>Cur Val</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute IDISPLAY__CUR_VAL = eINSTANCE.getIDisplay_CurVal();
+
+		/**
+		 * The meta object literal for the '{@link it.unibo.gauge.interfaces.impl.IFuelOmeterImpl <em>IFuel Ometer</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.unibo.gauge.interfaces.impl.IFuelOmeterImpl
+		 * @see it.unibo.gauge.interfaces.impl.InterfacesPackageImpl#getIFuelOmeter()
+		 * @generated
+		 */
+		EClass IFUEL_OMETER = eINSTANCE.getIFuelOmeter();
+
+		/**
+		 * The meta object literal for the '{@link it.unibo.gauge.interfaces.impl.IGaugeImpl <em>IGauge</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.unibo.gauge.interfaces.impl.IGaugeImpl
+		 * @see it.unibo.gauge.interfaces.impl.InterfacesPackageImpl#getIGauge()
+		 * @generated
+		 */
+		EClass IGAUGE = eINSTANCE.getIGauge();
+
+		/**
+		 * The meta object literal for the '<em><b>Cur Val Rep Displayed</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute IGAUGE__CUR_VAL_REP_DISPLAYED = eINSTANCE.getIGauge_CurValRepDisplayed();
+
+		/**
+		 * The meta object literal for the '<em><b>Val</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference IGAUGE__VAL = eINSTANCE.getIGauge_Val();
+
+		/**
+		 * The meta object literal for the '{@link it.unibo.gauge.interfaces.impl.IGaugeAnalogicDisplayImpl <em>IGauge Analogic Display</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.unibo.gauge.interfaces.impl.IGaugeAnalogicDisplayImpl
+		 * @see it.unibo.gauge.interfaces.impl.InterfacesPackageImpl#getIGaugeAnalogicDisplay()
+		 * @generated
+		 */
+		EClass IGAUGE_ANALOGIC_DISPLAY = eINSTANCE.getIGaugeAnalogicDisplay();
+
+		/**
+		 * The meta object literal for the '{@link it.unibo.gauge.interfaces.impl.IGaugeDigitalDisplayImpl <em>IGauge Digital Display</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.unibo.gauge.interfaces.impl.IGaugeDigitalDisplayImpl
+		 * @see it.unibo.gauge.interfaces.impl.InterfacesPackageImpl#getIGaugeDigitalDisplay()
+		 * @generated
+		 */
+		EClass IGAUGE_DIGITAL_DISPLAY = eINSTANCE.getIGaugeDigitalDisplay();
+
+		/**
+		 * The meta object literal for the '{@link it.unibo.gauge.interfaces.impl.IGaugeDisplayImpl <em>IGauge Display</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.unibo.gauge.interfaces.impl.IGaugeDisplayImpl
+		 * @see it.unibo.gauge.interfaces.impl.InterfacesPackageImpl#getIGaugeDisplay()
+		 * @generated
+		 */
+		EClass IGAUGE_DISPLAY = eINSTANCE.getIGaugeDisplay();
+
+		/**
+		 * The meta object literal for the '<em><b>Displayed Val</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute IGAUGE_DISPLAY__DISPLAYED_VAL = eINSTANCE.getIGaugeDisplay_DisplayedVal();
+
+		/**
+		 * The meta object literal for the '{@link it.unibo.gauge.interfaces.impl.IGaugeMonotonicImpl <em>IGauge Monotonic</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.unibo.gauge.interfaces.impl.IGaugeMonotonicImpl
+		 * @see it.unibo.gauge.interfaces.impl.InterfacesPackageImpl#getIGaugeMonotonic()
+		 * @generated
+		 */
+		EClass IGAUGE_MONOTONIC = eINSTANCE.getIGaugeMonotonic();
+
+		/**
+		 * The meta object literal for the '{@link it.unibo.gauge.interfaces.impl.IGaugeValueImpl <em>IGauge Value</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.unibo.gauge.interfaces.impl.IGaugeValueImpl
+		 * @see it.unibo.gauge.interfaces.impl.InterfacesPackageImpl#getIGaugeValue()
+		 * @generated
+		 */
+		EClass IGAUGE_VALUE = eINSTANCE.getIGaugeValue();
+
+		/**
+		 * The meta object literal for the '{@link it.unibo.gauge.interfaces.impl.IGaugeVariantImpl <em>IGauge Variant</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.unibo.gauge.interfaces.impl.IGaugeVariantImpl
+		 * @see it.unibo.gauge.interfaces.impl.InterfacesPackageImpl#getIGaugeVariant()
+		 * @generated
+		 */
+		EClass IGAUGE_VARIANT = eINSTANCE.getIGaugeVariant();
+
+		/**
+		 * The meta object literal for the '{@link it.unibo.gauge.interfaces.impl.ILocTrackerImpl <em>ILoc Tracker</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.unibo.gauge.interfaces.impl.ILocTrackerImpl
+		 * @see it.unibo.gauge.interfaces.impl.InterfacesPackageImpl#getILocTracker()
+		 * @generated
+		 */
+		EClass ILOC_TRACKER = eINSTANCE.getILocTracker();
+
+		/**
+		 * The meta object literal for the '{@link it.unibo.gauge.interfaces.impl.IOdometerImpl <em>IOdometer</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.unibo.gauge.interfaces.impl.IOdometerImpl
+		 * @see it.unibo.gauge.interfaces.impl.InterfacesPackageImpl#getIOdometer()
+		 * @generated
+		 */
+		EClass IODOMETER = eINSTANCE.getIOdometer();
+
+		/**
+		 * The meta object literal for the '{@link it.unibo.gauge.interfaces.impl.ISpeedOmeterImpl <em>ISpeed Ometer</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.unibo.gauge.interfaces.impl.ISpeedOmeterImpl
+		 * @see it.unibo.gauge.interfaces.impl.InterfacesPackageImpl#getISpeedOmeter()
+		 * @generated
+		 */
+		EClass ISPEED_OMETER = eINSTANCE.getISpeedOmeter();
+
+		/**
+		 * The meta object literal for the '{@link java.util.Observer <em>Observer</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see java.util.Observer
+		 * @see it.unibo.gauge.interfaces.impl.InterfacesPackageImpl#getObserver()
+		 * @generated
+		 */
+		EClass OBSERVER = eINSTANCE.getObserver();
+
+		/**
+		 * The meta object literal for the '<em>Exception</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see java.lang.Exception
+		 * @see it.unibo.gauge.interfaces.impl.InterfacesPackageImpl#getException()
+		 * @generated
+		 */
+		EDataType EXCEPTION = eINSTANCE.getException();
+
+	}
+
+} //InterfacesPackage

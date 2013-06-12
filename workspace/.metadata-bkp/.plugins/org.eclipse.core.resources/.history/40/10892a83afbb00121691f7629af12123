@@ -1,0 +1,54 @@
+/**
+ * <copyright>
+ * </copyright>
+ *
+ * $Id$
+ */
+package it.unibo.gauge.interfaces.impl;
+
+import it.unibo.gauge.interfaces.IGaugeVariant;
+import it.unibo.gauge.interfaces.InterfacesPackage;
+
+import org.eclipse.emf.ecore.EClass;
+
+/**
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>IGauge Variant</b></em>'.
+ * <!-- end-user-doc -->
+ * <p>
+ * </p>
+ *
+ * @generated
+ */
+public class IGaugeVariantImpl extends IGaugeImpl implements IGaugeVariant {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected IGaugeVariantImpl() {
+		super();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return InterfacesPackage.Literals.IGAUGE_VARIANT;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void update() throws Exception {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+} //IGaugeVariantImpl

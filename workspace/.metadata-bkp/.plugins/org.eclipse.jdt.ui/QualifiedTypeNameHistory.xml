@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="it.unibo.gauge.interfaces.IGaugeValue"/>
+<fullyQualifiedTypeName name="it.unibo.droneMission.interfaces.DefaultValues"/>
+<fullyQualifiedTypeName name="java.util.Observer"/>
+<fullyQualifiedTypeName name="it.unibo.droneMinnion.interfaces.IGaugeValueInt"/>
+<fullyQualifiedTypeName name="it.unibo.droneMinnion.interfaces.IDisplay"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="it.unibo.droneMission.interfaces.IDisplay"/>
+<fullyQualifiedTypeName name="it.unibo.droneMission.gauge.OdometerWithDisplay"/>
+<fullyQualifiedTypeName name="it.unibo.is.interfaces.IBasicEnvAwt"/>
+<fullyQualifiedTypeName name="it.unibo.droneMission.gauge.GaugeWithDisplay"/>
+<fullyQualifiedTypeName name="it.unibo.droneMission.interfaces.IFuelOmeter"/>
+<fullyQualifiedTypeName name="it.unibo.droneMission.interfaces.ISpeedOmeter"/>
+<fullyQualifiedTypeName name="it.unibo.droneMission.interfaces.IGaugeValue"/>
+<fullyQualifiedTypeName name="it.unibo.droneMission.interfaces.IGaugeValueInt"/>
+<fullyQualifiedTypeName name="it.unibo.droneMission.gauge.SpeedometerWithDisplay"/>
+<fullyQualifiedTypeName name="it.unibo.droneMission.gauge.GaugeValueInt"/>
+<fullyQualifiedTypeName name="java.awt.TextArea"/>
+<fullyQualifiedTypeName name="java.awt.TextField"/>
+<fullyQualifiedTypeName name="it.unibo.droneMission.gauge.LocTrackerWithDisplay"/>
+<fullyQualifiedTypeName name="it.unibo.droneMission.interfaces.IGaugeDisplay"/>
+<fullyQualifiedTypeName name="java.awt.Panel"/>
+<fullyQualifiedTypeName name="it.unibo.droneMission.gauge.FuelometerWithDisplay"/>
+<fullyQualifiedTypeName name="java.text.DecimalFormat"/>
+<fullyQualifiedTypeName name="java.math.BigDecimal"/>
+<fullyQualifiedTypeName name="it.unibo.droneMission.gauge.Fuelometer"/>
+<fullyQualifiedTypeName name="it.unibo.droneMission.interfaces.IGaugeValueDouble"/>
+<fullyQualifiedTypeName name="it.unibo.droneMission.gauge.GaugeValueDouble"/>
+<fullyQualifiedTypeName name="it.unibo.droneMission.gauge.Speedometer"/>
+</qualifiedTypeNameHistroy>

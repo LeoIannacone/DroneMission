@@ -1,0 +1,402 @@
+/**
+ * <copyright>
+ * </copyright>
+ *
+ * $Id$
+ */
+package it.unibo.gauge.interfaces.util;
+
+import it.unibo.gauge.interfaces.*;
+
+import java.util.Observer;
+
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
+
+import org.eclipse.emf.ecore.util.Switch;
+
+/**
+ * <!-- begin-user-doc -->
+ * The <b>Switch</b> for the model's inheritance hierarchy.
+ * It supports the call {@link #doSwitch(EObject) doSwitch(object)}
+ * to invoke the <code>caseXXX</code> method for each class of the model,
+ * starting with the actual class of the object
+ * and proceeding up the inheritance hierarchy
+ * until a non-null result is returned,
+ * which is the result of the switch.
+ * <!-- end-user-doc -->
+ * @see it.unibo.gauge.interfaces.InterfacesPackage
+ * @generated
+ */
+public class InterfacesSwitch<T> extends Switch<T> {
+	/**
+	 * The cached model package
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected static InterfacesPackage modelPackage;
+
+	/**
+	 * Creates an instance of the switch.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public InterfacesSwitch() {
+		if (modelPackage == null) {
+			modelPackage = InterfacesPackage.eINSTANCE;
+		}
+	}
+
+	/**
+	 * Checks whether this is a switch for the given package.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @parameter ePackage the package in question.
+	 * @return whether this is a switch for the given package.
+	 * @generated
+	 */
+	@Override
+	protected boolean isSwitchFor(EPackage ePackage) {
+		return ePackage == modelPackage;
+	}
+
+	/**
+	 * Calls <code>caseXXX</code> for each class of the model until one returns a non null result; it yields that result.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the first non-null result returned by a <code>caseXXX</code> call.
+	 * @generated
+	 */
+	@Override
+	protected T doSwitch(int classifierID, EObject theEObject) {
+		switch (classifierID) {
+			case InterfacesPackage.ICONTROL_DASHBOARD: {
+				IControlDashboard iControlDashboard = (IControlDashboard)theEObject;
+				T result = caseIControlDashboard(iControlDashboard);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case InterfacesPackage.IDISPLAY: {
+				IDisplay iDisplay = (IDisplay)theEObject;
+				T result = caseIDisplay(iDisplay);
+				if (result == null) result = caseObserver(iDisplay);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case InterfacesPackage.IFUEL_OMETER: {
+				IFuelOmeter iFuelOmeter = (IFuelOmeter)theEObject;
+				T result = caseIFuelOmeter(iFuelOmeter);
+				if (result == null) result = caseIGaugeMonotonic(iFuelOmeter);
+				if (result == null) result = caseIGauge(iFuelOmeter);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case InterfacesPackage.IGAUGE: {
+				IGauge iGauge = (IGauge)theEObject;
+				T result = caseIGauge(iGauge);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case InterfacesPackage.IGAUGE_ANALOGIC_DISPLAY: {
+				IGaugeAnalogicDisplay iGaugeAnalogicDisplay = (IGaugeAnalogicDisplay)theEObject;
+				T result = caseIGaugeAnalogicDisplay(iGaugeAnalogicDisplay);
+				if (result == null) result = caseIGaugeDisplay(iGaugeAnalogicDisplay);
+				if (result == null) result = caseIDisplay(iGaugeAnalogicDisplay);
+				if (result == null) result = caseObserver(iGaugeAnalogicDisplay);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case InterfacesPackage.IGAUGE_DIGITAL_DISPLAY: {
+				IGaugeDigitalDisplay iGaugeDigitalDisplay = (IGaugeDigitalDisplay)theEObject;
+				T result = caseIGaugeDigitalDisplay(iGaugeDigitalDisplay);
+				if (result == null) result = caseIGaugeDisplay(iGaugeDigitalDisplay);
+				if (result == null) result = caseIDisplay(iGaugeDigitalDisplay);
+				if (result == null) result = caseObserver(iGaugeDigitalDisplay);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case InterfacesPackage.IGAUGE_DISPLAY: {
+				IGaugeDisplay iGaugeDisplay = (IGaugeDisplay)theEObject;
+				T result = caseIGaugeDisplay(iGaugeDisplay);
+				if (result == null) result = caseIDisplay(iGaugeDisplay);
+				if (result == null) result = caseObserver(iGaugeDisplay);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case InterfacesPackage.IGAUGE_MONOTONIC: {
+				IGaugeMonotonic iGaugeMonotonic = (IGaugeMonotonic)theEObject;
+				T result = caseIGaugeMonotonic(iGaugeMonotonic);
+				if (result == null) result = caseIGauge(iGaugeMonotonic);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case InterfacesPackage.IGAUGE_VALUE: {
+				IGaugeValue iGaugeValue = (IGaugeValue)theEObject;
+				T result = caseIGaugeValue(iGaugeValue);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case InterfacesPackage.IGAUGE_VARIANT: {
+				IGaugeVariant iGaugeVariant = (IGaugeVariant)theEObject;
+				T result = caseIGaugeVariant(iGaugeVariant);
+				if (result == null) result = caseIGauge(iGaugeVariant);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case InterfacesPackage.ILOC_TRACKER: {
+				ILocTracker iLocTracker = (ILocTracker)theEObject;
+				T result = caseILocTracker(iLocTracker);
+				if (result == null) result = caseIGaugeVariant(iLocTracker);
+				if (result == null) result = caseIGauge(iLocTracker);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case InterfacesPackage.IODOMETER: {
+				IOdometer iOdometer = (IOdometer)theEObject;
+				T result = caseIOdometer(iOdometer);
+				if (result == null) result = caseIGaugeMonotonic(iOdometer);
+				if (result == null) result = caseIGauge(iOdometer);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case InterfacesPackage.ISPEED_OMETER: {
+				ISpeedOmeter iSpeedOmeter = (ISpeedOmeter)theEObject;
+				T result = caseISpeedOmeter(iSpeedOmeter);
+				if (result == null) result = caseIGaugeVariant(iSpeedOmeter);
+				if (result == null) result = caseIGauge(iSpeedOmeter);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			default: return defaultCase(theEObject);
+		}
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>IControl Dashboard</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>IControl Dashboard</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseIControlDashboard(IControlDashboard object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>IDisplay</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>IDisplay</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseIDisplay(IDisplay object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>IFuel Ometer</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>IFuel Ometer</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseIFuelOmeter(IFuelOmeter object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>IGauge</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>IGauge</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseIGauge(IGauge object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>IGauge Analogic Display</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>IGauge Analogic Display</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseIGaugeAnalogicDisplay(IGaugeAnalogicDisplay object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>IGauge Digital Display</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>IGauge Digital Display</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseIGaugeDigitalDisplay(IGaugeDigitalDisplay object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>IGauge Display</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>IGauge Display</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseIGaugeDisplay(IGaugeDisplay object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>IGauge Monotonic</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>IGauge Monotonic</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseIGaugeMonotonic(IGaugeMonotonic object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>IGauge Value</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>IGauge Value</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseIGaugeValue(IGaugeValue object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>IGauge Variant</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>IGauge Variant</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseIGaugeVariant(IGaugeVariant object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>ILoc Tracker</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>ILoc Tracker</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseILocTracker(ILocTracker object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>IOdometer</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>IOdometer</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseIOdometer(IOdometer object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>ISpeed Ometer</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>ISpeed Ometer</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseISpeedOmeter(ISpeedOmeter object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Observer</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Observer</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseObserver(Observer object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>EObject</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch, but this is the last case anyway.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject)
+	 * @generated
+	 */
+	@Override
+	public T defaultCase(EObject object) {
+		return null;
+	}
+
+} //InterfacesSwitch

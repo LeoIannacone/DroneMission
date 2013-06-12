@@ -3,6 +3,7 @@ package it.unibo.droneMission.system;
 import it.unibo.baseEnv.basicFrame.EnvFrame;
 import it.unibo.droneMission.display.DisplayGuiSpeedometer;
 import it.unibo.droneMission.gauge.GaugeValueInt;
+import it.unibo.droneMission.gauge.Speedometer;
 import it.unibo.droneMission.gauge.SpeedometerWithDisplay;
 import it.unibo.droneMission.interfaces.IGaugeDisplay;
 import it.unibo.is.interfaces.IBasicEnvAwt;
@@ -60,7 +61,7 @@ public class SpeedometerPrototype {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					try {
-						speedometer.setVal(new GaugeValueInt(speedometer.getVal().valAsInt()+speedometer.DS));
+						speedometer.setVal(new GaugeValueInt(speedometer.getVal().valAsInt()+Speedometer.DS));
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -74,7 +75,7 @@ public class SpeedometerPrototype {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					try {
-						speedometer.setVal(new GaugeValueInt(speedometer.getVal().valAsInt()-speedometer.DS));
+						speedometer.setVal(new GaugeValueInt(speedometer.getVal().valAsInt()-Speedometer.DS));
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

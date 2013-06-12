@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/it.unibo.gauge.interfaces/src"
+    modelPluginID="it.unibo.gauge.interfaces" modelName="GaugeInterfaces" importerID="org.eclipse.emf.importer.java"
+    complianceLevel="6.0" copyrightFields="false">
+  <foreignModel>@model</foreignModel>
+  <genPackages prefix="Interfaces" basePackage="it.unibo.droneMission" disposableProviderFactory="true"
+      ecorePackage="gaugeInterfaces.ecore#/">
+    <genDataTypes ecoreDataType="gaugeInterfaces.ecore#//Exception"/>
+    <genClasses ecoreClass="gaugeInterfaces.ecore#//IControlDashboard">
+      <genOperations ecoreOperation="gaugeInterfaces.ecore#//IControlDashboard/startMission"/>
+      <genOperations ecoreOperation="gaugeInterfaces.ecore#//IControlDashboard/stopMission"/>
+      <genOperations ecoreOperation="gaugeInterfaces.ecore#//IControlDashboard/setSpeed">
+        <genParameters ecoreParameter="gaugeInterfaces.ecore#//IControlDashboard/setSpeed/s"/>
+      </genOperations>
+      <genOperations ecoreOperation="gaugeInterfaces.ecore#//IControlDashboard/incSpeed"/>
+      <genOperations ecoreOperation="gaugeInterfaces.ecore#//IControlDashboard/decSpeed"/>
+    </genClasses>
+    <genClasses ecoreClass="gaugeInterfaces.ecore#//IDisplay">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gaugeInterfaces.ecore#//IDisplay/curVal"/>
+      <genOperations ecoreOperation="gaugeInterfaces.ecore#//IDisplay/update">
+        <genParameters ecoreParameter="gaugeInterfaces.ecore#//IDisplay/update/val"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="gaugeInterfaces.ecore#//IFuelOmeter"/>
+    <genClasses ecoreClass="gaugeInterfaces.ecore#//IGauge">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gaugeInterfaces.ecore#//IGauge/curValRepDisplayed"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gaugeInterfaces.ecore#//IGauge/val"/>
+      <genOperations ecoreOperation="gaugeInterfaces.ecore#//IGauge/addObserver">
+        <genParameters ecoreParameter="gaugeInterfaces.ecore#//IGauge/addObserver/o"/>
+      </genOperations>
+      <genOperations ecoreOperation="gaugeInterfaces.ecore#//IGauge/deleteObserver">
+        <genParameters ecoreParameter="gaugeInterfaces.ecore#//IGauge/deleteObserver/o"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="gaugeInterfaces.ecore#//IGaugeAnalogicDisplay"/>
+    <genClasses ecoreClass="gaugeInterfaces.ecore#//IGaugeDigitalDisplay"/>
+    <genClasses ecoreClass="gaugeInterfaces.ecore#//IGaugeDisplay">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gaugeInterfaces.ecore#//IGaugeDisplay/displayedVal"/>
+      <genOperations ecoreOperation="gaugeInterfaces.ecore#//IGaugeDisplay/update">
+        <genParameters ecoreParameter="gaugeInterfaces.ecore#//IGaugeDisplay/update/v"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="gaugeInterfaces.ecore#//IGaugeMonotonic">
+      <genOperations ecoreOperation="gaugeInterfaces.ecore#//IGaugeMonotonic/update"/>
+    </genClasses>
+    <genClasses ecoreClass="gaugeInterfaces.ecore#//IGaugeValue"/>
+    <genClasses ecoreClass="gaugeInterfaces.ecore#//IGaugeVariant">
+      <genOperations ecoreOperation="gaugeInterfaces.ecore#//IGaugeVariant/update"/>
+    </genClasses>
+    <genClasses ecoreClass="gaugeInterfaces.ecore#//ILocTracker"/>
+    <genClasses ecoreClass="gaugeInterfaces.ecore#//IOdometer"/>
+    <genClasses ecoreClass="gaugeInterfaces.ecore#//ISpeedOmeter"/>
+    <genClasses image="false" ecoreClass="gaugeInterfaces.ecore#//Observer"/>
+  </genPackages>
+</genmodel:GenModel>

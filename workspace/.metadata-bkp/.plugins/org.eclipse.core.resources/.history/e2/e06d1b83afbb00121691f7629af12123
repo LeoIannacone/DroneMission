@@ -1,0 +1,360 @@
+/**
+ * <copyright>
+ * </copyright>
+ *
+ * $Id$
+ */
+package it.unibo.gauge.interfaces.util;
+
+import it.unibo.gauge.interfaces.*;
+
+import java.util.Observer;
+
+import org.eclipse.emf.common.notify.Adapter;
+import org.eclipse.emf.common.notify.Notifier;
+
+import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
+
+import org.eclipse.emf.ecore.EObject;
+
+/**
+ * <!-- begin-user-doc -->
+ * The <b>Adapter Factory</b> for the model.
+ * It provides an adapter <code>createXXX</code> method for each class of the model.
+ * <!-- end-user-doc -->
+ * @see it.unibo.gauge.interfaces.InterfacesPackage
+ * @generated
+ */
+public class InterfacesAdapterFactory extends AdapterFactoryImpl {
+	/**
+	 * The cached model package.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected static InterfacesPackage modelPackage;
+
+	/**
+	 * Creates an instance of the adapter factory.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public InterfacesAdapterFactory() {
+		if (modelPackage == null) {
+			modelPackage = InterfacesPackage.eINSTANCE;
+		}
+	}
+
+	/**
+	 * Returns whether this factory is applicable for the type of the object.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns <code>true</code> if the object is either the model's package or is an instance object of the model.
+	 * <!-- end-user-doc -->
+	 * @return whether this factory is applicable for the type of the object.
+	 * @generated
+	 */
+	@Override
+	public boolean isFactoryForType(Object object) {
+		if (object == modelPackage) {
+			return true;
+		}
+		if (object instanceof EObject) {
+			return ((EObject)object).eClass().getEPackage() == modelPackage;
+		}
+		return false;
+	}
+
+	/**
+	 * The switch that delegates to the <code>createXXX</code> methods.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected InterfacesSwitch<Adapter> modelSwitch =
+		new InterfacesSwitch<Adapter>() {
+			@Override
+			public Adapter caseIControlDashboard(IControlDashboard object) {
+				return createIControlDashboardAdapter();
+			}
+			@Override
+			public Adapter caseIDisplay(IDisplay object) {
+				return createIDisplayAdapter();
+			}
+			@Override
+			public Adapter caseIFuelOmeter(IFuelOmeter object) {
+				return createIFuelOmeterAdapter();
+			}
+			@Override
+			public Adapter caseIGauge(IGauge object) {
+				return createIGaugeAdapter();
+			}
+			@Override
+			public Adapter caseIGaugeAnalogicDisplay(IGaugeAnalogicDisplay object) {
+				return createIGaugeAnalogicDisplayAdapter();
+			}
+			@Override
+			public Adapter caseIGaugeDigitalDisplay(IGaugeDigitalDisplay object) {
+				return createIGaugeDigitalDisplayAdapter();
+			}
+			@Override
+			public Adapter caseIGaugeDisplay(IGaugeDisplay object) {
+				return createIGaugeDisplayAdapter();
+			}
+			@Override
+			public Adapter caseIGaugeMonotonic(IGaugeMonotonic object) {
+				return createIGaugeMonotonicAdapter();
+			}
+			@Override
+			public Adapter caseIGaugeValue(IGaugeValue object) {
+				return createIGaugeValueAdapter();
+			}
+			@Override
+			public Adapter caseIGaugeVariant(IGaugeVariant object) {
+				return createIGaugeVariantAdapter();
+			}
+			@Override
+			public Adapter caseILocTracker(ILocTracker object) {
+				return createILocTrackerAdapter();
+			}
+			@Override
+			public Adapter caseIOdometer(IOdometer object) {
+				return createIOdometerAdapter();
+			}
+			@Override
+			public Adapter caseISpeedOmeter(ISpeedOmeter object) {
+				return createISpeedOmeterAdapter();
+			}
+			@Override
+			public Adapter caseObserver(Observer object) {
+				return createObserverAdapter();
+			}
+			@Override
+			public Adapter defaultCase(EObject object) {
+				return createEObjectAdapter();
+			}
+		};
+
+	/**
+	 * Creates an adapter for the <code>target</code>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param target the object to adapt.
+	 * @return the adapter for the <code>target</code>.
+	 * @generated
+	 */
+	@Override
+	public Adapter createAdapter(Notifier target) {
+		return modelSwitch.doSwitch((EObject)target);
+	}
+
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.unibo.gauge.interfaces.IControlDashboard <em>IControl Dashboard</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.unibo.gauge.interfaces.IControlDashboard
+	 * @generated
+	 */
+	public Adapter createIControlDashboardAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.unibo.gauge.interfaces.IDisplay <em>IDisplay</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.unibo.gauge.interfaces.IDisplay
+	 * @generated
+	 */
+	public Adapter createIDisplayAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.unibo.gauge.interfaces.IFuelOmeter <em>IFuel Ometer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.unibo.gauge.interfaces.IFuelOmeter
+	 * @generated
+	 */
+	public Adapter createIFuelOmeterAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.unibo.gauge.interfaces.IGauge <em>IGauge</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.unibo.gauge.interfaces.IGauge
+	 * @generated
+	 */
+	public Adapter createIGaugeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.unibo.gauge.interfaces.IGaugeAnalogicDisplay <em>IGauge Analogic Display</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.unibo.gauge.interfaces.IGaugeAnalogicDisplay
+	 * @generated
+	 */
+	public Adapter createIGaugeAnalogicDisplayAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.unibo.gauge.interfaces.IGaugeDigitalDisplay <em>IGauge Digital Display</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.unibo.gauge.interfaces.IGaugeDigitalDisplay
+	 * @generated
+	 */
+	public Adapter createIGaugeDigitalDisplayAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.unibo.gauge.interfaces.IGaugeDisplay <em>IGauge Display</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.unibo.gauge.interfaces.IGaugeDisplay
+	 * @generated
+	 */
+	public Adapter createIGaugeDisplayAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.unibo.gauge.interfaces.IGaugeMonotonic <em>IGauge Monotonic</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.unibo.gauge.interfaces.IGaugeMonotonic
+	 * @generated
+	 */
+	public Adapter createIGaugeMonotonicAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.unibo.gauge.interfaces.IGaugeValue <em>IGauge Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.unibo.gauge.interfaces.IGaugeValue
+	 * @generated
+	 */
+	public Adapter createIGaugeValueAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.unibo.gauge.interfaces.IGaugeVariant <em>IGauge Variant</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.unibo.gauge.interfaces.IGaugeVariant
+	 * @generated
+	 */
+	public Adapter createIGaugeVariantAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.unibo.gauge.interfaces.ILocTracker <em>ILoc Tracker</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.unibo.gauge.interfaces.ILocTracker
+	 * @generated
+	 */
+	public Adapter createILocTrackerAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.unibo.gauge.interfaces.IOdometer <em>IOdometer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.unibo.gauge.interfaces.IOdometer
+	 * @generated
+	 */
+	public Adapter createIOdometerAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.unibo.gauge.interfaces.ISpeedOmeter <em>ISpeed Ometer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.unibo.gauge.interfaces.ISpeedOmeter
+	 * @generated
+	 */
+	public Adapter createISpeedOmeterAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link java.util.Observer <em>Observer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see java.util.Observer
+	 * @generated
+	 */
+	public Adapter createObserverAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for the default case.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @generated
+	 */
+	public Adapter createEObjectAdapter() {
+		return null;
+	}
+
+} //InterfacesAdapterFactory

@@ -1,0 +1,552 @@
+/**
+ * <copyright>
+ * </copyright>
+ *
+ * $Id$
+ */
+package it.unibo.gauge.interfaces.impl;
+
+import it.unibo.gauge.interfaces.IControlDashboard;
+import it.unibo.gauge.interfaces.IDisplay;
+import it.unibo.gauge.interfaces.IFuelOmeter;
+import it.unibo.gauge.interfaces.IGauge;
+import it.unibo.gauge.interfaces.IGaugeAnalogicDisplay;
+import it.unibo.gauge.interfaces.IGaugeDigitalDisplay;
+import it.unibo.gauge.interfaces.IGaugeDisplay;
+import it.unibo.gauge.interfaces.IGaugeMonotonic;
+import it.unibo.gauge.interfaces.IGaugeValue;
+import it.unibo.gauge.interfaces.IGaugeVariant;
+import it.unibo.gauge.interfaces.ILocTracker;
+import it.unibo.gauge.interfaces.IOdometer;
+import it.unibo.gauge.interfaces.ISpeedOmeter;
+import it.unibo.gauge.interfaces.InterfacesFactory;
+import it.unibo.gauge.interfaces.InterfacesPackage;
+
+import java.util.Observer;
+
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EOperation;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
+
+import org.eclipse.emf.ecore.impl.EPackageImpl;
+
+/**
+ * <!-- begin-user-doc -->
+ * An implementation of the model <b>Package</b>.
+ * <!-- end-user-doc -->
+ * @generated
+ */
+public class InterfacesPackageImpl extends EPackageImpl implements InterfacesPackage {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass iControlDashboardEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass iDisplayEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass iFuelOmeterEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass iGaugeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass iGaugeAnalogicDisplayEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass iGaugeDigitalDisplayEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass iGaugeDisplayEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass iGaugeMonotonicEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass iGaugeValueEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass iGaugeVariantEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass iLocTrackerEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass iOdometerEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass iSpeedOmeterEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass observerEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType exceptionEDataType = null;
+
+	/**
+	 * Creates an instance of the model <b>Package</b>, registered with
+	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
+	 * package URI value.
+	 * <p>Note: the correct way to create the package is via the static
+	 * factory method {@link #init init()}, which also performs
+	 * initialization of the package, or returns the registered package,
+	 * if one already exists.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.emf.ecore.EPackage.Registry
+	 * @see it.unibo.gauge.interfaces.InterfacesPackage#eNS_URI
+	 * @see #init()
+	 * @generated
+	 */
+	private InterfacesPackageImpl() {
+		super(eNS_URI, InterfacesFactory.eINSTANCE);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private static boolean isInited = false;
+
+	/**
+	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
+	 * 
+	 * <p>This method is used to initialize {@link InterfacesPackage#eINSTANCE} when that field is accessed.
+	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #eNS_URI
+	 * @see #createPackageContents()
+	 * @see #initializePackageContents()
+	 * @generated
+	 */
+	public static InterfacesPackage init() {
+		if (isInited) return (InterfacesPackage)EPackage.Registry.INSTANCE.getEPackage(InterfacesPackage.eNS_URI);
+
+		// Obtain or create and register package
+		InterfacesPackageImpl theInterfacesPackage = (InterfacesPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof InterfacesPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new InterfacesPackageImpl());
+
+		isInited = true;
+
+		// Create package meta-data objects
+		theInterfacesPackage.createPackageContents();
+
+		// Initialize created meta-data
+		theInterfacesPackage.initializePackageContents();
+
+		// Mark meta-data to indicate it can't be changed
+		theInterfacesPackage.freeze();
+
+  
+		// Update the registry and return the package
+		EPackage.Registry.INSTANCE.put(InterfacesPackage.eNS_URI, theInterfacesPackage);
+		return theInterfacesPackage;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getIControlDashboard() {
+		return iControlDashboardEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getIDisplay() {
+		return iDisplayEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getIDisplay_CurVal() {
+		return (EAttribute)iDisplayEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getIFuelOmeter() {
+		return iFuelOmeterEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getIGauge() {
+		return iGaugeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getIGauge_CurValRepDisplayed() {
+		return (EAttribute)iGaugeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getIGauge_Val() {
+		return (EReference)iGaugeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getIGaugeAnalogicDisplay() {
+		return iGaugeAnalogicDisplayEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getIGaugeDigitalDisplay() {
+		return iGaugeDigitalDisplayEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getIGaugeDisplay() {
+		return iGaugeDisplayEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getIGaugeDisplay_DisplayedVal() {
+		return (EAttribute)iGaugeDisplayEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getIGaugeMonotonic() {
+		return iGaugeMonotonicEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getIGaugeValue() {
+		return iGaugeValueEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getIGaugeVariant() {
+		return iGaugeVariantEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getILocTracker() {
+		return iLocTrackerEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getIOdometer() {
+		return iOdometerEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getISpeedOmeter() {
+		return iSpeedOmeterEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getObserver() {
+		return observerEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EDataType getException() {
+		return exceptionEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public InterfacesFactory getInterfacesFactory() {
+		return (InterfacesFactory)getEFactoryInstance();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private boolean isCreated = false;
+
+	/**
+	 * Creates the meta-model objects for the package.  This method is
+	 * guarded to have no affect on any invocation but its first.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void createPackageContents() {
+		if (isCreated) return;
+		isCreated = true;
+
+		// Create classes and their features
+		iControlDashboardEClass = createEClass(ICONTROL_DASHBOARD);
+
+		iDisplayEClass = createEClass(IDISPLAY);
+		createEAttribute(iDisplayEClass, IDISPLAY__CUR_VAL);
+
+		iFuelOmeterEClass = createEClass(IFUEL_OMETER);
+
+		iGaugeEClass = createEClass(IGAUGE);
+		createEAttribute(iGaugeEClass, IGAUGE__CUR_VAL_REP_DISPLAYED);
+		createEReference(iGaugeEClass, IGAUGE__VAL);
+
+		iGaugeAnalogicDisplayEClass = createEClass(IGAUGE_ANALOGIC_DISPLAY);
+
+		iGaugeDigitalDisplayEClass = createEClass(IGAUGE_DIGITAL_DISPLAY);
+
+		iGaugeDisplayEClass = createEClass(IGAUGE_DISPLAY);
+		createEAttribute(iGaugeDisplayEClass, IGAUGE_DISPLAY__DISPLAYED_VAL);
+
+		iGaugeMonotonicEClass = createEClass(IGAUGE_MONOTONIC);
+
+		iGaugeValueEClass = createEClass(IGAUGE_VALUE);
+
+		iGaugeVariantEClass = createEClass(IGAUGE_VARIANT);
+
+		iLocTrackerEClass = createEClass(ILOC_TRACKER);
+
+		iOdometerEClass = createEClass(IODOMETER);
+
+		iSpeedOmeterEClass = createEClass(ISPEED_OMETER);
+
+		observerEClass = createEClass(OBSERVER);
+
+		// Create data types
+		exceptionEDataType = createEDataType(EXCEPTION);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private boolean isInitialized = false;
+
+	/**
+	 * Complete the initialization of the package and its meta-model.  This
+	 * method is guarded to have no affect on any invocation but its first.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void initializePackageContents() {
+		if (isInitialized) return;
+		isInitialized = true;
+
+		// Initialize package
+		setName(eNAME);
+		setNsPrefix(eNS_PREFIX);
+		setNsURI(eNS_URI);
+
+		// Create type parameters
+
+		// Set bounds for type parameters
+
+		// Add supertypes to classes
+		iDisplayEClass.getESuperTypes().add(this.getObserver());
+		iFuelOmeterEClass.getESuperTypes().add(this.getIGaugeMonotonic());
+		iGaugeAnalogicDisplayEClass.getESuperTypes().add(this.getIGaugeDisplay());
+		iGaugeDigitalDisplayEClass.getESuperTypes().add(this.getIGaugeDisplay());
+		iGaugeDisplayEClass.getESuperTypes().add(this.getIDisplay());
+		iGaugeMonotonicEClass.getESuperTypes().add(this.getIGauge());
+		iGaugeVariantEClass.getESuperTypes().add(this.getIGauge());
+		iLocTrackerEClass.getESuperTypes().add(this.getIGaugeVariant());
+		iOdometerEClass.getESuperTypes().add(this.getIGaugeMonotonic());
+		iSpeedOmeterEClass.getESuperTypes().add(this.getIGaugeVariant());
+
+		// Initialize classes and features; add operations and parameters
+		initEClass(iControlDashboardEClass, IControlDashboard.class, "IControlDashboard", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		addEOperation(iControlDashboardEClass, null, "startMission", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(iControlDashboardEClass, null, "stopMission", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		EOperation op = addEOperation(iControlDashboardEClass, null, "setSpeed", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEInt(), "s", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(iControlDashboardEClass, null, "incSpeed", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(iControlDashboardEClass, null, "decSpeed", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		initEClass(iDisplayEClass, IDisplay.class, "IDisplay", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getIDisplay_CurVal(), ecorePackage.getEString(), "curVal", null, 0, 1, IDisplay.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		op = addEOperation(iDisplayEClass, null, "update", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "val", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		initEClass(iFuelOmeterEClass, IFuelOmeter.class, "IFuelOmeter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(iGaugeEClass, IGauge.class, "IGauge", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getIGauge_CurValRepDisplayed(), ecorePackage.getEString(), "curValRepDisplayed", null, 0, 1, IGauge.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getIGauge_Val(), this.getIGaugeValue(), null, "val", null, 0, 1, IGauge.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		op = addEOperation(iGaugeEClass, null, "addObserver", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getObserver(), "o", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(iGaugeEClass, null, "deleteObserver", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getObserver(), "o", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		initEClass(iGaugeAnalogicDisplayEClass, IGaugeAnalogicDisplay.class, "IGaugeAnalogicDisplay", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(iGaugeDigitalDisplayEClass, IGaugeDigitalDisplay.class, "IGaugeDigitalDisplay", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(iGaugeDisplayEClass, IGaugeDisplay.class, "IGaugeDisplay", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getIGaugeDisplay_DisplayedVal(), ecorePackage.getEString(), "displayedVal", null, 0, 1, IGaugeDisplay.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		op = addEOperation(iGaugeDisplayEClass, null, "update", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getIGaugeValue(), "v", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		initEClass(iGaugeMonotonicEClass, IGaugeMonotonic.class, "IGaugeMonotonic", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		op = addEOperation(iGaugeMonotonicEClass, null, "update", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEException(op, this.getException());
+
+		initEClass(iGaugeValueEClass, IGaugeValue.class, "IGaugeValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(iGaugeVariantEClass, IGaugeVariant.class, "IGaugeVariant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		op = addEOperation(iGaugeVariantEClass, null, "update", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEException(op, this.getException());
+
+		initEClass(iLocTrackerEClass, ILocTracker.class, "ILocTracker", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(iOdometerEClass, IOdometer.class, "IOdometer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(iSpeedOmeterEClass, ISpeedOmeter.class, "ISpeedOmeter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(observerEClass, Observer.class, "Observer", IS_ABSTRACT, IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
+
+		// Initialize data types
+		initEDataType(exceptionEDataType, Exception.class, "Exception", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+
+		// Create resource
+		createResource(eNS_URI);
+	}
+
+} //InterfacesPackageImpl
