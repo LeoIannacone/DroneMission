@@ -28,8 +28,7 @@ public class LocTracker implements ILocTracker {
 	}
 	
 	public void update(GaugeValueDouble la, GaugeValueDouble lo) throws Exception {
-		latitude.set(la.valAsDouble());
-		longitude.set(lo.valAsDouble());
+		this.setVal(la, lo);
 	}
 
 	@Override
