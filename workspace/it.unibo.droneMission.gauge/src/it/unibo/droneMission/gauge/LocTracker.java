@@ -26,6 +26,11 @@ public class LocTracker implements ILocTracker {
 		// TODO Auto-generated method stub
 
 	}
+	
+	public void update(GaugeValueDouble la, GaugeValueDouble lo) throws Exception {
+		latitude.set(la.valAsDouble());
+		longitude.set(lo.valAsDouble());
+	}
 
 	@Override
 	public void addObserver(Observer o) {
