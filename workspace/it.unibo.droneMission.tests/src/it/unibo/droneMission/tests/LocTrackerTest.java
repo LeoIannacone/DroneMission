@@ -36,7 +36,7 @@ public class LocTrackerTest extends TestCase {
 	//update 
 	public void testUpdate(){
 		try {
-			lt.setVal(new GaugeValueDouble(LocTracker.MAX), new GaugeValueDouble(LocTracker.MAX));
+			lt.update(new GaugeValueDouble(LocTracker.MAX), new GaugeValueDouble(LocTracker.MAX));
 			assertTrue("testInc",(invariant(lt)));
 		} catch (Exception e) {
 			fail("testInc" + e.getMessage());

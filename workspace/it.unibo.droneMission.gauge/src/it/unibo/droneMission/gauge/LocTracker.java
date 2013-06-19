@@ -27,9 +27,6 @@ public class LocTracker implements ILocTracker {
 
 	}
 	
-	public void update(GaugeValueDouble la, GaugeValueDouble lo) throws Exception {
-		this.setVal(la, lo);
-	}
 
 	@Override
 	public void addObserver(Observer o) {
@@ -72,20 +69,18 @@ public class LocTracker implements ILocTracker {
 	}
 
 	@Override
-	public void setVal(IGaugeValue lat, IGaugeValue lon) {
+	public void update(IGaugeValue lat, IGaugeValue lon) {
 		if ((check(lat))&&(check(lon))){
 			latitude.set(lat.valAsDouble());
 			longitude.set(lon.valAsDouble());
 		}
 	}
 
-	@Override
 	public IGaugeValue getLat() {
 		// TODO Auto-generated method stub
 		return latitude;
 	}
 
-	@Override
 	public IGaugeValue getLon() {
 		// TODO Auto-generated method stub
 		return longitude;

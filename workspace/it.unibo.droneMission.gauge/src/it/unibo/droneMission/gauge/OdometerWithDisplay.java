@@ -19,7 +19,7 @@ public class OdometerWithDisplay extends Odometer{
 		// TODO Auto-generated method stub
 		super.update();
 		Dis.update(km);
-		Dis.getCurVal();
+		displayedVal=Dis.getCurVal();
 	}
 
 	@Override

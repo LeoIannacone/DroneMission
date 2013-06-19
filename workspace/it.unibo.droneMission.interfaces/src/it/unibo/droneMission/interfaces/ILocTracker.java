@@ -22,7 +22,7 @@ public interface ILocTracker extends IGaugeVariant{
 	/**
 	 * @model 
 	 */
-	void setVal(IGaugeValue lat, IGaugeValue lon);
+	void update(IGaugeValue lat, IGaugeValue lon);
 	/**
 	 * @model 
 	 */
