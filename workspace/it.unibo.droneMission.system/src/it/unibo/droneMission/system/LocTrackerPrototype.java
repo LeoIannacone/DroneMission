@@ -5,12 +5,9 @@ import java.awt.Panel;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import it.unibo.baseEnv.basicFrame.EnvFrame;
 import it.unibo.droneMission.display.DisplayGuiCoords;
-
 import it.unibo.droneMission.gauge.LocTrackerWithDisplay;
-
 import it.unibo.droneMission.interfaces.IGaugeDisplay;
 import it.unibo.droneMission.gauge.GaugeValueDouble;
 import it.unibo.is.interfaces.IBasicEnvAwt;

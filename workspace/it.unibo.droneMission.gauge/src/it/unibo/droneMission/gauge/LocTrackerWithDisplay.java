@@ -22,11 +22,9 @@ public class LocTrackerWithDisplay extends LocTracker{
 	public void update(IGaugeValue lat, IGaugeValue lon) {
 		// TODO Auto-generated method stub
 		super.update(lat, lon);
-		if(this.check(lat)){
+		if ((check(lat))&&(check(lon))){
 			LatDisplay.update(lat);
 			LatDisplayedVal=LatDisplay.getCurVal();
-		}
-		if(this.check(lon)){
 			LonDisplay.update(lon);
 			LonDisplayedVal=LonDisplay.getCurVal();
 		}
