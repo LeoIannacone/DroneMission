@@ -1,0 +1,25 @@
+ContactSystem DroneMissionSystem;
+
+Subject Drone;
+Subject HeadQuarter;
+// Subject ChiefSmartphone;
+
+Dispatch photo;
+Invitation command;
+Signal dataSensor;
+// Signal notifyStartMission;
+
+//Drone send photo
+sendPhoto: Drone forward photo to HeadQuarter;  
+//Headquarter receive photo
+receivePhoto: HeadQuarter serve photo support=TCP [host="localhost" port=4040];
+
+//Drone send data of sensors
+sendDataSensor: Drone emit dataSensor;
+//Headquarter receive data of sensors
+receiveDataSensor: HeadQuarter sense dataSensor; 
+
+//HeadQuarter send command
+sendCommand: HeadQuarter ask command to Drone;
+//Drone receive command
+receiveCommand: Drone accept command support=TCP [host="localhost" port=4050];

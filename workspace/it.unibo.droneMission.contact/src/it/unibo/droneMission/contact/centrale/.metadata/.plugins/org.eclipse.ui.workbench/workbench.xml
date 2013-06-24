@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workbench progressCount="22" version="2.0">
+<workbenchAdvisor/>
+<window height="774" maximized="true" width="1250" x="0" y="22">
+<fastViewData fastViewLocation="1024"/>
+<perspectiveBar>
+<itemSize x="160"/>
+</perspectiveBar>
+<coolbarLayout>
+<coolItem id="group.file" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.ui.workbench.file" itemType="typeToolBarContribution" x="106" y="22"/>
+<coolItem id="additions" itemType="typeGroupMarker"/>
+<coolItem id="adt.actionSet.avdManager" itemType="typeToolBarContribution" x="54" y="22"/>
+<coolItem id="adt.actionSet.lint" itemType="typeToolBarContribution" x="40" y="22"/>
+<coolItem id="adt.actionSet.wizards" itemType="typeToolBarContribution" x="32" y="22"/>
+<coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="100" y="22"/>
+<coolItem id="org.eclipse.jdt.ui.JavaElementCreationActionSet" itemType="typeToolBarContribution" x="62" y="22"/>
+<coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="84" y="22"/>
+<coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="98" y="22"/>
+<coolItem id="org.eclipse.wst.xml.ui.perspective.NewFileToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="org.eclipse.wst.xml.ui.design.DesignToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="group.nav" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="152" y="22"/>
+<coolItem id="group.editor" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.ui.DefaultTextEditor" itemType="typePlaceholder" x="-1" y="-1"/>
+<coolItem id="org.eclipse.jdt.ui.ClassFileEditor" itemType="typePlaceholder" x="-1" y="-1"/>
+<coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="it.unibo.indigo.Contact" itemType="typeToolBarContribution" x="32" y="22"/>
+<coolItem id="group.help" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
+</coolbarLayout>
+<page aggregateWorkingSetId="Aggregate for window 1352795063417" focus="true" label="Workspace - Java">
+<editors>
+<editorArea activeWorkbook="DefaultEditorWorkbook">
+<info part="DefaultEditorWorkbook">
+<folder appearance="1" expanded="2">
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+<part id="2"/>
+<part id="3"/>
+</presentation>
+</folder>
+</info>
+</editorArea>
+<editor id="it.unibo.indigo.Contact" name="pingPongSystem.contact" partName="pingPongSystem.contact" path="/Users/carloantenucci/Documents/unibo/2012.Ingegneria dei Sistemi Software/ws_contact/it.unibo.contact.pingPongRefreePlayer/src/pingPongSystem.contact" title="pingPongSystem.contact" tooltip="it.unibo.contact.pingPongRefreePlayer/src/pingPongSystem.contact" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/it.unibo.contact.pingPongRefreePlayer/src/pingPongSystem.contact"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2392" selectionTopPixel="999"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PlayerSupport.java" partName="PlayerSupport.java" path="/Users/carloantenucci/Documents/unibo/2012.Ingegneria dei Sistemi Software/ws_contact/it.unibo.contact.pingPongRefreePlayer/src-gen/it/unibo/contact/PingPongSystem/PlayerSupport.java" title="PlayerSupport.java" tooltip="it.unibo.contact.pingPongRefreePlayer/src-gen/it/unibo/contact/PingPongSystem/PlayerSupport.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/it.unibo.contact.pingPongRefreePlayer/src-gen/it/unibo/contact/PingPongSystem/PlayerSupport.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="5886" selectionTopPixel="2730"/>
+</editor>
+<editor id="it.unibo.indigo.Contact" name="pingPongNaive.contact" partName="pingPongNaive.contact" path="/Users/carloantenucci/Documents/unibo/2012.Ingegneria dei Sistemi Software/ws_contact/it.unibo.contact.pingPong.Naive/src/pingPongNaive.contact" title="pingPongNaive.contact" tooltip="it.unibo.contact.pingPong.Naive/src/pingPongNaive.contact" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/it.unibo.contact.pingPong.Naive/src/pingPongNaive.contact"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
+</editor>
+<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Ping.java" partName="Ping.java" path="/Users/carloantenucci/Documents/unibo/2012.Ingegneria dei Sistemi Software/ws_contact/it.unibo.contact.pingPong.Naive/src-gen/it/unibo/contact/pingPongNaive/Ping.java" title="Ping.java" tooltip="it.unibo.contact.pingPong.Naive/src-gen/it/unibo/contact/pingPongNaive/Ping.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/it.unibo.contact.pingPong.Naive/src-gen/it/unibo/contact/pingPongNaive/Ping.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
+</editor>
+</editors>
+<views>
+<view id="org.eclipse.search.ui.views.SearchView" partName="Search">
+<viewState isPinned="false">
+<view IMemento.internal.id="" org.eclipse.search.lastActivation="0"/>
+</viewState>
+</view>
+<view id="org.eclipse.ui.views.ProblemView" partName="Problems">
+<viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
+<columnWidths org.eclipse.ui.ide.locationField="90" org.eclipse.ui.ide.markerType="90" org.eclipse.ui.ide.pathField="120" org.eclipse.ui.ide.resourceField="90" org.eclipse.ui.ide.severityAndDescriptionField="300"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.resourceField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.pathField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.locationField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.markerType"/>
+</viewState>
+</view>
+<view id="org.eclipse.ui.console.ConsoleView" partName="Console">
+<viewState/>
+</view>
+<view id="org.eclipse.jdt.ui.PackageExplorer" partName="Package Explorer">
+<viewState group_libraries="1" layout="2" linkWithEditor="0" rootMode="1" workingSetName="Aggregate for window 1352795063417">
+<customFilters userDefinedPatternsEnabled="false">
+<xmlDefinedFilters>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.LibraryFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.LocalTypesFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.StaticsFilter" isEnabled="false"/>
+<child filterId="org.eclipse.pde.ui.ExternalPluginLibrariesFilter1" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.ClosedProjectsFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.NonSharedProjectsFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.NonJavaElementFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.ContainedLibraryFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.CuAndClassFileFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.NonJavaProjectsFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.internal.ui.PackageExplorer.EmptyInnerPackageFilter" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.PackageDeclarationFilter" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.internal.ui.PackageExplorer.EmptyPackageFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.ImportDeclarationFilter" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.FieldsFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.internal.ui.PackageExplorer.HideInnerClassFilesFilter" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.NonPublicFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer_patternFilterId_.*" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.EmptyLibraryContainerFilter" isEnabled="true"/>
+<child filterId="org.eclipse.pde.ui.BinaryProjectFilter1" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.SyntheticMembersFilter" isEnabled="true"/>
+</xmlDefinedFilters>
+</customFilters>
+</viewState>
+</view>
+<view id="org.eclipse.ui.views.ContentOutline" partName="Outline">
+<viewState/>
+</view>
+<view id="org.eclipse.jdt.ui.SourceView" partName="Declaration"/>
+<view id="org.eclipse.jdt.ui.JavadocView" partName="Javadoc"/>
+</views>
+<perspectives activePart="org.eclipse.jdt.ui.CompilationUnitEditor" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
+<perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
+<descriptor class="org.eclipse.jdt.internal.ui.JavaPerspectiveFactory" id="org.eclipse.jdt.ui.JavaPerspective" label="Java"/>
+<alwaysOnActionSet id="org.eclipse.egit.ui.navigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.search.searchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.annotationNavigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.navigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo"/>
+<alwaysOnActionSet id="org.eclipse.ui.externaltools.ExternalToolsSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.keyBindings"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.openFiles"/>
+<alwaysOnActionSet id="adt.actionSet.wizards"/>
+<alwaysOnActionSet id="adt.actionSet.refactorings"/>
+<alwaysOnActionSet id="adt.actionSet.avdManager"/>
+<alwaysOnActionSet id="adt.actionSet.lint"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.launchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.jdt.ui.JavaActionSet"/>
+<alwaysOnActionSet id="org.eclipse.jdt.ui.JavaElementCreationActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.NavigateActionSet"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.breakpointActionSet"/>
+<alwaysOnActionSet id="org.eclipse.jdt.debug.ui.JDTDebugActionSet"/>
+<alwaysOnActionSet id="org.eclipse.jdt.junit.JUnitActionSet"/>
+<show_view_action id="org.eclipse.jdt.ui.PackageExplorer"/>
+<show_view_action id="org.eclipse.jdt.ui.TypeHierarchy"/>
+<show_view_action id="org.eclipse.jdt.ui.SourceView"/>
+<show_view_action id="org.eclipse.jdt.ui.JavadocView"/>
+<show_view_action id="org.eclipse.search.ui.views.SearchView"/>
+<show_view_action id="org.eclipse.ui.console.ConsoleView"/>
+<show_view_action id="org.eclipse.ui.views.ContentOutline"/>
+<show_view_action id="org.eclipse.ui.views.ProblemView"/>
+<show_view_action id="org.eclipse.ui.views.ResourceNavigator"/>
+<show_view_action id="org.eclipse.ui.views.TaskList"/>
+<show_view_action id="org.eclipse.ui.views.ProgressView"/>
+<show_view_action id="org.eclipse.ui.navigator.ProjectExplorer"/>
+<show_view_action id="org.eclipse.ui.texteditor.TemplatesView"/>
+<show_view_action id="org.eclipse.pde.runtime.LogView"/>
+<show_view_action id="org.eclipse.ant.ui.views.AntView"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.JavaProjectWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewPackageCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewClassCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewInterfaceCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewEnumCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewAnnotationCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewSourceFolderCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewSnippetFileCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewJavaWorkingSetWizard"/>
+<new_wizard_action id="org.eclipse.ui.wizards.new.folder"/>
+<new_wizard_action id="org.eclipse.ui.wizards.new.file"/>
+<new_wizard_action id="org.eclipse.ui.editors.wizards.UntitledTextFileWizard"/>
+<new_wizard_action id="com.android.ide.eclipse.adt.project.NewProjectWizard"/>
+<new_wizard_action id="com.android.ide.eclipse.editors.wizards.NewXmlFileWizard"/>
+<new_wizard_action id="org.eclipse.jdt.junit.wizards.NewTestCaseCreationWizard"/>
+<new_wizard_action id="org.eclipse.xtext.xtend2.ui.wizards.NewXtend2ClassWizard"/>
+<perspective_action id="org.eclipse.jdt.ui.JavaBrowsingPerspective"/>
+<perspective_action id="org.eclipse.debug.ui.DebugPerspective"/>
+<perspective_action id="com.android.ide.eclipse.ddms.Perspective"/>
+<perspective_action id="com.android.ide.eclipse.hierarchyviewer.PixelPerfectPespective"/>
+<perspective_action id="com.android.ide.eclipse.hierarchyviewer.TreeViewPerspective"/>
+<hide_toolbar_item_id id="org.eclipse.jdt.ui.actions.OpenProjectWizard"/>
+<hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
+<view id="org.eclipse.jdt.ui.PackageExplorer"/>
+<view id="org.eclipse.ui.views.ProblemView"/>
+<view id="org.eclipse.jdt.ui.JavadocView"/>
+<view id="org.eclipse.jdt.ui.SourceView"/>
+<view id="org.eclipse.ui.console.ConsoleView"/>
+<view id="org.eclipse.search.ui.views.SearchView"/>
+<view id="org.eclipse.ui.views.ContentOutline"/>
+<fastViewBars/>
+<layout>
+<mainWindow>
+<info folder="true" part="left">
+<folder activePageID="org.eclipse.jdt.ui.PackageExplorer" appearance="2" expanded="2">
+<page content="org.eclipse.jdt.ui.PackageExplorer" label="Package Explorer"/>
+<page content="org.eclipse.jdt.ui.TypeHierarchy" label="LabelNotFound"/>
+<page content="org.eclipse.ui.views.ResourceNavigator" label="LabelNotFound"/>
+<page content="org.eclipse.ui.navigator.ProjectExplorer" label="LabelNotFound"/>
+<page content="org.eclipse.jdt.junit.ResultView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@1cacd5d4" ratio="0.75" ratioLeft="762" ratioRight="254" relationship="2" relative="left">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
+<page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
+</folder>
+</info>
+<info part="org.eclipse.ui.editorss" ratio="0.25" ratioLeft="254" ratioRight="762" relationship="2" relative="left"/>
+<info folder="true" part="bottom" ratio="0.74963397" ratioLeft="512" ratioRight="171" relationship="4" relative="org.eclipse.ui.editorss">
+<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
+<page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
+<page content="org.eclipse.jdt.ui.JavadocView" label="Javadoc"/>
+<page content="org.eclipse.jdt.ui.SourceView" label="Declaration"/>
+<page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
+<page content="org.eclipse.search.ui.views.SearchView" label="Search"/>
+<page content="org.eclipse.ui.views.BookmarkView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.views.ProgressView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+<part id="2"/>
+<part id="3"/>
+<part id="4"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="right" ratio="0.7493438" ratioLeft="571" ratioRight="191" relationship="2" relative="org.eclipse.ui.editorss">
+<folder activePageID="org.eclipse.ui.views.ContentOutline" appearance="2" expanded="2">
+<page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
+<page content="org.eclipse.ui.texteditor.TemplatesView" label="LabelNotFound"/>
+<page content="org.eclipse.ant.ui.views.AntView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
+</folder>
+</info>
+<info part="org.eclipse.egit.ui.RepositoriesView" ratio="0.5988287" ratioLeft="409" ratioRight="274" relationship="4" relative="left"/>
+</mainWindow>
+</layout>
+</perspective>
+</perspectives>
+<workingSets/>
+<navigationHistory>
+<editors>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="it.unibo.indigo.Contact" path="/it.unibo.contact.pingPongRefreePlayer/src/pingPongSystem.contact"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/it.unibo.contact.pingPong.Naive/src-gen/it/unibo/contact/pingPongNaive/Ping.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/it.unibo.contact.pingPongRefreePlayer/src-gen/it/unibo/contact/PingPongSystem/Player.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/it.unibo.contact.pingPongRefreePlayer/src-gen/it/unibo/contact/PingPongSystem/PlayerSupport.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/it.unibo.contact.pingPongRefreePlayer/src-gen/it/unibo/contact/PingPongSystem/PingPongSystemMain.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/it.unibo.contact.pingPongRefreePlayer/src-gen/it/unibo/contact/PingPongSystem/Refree.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/it.unibo.contact.pingPongRefreePlayer/src-gen/it/unibo/contact/PingPongSystem/PingPongSystem.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/it.unibo.contact.pingPong.Naive/src-gen/it/unibo/contact/pingPongNaive/PingPongNaive.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/it.unibo.contact.pingPongRefree/src-gen/it/unibo/contact/pingPongRefree/Ping.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/it.unibo.contact.pingPongRefree/src-gen/it/unibo/contact/pingPongRefree/Refree.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/it.unibo.contact.pingPongRefree/src-gen/it/unibo/contact/pingPongRefree/Pong.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/it.unibo.contact.pingPongRefree/src-gen/it/unibo/contact/pingPongRefree/Subject.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/it.unibo.contact.pingPongRefree/src-gen/it/unibo/contact/platformuv/CommLogic.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/it.unibo.contact.pingPongRefree/src-gen/it/unibo/contact/pingPongRefree/PingSupport.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/it.unibo.contact.pingPongRefree/src-gen/it/unibo/contact/pingPongRefree/PingPongRefreeMain.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="it.unibo.indigo.Contact" path="/it.unibo.contact.pingPongRefree/src/PingPongRefree.contact"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/it.unibo.contact.pingPongRefree/src-gen/it/unibo/contact/platformuv/LindaLike.java"/>
+<editor factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" org.eclipse.jdt.ui.ClassFileIdentifier="=it.unibo.contact.pingPongRefree/\/Users\/carloantenucci\/Documents\/unibo\/2012.Ingegneria dei Sistemi Software\/Librerie\/it.unibo.interfaces_1.6.0.jar&lt;it.unibo.is.interfaces.platforms(ILindaLike.class"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/it.unibo.contact.pingPongRefree/src-gen/it/unibo/contact/pingPongRefree/RefreeSupport.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/it.unibo.contact.pingPongRefree/src-gen/it/unibo/contact/pingPongRefree/PingPongRefree.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="it.unibo.indigo.Contact" path="/it.unibo.contact.pingPongRefreePlayer/src/pingPongSystem.contact"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/it.unibo.contact.pingPongRefreePlayer/src-gen/it/unibo/contact/PingPongSystem/RefreeSupport.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="it.unibo.indigo.Contact" path="/it.unibo.contact.pingPongRefreePlayer/src/pingPongSystem.contact"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" path="/it.unibo.prova/src/prova.custom"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="it.unibo.indigo.Contact" path="/it.unibo.prova/src/prova.contact"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="it.unibo.indigo.Contact" path="/it.unibo.contact.pingPong.Naive/src/pingPongNaive.contact"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/it.unibo.contact.pingPong.Naive/src-gen/it/unibo/contact/pingPongNaive/PingPongNaive.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/it.unibo.contact.pingPong.Naive/src-gen/it/unibo/contact/pingPongNaive/Ping.java"/>
+</editors>
+<item historyLabel="Refree.java" index="5">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="Refree.java" index="5">
+<position info="not_deleted" x="55" y="6"/>
+</item>
+<item historyLabel="PingPongSystemMain.java" index="4">
+<position info="not_deleted" x="3" y="0"/>
+</item>
+<item historyLabel="PingPongSystem.java" index="6">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="PingPongSystemMain.java" index="4">
+<position info="not_deleted" x="3" y="0"/>
+</item>
+<item historyLabel="PingPongSystemMain.java" index="4">
+<position info="not_deleted" x="3429" y="5"/>
+</item>
+<item historyLabel="PingPongSystem.java" index="6">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="PingPongNaive.java" index="7">
+<position/>
+</item>
+<item historyLabel="PingPongSystem.java" index="6">
+<position info="not_deleted" x="100" y="0"/>
+</item>
+<item historyLabel="PlayerSupport.java" index="3">
+<position info="not_deleted" x="5730" y="0"/>
+</item>
+<item historyLabel="PingPongNaive.java" index="7">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="Ping.java" index="1">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="PlayerSupport.java" index="3">
+<position info="not_deleted" x="5730" y="0"/>
+</item>
+<item historyLabel="Player.java" index="2">
+<position info="not_deleted" x="55" y="6"/>
+</item>
+<item historyLabel="pingPongSystem.contact" index="0">
+<position info="not_deleted" x="2190" y="0"/>
+</item>
+<item historyLabel="Ping.java" index="8">
+<position info="not_deleted" x="865" y="0"/>
+</item>
+<item historyLabel="Refree.java" index="9">
+<position info="not_deleted" x="174" y="0"/>
+</item>
+<item historyLabel="Pong.java" index="10">
+<position info="not_deleted" x="1007" y="0"/>
+</item>
+<item historyLabel="Subject.java" index="11">
+<position info="not_deleted" x="4563" y="0"/>
+</item>
+<item historyLabel="CommLogic.java" index="12">
+<position info="not_deleted" x="3" y="0"/>
+</item>
+<item historyLabel="CommLogic.java" index="12">
+<position info="not_deleted" x="6521" y="7"/>
+</item>
+<item historyLabel="PingSupport.java" index="13">
+<position info="not_deleted" x="3" y="0"/>
+</item>
+<item historyLabel="PingPongRefreeMain.java" index="14">
+<position info="not_deleted" x="3" y="0"/>
+</item>
+<item historyLabel="PingPongRefreeMain.java" index="14">
+<position info="not_deleted" x="2924" y="0"/>
+</item>
+<item historyLabel="PingPongRefree.contact" index="15">
+<position info="not_deleted" x="296" y="468"/>
+</item>
+<item historyLabel="LindaLike.java" index="16">
+<position info="not_deleted" x="3" y="0"/>
+</item>
+<item historyLabel="LindaLike.java" index="16">
+<position info="not_deleted" x="442" y="0"/>
+</item>
+<item historyLabel="ILindaLike.class" index="17">
+<position info="not_deleted" x="57" y="0"/>
+</item>
+<item historyLabel="ILindaLike.class" index="17">
+<position info="not_deleted" x="456" y="10"/>
+</item>
+<item historyLabel="RefreeSupport.java" index="18">
+<position info="not_deleted" x="3" y="0"/>
+</item>
+<item historyLabel="PingPongRefree.java" index="19">
+<position info="not_deleted" x="147" y="0"/>
+</item>
+<item historyLabel="pingPongSystem.contact" index="20">
+<position info="not_deleted" x="2290" y="0"/>
+</item>
+<item historyLabel="PlayerSupport.java" index="3">
+<position info="not_deleted" x="3" y="0"/>
+</item>
+<item historyLabel="PlayerSupport.java" index="3">
+<position info="not_deleted" x="5886" y="0"/>
+</item>
+<item historyLabel="pingPongSystem.contact" index="20">
+<position info="not_deleted" x="2290" y="0"/>
+</item>
+<item historyLabel="RefreeSupport.java" index="21">
+<position info="not_deleted" x="3605" y="4"/>
+</item>
+<item historyLabel="PlayerSupport.java" index="3">
+<position info="not_deleted" x="5886" y="0"/>
+</item>
+<item historyLabel="RefreeSupport.java" index="21">
+<position info="not_deleted" x="3605" y="4"/>
+</item>
+<item historyLabel="PlayerSupport.java" index="3">
+<position info="not_deleted" x="5886" y="0"/>
+</item>
+<item historyLabel="pingPongSystem.contact" index="20">
+<position info="not_deleted" x="2290" y="0"/>
+</item>
+<item historyLabel="pingPongSystem.contact" index="20">
+<position info="not_deleted" x="1398" y="0"/>
+</item>
+<item historyLabel="PlayerSupport.java" index="3">
+<position info="not_deleted" x="5886" y="0"/>
+</item>
+<item historyLabel="pingPongSystem.contact" index="22">
+<position info="not_deleted" x="2392" y="0"/>
+</item>
+<item historyLabel="prova.custom" index="23">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="pingPongSystem.contact" index="22">
+<position info="not_deleted" x="2392" y="0"/>
+</item>
+<item historyLabel="prova.contact" index="24">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="pingPongNaive.contact" index="25">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="PingPongNaive.java" index="26">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="pingPongNaive.contact" index="25">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item active="true" historyLabel="Ping.java" index="27">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+</navigationHistory>
+<input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
+</page>
+<workbenchWindowAdvisor/>
+<actionBarAdvisor/>
+<trimLayout>
+<trimArea IMemento.internal.id="128">
+<trimItem IMemento.internal.id="org.eclipse.ui.internal.WorkbenchWindow.topBar"/>
+</trimArea>
+<trimArea IMemento.internal.id="1024">
+<trimItem IMemento.internal.id="org.eclise.ui.internal.FastViewBar"/>
+<trimItem IMemento.internal.id="org.eclipse.jface.action.StatusLineManager"/>
+<trimItem IMemento.internal.id="org.eclipse.ui.internal.progress.ProgressRegion"/>
+</trimArea>
+</trimLayout>
+</window>
+<mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Ping.java" tooltip="it.unibo.contact.pingPong.Naive/src-gen/it/unibo/contact/pingPongNaive/Ping.java">
+<persistable path="/it.unibo.contact.pingPong.Naive/src-gen/it/unibo/contact/pingPongNaive/Ping.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PingPongNaive.java" tooltip="it.unibo.contact.pingPong.Naive/src-gen/it/unibo/contact/pingPongNaive/PingPongNaive.java">
+<persistable path="/it.unibo.contact.pingPong.Naive/src-gen/it/unibo/contact/pingPongNaive/PingPongNaive.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="it.unibo.indigo.Contact" name="pingPongNaive.contact" tooltip="it.unibo.contact.pingPong.Naive/src/pingPongNaive.contact">
+<persistable path="/it.unibo.contact.pingPong.Naive/src/pingPongNaive.contact"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="RefreeSupport.java" tooltip="it.unibo.contact.pingPongRefreePlayer/src-gen/it/unibo/contact/PingPongSystem/RefreeSupport.java">
+<persistable path="/it.unibo.contact.pingPongRefreePlayer/src-gen/it/unibo/contact/PingPongSystem/RefreeSupport.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PlayerSupport.java" tooltip="it.unibo.contact.pingPongRefreePlayer/src-gen/it/unibo/contact/PingPongSystem/PlayerSupport.java">
+<persistable path="/it.unibo.contact.pingPongRefreePlayer/src-gen/it/unibo/contact/PingPongSystem/PlayerSupport.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="it.unibo.indigo.Contact" name="pingPongSystem.contact" tooltip="it.unibo.contact.pingPongRefreePlayer/src/pingPongSystem.contact">
+<persistable path="/it.unibo.contact.pingPongRefreePlayer/src/pingPongSystem.contact"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PingPongSystem.java" tooltip="it.unibo.contact.pingPongRefreePlayer/src-gen/it/unibo/contact/PingPongSystem/PingPongSystem.java">
+<persistable path="/it.unibo.contact.pingPongRefreePlayer/src-gen/it/unibo/contact/PingPongSystem/PingPongSystem.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Refree.java" tooltip="it.unibo.contact.pingPongRefreePlayer/src-gen/it/unibo/contact/PingPongSystem/Refree.java">
+<persistable path="/it.unibo.contact.pingPongRefreePlayer/src-gen/it/unibo/contact/PingPongSystem/Refree.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Ping.java" tooltip="it.unibo.contact.pingPongRefreePlayer/src-gen/it/unibo/contact/PingPongSystem/Ping.java">
+<persistable path="/it.unibo.contact.pingPongRefreePlayer/src-gen/it/unibo/contact/PingPongSystem/Ping.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Pong.java" tooltip="it.unibo.contact.pingPongRefreePlayer/src-gen/it/unibo/contact/PingPongSystem/Pong.java">
+<persistable path="/it.unibo.contact.pingPongRefreePlayer/src-gen/it/unibo/contact/PingPongSystem/Pong.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PingPongSystemMain.java" tooltip="it.unibo.contact.pingPongRefreePlayer/src-gen/it/unibo/contact/PingPongSystem/PingPongSystemMain.java">
+<persistable path="/it.unibo.contact.pingPongRefreePlayer/src-gen/it/unibo/contact/PingPongSystem/PingPongSystemMain.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Player.java" tooltip="it.unibo.contact.pingPongRefreePlayer/src-gen/it/unibo/contact/PingPongSystem/Player.java">
+<persistable path="/it.unibo.contact.pingPongRefreePlayer/src-gen/it/unibo/contact/PingPongSystem/Player.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PingSupport.java" tooltip="it.unibo.contact.pingPongRefreePlayer/src-gen/it/unibo/contact/PingPongSystem/PingSupport.java">
+<persistable path="/it.unibo.contact.pingPongRefreePlayer/src-gen/it/unibo/contact/PingPongSystem/PingSupport.java"/>
+</file>
+</mruList>
+</workbench>

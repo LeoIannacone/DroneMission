@@ -1,0 +1,111 @@
+LLOperationSet DroneMissionSystemCorecl
+------------------- 
+The SUBJECT 
+ withAnswer false
+ applVisible false
+ manyInput false
+ manyReply false
+ consume false
+ policy null
+ isInput false
+SINGLE CORE OPERATION
+out
+ 	... channelId=channelToDest name=HeadQuarter_photo
+ 	... mesgType=Dispatch msgId=photo subjectId=Drone 
+ 	... msgContent=M msgNum=0 msgPolicy=InteractPolicy.nopolicy 
+------------------- 
+
+------------------- 
+The SUBJECT 
+ withAnswer false
+ applVisible false
+ manyInput false
+ manyReply false
+ consume true
+ policy null
+ isInput true
+ protocol  TCP localhost:4040
+
+SINGLE CORE OPERATION
+in
+ 	... channelId=channelToDest name=HeadQuarter_photo
+ 	... mesgType=Dispatch msgId=photo subjectId=ANY 
+ 	... msgContent=M msgNum=N msgPolicy=InteractPolicy.nopolicy 
+------------------- 
+
+------------------- 
+The SUBJECT 
+ withAnswer false
+ applVisible false
+ manyInput false
+ manyReply false
+ consume false
+ policy null
+ isInput false
+SINGLE CORE OPERATION
+out
+ 	... channelId=channelTopic name=dataSensor
+ 	... mesgType=Signal msgId=dataSensor subjectId=Drone 
+ 	... msgContent=M msgNum=0 msgPolicy=InteractPolicy.nopolicy 
+------------------- 
+
+------------------- 
+The SUBJECT 
+ withAnswer false
+ applVisible false
+ manyInput false
+ manyReply false
+ consume false
+ policy null
+ isInput true
+ protocol noProtocol
+
+SINGLE CORE OPERATION
+rdw
+ 	... channelId=channelTopic name=dataSensor
+ 	... mesgType=Signal msgId=dataSensor subjectId=ANY 
+ 	... msgContent=M msgNum=N msgPolicy=InteractPolicy.nopolicy 
+------------------- 
+
+------------------- 
+The SUBJECT 
+ withAnswer true
+ applVisible true
+ manyInput false
+ manyReply false
+ consume false
+ policy null
+ isInput false
+SEQUENCE OF CORE OPERATION
+out
+ 	... channelId=channelToDest name=Drone_command
+ 	... mesgType=Invitation msgId=command subjectId=HeadQuarter 
+ 	... msgContent=M msgNum=1 msgPolicy=InteractPolicy.nopolicy 
+in
+ 	... channelId=channelToSource name=HeadQuarter_Drone_command
+ 	... mesgType=Invitation msgId=command subjectId=Drone 
+ 	... msgContent=M msgNum=1 msgPolicy=InteractPolicy.nopolicy 
+------------------- 
+
+------------------- 
+The SUBJECT 
+ withAnswer true
+ applVisible false
+ manyInput false
+ manyReply false
+ consume true
+ policy null
+ isInput true
+ protocol  TCP localhost:4050
+
+SEQUENCE OF CORE OPERATION
+in
+ 	... channelId=channelToDest name=Drone_command
+ 	... mesgType=Invitation msgId=command subjectId=ANY 
+ 	... msgContent=M msgNum=N msgPolicy=InteractPolicy.nopolicy 
+dynamicOut
+ 	... channelId=channelToSource name=Drone_dynamic_command
+ 	... mesgType=Invitation msgId=command subjectId=Drone 
+ 	... msgContent="dynamic" msgNum=dynamic msgPolicy=InteractPolicy.nopolicy 
+------------------- 
+

@@ -2606,6 +2606,46 @@ I sensori sono aggiornati
 (Domain) Model
 \end_layout
 
+\begin_layout Subsection*
+Comportamento
+\end_layout
+
+\begin_layout Subsubsection*
+Comportamento dei differenti tipi di gauge Gauge
+\end_layout
+
+\begin_layout Standard
+L'entita Gauge deve realizzare l'interfaccia IGauge che riflette l'idea
+ di uno strumento di misura, che avrà il compito di misurare uno dei valori
+ -velocità, carburante residuo, chilometri percorsi e posizione- che descrivono
+ lo stato del sistema drone, senza preoccuparsi della visualizzazione di
+ quest'ultimo, compito che spetterà all'entità Display.
+\end_layout
+
+\begin_layout Standard
+Il valore da elaborare verrà fornito dai diversi sensori del sistema drone
+ in formato GaugeValue, che al suo interno potrà contenere stringhe, interi
+ o numeri reali.
+\end_layout
+
+\begin_layout Subsubsection*
+Comportamento del Display
+\end_layout
+
+\begin_layout Standard
+L'entita Display realizzerà l'interfaccia IDisplay ha il compito di visualizzare
+ dati che verranno comunicati in formato GaugeValue dai differenti tipi
+ di Gauge.
+ 
+\end_layout
+
+\begin_layout Standard
+Il Display, attraverso il metodo setCurVal, aggiornerà il suo stato interno
+ e lo stamperà su console, mentre con il metodo update, nei display dotati
+ di interfaccia grafica, dopo aver aggiornato il valore da visualizzare,
+ lo renderà visibile attraverso una sia in formato analogico che digitale.
+\end_layout
+
 \begin_layout Section
 Test plan
 \end_layout

@@ -1,0 +1,33 @@
+IntermediateMachine DroneMissionSystemMedcl 
+------------------- 
+The SUBJECT 
+OpToSendToOne forward msgType=Dispatch msgId=photo worker=Drone 
+dest=HeadQuarter withAnswer=false applVisible=false policy=
+------------------- 
+------------------- 
+The SUBJECT 
+OpToAcquireInfo serve msgType=Dispatch msgId=photo worker=HeadQuarter 
+withAnswer=false applVisible=false consume=true policy=
+protocol= TCP localhost:4040
+------------------- 
+------------------- 
+The SUBJECT 
+OpToEmitInfo emit msgType=Signal msgId=dataSensor emitterName=Drone policy=
+
+------------------- 
+------------------- 
+The SUBJECT 
+OpToPerceiveInfo sense msgType=Signal msgId=dataSensor worker=HeadQuarter 
+resultType= blocking=false policy=
+------------------- 
+------------------- 
+The SUBJECT 
+OpToSendToOne ask msgType=Invitation msgId=command worker=HeadQuarter 
+dest=Drone withAnswer=true applVisible=true policy=
+------------------- 
+------------------- 
+The SUBJECT 
+OpToAcquireInfo accept msgType=Invitation msgId=command worker=Drone 
+withAnswer=true applVisible=false consume=true policy=
+protocol= TCP localhost:4050
+------------------- 

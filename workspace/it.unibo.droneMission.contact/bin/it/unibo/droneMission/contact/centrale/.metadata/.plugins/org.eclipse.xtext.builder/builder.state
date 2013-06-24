@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:builderState="http://www.eclipse.org/xtext/builderstate/1.0">
+  <builderState:ResourceDescription URI="platform:/resource/it.unibo.contact.pingPongRefreePlayer/src/pingPongSystem.contact">
+    <exportedObjects fragment="/0" name="14:PingPongSystem">
+      <eClass href="http://www.unibo.it/indigo/Contact#//ContactApplication"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@subject.0" name="14:PingPongSystem6:Player">
+      <eClass href="http://www.unibo.it/indigo/Contact#//Subject"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@subject.1" name="14:PingPongSystem4:ping">
+      <eClass href="http://www.unibo.it/indigo/Contact#//Subject"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@subject.2" name="14:PingPongSystem4:pong">
+      <eClass href="http://www.unibo.it/indigo/Contact#//Subject"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@subject.3" name="14:PingPongSystem6:refree">
+      <eClass href="http://www.unibo.it/indigo/Contact#//Subject"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@message.0" name="14:PingPongSystem4:ball">
+      <eClass href="http://www.unibo.it/indigo/Contact#//Dispatch"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@message.1" name="14:PingPongSystem4:stop">
+      <eClass href="http://www.unibo.it/indigo/Contact#//Invitation"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@operation.0" name="14:PingPongSystem8:sendBall">
+      <eClass href="http://www.unibo.it/indigo/Contact#//forwardDispatch"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@operation.1" name="14:PingPongSystem11:pingReceive">
+      <eClass href="http://www.unibo.it/indigo/Contact#//InOnlyOperation"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@operation.2" name="14:PingPongSystem11:pongReceive">
+      <eClass href="http://www.unibo.it/indigo/Contact#//InOnlyOperation"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@operation.3" name="14:PingPongSystem11:pingRecStop">
+      <eClass href="http://www.unibo.it/indigo/Contact#//InOnlyOperation"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@operation.4" name="14:PingPongSystem11:pongRecStop">
+      <eClass href="http://www.unibo.it/indigo/Contact#//InOnlyOperation"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@operation.5" name="14:PingPongSystem14:refreeSendStop">
+      <eClass href="http://www.unibo.it/indigo/Contact#//askInvitation"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@sbehavior.0/@varDeclarations.0" name="14:PingPongSystem9:observing">
+      <eClass href="http://www.eclipse.org/xtext/xbase/Xbase#//XVariableDeclaration"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@sbehavior.0/@uaction.0" name="14:PingPongSystem14:workAsObserver">
+      <eClass href="http://www.unibo.it/indigo/Contact#//UserActionSignature"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@sbehavior.0/@states.0" name="14:PingPongSystem16:state_initRefree">
+      <eClass href="http://www.unibo.it/indigo/Contact#//SubjectState"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@sbehavior.0/@states.1" name="14:PingPongSystem20:state_workAsObserver">
+      <eClass href="http://www.unibo.it/indigo/Contact#//SubjectState"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@sbehavior.0/@states.2" name="14:PingPongSystem14:state_sendStop">
+      <eClass href="http://www.unibo.it/indigo/Contact#//SubjectState"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@sbehavior.1/@varDeclarations.0" name="14:PingPongSystem5:nIter">
+      <eClass href="http://www.eclipse.org/xtext/xbase/Xbase#//XVariableDeclaration"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@sbehavior.1/@varDeclarations.1" name="14:PingPongSystem4:nHit">
+      <eClass href="http://www.eclipse.org/xtext/xbase/Xbase#//XVariableDeclaration"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@sbehavior.1/@varDeclarations.2" name="14:PingPongSystem6:server">
+      <eClass href="http://www.eclipse.org/xtext/xbase/Xbase#//XVariableDeclaration"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@sbehavior.1/@varDeclarations.3" name="14:PingPongSystem8:opposite">
+      <eClass href="http://www.eclipse.org/xtext/xbase/Xbase#//XVariableDeclaration"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@sbehavior.1/@varDeclarations.4" name="14:PingPongSystem6:hitMsg">
+      <eClass href="http://www.eclipse.org/xtext/xbase/Xbase#//XVariableDeclaration"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@sbehavior.1/@varDeclarations.5" name="14:PingPongSystem10:msgContent">
+      <eClass href="http://www.eclipse.org/xtext/xbase/Xbase#//XVariableDeclaration"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@sbehavior.1/@uaction.0" name="14:PingPongSystem8:isServer">
+      <eClass href="http://www.unibo.it/indigo/Contact#//UserActionSignature"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@sbehavior.1/@uaction.1" name="14:PingPongSystem11:getOpposite">
+      <eClass href="http://www.unibo.it/indigo/Contact#//UserActionSignature"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@sbehavior.1/@states.0" name="14:PingPongSystem16:state_initPlayer">
+      <eClass href="http://www.unibo.it/indigo/Contact#//SubjectState"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@sbehavior.1/@states.1" name="14:PingPongSystem18:state_playAsServer">
+      <eClass href="http://www.unibo.it/indigo/Contact#//SubjectState"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@sbehavior.1/@states.2" name="14:PingPongSystem20:state_playAsReceiver">
+      <eClass href="http://www.unibo.it/indigo/Contact#//SubjectState"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@sbehavior.1/@states.3" name="14:PingPongSystem28:state_handleBallFromReceiver">
+      <eClass href="http://www.unibo.it/indigo/Contact#//SubjectState"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@sbehavior.1/@states.4" name="14:PingPongSystem12:state_endJob">
+      <eClass href="http://www.unibo.it/indigo/Contact#//SubjectState"/>
+    </exportedObjects>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/it.unibo.contact.pingPongRefreePlayer/src/pingPongSystem.contact#/0/@sbehavior.0/@varDeclarations.0/@type" targetEObjectUri="java:/Primitives#boolean" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/it.unibo.contact.pingPongRefreePlayer/src/pingPongSystem.contact#/0/@sbehavior.0/@varDeclarations.0"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/it.unibo.contact.pingPongRefreePlayer/src/pingPongSystem.contact#/0/@sbehavior.0/@uaction.0/@returntype" targetEObjectUri="java:/Primitives#void" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/it.unibo.contact.pingPongRefreePlayer/src/pingPongSystem.contact#/0/@sbehavior.0/@uaction.0"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/it.unibo.contact.pingPongRefreePlayer/src/pingPongSystem.contact#/0/@sbehavior.1/@varDeclarations.0/@type" targetEObjectUri="java:/Primitives#int" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/it.unibo.contact.pingPongRefreePlayer/src/pingPongSystem.contact#/0/@sbehavior.1/@varDeclarations.0"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/it.unibo.contact.pingPongRefreePlayer/src/pingPongSystem.contact#/0/@sbehavior.1/@varDeclarations.1/@type" targetEObjectUri="java:/Primitives#int" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/it.unibo.contact.pingPongRefreePlayer/src/pingPongSystem.contact#/0/@sbehavior.1/@varDeclarations.1"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/it.unibo.contact.pingPongRefreePlayer/src/pingPongSystem.contact#/0/@sbehavior.1/@varDeclarations.2/@type" targetEObjectUri="java:/Primitives#boolean" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/it.unibo.contact.pingPongRefreePlayer/src/pingPongSystem.contact#/0/@sbehavior.1/@varDeclarations.2"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/it.unibo.contact.pingPongRefreePlayer/src/pingPongSystem.contact#/0/@sbehavior.1/@varDeclarations.3/@type" targetEObjectUri="java:/Objects/java.lang.String#java.lang.String" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/it.unibo.contact.pingPongRefreePlayer/src/pingPongSystem.contact#/0/@sbehavior.1/@varDeclarations.3"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/it.unibo.contact.pingPongRefreePlayer/src/pingPongSystem.contact#/0/@sbehavior.1/@varDeclarations.4/@type" targetEObjectUri="java:/Objects/java.lang.String#java.lang.String" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/it.unibo.contact.pingPongRefreePlayer/src/pingPongSystem.contact#/0/@sbehavior.1/@varDeclarations.4"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/it.unibo.contact.pingPongRefreePlayer/src/pingPongSystem.contact#/0/@sbehavior.1/@varDeclarations.5/@type" targetEObjectUri="java:/Objects/java.lang.String#java.lang.String" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/it.unibo.contact.pingPongRefreePlayer/src/pingPongSystem.contact#/0/@sbehavior.1/@varDeclarations.5"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/it.unibo.contact.pingPongRefreePlayer/src/pingPongSystem.contact#/0/@sbehavior.1/@uaction.0/@returntype" targetEObjectUri="java:/Primitives#boolean" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/it.unibo.contact.pingPongRefreePlayer/src/pingPongSystem.contact#/0/@sbehavior.1/@uaction.0"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/it.unibo.contact.pingPongRefreePlayer/src/pingPongSystem.contact#/0/@sbehavior.1/@uaction.1/@returntype" targetEObjectUri="java:/Objects/java.lang.String#java.lang.String" externalFormOfEReference="http://www.eclipse.org/xtext/common/JavaVMTypes&#xab;JvmParameterizedTypeReference&#xab;1" containerEObjectURI="platform:/resource/it.unibo.contact.pingPongRefreePlayer/src/pingPongSystem.contact#/0/@sbehavior.1/@uaction.1"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/it.unibo.contact.pingPongRefreePlayer/src/pingPongSystem.contact#/0/@sbehavior.1/@states.0/@nextStateRef.0/@guard/@exp/@expressions.0" targetEObjectUri="java:/Objects/org.eclipse.xtext.xbase.lib.BooleanExtensions#org.eclipse.xtext.xbase.lib.BooleanExtensions.operator_not(boolean)" externalFormOfEReference="http://www.eclipse.org/xtext/xbase/Xbase&#xab;XAbstractFeatureCall&#xab;0" containerEObjectURI="platform:/resource/it.unibo.contact.pingPongRefreePlayer/src/pingPongSystem.contact#/0/@sbehavior.1/@states.0"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/it.unibo.contact.pingPongRefreePlayer/src/pingPongSystem.contact#/0/@sbehavior.1/@states.1/@action.2/@action.0/@args.0/@argXExp" targetEObjectUri="java:/Objects/org.eclipse.xtext.xbase.lib.IntegerExtensions#org.eclipse.xtext.xbase.lib.IntegerExtensions.operator_plus(int,int)" externalFormOfEReference="http://www.eclipse.org/xtext/xbase/Xbase&#xab;XAbstractFeatureCall&#xab;0" containerEObjectURI="platform:/resource/it.unibo.contact.pingPongRefreePlayer/src/pingPongSystem.contact#/0/@sbehavior.1/@states.1"/>
+    <referenceDescriptions sourceEObjectUri="platform:/resource/it.unibo.contact.pingPongRefreePlayer/src/pingPongSystem.contact#/0/@sbehavior.1/@states.1/@nextStateRef.1/@guard/@exp/@expressions.0" targetEObjectUri="java:/Objects/org.eclipse.xtext.xbase.lib.IntegerExtensions#org.eclipse.xtext.xbase.lib.IntegerExtensions.operator_lessThan(int,int)" externalFormOfEReference="http://www.eclipse.org/xtext/xbase/Xbase&#xab;XAbstractFeatureCall&#xab;0" containerEObjectURI="platform:/resource/it.unibo.contact.pingPongRefreePlayer/src/pingPongSystem.contact#/0/@sbehavior.1/@states.1"/>
+  </builderState:ResourceDescription>
+  <builderState:ResourceDescription URI="platform:/resource/it.unibo.pong.naive/src/PongOnlyNaive.contact">
+    <exportedObjects fragment="/0" name="13:PongOnlyNaive">
+      <eClass href="http://www.unibo.it/indigo/Contact#//ContactApplication"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@subject.0" name="13:PongOnlyNaive4:ping">
+      <eClass href="http://www.unibo.it/indigo/Contact#//Subject"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@subject.1" name="13:PongOnlyNaive4:pong">
+      <eClass href="http://www.unibo.it/indigo/Contact#//Subject"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@message.0" name="13:PongOnlyNaive4:ball">
+      <eClass href="http://www.unibo.it/indigo/Contact#//Dispatch"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@operation.0" name="13:PongOnlyNaive12:pingSendBall">
+      <eClass href="http://www.unibo.it/indigo/Contact#//forwardDispatch"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@operation.1" name="13:PongOnlyNaive12:pongSendBall">
+      <eClass href="http://www.unibo.it/indigo/Contact#//forwardDispatch"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@operation.2" name="13:PongOnlyNaive11:pingReceive">
+      <eClass href="http://www.unibo.it/indigo/Contact#//InOnlyOperation"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@operation.3" name="13:PongOnlyNaive11:pongReceive">
+      <eClass href="http://www.unibo.it/indigo/Contact#//InOnlyOperation"/>
+    </exportedObjects>
+  </builderState:ResourceDescription>
+  <builderState:ResourceDescription URI="platform:/resource/it.unibo.contact.pingPongNaive/src/pingPongNaive.contact">
+    <exportedObjects fragment="/0" name="13:pingPongNaive">
+      <eClass href="http://www.unibo.it/indigo/Contact#//ContactApplication"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@subject.0" name="13:pingPongNaive4:ping">
+      <eClass href="http://www.unibo.it/indigo/Contact#//Subject"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@subject.1" name="13:pingPongNaive4:pong">
+      <eClass href="http://www.unibo.it/indigo/Contact#//Subject"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@message.0" name="13:pingPongNaive4:ball">
+      <eClass href="http://www.unibo.it/indigo/Contact#//Dispatch"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@operation.0" name="13:pingPongNaive12:pingSendBall">
+      <eClass href="http://www.unibo.it/indigo/Contact#//forwardDispatch"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@operation.1" name="13:pingPongNaive12:pongSendBall">
+      <eClass href="http://www.unibo.it/indigo/Contact#//forwardDispatch"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@operation.2" name="13:pingPongNaive11:pingReceive">
+      <eClass href="http://www.unibo.it/indigo/Contact#//InOnlyOperation"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@operation.3" name="13:pingPongNaive11:pongReceive">
+      <eClass href="http://www.unibo.it/indigo/Contact#//InOnlyOperation"/>
+    </exportedObjects>
+  </builderState:ResourceDescription>
+  <builderState:ResourceDescription URI="platform:/resource/it.unibo.contact.pingPong.Naive/src/pingPongNaive.contact">
+    <exportedObjects fragment="/0" name="13:pingPongNaive">
+      <eClass href="http://www.unibo.it/indigo/Contact#//ContactApplication"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@subject.0" name="13:pingPongNaive4:ping">
+      <eClass href="http://www.unibo.it/indigo/Contact#//Subject"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@subject.1" name="13:pingPongNaive4:pong">
+      <eClass href="http://www.unibo.it/indigo/Contact#//Subject"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@message.0" name="13:pingPongNaive4:ball">
+      <eClass href="http://www.unibo.it/indigo/Contact#//Dispatch"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@operation.0" name="13:pingPongNaive12:pingSendBall">
+      <eClass href="http://www.unibo.it/indigo/Contact#//forwardDispatch"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@operation.1" name="13:pingPongNaive12:pongSendBall">
+      <eClass href="http://www.unibo.it/indigo/Contact#//forwardDispatch"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@operation.2" name="13:pingPongNaive11:pingReceive">
+      <eClass href="http://www.unibo.it/indigo/Contact#//InOnlyOperation"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@operation.3" name="13:pingPongNaive11:pongReceive">
+      <eClass href="http://www.unibo.it/indigo/Contact#//InOnlyOperation"/>
+    </exportedObjects>
+  </builderState:ResourceDescription>
+  <builderState:ResourceDescription URI="platform:/resource/it.unibo.ping.naive/src/PingOnlyNaive.contact">
+    <exportedObjects fragment="/0" name="13:PingOnlyNaive">
+      <eClass href="http://www.unibo.it/indigo/Contact#//ContactApplication"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@subject.0" name="13:PingOnlyNaive4:ping">
+      <eClass href="http://www.unibo.it/indigo/Contact#//Subject"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@subject.1" name="13:PingOnlyNaive4:pong">
+      <eClass href="http://www.unibo.it/indigo/Contact#//Subject"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@message.0" name="13:PingOnlyNaive4:ball">
+      <eClass href="http://www.unibo.it/indigo/Contact#//Dispatch"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@operation.0" name="13:PingOnlyNaive12:pingSendBall">
+      <eClass href="http://www.unibo.it/indigo/Contact#//forwardDispatch"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@operation.1" name="13:PingOnlyNaive12:pongSendBall">
+      <eClass href="http://www.unibo.it/indigo/Contact#//forwardDispatch"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@operation.2" name="13:PingOnlyNaive11:pingReceive">
+      <eClass href="http://www.unibo.it/indigo/Contact#//InOnlyOperation"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@operation.3" name="13:PingOnlyNaive11:pongReceive">
+      <eClass href="http://www.unibo.it/indigo/Contact#//InOnlyOperation"/>
+    </exportedObjects>
+  </builderState:ResourceDescription>
+  <builderState:ResourceDescription URI="platform:/resource/it.unibo.contact.pingPongRefree/src/PingPongRefree.contact">
+    <exportedObjects fragment="/0" name="14:pingPongRefree">
+      <eClass href="http://www.unibo.it/indigo/Contact#//ContactApplication"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@subject.0" name="14:pingPongRefree4:ping">
+      <eClass href="http://www.unibo.it/indigo/Contact#//Subject"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@subject.1" name="14:pingPongRefree4:pong">
+      <eClass href="http://www.unibo.it/indigo/Contact#//Subject"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@subject.2" name="14:pingPongRefree6:refree">
+      <eClass href="http://www.unibo.it/indigo/Contact#//Subject"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@message.0" name="14:pingPongRefree4:ball">
+      <eClass href="http://www.unibo.it/indigo/Contact#//Dispatch"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@message.1" name="14:pingPongRefree4:stop">
+      <eClass href="http://www.unibo.it/indigo/Contact#//Invitation"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@operation.0" name="14:pingPongRefree12:pingSendBall">
+      <eClass href="http://www.unibo.it/indigo/Contact#//forwardDispatch"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@operation.1" name="14:pingPongRefree12:pongSendBall">
+      <eClass href="http://www.unibo.it/indigo/Contact#//forwardDispatch"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@operation.2" name="14:pingPongRefree11:pingReceive">
+      <eClass href="http://www.unibo.it/indigo/Contact#//InOnlyOperation"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@operation.3" name="14:pingPongRefree11:pongReceive">
+      <eClass href="http://www.unibo.it/indigo/Contact#//InOnlyOperation"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@operation.4" name="14:pingPongRefree11:pingRecStop">
+      <eClass href="http://www.unibo.it/indigo/Contact#//InOnlyOperation"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@operation.5" name="14:pingPongRefree11:pongRecStop">
+      <eClass href="http://www.unibo.it/indigo/Contact#//InOnlyOperation"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@operation.6" name="14:pingPongRefree10:sendRefree">
+      <eClass href="http://www.unibo.it/indigo/Contact#//askInvitation"/>
+    </exportedObjects>
+  </builderState:ResourceDescription>
+  <builderState:ResourceDescription URI="platform:/resource/it.unibo.contact.pingPongNaive/src/pingPongNaiveRequest.contact">
+    <exportedObjects fragment="/0" name="20:pingPongNaiveRequest">
+      <eClass href="http://www.unibo.it/indigo/Contact#//ContactApplication"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@subject.0" name="20:pingPongNaiveRequest4:ping">
+      <eClass href="http://www.unibo.it/indigo/Contact#//Subject"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@subject.1" name="20:pingPongNaiveRequest4:pong">
+      <eClass href="http://www.unibo.it/indigo/Contact#//Subject"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@message.0" name="20:pingPongNaiveRequest4:ball">
+      <eClass href="http://www.unibo.it/indigo/Contact#//Request"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@operation.0" name="20:pingPongNaiveRequest12:pingSendBall">
+      <eClass href="http://www.unibo.it/indigo/Contact#//demandRequest"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@operation.1" name="20:pingPongNaiveRequest12:pongSendBall">
+      <eClass href="http://www.unibo.it/indigo/Contact#//demandRequest"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@operation.2" name="20:pingPongNaiveRequest11:pingReceive">
+      <eClass href="http://www.unibo.it/indigo/Contact#//InOutOperation"/>
+    </exportedObjects>
+    <exportedObjects fragment="/0/@operation.3" name="20:pingPongNaiveRequest11:pongReceive">
+      <eClass href="http://www.unibo.it/indigo/Contact#//InOutOperation"/>
+    </exportedObjects>
+  </builderState:ResourceDescription>
+</xmi:XMI>
