@@ -1,5 +1,0 @@
-Drone -- photo --> HeadQuarter 
-
-
-HeadQuarter -- command -->   
-

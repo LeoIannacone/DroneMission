@@ -1,25 +1,70 @@
-ContactSystem DroneMissionSystem;
+ContactSystem DroneMissionSystem -awt -o;
 
-Subject Drone;
-Subject HeadQuarter;
-// Subject ChiefSmartphone;
+//		Subsystems -w (window)
+Subject smartphone -w;
+Subject drone -w;
+Subject headQuarter -w;
 
+
+//		Messages
 Dispatch photo;
 Invitation command;
 Signal dataSensor;
-// Signal notifyStartMission;
+Signal notifyStartMission;
 
+
+//		Highlevel communications
 //Drone send photo
-sendPhoto: Drone forward photo to HeadQuarter;  
+sendPhoto: drone forward photo to headQuarter;  
 //Headquarter receive photo
-receivePhoto: HeadQuarter serve photo support=TCP [host="localhost" port=4040];
+receivePhoto: headQuarter serve photo support=TCP [host="localhost" port=4040];
 
 //Drone send data of sensors
-sendDataSensor: Drone emit dataSensor;
-//Headquarter receive data of sensors
-receiveDataSensor: HeadQuarter sense dataSensor; 
+sendDataSensor: drone emit dataSensor;
+//Headquarter and Smartphone receive data of sensors
+headquarterReceiveDataSensor: headQuarter sense dataSensor;
+smartphoneReceiveDataSensor: smartphone sense dataSensor;
+
+//Drone send startMission
+sendNotifyStartMission: drone emit notifyStartMission;
+//Smartphone receive notification of start mission
+smartphoneReceiveNotifyStartMission: smartphone sense notifyStartMission;
 
 //HeadQuarter send command
-sendCommand: HeadQuarter ask command to Drone;
+sendCommand: headQuarter ask command to drone;
 //Drone receive command
-receiveCommand: Drone accept command support=TCP [host="localhost" port=4050];
+receiveCommand: drone accept command support=TCP [host="localhost" port=4050];
+
+
+//		Behaviors
+//Behavior of Drone
+BehaviorOf drone{
+	var String strPhoto = ""
+	var String msgCommand = ""
+	state state_initDrone initial
+		println ("----- Drone Initialized -----")
+		println ("----- Waiting setSpeed -----")
+		onMessage command transitTo state_ready
+	endstate
+	
+	state state_ready 
+		println ("----- Speed set -----")
+		
+		transitToEnd	
+	endstate
+}
+
+BehaviorOf headQuarter{
+	state state_initHeadQuarter initial
+		println ("----- HeadQuarter Initialized -----") 
+		goToState state_operative
+	endstate
+	
+	state state_operative
+		println ("----- Ready to send command -----")
+		doOutIn sendCommand("ciao")
+		acquireOneAckFor command n=0
+	endstate
+}
+
+
