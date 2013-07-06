@@ -36,21 +36,36 @@ sendCommand: headQuarter ask command to drone;
 receiveCommand: drone accept command support=TCP [host="localhost" port=4050];
 
 
-//		Behaviors
+//		Behaviors 
 //Behavior of Drone
-BehaviorOf drone{
-	var String strPhoto = ""
+BehaviorOf drone {
+	var String strPhoto = "" 
 	var String msgCommand = ""
+	var String cmdName = ""
+	var String cmdValue = ""
+	var boolean start
+	var boolean stop
+
 	state state_initDrone initial
 		println ("----- Drone Initialized -----")
-		println ("----- Waiting setSpeed -----")
-		onMessage command transitTo state_ready
+		goToState state_ready
 	endstate
 	
-	state state_ready 
-		println ("----- Speed set -----")
-		
-		transitToEnd	
+	state state_ready
+		println ("----- Waiting setSpeed -----")
+		doIn receiveCommand()
+		set msgCommand = call curInputMsg.msgContent()
+		set cmdName = call Drone.getCommandName(msgCommand)
+		set start = call cmdName.contains("setspeed")
+		if{start} {
+			set cmdValue = call Drone.getCommandValue(msgCommand)
+			//showMsg("----- Speed set ----- ")
+			//call startMission(cmdValue)
+			goToState state_onMission
+		}
+	endstate
+	
+	state state_onMission
 	endstate
 }
 
@@ -62,9 +77,17 @@ BehaviorOf headQuarter{
 	
 	state state_operative
 		println ("----- Ready to send command -----")
-		doOutIn sendCommand("ciao")
-		acquireOneAckFor command n=0
+		doOutIn sendCommand("setspeed 60")
+		acquireAckFor command goToState state_mission
+	endstate
+	
+	state state_mission
+		
 	endstate
 }
 
-
+BehaviorOf smartphone {
+	state state_initSmartphone initial
+		transitToEnd
+	endstate
+}

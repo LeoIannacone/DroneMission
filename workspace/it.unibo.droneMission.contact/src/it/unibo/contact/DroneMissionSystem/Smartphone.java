@@ -1,5 +1,7 @@
 package it.unibo.contact.DroneMissionSystem;
 
+import it.unibo.contact.DroneMissionSystem.SmartphoneSupport;
+
 public class Smartphone extends SmartphoneSupport {
 	public Smartphone(String s) throws Exception{
 		super(s);
