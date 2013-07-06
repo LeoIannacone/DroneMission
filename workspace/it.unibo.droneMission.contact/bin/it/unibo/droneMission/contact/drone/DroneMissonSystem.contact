@@ -43,8 +43,13 @@ BehaviorOf drone {
 	var String msgCommand = ""
 	var String cmdName = ""
 	var String cmdValue = ""
+
 	var boolean start
 	var boolean stop
+	var boolean speed
+
+	action void startMission()
+	action void setSpeed()
 
 	state state_initDrone initial
 		println ("----- Drone Initialized -----")
@@ -57,15 +62,40 @@ BehaviorOf drone {
 		set msgCommand = call curInputMsg.msgContent()
 		set cmdName = call Drone.getCommandName(msgCommand)
 		set start = call cmdName.contains("setspeed")
-		if{start} {
-			set cmdValue = call Drone.getCommandValue(msgCommand)
-			//showMsg("----- Speed set ----- ")
-			//call startMission(cmdValue)
-			goToState state_onMission
-		}
+		if{start} {	goToState state_startMission }
+	endstate
+	
+	state state_startMission
+		//set speed = call Drone.getCommandValue(msgCommand)
+		exec startMission()
+		doOut sendNotifyStartMission("mission started")
+		goToState state_onMission
 	endstate
 	
 	state state_onMission
+		println('ciao2')
+		// ricevere comand
+		onInput command : set cmdName = call Drone.getCommandName(call curInputMsg.msgContent())
+		
+		// controllare se stop
+		set stop = call cmdName.contains("stop")
+		if {stop} { goToState state_endMission }
+		
+		// controllare se setSpeed
+		set speed = call cmdName.contains("setspeed")
+		if {speed} { exec setSpeed() }
+
+		set cmdValue =  call Drone.getCommandValue(call curInputMsg.msgContent())
+	
+		println(cmdName)
+		println(cmdValue)
+		// inviare dati sensori
+		// inviare foto
+		// controllare stop	
+	endstate
+	
+	state state_endMission
+		transitToEnd
 	endstate
 }
 
@@ -82,7 +112,15 @@ BehaviorOf headQuarter{
 	endstate
 	
 	state state_mission
-		
+		doOutIn sendCommand("setspeed 10")
+		acquireAckFor command
+		doOutIn sendCommand("setspeed 210")
+		doOutIn sendCommand("setspeed 80")
+		doOutIn sendCommand("setspeed 230")
+		doOutIn sendCommand("setspeed 10")
+		doOutIn sendCommand("stop")
+		doOutIn sendCommand("setspeed 80")
+		transitToEnd
 	endstate
 }
 

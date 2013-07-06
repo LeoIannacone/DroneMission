@@ -26,4 +26,15 @@ public class Drone extends DroneSupport {
 			return info[1];
 		return "";
 	}
+	
+	public void setSpeed() {
+		return;
+	}
+
+
+	@Override
+	protected void startMission() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
 }
