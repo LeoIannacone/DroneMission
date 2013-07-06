@@ -127,11 +127,20 @@ public abstract class HeadQuarterSupport extends Subject{
 		curReply=curAcquireOneReply.acquireReply(); 
 		curReplyContent = curReply.msgContent();
 		curAcquireOneReply=hl_headQuarter_ask_command_drone("setspeed 210");
+		curReply=curAcquireOneReply.acquireReply(); 
+		curReplyContent = curReply.msgContent();
 		curAcquireOneReply=hl_headQuarter_ask_command_drone("setspeed 80");
+		curReply=curAcquireOneReply.acquireReply(); 
+		curReplyContent = curReply.msgContent();
 		curAcquireOneReply=hl_headQuarter_ask_command_drone("setspeed 230");
+		curReply=curAcquireOneReply.acquireReply(); 
+		curReplyContent = curReply.msgContent();
 		curAcquireOneReply=hl_headQuarter_ask_command_drone("setspeed 10");
-		curAcquireOneReply=hl_headQuarter_ask_command_drone("stop");
+		curReply=curAcquireOneReply.acquireReply(); 
+		curReplyContent = curReply.msgContent();
 		curAcquireOneReply=hl_headQuarter_ask_command_drone("setspeed 80");
+		curReply=curAcquireOneReply.acquireReply(); 
+		curReplyContent = curReply.msgContent();
 		/* --- TRANSITION TO NEXT STATE --- */
 		resetCurVars();
 		do_terminationState();

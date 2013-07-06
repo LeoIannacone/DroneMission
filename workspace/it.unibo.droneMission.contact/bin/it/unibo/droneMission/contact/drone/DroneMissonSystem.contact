@@ -69,14 +69,12 @@ BehaviorOf drone {
 		//set speed = call Drone.getCommandValue(msgCommand)
 		exec startMission()
 		doOut sendNotifyStartMission("mission started")
-		goToState state_onMission
+		goToState state_commandHandler
 	endstate
 	
-	state state_onMission
-		println('ciao2')
-		// ricevere comand
-		onInput command : set cmdName = call Drone.getCommandName(call curInputMsg.msgContent())
-		
+	state state_commandHandler
+		set cmdName = call Drone.getCommandName(call curInputMsg.msgContent())
+	
 		// controllare se stop
 		set stop = call cmdName.contains("stop")
 		if {stop} { goToState state_endMission }
@@ -84,14 +82,22 @@ BehaviorOf drone {
 		// controllare se setSpeed
 		set speed = call cmdName.contains("setspeed")
 		if {speed} { exec setSpeed() }
-
+		
 		set cmdValue =  call Drone.getCommandValue(call curInputMsg.msgContent())
 	
 		println(cmdName)
 		println(cmdValue)
+		
+		goToState state_onMission
+	endstate
+	
+	state state_onMission
 		// inviare dati sensori
+		println('invio dati sensori')
 		// inviare foto
-		// controllare stop	
+		println('invio foto') // ogni tot secondi?
+		// ricevere comand setSpeed or stop
+		onMessage? command goToState state_commandHandler
 	endstate
 	
 	state state_endMission
@@ -111,15 +117,21 @@ BehaviorOf headQuarter{
 		acquireAckFor command goToState state_mission
 	endstate
 	
-	state state_mission
+	state state_mission 
 		doOutIn sendCommand("setspeed 10")
 		acquireAckFor command
 		doOutIn sendCommand("setspeed 210")
+		acquireAckFor command
 		doOutIn sendCommand("setspeed 80")
+		acquireAckFor command
 		doOutIn sendCommand("setspeed 230")
+		acquireAckFor command
 		doOutIn sendCommand("setspeed 10")
-		doOutIn sendCommand("stop")
+		acquireAckFor command
+		//doOutIn sendCommand("stop")
+		//acquireAckFor command
 		doOutIn sendCommand("setspeed 80")
+		acquireAckFor command
 		transitToEnd
 	endstate
 }
