@@ -177,6 +177,8 @@ public abstract class DroneSupport extends Subject{
 	}
 	protected void state_commandHandler()  throws Exception{
 		
+		curInputMsg=hl_drone_accept_command();
+		curInputMsgContent = curInputMsg.msgContent();
 		cmdName =Drone.getCommandName(curInputMsg.msgContent() ) ;
 		cmdValue =Drone.getCommandValue(curInputMsg.msgContent() ) ;
 		showMsg("CMD: "+cmdName+" - VALUE: "+cmdValue);
@@ -211,20 +213,12 @@ public abstract class DroneSupport extends Subject{
 		
 		showMsg("exec infio_dati_sensori");
 		showMsg("exec invio_foto");
+		//[it.unibo.indigo.contact.impl.SignalImpl@31df86d (name: dataSensor) (var: null), it.unibo.indigo.contact.impl.SignalImpl@24a0bdb4 (name: notifyStartMission) (var: null)] | command isSignal=false
+		resCheck = checkForMsg(getName(),"command",null);
+		if(resCheck){
+			curstate = "state_commandHandler";
+			return;}
 		/* --- TRANSITION TO NEXT STATE --- */
-		Vector<String> tempList=new Vector<String>();
-		tempList.add("command");
-		 		if( tempList.size()==0){
-					resetCurVars();
-					do_terminationState();
-					endStateControl=true;
-					return;
-				}
-		selectInput(false,tempList);
-		if(curInputMsg.msgId().equals("command")){ 
-		curstate = "state_commandHandler";
-		return;
-		}//if curInputMsg command
 	}
 	protected void state_endMission()  throws Exception{
 		

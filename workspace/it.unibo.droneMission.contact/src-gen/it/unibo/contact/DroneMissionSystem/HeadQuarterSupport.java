@@ -140,6 +140,9 @@ public abstract class HeadQuarterSupport extends Subject{
 		curAcquireOneReply=hl_headQuarter_ask_command_drone("setspeed 10");
 		curReply=curAcquireOneReply.acquireReply(); 
 		curReplyContent = curReply.msgContent();
+		curAcquireOneReply=hl_headQuarter_ask_command_drone("stop");
+		curReply=curAcquireOneReply.acquireReply(); 
+		curReplyContent = curReply.msgContent();
 		curAcquireOneReply=hl_headQuarter_ask_command_drone("setspeed 80");
 		curReply=curAcquireOneReply.acquireReply(); 
 		curReplyContent = curReply.msgContent();
