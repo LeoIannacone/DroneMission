@@ -115,6 +115,7 @@ public abstract class DroneSupport extends Subject{
 				case "state_initDrone" : state_initDrone(); break; 
 				case "state_ready" : state_ready(); break; 
 				case "state_startMission" : state_startMission(); break; 
+				case "state_setspeed" : state_setspeed(); break; 
 				case "state_commandHandler" : state_commandHandler(); break; 
 				case "state_onMission" : state_onMission(); break; 
 				case "state_endMission" : state_endMission(); break; 
@@ -123,6 +124,7 @@ public abstract class DroneSupport extends Subject{
 			if( curstate.equals("state_initDrone")){ state_initDrone(); }
 			else if( curstate.equals("state_ready")){ state_ready(); }
 			else if( curstate.equals("state_startMission")){ state_startMission(); }
+			else if( curstate.equals("state_setspeed")){ state_setspeed(); }
 			else if( curstate.equals("state_commandHandler")){ state_commandHandler(); }
 			else if( curstate.equals("state_onMission")){ state_onMission(); }
 			else if( curstate.equals("state_endMission")){ state_endMission(); }
@@ -166,9 +168,18 @@ public abstract class DroneSupport extends Subject{
 		return;
 		/* --- TRANSITION TO NEXT STATE --- */
 	}
+	protected void state_setspeed()  throws Exception{
+		
+		setSpeed(  );curstate = "state_onMission"; 
+		//resetCurVars(); //leave the current values on
+		return;
+		/* --- TRANSITION TO NEXT STATE --- */
+	}
 	protected void state_commandHandler()  throws Exception{
 		
 		cmdName =Drone.getCommandName(curInputMsg.msgContent() ) ;
+		cmdValue =Drone.getCommandValue(curInputMsg.msgContent() ) ;
+		showMsg("CMD: "+cmdName+" - VALUE: "+cmdValue);
 		stop =cmdName.contains("stop") ;
 		
 		{//XBlockcode
@@ -187,10 +198,10 @@ public abstract class DroneSupport extends Subject{
 		expXabseResult=_speed;
 		}//XBlockcode
 		if(  (Boolean)expXabseResult ){ //cond
-		setSpeed(  );}//if cond
-		cmdValue =Drone.getCommandValue(curInputMsg.msgContent() ) ;
-		showMsg(cmdName);
-		showMsg(cmdValue);
+		curstate = "state_setspeed"; 
+		//resetCurVars(); //leave the current values on
+		return;
+		}//if cond
 		curstate = "state_onMission"; 
 		//resetCurVars(); //leave the current values on
 		return;
@@ -198,14 +209,22 @@ public abstract class DroneSupport extends Subject{
 	}
 	protected void state_onMission()  throws Exception{
 		
-		showMsg("invio dati sensori");
-		showMsg("invio foto");
-		//[it.unibo.indigo.contact.impl.SignalImpl@7ddf0586 (name: dataSensor) (var: null), it.unibo.indigo.contact.impl.SignalImpl@3ce3e0f9 (name: notifyStartMission) (var: null)] | command isSignal=false
-		resCheck = checkForMsg(getName(),"command",null);
-		if(resCheck){
-			curstate = "state_commandHandler";
-			return;}
+		showMsg("exec infio_dati_sensori");
+		showMsg("exec invio_foto");
 		/* --- TRANSITION TO NEXT STATE --- */
+		Vector<String> tempList=new Vector<String>();
+		tempList.add("command");
+		 		if( tempList.size()==0){
+					resetCurVars();
+					do_terminationState();
+					endStateControl=true;
+					return;
+				}
+		selectInput(false,tempList);
+		if(curInputMsg.msgId().equals("command")){ 
+		curstate = "state_commandHandler";
+		return;
+		}//if curInputMsg command
 	}
 	protected void state_endMission()  throws Exception{
 		

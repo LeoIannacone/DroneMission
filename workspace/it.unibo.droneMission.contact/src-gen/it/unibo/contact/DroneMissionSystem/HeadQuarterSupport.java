@@ -93,11 +93,13 @@ public abstract class HeadQuarterSupport extends Subject{
 				case "state_initHeadQuarter" : state_initHeadQuarter(); break; 
 				case "state_operative" : state_operative(); break; 
 				case "state_mission" : state_mission(); break; 
+				case "state_sendStopMission" : state_sendStopMission(); break; 
 			}//switch	
 			*/
 			if( curstate.equals("state_initHeadQuarter")){ state_initHeadQuarter(); }
 			else if( curstate.equals("state_operative")){ state_operative(); }
 			else if( curstate.equals("state_mission")){ state_mission(); }
+			else if( curstate.equals("state_sendStopMission")){ state_sendStopMission(); }
 		}//while
 		//DEBUG 
 		//if( synch != null ) synch.add(getName()+" reached the end of stateControl loop"  );
@@ -141,10 +143,14 @@ public abstract class HeadQuarterSupport extends Subject{
 		curAcquireOneReply=hl_headQuarter_ask_command_drone("setspeed 80");
 		curReply=curAcquireOneReply.acquireReply(); 
 		curReplyContent = curReply.msgContent();
+		curstate = "state_sendStopMission"; 
+		//resetCurVars(); //leave the current values on
+		return;
 		/* --- TRANSITION TO NEXT STATE --- */
-		resetCurVars();
-		do_terminationState();
-		endStateControl=true;
+	}
+	protected void state_sendStopMission()  throws Exception{
+		
+		/* --- TRANSITION TO NEXT STATE --- */
 	}
 	protected void state_initHeadQuarter()  throws Exception{
 		
