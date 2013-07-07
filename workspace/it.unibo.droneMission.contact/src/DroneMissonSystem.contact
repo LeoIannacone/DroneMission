@@ -63,10 +63,11 @@ BehaviorOf drone {
 		set cmdName = call Drone.getCommandName(msgCommand)
 		set start = call cmdName.contains("setspeed")
 		if{start} {	goToState state_startMission }
+		println ("ERROR: expected 'setspeed' command to get start. Received: " + cmdName)
 	endstate
 	
 	state state_startMission
-		exec startMission()
+		exec startMission() // empty method - maybe can be used in future?
 		doOut sendNotifyStartMission("mission started")
 		goToState state_setspeed
 	endstate
@@ -75,30 +76,32 @@ BehaviorOf drone {
 		exec setSpeed()
 		goToState state_onMission
 	endstate
-	
+
+	state state_onMission
+		// send data sensors
+		println('exec invio_dati_sensori')
+		// send photos
+		println('exec invio_foto') // every x secondi?
+		// received a command setSpeed or stop?
+		onMessage? command goToState state_commandHandler
+	endstate
+
 	state state_commandHandler
 		doIn receiveCommand()
 		set cmdName = call Drone.getCommandName(code.curInputMsgContent)
 		set cmdValue =  call Drone.getCommandValue(code.curInputMsgContent)
 		showMsg("CMD: " + cmdName + " - VALUE: " + cmdValue)
 				
-		// controllare se stop
+		// check if stop
 		set stop = call cmdName.contains("stop")
 		if {stop} { goToState state_endMission }
 		
-		// controllare se setSpeed
+		// check if setspeed
 		set speed = call cmdName.contains("setspeed")
 		if {speed} { goToState state_setspeed }
+		
+		// get back on mission
 		goToState state_onMission
-	endstate
-	
-	state state_onMission
-		// inviare dati sensori
-		println('exec invio_dati_sensori')
-		// inviare foto
-		println('exec invio_foto') // ogni tot secondi?
-		// ricevere comand setSpeed or stop
-		onMessage? command goToState state_commandHandler
 	endstate
 	
 	state state_endMission
