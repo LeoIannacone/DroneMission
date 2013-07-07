@@ -16,6 +16,7 @@ public class Drone extends DroneSupport {
 	}
 	
 	public static String getCommandName(String cmdString) {
+		String i = cleanCommand(cmdString).split(" ")[0];
 		return cleanCommand(cmdString).split(" ")[0] ;
 	}
 	

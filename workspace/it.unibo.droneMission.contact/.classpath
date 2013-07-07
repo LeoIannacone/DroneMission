@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry excluding="it/unibo/droneMission/contact/Centrale/it/unibo/contact/pingPong/Naive/|it/unibo/droneMission/contact/Centrale/it.unibo.contact.pingPong.Naive/" kind="src" path="src"/>
 	<classpathentry kind="src" path="src-gen"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="var" path="ISS_LIBRARIES/jars/it.unibo.allsupports.jar"/>
 	<classpathentry kind="var" path="ISS_LIBRARIES/jars/it.unibo.tuprolog_1.0.1.jar"/>
 	<classpathentry kind="var" path="ISS_LIBRARIES/jars/org.eclipse.xtext.xbase.lib_2.2.1.v201112130541.jar"/>
