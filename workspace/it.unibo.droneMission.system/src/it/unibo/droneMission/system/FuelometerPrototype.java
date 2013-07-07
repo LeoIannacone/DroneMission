@@ -26,7 +26,7 @@ public class FuelometerPrototype {
 	}
 		
 	protected void initDisplay() {
-		env = new EnvFrame( "Fuelometer" );
+		env = new EnvFrame( "Fuelometer", null );
 		//        env.initNoFrame();        //does not show the frame
 		env.init();
 		env.writeOnStatusBar("Fuelometer" + " | working ... ",14);

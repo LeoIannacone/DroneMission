@@ -30,7 +30,7 @@ public class LocTrackerPrototype {
 	}
 		
 	protected void initDisplay() {
-		env = new EnvFrame( "Latitude" );
+		env = new EnvFrame( "Latitude", null );
 		//        env.initNoFrame();        //does not show the frame
 		env.init();
 		env.writeOnStatusBar("Latitude" + " | drone sleeping ... ",14);

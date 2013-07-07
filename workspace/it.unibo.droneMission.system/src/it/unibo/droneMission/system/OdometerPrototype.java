@@ -24,7 +24,7 @@ public class OdometerPrototype {
 	}
 		
 	protected void initDisplay() {
-		env = new EnvFrame( "Odometer" );
+		env = new EnvFrame( "Odometer", null );
 		//        env.initNoFrame();        //does not show the frame
 		env.init();
 		env.writeOnStatusBar("Odometer" + " | working ... ",14);

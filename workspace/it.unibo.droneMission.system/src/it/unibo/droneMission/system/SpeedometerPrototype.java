@@ -30,7 +30,7 @@ public class SpeedometerPrototype {
 	}
 		
 	protected void initDisplay() {
-		env = new EnvFrame( "Speedometer" );
+		env = new EnvFrame( "Speedometer", null );
 		//        env.initNoFrame();        //does not show the frame
 		env.init();
 		env.writeOnStatusBar("Speedometer" + " | drone sleeping ... ",14);
