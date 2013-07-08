@@ -16,7 +16,6 @@ public class Drone extends DroneSupport {
 	}
 	
 	public static String getCommandName(String cmdString) {
-		String i = cleanCommand(cmdString).split(" ")[0];
 		return cleanCommand(cmdString).split(" ")[0] ;
 	}
 	
@@ -29,20 +28,33 @@ public class Drone extends DroneSupport {
 	}
 	
 	public void setSpeed() {
-		return;
+		env.println("SET SPEED: " + curInputMsgContent);
 	}
 
 
 	@Override
 	protected void startMission() throws Exception {
-		// TODO Auto-generated method stub
-		
+		env.println("START MISSION");
 	}
 
 
 	@Override
 	protected void endMission() throws Exception {
-		// TODO Auto-generated method stub
-		
+		env.println("STOP MISSION");
+	}
+
+
+	@Override
+	protected String getDataFromSensors() throws Exception {
+		int odomenter = (int)(Math.random() * 100);
+		int speedometer = (int)(Math.random() * 100);
+		int fuel = (int)(Math.random() * 100);
+		return String.format("odomoter:%s;speedometer:%s;fuel:%s", odomenter, speedometer, fuel);
+	}
+
+
+	@Override
+	protected String getDataPhoto() throws Exception {
+		return "photoX;dataY;timeZ";
 	}
 }

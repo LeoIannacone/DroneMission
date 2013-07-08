@@ -40,7 +40,7 @@ public abstract class SmartphoneSupport extends Subject{
 	public SmartphoneSupport(String name) throws Exception{
 		super(name);
 	 	isMultiInput=true;
-	 	inputMessageList=new String[]{"dataSensor","notifyStartMission", "endSelectInput"};
+	 	inputMessageList=new String[]{"dataSensor","notifyStartMission","notifyEndMission", "endSelectInput"};
 	 	initLastMsgRdMemo();  //put in initGui since the name must be set
 		//Singleton
 		if( obj != null ) return;
@@ -58,6 +58,7 @@ public abstract class SmartphoneSupport extends Subject{
  	protected void initLastMsgRdMemo(){
  			lastMsgRdMemo.put("dataSensor"+getName(),0);
  			lastMsgRdMemo.put("notifyStartMission"+getName(),0);
+ 			lastMsgRdMemo.put("notifyEndMission"+getName(),0);
  	}
 	protected void initGui(){
 	    env = new EnvFrame( getName(), this, new java.awt.Color(151, 228, 255), java.awt.Color.black );
@@ -71,6 +72,9 @@ public abstract class SmartphoneSupport extends Subject{
 	* State-based Behavior
 	* -------------------------------------- 
 	*/ 
+	protected abstract void notifyUserMissionStarted() throws Exception;
+	protected abstract void showDataSensorsReceived(java.lang.String data) throws Exception;
+	protected abstract void missionFinished() throws Exception;
 	/* --- USER DEFINED STATE ACTIONS --- */
 	/* --- USER DEFINED TASKS --- */
 	/* 
@@ -78,6 +82,9 @@ public abstract class SmartphoneSupport extends Subject{
 		Each state is mapped into a void method 
 	*/
 	//Variable behavior declarations
+	protected 
+	String dataDroneReceived = null;
+	public  java.lang.String get_dataDroneReceived(){ return dataDroneReceived; }
 	
 	protected boolean endStateControl = false;
 	protected String curstate ="state_initSmartphone";
@@ -90,9 +97,17 @@ public abstract class SmartphoneSupport extends Subject{
 			/* REQUIRES Java Compiler 1.7
 			switch( curstate ){
 				case "state_initSmartphone" : state_initSmartphone(); break; 
+				case "state_missionStared" : state_missionStared(); break; 
+				case "state_receivingData" : state_receivingData(); break; 
+				case "state_showReceivedData" : state_showReceivedData(); break; 
+				case "state_missionEnding" : state_missionEnding(); break; 
 			}//switch	
 			*/
 			if( curstate.equals("state_initSmartphone")){ state_initSmartphone(); }
+			else if( curstate.equals("state_missionStared")){ state_missionStared(); }
+			else if( curstate.equals("state_receivingData")){ state_receivingData(); }
+			else if( curstate.equals("state_showReceivedData")){ state_showReceivedData(); }
+			else if( curstate.equals("state_missionEnding")){ state_missionEnding(); }
 		}//while
 		//DEBUG 
 		//if( synch != null ) synch.add(getName()+" reached the end of stateControl loop"  );
@@ -105,12 +120,61 @@ public abstract class SmartphoneSupport extends Subject{
 		curInputMsgContent = curInputMsg.msgContent();	
 	}
 	
-	protected void state_initSmartphone()  throws Exception{
+	protected void state_missionStared()  throws Exception{
 		
+		notifyUserMissionStarted();curstate = "state_receivingData"; 
+		//resetCurVars(); //leave the current values on
+		return;
 		/* --- TRANSITION TO NEXT STATE --- */
+	}
+	protected void state_receivingData()  throws Exception{
+		
+		//[it.unibo.indigo.contact.impl.SignalImpl@1d7a95da (name: dataSensor) (var: null), it.unibo.indigo.contact.impl.SignalImpl@5b042a54 (name: notifyStartMission) (var: null), it.unibo.indigo.contact.impl.SignalImpl@6e771f7a (name: notifyEndMission) (var: null)] | dataSensor isSignal=true
+		resCheckMsg = checkSignal("ANY","dataSensor",false);
+		if(resCheckMsg != null){
+			curstate = "state_showReceivedData";
+			return;}
+		//[it.unibo.indigo.contact.impl.SignalImpl@1d7a95da (name: dataSensor) (var: null), it.unibo.indigo.contact.impl.SignalImpl@5b042a54 (name: notifyStartMission) (var: null), it.unibo.indigo.contact.impl.SignalImpl@6e771f7a (name: notifyEndMission) (var: null)] | notifyEndMission isSignal=true
+		resCheckMsg = checkSignal("ANY","notifyEndMission",false);
+		if(resCheckMsg != null){
+			curstate = "state_missionEnding";
+			return;}
+		/* --- TRANSITION TO NEXT STATE --- */
+	}
+	protected void state_showReceivedData()  throws Exception{
+		
+		inputMessageList=new String[]{  "dataSensor"  };
+		curInputMsg=selectWithPriority(false, inputMessageList);
+		curInputMsgContent = curInputMsg.msgContent();
+		dataDroneReceived =curInputMsgContent;
+		showDataSensorsReceived(dataDroneReceived);curstate = "state_receivingData"; 
+		//resetCurVars(); //leave the current values on
+		return;
+		/* --- TRANSITION TO NEXT STATE --- */
+	}
+	protected void state_missionEnding()  throws Exception{
+		
+		missionFinished();/* --- TRANSITION TO NEXT STATE --- */
 		resetCurVars();
 		do_terminationState();
 		endStateControl=true;
+	}
+	protected void state_initSmartphone()  throws Exception{
+		
+		/* --- TRANSITION TO NEXT STATE --- */
+		Vector<String> tempList=new Vector<String>();
+		tempList.add("notifyStartMission");
+		 		if( tempList.size()==0){
+					resetCurVars();
+					do_terminationState();
+					endStateControl=true;
+					return;
+				}
+		selectInput(false,tempList);
+		if(curInputMsg.msgId().equals("notifyStartMission")){ 
+		curstate = "state_missionStared";
+		return;
+		}//if curInputMsg notifyStartMission
 	}
 	
    	
@@ -146,6 +210,22 @@ public abstract class SmartphoneSupport extends Subject{
 	else{
 	IMessage m = new Message("signal(ANYx1y2,notifyStartMission,M,N)");
 	IMessage inMsg = comSup.rdwMostRecent(getName() ,"notifyStartMission",  lastMsgRdMemo,m );
+		return inMsg;
+	}
+	
+	}
+	
+	protected IMessage hl_smartphone_sense_notifyEndMission(   ) throws Exception {
+	IMessage m = new Message("signal(ANYx1y2,notifyEndMission,M,N)");
+	IMessage inMsg = comSup.rdw( getName() ,"notifyEndMission",  lastMsgRdMemo,m );
+		return inMsg;
+	
+	}
+	protected IMessage hl_smartphone_sense_notifyEndMission( boolean mostRecent  ) throws Exception {
+	if( ! mostRecent) return hl_smartphone_sense_notifyEndMission ();
+	else{
+	IMessage m = new Message("signal(ANYx1y2,notifyEndMission,M,N)");
+	IMessage inMsg = comSup.rdwMostRecent(getName() ,"notifyEndMission",  lastMsgRdMemo,m );
 		return inMsg;
 	}
 	

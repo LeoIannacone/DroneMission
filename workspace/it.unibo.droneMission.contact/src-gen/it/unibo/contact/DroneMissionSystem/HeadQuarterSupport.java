@@ -72,6 +72,9 @@ public abstract class HeadQuarterSupport extends Subject{
 	* State-based Behavior
 	* -------------------------------------- 
 	*/ 
+	protected abstract java.lang.String getCommandToSend() throws Exception;
+	protected abstract void updateDashboard(java.lang.String dataSensorsReceived) throws Exception;
+	protected abstract void storePhotoData(java.lang.String photoReceived) throws Exception;
 	/* --- USER DEFINED STATE ACTIONS --- */
 	/* --- USER DEFINED TASKS --- */
 	/* 
@@ -79,6 +82,15 @@ public abstract class HeadQuarterSupport extends Subject{
 		Each state is mapped into a void method 
 	*/
 	//Variable behavior declarations
+	protected 
+	String command = null;
+	protected 
+	String dataSensorsReceived = null;
+	protected 
+	String photoReceived = null;
+	public  java.lang.String get_command(){ return command; }
+	public  java.lang.String get_dataSensorsReceived(){ return dataSensorsReceived; }
+	public  java.lang.String get_photoReceived(){ return photoReceived; }
 	
 	protected boolean endStateControl = false;
 	protected String curstate ="state_initHeadQuarter";
@@ -93,13 +105,17 @@ public abstract class HeadQuarterSupport extends Subject{
 				case "state_initHeadQuarter" : state_initHeadQuarter(); break; 
 				case "state_operative" : state_operative(); break; 
 				case "state_mission" : state_mission(); break; 
-				case "state_sendStopMission" : state_sendStopMission(); break; 
+				case "state_receivedDataSensors" : state_receivedDataSensors(); break; 
+				case "state_receivedPhoto" : state_receivedPhoto(); break; 
+				case "state_StopMission" : state_StopMission(); break; 
 			}//switch	
 			*/
 			if( curstate.equals("state_initHeadQuarter")){ state_initHeadQuarter(); }
 			else if( curstate.equals("state_operative")){ state_operative(); }
 			else if( curstate.equals("state_mission")){ state_mission(); }
-			else if( curstate.equals("state_sendStopMission")){ state_sendStopMission(); }
+			else if( curstate.equals("state_receivedDataSensors")){ state_receivedDataSensors(); }
+			else if( curstate.equals("state_receivedPhoto")){ state_receivedPhoto(); }
+			else if( curstate.equals("state_StopMission")){ state_StopMission(); }
 		}//while
 		//DEBUG 
 		//if( synch != null ) synch.add(getName()+" reached the end of stateControl loop"  );
@@ -125,35 +141,47 @@ public abstract class HeadQuarterSupport extends Subject{
 	}
 	protected void state_mission()  throws Exception{
 		
-		curAcquireOneReply=hl_headQuarter_ask_command_drone("setspeed 10");
-		curReply=curAcquireOneReply.acquireReply(); 
-		curReplyContent = curReply.msgContent();
-		curAcquireOneReply=hl_headQuarter_ask_command_drone("setspeed 210");
-		curReply=curAcquireOneReply.acquireReply(); 
-		curReplyContent = curReply.msgContent();
-		curAcquireOneReply=hl_headQuarter_ask_command_drone("setspeed 80");
-		curReply=curAcquireOneReply.acquireReply(); 
-		curReplyContent = curReply.msgContent();
-		curAcquireOneReply=hl_headQuarter_ask_command_drone("setspeed 230");
-		curReply=curAcquireOneReply.acquireReply(); 
-		curReplyContent = curReply.msgContent();
-		curAcquireOneReply=hl_headQuarter_ask_command_drone("setspeed 10");
-		curReply=curAcquireOneReply.acquireReply(); 
-		curReplyContent = curReply.msgContent();
-		curAcquireOneReply=hl_headQuarter_ask_command_drone("stop");
-		curReply=curAcquireOneReply.acquireReply(); 
-		curReplyContent = curReply.msgContent();
-		curAcquireOneReply=hl_headQuarter_ask_command_drone("setspeed 80");
-		curReply=curAcquireOneReply.acquireReply(); 
-		curReplyContent = curReply.msgContent();
-		curstate = "state_sendStopMission"; 
+		command =getCommandToSend(  ) ;
+		curAcquireOneReply=hl_headQuarter_ask_command_drone(command);
+		//[it.unibo.indigo.contact.impl.SignalImpl@1d7a95da (name: dataSensor) (var: null), it.unibo.indigo.contact.impl.SignalImpl@5b042a54 (name: notifyStartMission) (var: null), it.unibo.indigo.contact.impl.SignalImpl@6e771f7a (name: notifyEndMission) (var: null)] | dataSensor isSignal=true
+		resCheckMsg = checkSignal("ANY","dataSensor",false);
+		if(resCheckMsg != null){
+			curstate = "state_receivedDataSensors";
+			return;}
+		//[it.unibo.indigo.contact.impl.SignalImpl@1d7a95da (name: dataSensor) (var: null), it.unibo.indigo.contact.impl.SignalImpl@5b042a54 (name: notifyStartMission) (var: null), it.unibo.indigo.contact.impl.SignalImpl@6e771f7a (name: notifyEndMission) (var: null)] | photo isSignal=false
+		resCheck = checkForMsg(getName(),"photo",null);
+		if(resCheck){
+			curstate = "state_receivedPhoto";
+			return;}
+		/* --- TRANSITION TO NEXT STATE --- */
+	}
+	protected void state_receivedDataSensors()  throws Exception{
+		
+		inputMessageList=new String[]{  "dataSensor"  };
+		curInputMsg=selectWithPriority(false, inputMessageList);
+		curInputMsgContent = curInputMsg.msgContent();
+		dataSensorsReceived =curInputMsgContent;
+		updateDashboard(dataSensorsReceived);curstate = "state_mission"; 
 		//resetCurVars(); //leave the current values on
 		return;
 		/* --- TRANSITION TO NEXT STATE --- */
 	}
-	protected void state_sendStopMission()  throws Exception{
+	protected void state_receivedPhoto()  throws Exception{
+		
+		curInputMsg=hl_headQuarter_serve_photo();
+		curInputMsgContent = curInputMsg.msgContent();
+		photoReceived =curInputMsgContent;
+		storePhotoData(photoReceived);curstate = "state_mission"; 
+		//resetCurVars(); //leave the current values on
+		return;
+		/* --- TRANSITION TO NEXT STATE --- */
+	}
+	protected void state_StopMission()  throws Exception{
 		
 		/* --- TRANSITION TO NEXT STATE --- */
+		resetCurVars();
+		do_terminationState();
+		endStateControl=true;
 	}
 	protected void state_initHeadQuarter()  throws Exception{
 		

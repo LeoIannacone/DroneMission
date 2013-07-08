@@ -71,7 +71,8 @@ protected void initSupport(IOutputView view){
 
 protected boolean isSignal( String msgId ){
 	return msgId.equals("dataSensor") ||
-	msgId.equals("notifyStartMission");		 	  
+	msgId.equals("notifyStartMission") ||
+	msgId.equals("notifyEndMission");		 	  
 }
  
  /* ==================================

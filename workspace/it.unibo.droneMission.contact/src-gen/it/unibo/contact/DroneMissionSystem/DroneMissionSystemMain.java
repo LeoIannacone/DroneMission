@@ -57,7 +57,7 @@ protected DroneMissionSystemObserver observer;
 	protected void configureSystem(){		
 		RunTimeKb.init(view);
 	//Protocols for application messages
-		RunTimeKb.addSubject("TCP" , "headQuarter" , "photo","localhost",4040 );   	
+		RunTimeKb.addSubject("TCP" , "headQuarter" , "photo","localhost",4060 );   	
 		RunTimeKb.addSubject("TCP" , "drone" , "command","localhost",4050 );   	
 	//Application messages
 		RunTimeKb.addInputConnMsg( "coreCmd", false); //system dispatch

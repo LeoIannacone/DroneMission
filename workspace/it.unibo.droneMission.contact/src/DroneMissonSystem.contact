@@ -11,13 +11,14 @@ Dispatch photo;
 Invitation command;
 Signal dataSensor;
 Signal notifyStartMission;
+Signal notifyEndMission;
 
 
 //		Highlevel communications
 //Drone send photo
 sendDataPhoto: drone forward photo to headQuarter;  
 //Headquarter receive photo
-receiveDataPhoto: headQuarter serve photo support=TCP [host="localhost" port=4040];
+receiveDataPhoto: headQuarter serve photo support=TCP [host="localhost" port=4060];
 
 //Drone send data of sensors
 sendDataSensors: drone emit dataSensor;
@@ -30,6 +31,11 @@ sendNotifyStartMission: drone emit notifyStartMission;
 //Smartphone receive notification of start mission
 smartphoneReceiveNotifyStartMission: smartphone sense notifyStartMission;
 
+//Drone send endMission
+sendNotifyEndMission: drone emit notifyEndMission;
+//Smartphone receive notification of start mission
+smartphoneReceiveNotifyEndMission: smartphone sense notifyEndMission;
+
 //HeadQuarter send command
 sendCommand: headQuarter ask command to drone;
 //Drone receive command
@@ -39,7 +45,6 @@ receiveCommand: drone accept command support=TCP [host="localhost" port=4050];
 //		Behaviors 
 //Behavior of Drone
 BehaviorOf drone {
-	var String strPhoto = "" 
 	var String msgCommand = ""
 	var String cmdName = ""
 	var String cmdValue = ""
@@ -49,14 +54,14 @@ BehaviorOf drone {
 	var boolean speed
 
 	var String dataSensors
-	var Object dataPhoto
+	var String dataPhoto
 
 	action void startMission()
 	action void endMission()
 	action void setSpeed()
 	
 	action String getDataFromSensors()
-	action Object getDataPhoto()
+	action String getDataPhoto()
 
 	state state_initDrone initial
 		println ("----- Drone Initialized -----")
@@ -101,8 +106,7 @@ BehaviorOf drone {
 		doIn receiveCommand()
 		set cmdName = call Drone.getCommandName(code.curInputMsgContent)
 		set cmdValue =  call Drone.getCommandValue(code.curInputMsgContent)
-		showMsg("CMD: " + cmdName + " - VALUE: " + cmdValue)
-				
+						
 		// check if stop
 		set stop = call cmdName.contains("stop")
 		if {stop} { goToState state_endMission }
@@ -117,11 +121,21 @@ BehaviorOf drone {
 	
 	state state_endMission
 		exec endMission() // empty method - maybe can be used in future?
+		doOut sendNotifyEndMission("stop mission")
 		transitToEnd
 	endstate
 }
 
 BehaviorOf headQuarter{
+	
+	var String command
+	var String dataSensorsReceived
+	var String photoReceived
+	
+	action String getCommandToSend()
+	action void updateDashboard(String dataSensorsReceived)
+	action void storePhotoData(String photoReceived)
+	
 	state state_initHeadQuarter initial
 		println ("----- HeadQuarter Initialized -----") 
 		goToState state_operative
@@ -133,30 +147,78 @@ BehaviorOf headQuarter{
 		acquireAckFor command goToState state_mission
 	endstate
 	
-	state state_mission 
-		doOutIn sendCommand("setspeed 10")
-		acquireAckFor command
-		doOutIn sendCommand("setspeed 210")
-		acquireAckFor command
-		doOutIn sendCommand("setspeed 80")
-		acquireAckFor command
-		doOutIn sendCommand("setspeed 230")
-		acquireAckFor command
-		doOutIn sendCommand("setspeed 10")
-		acquireAckFor command
-		doOutIn sendCommand("stop")
-		acquireAckFor command
-		doOutIn sendCommand("setspeed 80")
-		acquireAckFor command
-		goToState state_sendStopMission
+	state state_mission
+		// check if command is clicked in Dashboard and send it
+		set command = exec getCommandToSend()
+		doOutIn sendCommand(command)
+
+		// get sensors data
+		onMessage? dataSensor goToState state_receivedDataSensors
+		
+		// get photos
+		onMessage? photo goToState state_receivedPhoto
+		
 	endstate
 	
-	state state_sendStopMission
+	state state_receivedDataSensors
+		// get sensors data
+		doPerceive headquarterReceiveDataSensors()
+		set dataSensorsReceived = code.curInputMsgContent
+		// update Dashboard
+		call updateDashboard(dataSensorsReceived)
+
+		goToState state_mission
+	endstate
+	
+	state state_receivedPhoto
+		// get photo data
+		doIn receiveDataPhoto()
+		set photoReceived = code.curInputMsgContent
+		
+		// store info
+		call storePhotoData(photoReceived)
+		
+		goToState state_mission
+	endstate
+	
+	state state_StopMission
+		transitToEnd
 	endstate
 }
 
 BehaviorOf smartphone {
+	
+	var String dataDroneReceived 
+	
+	action void notifyUserMissionStarted()
+	action void showDataSensorsReceived(String data)
+	action void missionFinished()
+	
 	state state_initSmartphone initial
+		onMessage notifyStartMission transitTo state_missionStared
+	endstate
+	
+	state state_missionStared
+		call notifyUserMissionStarted()
+		goToState state_receivingData
+	endstate
+	
+	state state_receivingData
+		onMessage? dataSensor goToState state_showReceivedData
+		onMessage? notifyEndMission goToState state_missionEnding
+	endstate
+	
+	state state_showReceivedData
+		// get data from drone
+		doPerceive smartphoneReceiveDataSensors()
+		set dataDroneReceived = code.curInputMsgContent
+		call showDataSensorsReceived(dataDroneReceived)
+
+		goToState state_receivingData
+	endstate
+	
+	state state_missionEnding
+		call missionFinished()
 		transitToEnd
 	endstate
 }
