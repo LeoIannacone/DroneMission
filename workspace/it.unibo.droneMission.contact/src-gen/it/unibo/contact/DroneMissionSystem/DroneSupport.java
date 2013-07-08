@@ -72,7 +72,10 @@ public abstract class DroneSupport extends Subject{
 	* -------------------------------------- 
 	*/ 
 	protected abstract void startMission() throws Exception;
+	protected abstract void endMission() throws Exception;
 	protected abstract void setSpeed() throws Exception;
+	protected abstract java.lang.String getDataFromSensors() throws Exception;
+	protected abstract java.lang.Object getDataPhoto() throws Exception;
 	/* --- USER DEFINED STATE ACTIONS --- */
 	/* --- USER DEFINED TASKS --- */
 	/* 
@@ -94,6 +97,10 @@ public abstract class DroneSupport extends Subject{
 	boolean stop = false;
 	protected 
 	boolean speed = false;
+	protected 
+	String dataSensors = null;
+	protected 
+	Object dataPhoto = null;
 	public  java.lang.String get_strPhoto(){ return strPhoto; }
 	public  java.lang.String get_msgCommand(){ return msgCommand; }
 	public  java.lang.String get_cmdName(){ return cmdName; }
@@ -101,6 +108,8 @@ public abstract class DroneSupport extends Subject{
 	public  boolean get_start(){ return start; }
 	public  boolean get_stop(){ return stop; }
 	public  boolean get_speed(){ return speed; }
+	public  java.lang.String get_dataSensors(){ return dataSensors; }
+	public  java.lang.Object get_dataPhoto(){ return dataPhoto; }
 	
 	protected boolean endStateControl = false;
 	protected String curstate ="state_initDrone";
@@ -158,7 +167,7 @@ public abstract class DroneSupport extends Subject{
 		//resetCurVars(); //leave the current values on
 		return;
 		}//if cond
-		showMsg("ERROR: expected 'setspeed' command to get start. Received: "+cmdName);
+		showMsg("ERROR: expected 'setspeed' command to start. Received: "+cmdName);
 		/* --- TRANSITION TO NEXT STATE --- */
 	}
 	protected void state_startMission()  throws Exception{
@@ -178,9 +187,11 @@ public abstract class DroneSupport extends Subject{
 	}
 	protected void state_onMission()  throws Exception{
 		
-		showMsg("exec invio_dati_sensori");
-		showMsg("exec invio_foto");
-		//[it.unibo.indigo.contact.impl.SignalImpl@47f3158c (name: dataSensor) (var: null), it.unibo.indigo.contact.impl.SignalImpl@280bbf3b (name: notifyStartMission) (var: null)] | command isSignal=false
+		dataSensors =getDataFromSensors(  ) ;
+		hl_drone_emit_dataSensor( dataSensors );
+		dataPhoto =getDataPhoto(  ) ;
+		hl_drone_forward_photo_headQuarter(dataPhoto );
+		//[it.unibo.indigo.contact.impl.SignalImpl@690ba677 (name: dataSensor) (var: null), it.unibo.indigo.contact.impl.SignalImpl@7bde0481 (name: notifyStartMission) (var: null)] | command isSignal=false
 		resCheck = checkForMsg(getName(),"command",null);
 		if(resCheck){
 			curstate = "state_commandHandler";
@@ -223,7 +234,7 @@ public abstract class DroneSupport extends Subject{
 	}
 	protected void state_endMission()  throws Exception{
 		
-		/* --- TRANSITION TO NEXT STATE --- */
+		endMission(  );/* --- TRANSITION TO NEXT STATE --- */
 		resetCurVars();
 		do_terminationState();
 		endStateControl=true;

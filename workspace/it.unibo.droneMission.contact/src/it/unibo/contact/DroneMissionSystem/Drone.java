@@ -38,4 +38,11 @@ public class Drone extends DroneSupport {
 		// TODO Auto-generated method stub
 		
 	}
+
+
+	@Override
+	protected void endMission() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
 }
