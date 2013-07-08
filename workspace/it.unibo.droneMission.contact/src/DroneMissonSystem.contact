@@ -63,33 +63,33 @@ BehaviorOf drone {
 	action String getDataFromSensors()
 	action String getDataPhoto()
 
-	state state_initDrone initial
+	state st_Drone_init initial
 		println ("----- Drone Initialized -----")
-		goToState state_ready
+		goToState st_Drone_ready
 	endstate
 	
-	state state_ready
+	state st_Drone_ready
 		println ("----- Waiting setSpeed -----")
 		doIn receiveCommand()
 		set msgCommand = call curInputMsg.msgContent()
 		set cmdName = call Drone.getCommandName(msgCommand)
 		set start = call cmdName.contains("setspeed")
-		if{start} {	goToState state_startMission }
+		if{start} {	goToState st_Drone_startMission }
 		println ("ERROR: expected 'setspeed' command to start. Received: " + cmdName)
 	endstate
 	
-	state state_startMission
+	state st_Drone_startMission
 		exec startMission() // empty method - maybe can be used in future?
 		doOut sendNotifyStartMission("mission started")
-		goToState state_setspeed
+		goToState st_Drone_setspeed
 	endstate
 	
-	state state_setspeed
+	state st_Drone_setspeed
 		exec setSpeed()
-		goToState state_onMission
+		goToState st_Drone_onMission
 	endstate
 
-	state state_onMission
+	state st_Drone_onMission
 		// send data sensors
 		set dataSensors = exec getDataFromSensors()
 		doOut sendDataSensors(dataSensors)
@@ -99,27 +99,27 @@ BehaviorOf drone {
 		doOut sendDataPhoto(dataPhoto) // every x secondi?
 
 		// received a command setSpeed or stop?
-		onMessage? command goToState state_commandHandler
+		onMessage? command goToState st_Drone_commandHandler
 	endstate
 
-	state state_commandHandler
+	state st_Drone_commandHandler
 		doIn receiveCommand()
 		set cmdName = call Drone.getCommandName(code.curInputMsgContent)
 		set cmdValue =  call Drone.getCommandValue(code.curInputMsgContent)
 						
 		// check if stop
 		set stop = call cmdName.contains("stop")
-		if {stop} { goToState state_endMission }
+		if {stop} { goToState st_Drone_endMission }
 		
 		// check if setspeed
 		set speed = call cmdName.contains("setspeed")
-		if {speed} { goToState state_setspeed }
+		if {speed} { goToState st_Drone_setspeed }
 		
 		// get back on mission
-		goToState state_onMission
+		goToState st_Drone_onMission
 	endstate
 	
-	state state_endMission
+	state st_Drone_endMission
 		exec endMission() // empty method - maybe can be used in future?
 		doOut sendNotifyEndMission("stop mission")
 		transitToEnd
@@ -136,41 +136,43 @@ BehaviorOf headQuarter{
 	action void updateDashboard(String dataSensorsReceived)
 	action void storePhotoData(String photoReceived)
 	
-	state state_initHeadQuarter initial
+	state st_HeadQuarter_init initial
 		println ("----- HeadQuarter Initialized -----") 
-		goToState state_operative
+		goToState st_HeadQuarter_ready
 	endstate
 	
-	state state_operative
+	state st_HeadQuarter_ready
 		println ("----- Ready to send command -----")
 		doOutIn sendCommand("setspeed 60")
-		acquireAckFor command goToState state_mission
+		acquireAckFor command goToState st_HeadQuarter_onMission
 	endstate
 	
-	state state_mission
+	state st_HeadQuarter_onMission
 		// check if command is clicked in Dashboard and send it
 		set command = exec getCommandToSend()
 		doOutIn sendCommand(command)
-
+		
+		if {command == "stop"} { goToState st_HeadQuarter_endMission }
+		
 		// get sensors data
-		onMessage? dataSensor goToState state_receivedDataSensors
+		onMessage? dataSensor goToState st_HeadQuarter_receivedSensorsData
 		
 		// get photos
-		onMessage? photo goToState state_receivedPhoto
+		onMessage? photo goToState st_HeadQuarter_receivedPhoto
 		
 	endstate
 	
-	state state_receivedDataSensors
+	state st_HeadQuarter_receivedSensorsData
 		// get sensors data
 		doPerceive headquarterReceiveDataSensors()
 		set dataSensorsReceived = code.curInputMsgContent
 		// update Dashboard
 		call updateDashboard(dataSensorsReceived)
 
-		goToState state_mission
+		goToState st_HeadQuarter_onMission
 	endstate
 	
-	state state_receivedPhoto
+	state st_HeadQuarter_receivedPhoto
 		// get photo data
 		doIn receiveDataPhoto()
 		set photoReceived = code.curInputMsgContent
@@ -178,10 +180,10 @@ BehaviorOf headQuarter{
 		// store info
 		call storePhotoData(photoReceived)
 		
-		goToState state_mission
+		goToState st_HeadQuarter_onMission
 	endstate
 	
-	state state_StopMission
+	state st_HeadQuarter_endMission
 		transitToEnd
 	endstate
 }
@@ -194,30 +196,30 @@ BehaviorOf smartphone {
 	action void showDataSensorsReceived(String data)
 	action void missionFinished()
 	
-	state state_initSmartphone initial
-		onMessage notifyStartMission transitTo state_missionStared
+	state st_Smartphone_init initial
+		onMessage notifyStartMission transitTo st_Smartphone_missionStart
 	endstate
 	
-	state state_missionStared
+	state st_Smartphone_missionStart
 		call notifyUserMissionStarted()
-		goToState state_receivingData
+		goToState st_Smartphone_waitingForData
 	endstate
 	
-	state state_receivingData
-		onMessage? dataSensor goToState state_showReceivedData
-		onMessage? notifyEndMission goToState state_missionEnding
+	state st_Smartphone_waitingForData
+		onMessage? dataSensor goToState st_Smartphone_receivedData
+		onMessage? notifyEndMission goToState st_Smartphone_endMission
 	endstate
 	
-	state state_showReceivedData
+	state st_Smartphone_receivedData
 		// get data from drone
 		doPerceive smartphoneReceiveDataSensors()
 		set dataDroneReceived = code.curInputMsgContent
 		call showDataSensorsReceived(dataDroneReceived)
 
-		goToState state_receivingData
+		goToState st_Smartphone_waitingForData
 	endstate
 	
-	state state_missionEnding
+	state st_Smartphone_endMission
 		call missionFinished()
 		transitToEnd
 	endstate

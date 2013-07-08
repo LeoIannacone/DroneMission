@@ -93,7 +93,7 @@ public abstract class HeadQuarterSupport extends Subject{
 	public  java.lang.String get_photoReceived(){ return photoReceived; }
 	
 	protected boolean endStateControl = false;
-	protected String curstate ="state_initHeadQuarter";
+	protected String curstate ="st_HeadQuarter_init";
 	protected void stateControl( ) throws Exception{
 		boolean debugMode = System.getProperty("debugMode" ) != null;
 	 		while( ! endStateControl ){
@@ -102,20 +102,20 @@ public abstract class HeadQuarterSupport extends Subject{
 	 			//END DEBUG
 			/* REQUIRES Java Compiler 1.7
 			switch( curstate ){
-				case "state_initHeadQuarter" : state_initHeadQuarter(); break; 
-				case "state_operative" : state_operative(); break; 
-				case "state_mission" : state_mission(); break; 
-				case "state_receivedDataSensors" : state_receivedDataSensors(); break; 
-				case "state_receivedPhoto" : state_receivedPhoto(); break; 
-				case "state_StopMission" : state_StopMission(); break; 
+				case "st_HeadQuarter_init" : st_HeadQuarter_init(); break; 
+				case "st_HeadQuarter_ready" : st_HeadQuarter_ready(); break; 
+				case "st_HeadQuarter_onMission" : st_HeadQuarter_onMission(); break; 
+				case "st_HeadQuarter_receivedSensorsData" : st_HeadQuarter_receivedSensorsData(); break; 
+				case "st_HeadQuarter_receivedPhoto" : st_HeadQuarter_receivedPhoto(); break; 
+				case "st_HeadQuarter_endMission" : st_HeadQuarter_endMission(); break; 
 			}//switch	
 			*/
-			if( curstate.equals("state_initHeadQuarter")){ state_initHeadQuarter(); }
-			else if( curstate.equals("state_operative")){ state_operative(); }
-			else if( curstate.equals("state_mission")){ state_mission(); }
-			else if( curstate.equals("state_receivedDataSensors")){ state_receivedDataSensors(); }
-			else if( curstate.equals("state_receivedPhoto")){ state_receivedPhoto(); }
-			else if( curstate.equals("state_StopMission")){ state_StopMission(); }
+			if( curstate.equals("st_HeadQuarter_init")){ st_HeadQuarter_init(); }
+			else if( curstate.equals("st_HeadQuarter_ready")){ st_HeadQuarter_ready(); }
+			else if( curstate.equals("st_HeadQuarter_onMission")){ st_HeadQuarter_onMission(); }
+			else if( curstate.equals("st_HeadQuarter_receivedSensorsData")){ st_HeadQuarter_receivedSensorsData(); }
+			else if( curstate.equals("st_HeadQuarter_receivedPhoto")){ st_HeadQuarter_receivedPhoto(); }
+			else if( curstate.equals("st_HeadQuarter_endMission")){ st_HeadQuarter_endMission(); }
 		}//while
 		//DEBUG 
 		//if( synch != null ) synch.add(getName()+" reached the end of stateControl loop"  );
@@ -128,65 +128,76 @@ public abstract class HeadQuarterSupport extends Subject{
 		curInputMsgContent = curInputMsg.msgContent();	
 	}
 	
-	protected void state_operative()  throws Exception{
+	protected void st_HeadQuarter_ready()  throws Exception{
 		
 		showMsg("----- Ready to send command -----");
 		curAcquireOneReply=hl_headQuarter_ask_command_drone("setspeed 60");
 		curReply=curAcquireOneReply.acquireReply(); 
 		curReplyContent = curReply.msgContent();
-		curstate = "state_mission"; 
+		curstate = "st_HeadQuarter_onMission"; 
 		//resetCurVars(); //leave the current values on
 		return;
 		/* --- TRANSITION TO NEXT STATE --- */
 	}
-	protected void state_mission()  throws Exception{
+	protected void st_HeadQuarter_onMission()  throws Exception{
 		
 		command =getCommandToSend(  ) ;
 		curAcquireOneReply=hl_headQuarter_ask_command_drone(command);
-		//[it.unibo.indigo.contact.impl.SignalImpl@1d7a95da (name: dataSensor) (var: null), it.unibo.indigo.contact.impl.SignalImpl@5b042a54 (name: notifyStartMission) (var: null), it.unibo.indigo.contact.impl.SignalImpl@6e771f7a (name: notifyEndMission) (var: null)] | dataSensor isSignal=true
+		
+		{//XBlockcode
+		String _command = command;
+		boolean _operator_equals = ObjectExtensions.operator_equals(_command, "stop");
+		expXabseResult=_operator_equals;
+		}//XBlockcode
+		if(  (Boolean)expXabseResult ){ //cond
+		curstate = "st_HeadQuarter_endMission"; 
+		//resetCurVars(); //leave the current values on
+		return;
+		}//if cond
+		//[it.unibo.indigo.contact.impl.SignalImpl@764142f5 (name: dataSensor) (var: null), it.unibo.indigo.contact.impl.SignalImpl@36931f7a (name: notifyStartMission) (var: null), it.unibo.indigo.contact.impl.SignalImpl@74f79e93 (name: notifyEndMission) (var: null)] | dataSensor isSignal=true
 		resCheckMsg = checkSignal("ANY","dataSensor",false);
 		if(resCheckMsg != null){
-			curstate = "state_receivedDataSensors";
+			curstate = "st_HeadQuarter_receivedSensorsData";
 			return;}
-		//[it.unibo.indigo.contact.impl.SignalImpl@1d7a95da (name: dataSensor) (var: null), it.unibo.indigo.contact.impl.SignalImpl@5b042a54 (name: notifyStartMission) (var: null), it.unibo.indigo.contact.impl.SignalImpl@6e771f7a (name: notifyEndMission) (var: null)] | photo isSignal=false
+		//[it.unibo.indigo.contact.impl.SignalImpl@764142f5 (name: dataSensor) (var: null), it.unibo.indigo.contact.impl.SignalImpl@36931f7a (name: notifyStartMission) (var: null), it.unibo.indigo.contact.impl.SignalImpl@74f79e93 (name: notifyEndMission) (var: null)] | photo isSignal=false
 		resCheck = checkForMsg(getName(),"photo",null);
 		if(resCheck){
-			curstate = "state_receivedPhoto";
+			curstate = "st_HeadQuarter_receivedPhoto";
 			return;}
 		/* --- TRANSITION TO NEXT STATE --- */
 	}
-	protected void state_receivedDataSensors()  throws Exception{
+	protected void st_HeadQuarter_receivedSensorsData()  throws Exception{
 		
 		inputMessageList=new String[]{  "dataSensor"  };
 		curInputMsg=selectWithPriority(false, inputMessageList);
 		curInputMsgContent = curInputMsg.msgContent();
 		dataSensorsReceived =curInputMsgContent;
-		updateDashboard(dataSensorsReceived);curstate = "state_mission"; 
+		updateDashboard(dataSensorsReceived);curstate = "st_HeadQuarter_onMission"; 
 		//resetCurVars(); //leave the current values on
 		return;
 		/* --- TRANSITION TO NEXT STATE --- */
 	}
-	protected void state_receivedPhoto()  throws Exception{
+	protected void st_HeadQuarter_receivedPhoto()  throws Exception{
 		
 		curInputMsg=hl_headQuarter_serve_photo();
 		curInputMsgContent = curInputMsg.msgContent();
 		photoReceived =curInputMsgContent;
-		storePhotoData(photoReceived);curstate = "state_mission"; 
+		storePhotoData(photoReceived);curstate = "st_HeadQuarter_onMission"; 
 		//resetCurVars(); //leave the current values on
 		return;
 		/* --- TRANSITION TO NEXT STATE --- */
 	}
-	protected void state_StopMission()  throws Exception{
+	protected void st_HeadQuarter_endMission()  throws Exception{
 		
 		/* --- TRANSITION TO NEXT STATE --- */
 		resetCurVars();
 		do_terminationState();
 		endStateControl=true;
 	}
-	protected void state_initHeadQuarter()  throws Exception{
+	protected void st_HeadQuarter_init()  throws Exception{
 		
 		showMsg("----- HeadQuarter Initialized -----");
-		curstate = "state_operative"; 
+		curstate = "st_HeadQuarter_ready"; 
 		//resetCurVars(); //leave the current values on
 		return;
 		/* --- TRANSITION TO NEXT STATE --- */

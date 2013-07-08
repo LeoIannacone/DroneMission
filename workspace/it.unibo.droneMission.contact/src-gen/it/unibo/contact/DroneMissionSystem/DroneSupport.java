@@ -109,7 +109,7 @@ public abstract class DroneSupport extends Subject{
 	public  java.lang.String get_dataPhoto(){ return dataPhoto; }
 	
 	protected boolean endStateControl = false;
-	protected String curstate ="state_initDrone";
+	protected String curstate ="st_Drone_init";
 	protected void stateControl( ) throws Exception{
 		boolean debugMode = System.getProperty("debugMode" ) != null;
 	 		while( ! endStateControl ){
@@ -118,22 +118,22 @@ public abstract class DroneSupport extends Subject{
 	 			//END DEBUG
 			/* REQUIRES Java Compiler 1.7
 			switch( curstate ){
-				case "state_initDrone" : state_initDrone(); break; 
-				case "state_ready" : state_ready(); break; 
-				case "state_startMission" : state_startMission(); break; 
-				case "state_setspeed" : state_setspeed(); break; 
-				case "state_onMission" : state_onMission(); break; 
-				case "state_commandHandler" : state_commandHandler(); break; 
-				case "state_endMission" : state_endMission(); break; 
+				case "st_Drone_init" : st_Drone_init(); break; 
+				case "st_Drone_ready" : st_Drone_ready(); break; 
+				case "st_Drone_startMission" : st_Drone_startMission(); break; 
+				case "st_Drone_setspeed" : st_Drone_setspeed(); break; 
+				case "st_Drone_onMission" : st_Drone_onMission(); break; 
+				case "st_Drone_commandHandler" : st_Drone_commandHandler(); break; 
+				case "st_Drone_endMission" : st_Drone_endMission(); break; 
 			}//switch	
 			*/
-			if( curstate.equals("state_initDrone")){ state_initDrone(); }
-			else if( curstate.equals("state_ready")){ state_ready(); }
-			else if( curstate.equals("state_startMission")){ state_startMission(); }
-			else if( curstate.equals("state_setspeed")){ state_setspeed(); }
-			else if( curstate.equals("state_onMission")){ state_onMission(); }
-			else if( curstate.equals("state_commandHandler")){ state_commandHandler(); }
-			else if( curstate.equals("state_endMission")){ state_endMission(); }
+			if( curstate.equals("st_Drone_init")){ st_Drone_init(); }
+			else if( curstate.equals("st_Drone_ready")){ st_Drone_ready(); }
+			else if( curstate.equals("st_Drone_startMission")){ st_Drone_startMission(); }
+			else if( curstate.equals("st_Drone_setspeed")){ st_Drone_setspeed(); }
+			else if( curstate.equals("st_Drone_onMission")){ st_Drone_onMission(); }
+			else if( curstate.equals("st_Drone_commandHandler")){ st_Drone_commandHandler(); }
+			else if( curstate.equals("st_Drone_endMission")){ st_Drone_endMission(); }
 		}//while
 		//DEBUG 
 		//if( synch != null ) synch.add(getName()+" reached the end of stateControl loop"  );
@@ -146,7 +146,7 @@ public abstract class DroneSupport extends Subject{
 		curInputMsgContent = curInputMsg.msgContent();	
 	}
 	
-	protected void state_ready()  throws Exception{
+	protected void st_Drone_ready()  throws Exception{
 		
 		showMsg("----- Waiting setSpeed -----");
 		curInputMsg=hl_drone_accept_command();
@@ -160,42 +160,42 @@ public abstract class DroneSupport extends Subject{
 		expXabseResult=_start;
 		}//XBlockcode
 		if(  (Boolean)expXabseResult ){ //cond
-		curstate = "state_startMission"; 
+		curstate = "st_Drone_startMission"; 
 		//resetCurVars(); //leave the current values on
 		return;
 		}//if cond
 		showMsg("ERROR: expected 'setspeed' command to start. Received: "+cmdName);
 		/* --- TRANSITION TO NEXT STATE --- */
 	}
-	protected void state_startMission()  throws Exception{
+	protected void st_Drone_startMission()  throws Exception{
 		
 		startMission(  );hl_drone_emit_notifyStartMission( "mission started" );
-		curstate = "state_setspeed"; 
+		curstate = "st_Drone_setspeed"; 
 		//resetCurVars(); //leave the current values on
 		return;
 		/* --- TRANSITION TO NEXT STATE --- */
 	}
-	protected void state_setspeed()  throws Exception{
+	protected void st_Drone_setspeed()  throws Exception{
 		
-		setSpeed(  );curstate = "state_onMission"; 
+		setSpeed(  );curstate = "st_Drone_onMission"; 
 		//resetCurVars(); //leave the current values on
 		return;
 		/* --- TRANSITION TO NEXT STATE --- */
 	}
-	protected void state_onMission()  throws Exception{
+	protected void st_Drone_onMission()  throws Exception{
 		
 		dataSensors =getDataFromSensors(  ) ;
 		hl_drone_emit_dataSensor( dataSensors );
 		dataPhoto =getDataPhoto(  ) ;
 		hl_drone_forward_photo_headQuarter(dataPhoto );
-		//[it.unibo.indigo.contact.impl.SignalImpl@1d7a95da (name: dataSensor) (var: null), it.unibo.indigo.contact.impl.SignalImpl@5b042a54 (name: notifyStartMission) (var: null), it.unibo.indigo.contact.impl.SignalImpl@6e771f7a (name: notifyEndMission) (var: null)] | command isSignal=false
+		//[it.unibo.indigo.contact.impl.SignalImpl@764142f5 (name: dataSensor) (var: null), it.unibo.indigo.contact.impl.SignalImpl@36931f7a (name: notifyStartMission) (var: null), it.unibo.indigo.contact.impl.SignalImpl@74f79e93 (name: notifyEndMission) (var: null)] | command isSignal=false
 		resCheck = checkForMsg(getName(),"command",null);
 		if(resCheck){
-			curstate = "state_commandHandler";
+			curstate = "st_Drone_commandHandler";
 			return;}
 		/* --- TRANSITION TO NEXT STATE --- */
 	}
-	protected void state_commandHandler()  throws Exception{
+	protected void st_Drone_commandHandler()  throws Exception{
 		
 		curInputMsg=hl_drone_accept_command();
 		curInputMsgContent = curInputMsg.msgContent();
@@ -208,7 +208,7 @@ public abstract class DroneSupport extends Subject{
 		expXabseResult=_stop;
 		}//XBlockcode
 		if(  (Boolean)expXabseResult ){ //cond
-		curstate = "state_endMission"; 
+		curstate = "st_Drone_endMission"; 
 		//resetCurVars(); //leave the current values on
 		return;
 		}//if cond
@@ -219,16 +219,16 @@ public abstract class DroneSupport extends Subject{
 		expXabseResult=_speed;
 		}//XBlockcode
 		if(  (Boolean)expXabseResult ){ //cond
-		curstate = "state_setspeed"; 
+		curstate = "st_Drone_setspeed"; 
 		//resetCurVars(); //leave the current values on
 		return;
 		}//if cond
-		curstate = "state_onMission"; 
+		curstate = "st_Drone_onMission"; 
 		//resetCurVars(); //leave the current values on
 		return;
 		/* --- TRANSITION TO NEXT STATE --- */
 	}
-	protected void state_endMission()  throws Exception{
+	protected void st_Drone_endMission()  throws Exception{
 		
 		endMission(  );hl_drone_emit_notifyEndMission( "stop mission" );
 		/* --- TRANSITION TO NEXT STATE --- */
@@ -236,10 +236,10 @@ public abstract class DroneSupport extends Subject{
 		do_terminationState();
 		endStateControl=true;
 	}
-	protected void state_initDrone()  throws Exception{
+	protected void st_Drone_init()  throws Exception{
 		
 		showMsg("----- Drone Initialized -----");
-		curstate = "state_ready"; 
+		curstate = "st_Drone_ready"; 
 		//resetCurVars(); //leave the current values on
 		return;
 		/* --- TRANSITION TO NEXT STATE --- */
