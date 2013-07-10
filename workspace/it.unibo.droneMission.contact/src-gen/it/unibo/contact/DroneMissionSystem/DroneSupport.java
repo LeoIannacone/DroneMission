@@ -73,7 +73,7 @@ public abstract class DroneSupport extends Subject{
 	*/ 
 	protected abstract void startMission() throws Exception;
 	protected abstract void endMission() throws Exception;
-	protected abstract void setSpeed() throws Exception;
+	protected abstract void setSpeed(java.lang.String value) throws Exception;
 	protected abstract java.lang.String getDataFromSensors() throws Exception;
 	protected abstract java.lang.String getDataPhoto() throws Exception;
 	/* --- USER DEFINED STATE ACTIONS --- */
@@ -177,7 +177,8 @@ public abstract class DroneSupport extends Subject{
 	}
 	protected void st_Drone_setspeed()  throws Exception{
 		
-		setSpeed(  );curstate = "st_Drone_onMission"; 
+		cmdValue =Drone.getCommandValue(curInputMsgContent) ;
+		setSpeed( cmdValue );curstate = "st_Drone_onMission"; 
 		//resetCurVars(); //leave the current values on
 		return;
 		/* --- TRANSITION TO NEXT STATE --- */
@@ -188,7 +189,7 @@ public abstract class DroneSupport extends Subject{
 		hl_drone_emit_dataSensor( dataSensors );
 		dataPhoto =getDataPhoto(  ) ;
 		hl_drone_forward_photo_headQuarter(dataPhoto );
-		//[it.unibo.indigo.contact.impl.SignalImpl@4073951b (name: dataSensor) (var: null), it.unibo.indigo.contact.impl.SignalImpl@644240ab (name: notify) (var: null)] | command isSignal=false
+		//[it.unibo.indigo.contact.impl.SignalImpl@4958d855 (name: dataSensor) (var: null), it.unibo.indigo.contact.impl.SignalImpl@67e2da11 (name: notify) (var: null)] | command isSignal=false
 		resCheck = checkForMsg(getName(),"command",null);
 		if(resCheck){
 			curstate = "st_Drone_commandHandler";
@@ -200,7 +201,6 @@ public abstract class DroneSupport extends Subject{
 		curInputMsg=hl_drone_accept_command();
 		curInputMsgContent = curInputMsg.msgContent();
 		cmdName =Drone.getCommandName(curInputMsgContent) ;
-		cmdValue =Drone.getCommandValue(curInputMsgContent) ;
 		stop =cmdName.contains("stop") ;
 		
 		{//XBlockcode

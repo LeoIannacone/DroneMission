@@ -133,12 +133,12 @@ public abstract class SmartphoneSupport extends Subject{
 	}
 	protected void st_Smartphone_waitingForData()  throws Exception{
 		
-		//[it.unibo.indigo.contact.impl.SignalImpl@4073951b (name: dataSensor) (var: null), it.unibo.indigo.contact.impl.SignalImpl@644240ab (name: notify) (var: null)] | dataSensor isSignal=true
+		//[it.unibo.indigo.contact.impl.SignalImpl@4958d855 (name: dataSensor) (var: null), it.unibo.indigo.contact.impl.SignalImpl@67e2da11 (name: notify) (var: null)] | dataSensor isSignal=true
 		resCheckMsg = checkSignal("ANY","dataSensor",false);
 		if(resCheckMsg != null){
 			curstate = "st_Smartphone_receivedData";
 			return;}
-		//[it.unibo.indigo.contact.impl.SignalImpl@4073951b (name: dataSensor) (var: null), it.unibo.indigo.contact.impl.SignalImpl@644240ab (name: notify) (var: null)] | notify isSignal=true
+		//[it.unibo.indigo.contact.impl.SignalImpl@4958d855 (name: dataSensor) (var: null), it.unibo.indigo.contact.impl.SignalImpl@67e2da11 (name: notify) (var: null)] | notify isSignal=true
 		resCheckMsg = checkSignal("ANY","notify",false);
 		if(resCheckMsg != null){
 			curstate = "st_Smartphone_endMission";

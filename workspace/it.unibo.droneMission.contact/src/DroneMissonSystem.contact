@@ -13,12 +13,12 @@ Signal dataSensor;
 Signal notify;
 
 //		Highlevel communications
-//Drone send photo
+//Drone sends photo
 sendDataPhoto: drone forward photo to headQuarter;  
-//Headquarter receive photo
+//Headquarter receives photo
 receiveDataPhoto: headQuarter serve photo support=TCP [host="localhost" port=4060];
 
-//Drone send data of sensors
+//Drone sends data of sensors
 sendDataSensors: drone emit dataSensor;
 //Headquarter and Smartphone receive data of sensors
 headquarterReceiveDataSensors: headQuarter sense dataSensor;
@@ -26,12 +26,12 @@ smartphoneReceiveDataSensors: smartphone sense dataSensor;
 
 //Drone notifies start/end mission
 sendnotify: drone emit notify;
-//Smartphone receive notifications about mission
+//Smartphone receives notifications about mission
 smartphoneReceiveNotify: smartphone sense notify;
 
-//HeadQuarter send command
+//HeadQuarter sends command
 sendCommand: headQuarter ask command to drone;
-//Drone receive command
+//Drone receives command
 receiveCommand: drone accept command support=TCP [host="localhost" port=4050];
 
 
@@ -51,7 +51,7 @@ BehaviorOf drone {
 
 	action void startMission()
 	action void endMission()
-	action void setSpeed()
+	action void setSpeed(String value)
 	
 	action String getDataFromSensors()
 	action String getDataPhoto()
@@ -78,7 +78,8 @@ BehaviorOf drone {
 	endstate
 	
 	state st_Drone_setspeed
-		exec setSpeed()
+		set cmdValue =  call Drone.getCommandValue(code.curInputMsgContent)
+		exec setSpeed(cmdValue)
 		goToState st_Drone_onMission
 	endstate
 
@@ -98,8 +99,7 @@ BehaviorOf drone {
 	state st_Drone_commandHandler
 		doIn receiveCommand()
 		set cmdName = call Drone.getCommandName(code.curInputMsgContent)
-		set cmdValue =  call Drone.getCommandValue(code.curInputMsgContent)
-						
+								
 		// check if stop
 		set stop = call cmdName.contains("stop")
 		if {stop} { goToState st_Drone_endMission }
