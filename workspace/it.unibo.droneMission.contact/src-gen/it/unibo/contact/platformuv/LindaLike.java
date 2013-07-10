@@ -437,7 +437,7 @@ public void terminate() throws Exception{
 /* --------------------------
 	OTHER UTILITIES
  ---------------------------- */
- 	protected String buildMsgStr( /* EXPAND MsgParams FOR msgStruct-Â» */ ){
+ 	protected String buildMsgStr( /* EXPAND MsgParams FOR msgStruct-È */ ){
  		return ""; //channel + "(" + senderName +","+msgId+","+msg+","+ msgNum +")";
  	}
  

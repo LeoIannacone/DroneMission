@@ -1112,6 +1112,11 @@ Elemento del sistema in grado di visualizzare i dati provenienti dai sensori
 
 \end_layout
 
+\begin_layout Description
+\SpecialChar \textcompwordmark{}
+
+\end_layout
+
 \begin_layout Section
 Scenari
 \end_layout
@@ -2606,44 +2611,1156 @@ I sensori sono aggiornati
 (Domain) Model
 \end_layout
 
-\begin_layout Subsection*
-Comportamento
-\end_layout
-
-\begin_layout Subsubsection*
-Comportamento dei differenti tipi di gauge Gauge
-\end_layout
-
 \begin_layout Standard
-L'entita Gauge deve realizzare l'interfaccia IGauge che riflette l'idea
- di uno strumento di misura, che avrà il compito di misurare uno dei valori
- -velocità, carburante residuo, chilometri percorsi e posizione- che descrivono
- lo stato del sistema drone, senza preoccuparsi della visualizzazione di
- quest'ultimo, compito che spetterà all'entità Display.
-\end_layout
-
-\begin_layout Standard
-Il valore da elaborare verrà fornito dai diversi sensori del sistema drone
- in formato GaugeValue, che al suo interno potrà contenere stringhe, interi
- o numeri reali.
-\end_layout
-
-\begin_layout Subsubsection*
-Comportamento del Display
-\end_layout
-
-\begin_layout Standard
-L'entita Display realizzerà l'interfaccia IDisplay ha il compito di visualizzare
- dati che verranno comunicati in formato GaugeValue dai differenti tipi
- di Gauge.
+Analizzando le specifiche richieste seguendo un approccio top-down sono
+ stati individuati nel sistema DroneMission tre soggetti, tra loro interagenti:
+ Drone, HeadQuarter e Smartphone.
  
 \end_layout
 
 \begin_layout Standard
-Il Display, attraverso il metodo setCurVal, aggiornerà il suo stato interno
- e lo stamperà su console, mentre con il metodo update, nei display dotati
- di interfaccia grafica, dopo aver aggiornato il valore da visualizzare,
- lo renderà visibile attraverso una sia in formato analogico che digitale.
+Per modellare tali soggetti, che in seguito verranno analizzati in maniera
+ più approfondita e trattati come sottosistemi in quanto composti anch'essi
+ da soggetti interagenti, si è deciso di utilizzare Contact, un meta­linguaggio
+ alla pari di UML (entrambi sono espressi in termini di MOF) in possesso
+ di maggiore potere espressivo.
+ Attraverso questo meta­linguaggio è possibile non solo definire il comportament
+o del sistema, ma anche, grazie a un motore Prolog, generare il codice (per
+ ora Java) di un prototipo perfettamente funzionante.
+ In questo modo è già possibile testare il progetto totale, avendo solo
+ completato l’analisi.
+ 
+\end_layout
+
+\begin_layout Standard
+L’importanza di questo strumento è estremamente evidente: mentre viene effettuat
+a l’analisi del problema viene automaticamente creata un’implementazione
+ già completamente funzionante.
+ 
+\end_layout
+
+\begin_layout Standard
+La differenza tra un approccio di risoluzione Extreme Programming e uno
+ attraverso Contact risulta quindi palese: mentre nel primo caso ci si concentra
+ totalmente e direttamente nella scrittura di codice e nel miglioramento
+ dello stesso con conseguenti problematiche dovute a una scarsa analisi
+ e frettolosa ricerca di un prototipo funzionante, nel secondo caso lo sforzo
+ e il tempo impiegati in fasi di analisi (che risulta molto più accurata
+ e precisa) vengono ripagati con un abbattimento del tempo impiegato nella
+ programmazione e anche con una forte e stabile struttura d’analisi dedotta
+ univocamente e semplicemente dai requisiti.
+ 
+\end_layout
+
+\begin_layout Standard
+Attraverso l’utilizzo del meta­linguaggio Contact viene fortemente mantenuta
+ una completa tracciabilità di tutte le entità: possiamo infatti ritrovare
+ all’interno del codice gli stessi componenti con i metodi definiti all’interno
+ della specifica del meta­linguaggio.
+ Contact è un meta­linguaggio improntato all’interazione, infatti si può
+ constatare che non si tratta più con POJO, ma con veri e propri Subject,
+ cioè agenti attivi e quindi attori veri e propri del sistema, che comunicano
+ tra loro in modi differenti.
+ 
+\end_layout
+
+\begin_layout Standard
+Infine, con l’utilizzo di questo meta­linguaggio viene il system­designer,
+ che ha il compito di implementare tutti i requisiti richiesti dall’application­
+designer, come per esempio una nuova tipologia di comunicazione, avrà un
+ lavoro molto semplificato e, soprattutto, riusabile: una volta completata
+ la nuova feature, questa sarà presente in tutti i succesivi utilizzi del
+ meta­linguaggio.
+\end_layout
+
+\begin_layout Subsection
+DroneMissionSystem
+\end_layout
+
+\begin_layout Standard
+Come detto il DroneMissionSystem sarà composto da tre Subject, e il primo
+ passo per l'analisi sarà quindi definirli:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily},tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+ContactSystem DroneMissionSystem -awt -o;
+\end_layout
+
+\begin_layout Plain Layout
+
+//		Subsystems -w (window) 
+\end_layout
+
+\begin_layout Plain Layout
+
+Subject smartphone -w; 
+\end_layout
+
+\begin_layout Plain Layout
+
+Subject drone -w; 
+\end_layout
+
+\begin_layout Plain Layout
+
+Subject headQuarter -w;
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Dopo aver definito quali saranno gli attori che entreranno in gioco nel
+ sistema si procederà a definire i messaggi che questi si scambieranno e
+ successivamente le loro comunicazioni di alto livello.
+\end_layout
+
+\begin_layout Standard
+I messaggi saranno di diverso tipo a seconda della loro funzionalità: i
+ comandi inviati dalla centrale di controllo saranno visti come Invitation
+ (una volta inviati, il mittente si metterà in attesa di un ACK da parte
+ del destinatario), le notifiche ed i dati dei sensori inviati dal drone
+ saranno invece dei Signal (verranno inseriti nello shared-space e potranno
+ essere prelevati dagli altri soggetti in gioco), mentre per quanto riguarda
+ le foto, queste saranno inviate sotto forma di Dispatch alla centrale di
+ controllo (senza attendere l'ACK).
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily},tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+//		Highlevel communications
+\end_layout
+
+\begin_layout Plain Layout
+
+//Drone sends photo 
+\end_layout
+
+\begin_layout Plain Layout
+
+sendDataPhoto: drone forward photo to headQuarter;
+\end_layout
+
+\begin_layout Plain Layout
+
+//Headquarter receives photo 
+\end_layout
+
+\begin_layout Plain Layout
+
+receiveDataPhoto: headQuarter serve photo support=TCP [host="localhost"
+ port=4060];
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+//Drone sends data of sensors
+\end_layout
+
+\begin_layout Plain Layout
+
+sendDataSensors: drone emit dataSensor;
+\end_layout
+
+\begin_layout Plain Layout
+
+//Headquarter and Smartphone receive data of sensors 
+\end_layout
+
+\begin_layout Plain Layout
+
+headquarterReceiveDataSensors: headQuarter sense dataSensor; 
+\end_layout
+
+\begin_layout Plain Layout
+
+smartphoneReceiveDataSensors: smartphone sense dataSensor;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+//Drone notifies start/end mission 
+\end_layout
+
+\begin_layout Plain Layout
+
+sendnotify: drone emit notify; 
+\end_layout
+
+\begin_layout Plain Layout
+
+//Smartphone receives notifications about mission
+\end_layout
+
+\begin_layout Plain Layout
+
+smartphoneReceiveNotify: smartphone sense notify;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+//HeadQuarter sends command 
+\end_layout
+
+\begin_layout Plain Layout
+
+sendCommand: headQuarter ask command to drone; 
+\end_layout
+
+\begin_layout Plain Layout
+
+//Drone receives command 
+\end_layout
+
+\begin_layout Plain Layout
+
+receiveCommand: drone accept command support=TCP [host="localhost" port=4050];
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A questo punto è possibile specificare il comportamento di ogni singolo
+ soggetto.
+ Per quanto riguarda il drone, questo, una volta inizializzato, transiterà
+ nello stato ready, in cui attenderà la ricezione del comando setspeed dalla
+ centrale di controllo per transitare nello stato starMission, in cui avvierà
+ la missione e comunicherà agli Smartphone l'avvenuto decollo prima di spostarsi
+ nel nuovo stato onMission.
+ In questo stato il velivolo invierà i dati dei sensori e, ogni DS secondi,
+ un pacchetto con la foto e i dati attualizzati; potrebbe inoltre ricevere
+ dei comandi dalla centrale di controllo, quali setspeed o stop.
+ Alla ricezione di tali messaggi lo stato diventerà commandHandler, in cui,
+ prima si analizza il contenuto del messaggio, poi, a seconda del comando
+ ricevuto il drone transiterà in uno dei due possibli stati: setspeed o
+ endMission.
+ Nel primo si provvederà ad aggiornare la velocità di crociera, mentre nel
+ secondo si notificherà agli smarphone il termine della missione e si provvederà
+ a dar atterrare il drone.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily},tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+//Behavior of Drone BehaviorOf drone {
+\end_layout
+
+\begin_layout Plain Layout
+
+	var String msgCommand = ""
+\end_layout
+
+\begin_layout Plain Layout
+
+	var String cmdName = ""
+\end_layout
+
+\begin_layout Plain Layout
+
+	var String cmdValue = ""
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	var boolean start
+\end_layout
+
+\begin_layout Plain Layout
+
+	var boolean stop
+\end_layout
+
+\begin_layout Plain Layout
+
+	var boolean speed
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	var String dataSensors
+\end_layout
+
+\begin_layout Plain Layout
+
+	var String dataPhoto
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	action void startMission()
+\end_layout
+
+\begin_layout Plain Layout
+
+	action void endMission()
+\end_layout
+
+\begin_layout Plain Layout
+
+	action void setSpeed(String value)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	action String getDataFromSensors()
+\end_layout
+
+\begin_layout Plain Layout
+
+	action String getDataPhoto()
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	state st_Drone_init initial
+\end_layout
+
+\begin_layout Plain Layout
+
+		println ("----- Drone Initialized -----")
+\end_layout
+
+\begin_layout Plain Layout
+
+		goToState st_Drone_ready
+\end_layout
+
+\begin_layout Plain Layout
+
+	endstate 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	state st_Drone_ready
+\end_layout
+
+\begin_layout Plain Layout
+
+		println ("----- Waiting setSpeed -----")
+\end_layout
+
+\begin_layout Plain Layout
+
+		doIn receiveCommand()
+\end_layout
+
+\begin_layout Plain Layout
+
+		set msgCommand = call curInputMsg.msgContent()
+\end_layout
+
+\begin_layout Plain Layout
+
+		set cmdName = call Drone.getCommandName(msgCommand)
+\end_layout
+
+\begin_layout Plain Layout
+
+		set start = call cmdName.contains("setspeed")
+\end_layout
+
+\begin_layout Plain Layout
+
+		if{start} {	goToState st_Drone_startMission }
+\end_layout
+
+\begin_layout Plain Layout
+
+		println ("ERROR: expected 'setspeed' command to start.
+ Received: " + cmdName)
+\end_layout
+
+\begin_layout Plain Layout
+
+	endstate
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	state st_Drone_startMission
+\end_layout
+
+\begin_layout Plain Layout
+
+		exec startMission() // empty method - maybe can be used in future?
+\end_layout
+
+\begin_layout Plain Layout
+
+		doOut sendnotify("start")
+\end_layout
+
+\begin_layout Plain Layout
+
+		goToState st_Drone_setspeed
+\end_layout
+
+\begin_layout Plain Layout
+
+	endstate 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	state st_Drone_setspeed
+\end_layout
+
+\begin_layout Plain Layout
+
+		set cmdValue =  call Drone.getCommandValue(code.curInputMsgContent)
+\end_layout
+
+\begin_layout Plain Layout
+
+		exec setSpeed(cmdValue)
+\end_layout
+
+\begin_layout Plain Layout
+
+		goToState st_Drone_onMission
+\end_layout
+
+\begin_layout Plain Layout
+
+	endstate
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	state st_Drone_onMission
+\end_layout
+
+\begin_layout Plain Layout
+
+		// send data sensors
+\end_layout
+
+\begin_layout Plain Layout
+
+		set dataSensors = exec getDataFromSensors()
+\end_layout
+
+\begin_layout Plain Layout
+
+		doOut sendDataSensors(dataSensors)
+\end_layout
+
+\begin_layout Plain Layout
+
+		// send photos
+\end_layout
+
+\begin_layout Plain Layout
+
+		set dataPhoto = exec getDataPhoto()
+\end_layout
+
+\begin_layout Plain Layout
+
+		doOut sendDataPhoto(dataPhoto) // every x secondi?
+\end_layout
+
+\begin_layout Plain Layout
+
+		// received a command setSpeed or stop?
+\end_layout
+
+\begin_layout Plain Layout
+
+		onMessage? command goToState st_Drone_commandHandler
+\end_layout
+
+\begin_layout Plain Layout
+
+	endstate
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	state st_Drone_commandHandler
+\end_layout
+
+\begin_layout Plain Layout
+
+		doIn receiveCommand()
+\end_layout
+
+\begin_layout Plain Layout
+
+		set cmdName = call Drone.getCommandName(code.curInputMsgContent) 							
+\end_layout
+
+\begin_layout Plain Layout
+
+		// check if stop 
+\end_layout
+
+\begin_layout Plain Layout
+
+		set stop = call cmdName.contains("stop")
+\end_layout
+
+\begin_layout Plain Layout
+
+		if {stop} { goToState st_Drone_endMission } 	
+\end_layout
+
+\begin_layout Plain Layout
+
+		// check if setspeed
+\end_layout
+
+\begin_layout Plain Layout
+
+		set speed = call cmdName.contains("setspeed")
+\end_layout
+
+\begin_layout Plain Layout
+
+		if {speed} { goToState st_Drone_setspeed } 	
+\end_layout
+
+\begin_layout Plain Layout
+
+		// get back on mission
+\end_layout
+
+\begin_layout Plain Layout
+
+		goToState st_Drone_onMission
+\end_layout
+
+\begin_layout Plain Layout
+
+	endstate 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	state st_Drone_endMission
+\end_layout
+
+\begin_layout Plain Layout
+
+		exec endMission() // empty method - maybe can be used in future?
+\end_layout
+
+\begin_layout Plain Layout
+
+		doOut sendnotify("end")
+\end_layout
+
+\begin_layout Plain Layout
+
+		transitToEnd
+\end_layout
+
+\begin_layout Plain Layout
+
+	endstate
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Per quanto concerne invece HeadQuarter, anch'esso dopo l'inizializzazione
+ transiterà nello stato ready, in cui non farà altro che inviare al drone
+ il comando setspeed con la velocità di crociera (nel codice che segue si
+ è impostato 60 a fini di test) ed attendere l'arrivo di un ACK prima di
+ spostarsi nello stato onMission.
+ Qui si controllerà se bisogna inviare qualche comando al drone, in caso
+ di risposta affermativa verrà eseguita l'operazione.
+ Anche qui, se il messaggio inviato è stop, vi sarà un transito verso lo
+ stato endMission, altrimenti si rimarrà nello stato analizzando la presenza
+ di eventuali messaggi da parte del drone: se nello shared-space sono presenti
+ i dati dei sensori si transiterà nello stato receivedSensorsData che, dopo
+ aver acquisito il messaggio (lasciandolo a disposizione di altri dispositivi),
+ provvederà all'aggiornamento dei dati e tornerà su onMission; se invece
+ verrà ricevuto un messaggio di tipo photo si andrà nello stato receivedPhoto
+ che provvederà, prima di tornare in onMission, a recuperare il messaggio
+ e memorizzarlo.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily},tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+BehaviorOf headQuarter{ 
+\end_layout
+
+\begin_layout Plain Layout
+
+	var String command
+\end_layout
+
+\begin_layout Plain Layout
+
+	var String dataSensorsReceived
+\end_layout
+
+\begin_layout Plain Layout
+
+	var String photoReceived 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	action String getCommandToSend()
+\end_layout
+
+\begin_layout Plain Layout
+
+	action void updateDashboard(String dataSensorsReceived)
+\end_layout
+
+\begin_layout Plain Layout
+
+	action void storePhotoData(String photoReceived)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	state st_HeadQuarter_init initial
+\end_layout
+
+\begin_layout Plain Layout
+
+		println ("----- HeadQuarter Initialized -----") 
+\end_layout
+
+\begin_layout Plain Layout
+
+		goToState st_HeadQuarter_ready 
+\end_layout
+
+\begin_layout Plain Layout
+
+	endstate 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	state st_HeadQuarter_ready
+\end_layout
+
+\begin_layout Plain Layout
+
+		println ("----- Ready to send command -----") 
+\end_layout
+
+\begin_layout Plain Layout
+
+		doOutIn sendCommand("setspeed 60")
+\end_layout
+
+\begin_layout Plain Layout
+
+		acquireAckFor command goToState st_HeadQuarter_onMission 
+\end_layout
+
+\begin_layout Plain Layout
+
+	endstate 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	state st_HeadQuarter_onMission
+\end_layout
+
+\begin_layout Plain Layout
+
+		// check if command is clicked in Dashboard and send it 
+\end_layout
+
+\begin_layout Plain Layout
+
+		set command = exec getCommandToSend() 
+\end_layout
+
+\begin_layout Plain Layout
+
+		doOutIn sendCommand(command) 	
+\end_layout
+
+\begin_layout Plain Layout
+
+		if {command == "stop"} { goToState st_HeadQuarter_endMission } 	
+\end_layout
+
+\begin_layout Plain Layout
+
+		// get sensors data 
+\end_layout
+
+\begin_layout Plain Layout
+
+		onMessage? dataSensor goToState st_HeadQuarter_receivedSensorsData 	
+\end_layout
+
+\begin_layout Plain Layout
+
+		// get photos 
+\end_layout
+
+\begin_layout Plain Layout
+
+		onMessage? photo goToState st_HeadQuarter_receivedPhoto 	
+\end_layout
+
+\begin_layout Plain Layout
+
+	endstate 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	state st_HeadQuarter_receivedSensorsData 
+\end_layout
+
+\begin_layout Plain Layout
+
+		// get sensors data 
+\end_layout
+
+\begin_layout Plain Layout
+
+		doPerceive headquarterReceiveDataSensors() 
+\end_layout
+
+\begin_layout Plain Layout
+
+		set dataSensorsReceived = code.curInputMsgContent 
+\end_layout
+
+\begin_layout Plain Layout
+
+		// update Dashboard 
+\end_layout
+
+\begin_layout Plain Layout
+
+		call updateDashboard(dataSensorsReceived)
+\end_layout
+
+\begin_layout Plain Layout
+
+		goToState st_HeadQuarter_onMission 
+\end_layout
+
+\begin_layout Plain Layout
+
+	endstate 
+\end_layout
+
+\begin_layout Plain Layout
+
+	state st_HeadQuarter_receivedPhoto
+\end_layout
+
+\begin_layout Plain Layout
+
+		// get photo data
+\end_layout
+
+\begin_layout Plain Layout
+
+		doIn receiveDataPhoto() 
+\end_layout
+
+\begin_layout Plain Layout
+
+		set photoReceived = code.curInputMsgContent 	
+\end_layout
+
+\begin_layout Plain Layout
+
+		// store info
+\end_layout
+
+\begin_layout Plain Layout
+
+		call storePhotoData(photoReceived) 	
+\end_layout
+
+\begin_layout Plain Layout
+
+		goToState st_HeadQuarter_onMission
+\end_layout
+
+\begin_layout Plain Layout
+
+	endstate 
+\end_layout
+
+\begin_layout Plain Layout
+
+	state st_HeadQuarter_endMission
+\end_layout
+
+\begin_layout Plain Layout
+
+		transitToEnd 
+\end_layout
+
+\begin_layout Plain Layout
+
+	endstate
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Lo Smartphone, invece, uscirà dallo stato di init dopo aver ricevuto una
+ notifica e andrà in missionStart che notificherà all'utente l'avvio della
+ missione e transiterà in waitingForData.
+ In questo stato si attenderanno messaggi provenienti dal drone contenenti
+ o i dati dei sensori, o una nuova notifica, questa volta di fine missione.
+ Alla ricezione dei dati relativi ai sensori lo smartphone transiterà in
+ receivedData, dove provvederà al recupero e alla visualizzazione dei valori
+ forniti dal drone, mentre nel caso in cui dovesse ricevere la notifica
+ transiterà in notifyHandler che provvederà a far terminare la sessione
+ nel caso in cui questa sia uno stop.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily},tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+BehaviorOf smartphone { 
+\end_layout
+
+\begin_layout Plain Layout
+
+	var String notifyContent
+\end_layout
+
+\begin_layout Plain Layout
+
+	var String dataDroneReceived
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+	action void notifyUserMissionStarted()
+\end_layout
+
+\begin_layout Plain Layout
+
+	action void showDataSensorsReceived(String data)
+\end_layout
+
+\begin_layout Plain Layout
+
+	action void missionFinished() 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	state st_Smartphone_init initial
+\end_layout
+
+\begin_layout Plain Layout
+
+		onMessage notify transitTo st_Smartphone_missionStart 
+\end_layout
+
+\begin_layout Plain Layout
+
+	endstate 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	state st_Smartphone_missionStart
+\end_layout
+
+\begin_layout Plain Layout
+
+		call notifyUserMissionStarted()
+\end_layout
+
+\begin_layout Plain Layout
+
+		goToState st_Smartphone_waitingForData
+\end_layout
+
+\begin_layout Plain Layout
+
+	endstate 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	state st_Smartphone_waitingForData
+\end_layout
+
+\begin_layout Plain Layout
+
+		onMessage? dataSensor goToState st_Smartphone_receivedData
+\end_layout
+
+\begin_layout Plain Layout
+
+		onMessage? notify goToState st_Smartphone_endMission
+\end_layout
+
+\begin_layout Plain Layout
+
+	endstate 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	state st_Smartphone_receivedData
+\end_layout
+
+\begin_layout Plain Layout
+
+		// get data from drone
+\end_layout
+
+\begin_layout Plain Layout
+
+		doPerceive smartphoneReceiveDataSensors()
+\end_layout
+
+\begin_layout Plain Layout
+
+		set dataDroneReceived = code.curInputMsgContent
+\end_layout
+
+\begin_layout Plain Layout
+
+		call showDataSensorsReceived(dataDroneReceived)
+\end_layout
+
+\begin_layout Plain Layout
+
+		goToState st_Smartphone_waitingForData
+\end_layout
+
+\begin_layout Plain Layout
+
+	endstate 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	state st_Smartphone_notifyHandler
+\end_layout
+
+\begin_layout Plain Layout
+
+		doPerceive smartphoneReceiveNotify() 
+\end_layout
+
+\begin_layout Plain Layout
+
+		set notifyContent = code.curInputMsgContent
+\end_layout
+
+\begin_layout Plain Layout
+
+		if {notifyContent == "start"}{ goToState st_Smartphone_missionStart }
+\end_layout
+
+\begin_layout Plain Layout
+
+		if {notifyContent == "end" } { goToState st_Smartphone_endMission }
+\end_layout
+
+\begin_layout Plain Layout
+
+		goToState st_Smartphone_waitingForData
+\end_layout
+
+\begin_layout Plain Layout
+
+	endstate 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	state st_Smartphone_endMission
+\end_layout
+
+\begin_layout Plain Layout
+
+		call missionFinished() 
+\end_layout
+
+\begin_layout Plain Layout
+
+		transitToEnd 
+\end_layout
+
+\begin_layout Plain Layout
+
+	endstate
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section

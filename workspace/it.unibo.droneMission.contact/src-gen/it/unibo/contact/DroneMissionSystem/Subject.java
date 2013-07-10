@@ -239,10 +239,10 @@ protected IMessage getMessageIfSentBy( String[] emitters, String msg ){
 	 return getApplicationMessage(msg,false);
  }
  protected IMessage getApplicationMessage( String msg, boolean outgoing ){
-	 	//showMsg(  "	Â§Â§Â§)  " + msg );
+	 	//showMsg(  "	¤¤¤)  " + msg );
 		try {
 			if ( isInternalMsg(msg)  ) return null;
-	 		//showMsg(  "	Â§Â§Â§)  " + m + Thread.currentThread());
+	 		//showMsg(  "	¤¤¤)  " + m + Thread.currentThread());
 			IMessage m = cvtToMessage(msg);
 			if( outgoing && msg.contains( "outgoing" ) ) {
 				m = cvtToApplMessage( m.msgEmitter() );//convert arg0 
@@ -253,7 +253,7 @@ protected IMessage getMessageIfSentBy( String[] emitters, String msg ){
 			//message sent by the observer itself are non interesting
 			if( m.msgEmitter().equals( getName() )) return null; 
 			return m;
-			//showMsg(  "	Â§Â§Â§)  " + m  + " " + Thread.currentThread() );			
+			//showMsg(  "	¤¤¤)  " + m  + " " + Thread.currentThread() );			
 		} catch (Exception e) {
 			showMsg(  "	*** E) " +  e.getMessage()  );
 			return null;
