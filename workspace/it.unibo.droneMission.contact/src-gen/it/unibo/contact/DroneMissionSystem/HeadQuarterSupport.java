@@ -40,7 +40,7 @@ public abstract class HeadQuarterSupport extends Subject{
 	public HeadQuarterSupport(String name) throws Exception{
 		super(name);
 	 	isMultiInput=true;
-	 	inputMessageList=new String[]{"dataSensor","photo", "endSelectInput"};
+	 	inputMessageList=new String[]{"sensorsData","photo", "endSelectInput"};
 	 	initLastMsgRdMemo();  //put in initGui since the name must be set
 		//Singleton
 		if( obj != null ) return;
@@ -57,7 +57,7 @@ public abstract class HeadQuarterSupport extends Subject{
 	}
 	
  	protected void initLastMsgRdMemo(){
- 			lastMsgRdMemo.put("dataSensor"+getName(),0);
+ 			lastMsgRdMemo.put("sensorsData"+getName(),0);
  			lastMsgRdMemo.put("photo"+getName(),0);
  	}
 	protected void initGui(){
@@ -73,7 +73,7 @@ public abstract class HeadQuarterSupport extends Subject{
 	* -------------------------------------- 
 	*/ 
 	protected abstract java.lang.String getCommandToSend() throws Exception;
-	protected abstract void updateDashboard(java.lang.String dataSensorsReceived) throws Exception;
+	protected abstract void updateDashboard(java.lang.String sensorsDatasReceived) throws Exception;
 	protected abstract void storePhotoData(java.lang.String photoReceived) throws Exception;
 	/* --- USER DEFINED STATE ACTIONS --- */
 	/* --- USER DEFINED TASKS --- */
@@ -85,11 +85,11 @@ public abstract class HeadQuarterSupport extends Subject{
 	protected 
 	String command = null;
 	protected 
-	String dataSensorsReceived = null;
+	String sensorsDatasReceived = null;
 	protected 
 	String photoReceived = null;
 	public  java.lang.String get_command(){ return command; }
-	public  java.lang.String get_dataSensorsReceived(){ return dataSensorsReceived; }
+	public  java.lang.String get_sensorsDatasReceived(){ return sensorsDatasReceived; }
 	public  java.lang.String get_photoReceived(){ return photoReceived; }
 	
 	protected boolean endStateControl = false;
@@ -154,12 +154,21 @@ public abstract class HeadQuarterSupport extends Subject{
 		//resetCurVars(); //leave the current values on
 		return;
 		}//if cond
+<<<<<<< HEAD
 		//[it.unibo.indigo.contact.impl.SignalImpl@1d0737c8 (name: dataSensor) (var: null), it.unibo.indigo.contact.impl.SignalImpl@6a7fb9e2 (name: notify) (var: null)] | dataSensor isSignal=true
 		resCheckMsg = checkSignal("ANY","dataSensor",false);
 		if(resCheckMsg != null){
 			curstate = "st_HeadQuarter_receivedSensorsData";
 			return;}
 		//[it.unibo.indigo.contact.impl.SignalImpl@1d0737c8 (name: dataSensor) (var: null), it.unibo.indigo.contact.impl.SignalImpl@6a7fb9e2 (name: notify) (var: null)] | photo isSignal=false
+=======
+		//[it.unibo.indigo.contact.impl.SignalImpl@b0eac3e (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@704e201d (name: notify) (var: null)] | sensorsData isSignal=true
+		resCheckMsg = checkSignal("ANY","sensorsData",false);
+		if(resCheckMsg != null){
+			curstate = "st_HeadQuarter_receivedSensorsData";
+			return;}
+		//[it.unibo.indigo.contact.impl.SignalImpl@b0eac3e (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@704e201d (name: notify) (var: null)] | photo isSignal=false
+>>>>>>> 7a2fbf6cc734e33d84eeba3bdcdd59c587b34328
 		resCheck = checkForMsg(getName(),"photo",null);
 		if(resCheck){
 			curstate = "st_HeadQuarter_receivedPhoto";
@@ -168,11 +177,11 @@ public abstract class HeadQuarterSupport extends Subject{
 	}
 	protected void st_HeadQuarter_receivedSensorsData()  throws Exception{
 		
-		inputMessageList=new String[]{  "dataSensor"  };
+		inputMessageList=new String[]{  "sensorsData"  };
 		curInputMsg=selectWithPriority(false, inputMessageList);
 		curInputMsgContent = curInputMsg.msgContent();
-		dataSensorsReceived =curInputMsgContent;
-		updateDashboard(dataSensorsReceived);curstate = "st_HeadQuarter_onMission"; 
+		sensorsDatasReceived =curInputMsgContent;
+		updateDashboard(sensorsDatasReceived);curstate = "st_HeadQuarter_onMission"; 
 		//resetCurVars(); //leave the current values on
 		return;
 		/* --- TRANSITION TO NEXT STATE --- */
@@ -217,17 +226,17 @@ public abstract class HeadQuarterSupport extends Subject{
 	
 	}
 	
-	protected IMessage hl_headQuarter_sense_dataSensor(   ) throws Exception {
-	IMessage m = new Message("signal(ANYx1y2,dataSensor,M,N)");
-	IMessage inMsg = comSup.rdw( getName() ,"dataSensor",  lastMsgRdMemo,m );
+	protected IMessage hl_headQuarter_sense_sensorsData(   ) throws Exception {
+	IMessage m = new Message("signal(ANYx1y2,sensorsData,M,N)");
+	IMessage inMsg = comSup.rdw( getName() ,"sensorsData",  lastMsgRdMemo,m );
 		return inMsg;
 	
 	}
-	protected IMessage hl_headQuarter_sense_dataSensor( boolean mostRecent  ) throws Exception {
-	if( ! mostRecent) return hl_headQuarter_sense_dataSensor ();
+	protected IMessage hl_headQuarter_sense_sensorsData( boolean mostRecent  ) throws Exception {
+	if( ! mostRecent) return hl_headQuarter_sense_sensorsData ();
 	else{
-	IMessage m = new Message("signal(ANYx1y2,dataSensor,M,N)");
-	IMessage inMsg = comSup.rdwMostRecent(getName() ,"dataSensor",  lastMsgRdMemo,m );
+	IMessage m = new Message("signal(ANYx1y2,sensorsData,M,N)");
+	IMessage inMsg = comSup.rdwMostRecent(getName() ,"sensorsData",  lastMsgRdMemo,m );
 		return inMsg;
 	}
 	

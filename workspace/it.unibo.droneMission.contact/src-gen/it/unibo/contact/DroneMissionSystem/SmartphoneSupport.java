@@ -40,7 +40,7 @@ public abstract class SmartphoneSupport extends Subject{
 	public SmartphoneSupport(String name) throws Exception{
 		super(name);
 	 	isMultiInput=true;
-	 	inputMessageList=new String[]{"dataSensor","notify", "endSelectInput"};
+	 	inputMessageList=new String[]{"sensorsData","notify", "endSelectInput"};
 	 	initLastMsgRdMemo();  //put in initGui since the name must be set
 		//Singleton
 		if( obj != null ) return;
@@ -56,7 +56,7 @@ public abstract class SmartphoneSupport extends Subject{
 	}
 	
  	protected void initLastMsgRdMemo(){
- 			lastMsgRdMemo.put("dataSensor"+getName(),0);
+ 			lastMsgRdMemo.put("sensorsData"+getName(),0);
  			lastMsgRdMemo.put("notify"+getName(),0);
  	}
 	protected void initGui(){
@@ -72,7 +72,7 @@ public abstract class SmartphoneSupport extends Subject{
 	* -------------------------------------- 
 	*/ 
 	protected abstract void notifyUserMissionStarted() throws Exception;
-	protected abstract void showDataSensorsReceived(java.lang.String data) throws Exception;
+	protected abstract void showSensorsDatasReceived(java.lang.String data) throws Exception;
 	protected abstract void missionFinished() throws Exception;
 	/* --- USER DEFINED STATE ACTIONS --- */
 	/* --- USER DEFINED TASKS --- */
@@ -133,12 +133,21 @@ public abstract class SmartphoneSupport extends Subject{
 	}
 	protected void st_Smartphone_waitingForData()  throws Exception{
 		
+<<<<<<< HEAD
 		//[it.unibo.indigo.contact.impl.SignalImpl@1d0737c8 (name: dataSensor) (var: null), it.unibo.indigo.contact.impl.SignalImpl@6a7fb9e2 (name: notify) (var: null)] | dataSensor isSignal=true
 		resCheckMsg = checkSignal("ANY","dataSensor",false);
 		if(resCheckMsg != null){
 			curstate = "st_Smartphone_receivedData";
 			return;}
 		//[it.unibo.indigo.contact.impl.SignalImpl@1d0737c8 (name: dataSensor) (var: null), it.unibo.indigo.contact.impl.SignalImpl@6a7fb9e2 (name: notify) (var: null)] | notify isSignal=true
+=======
+		//[it.unibo.indigo.contact.impl.SignalImpl@b0eac3e (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@704e201d (name: notify) (var: null)] | sensorsData isSignal=true
+		resCheckMsg = checkSignal("ANY","sensorsData",false);
+		if(resCheckMsg != null){
+			curstate = "st_Smartphone_receivedData";
+			return;}
+		//[it.unibo.indigo.contact.impl.SignalImpl@b0eac3e (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@704e201d (name: notify) (var: null)] | notify isSignal=true
+>>>>>>> 7a2fbf6cc734e33d84eeba3bdcdd59c587b34328
 		resCheckMsg = checkSignal("ANY","notify",false);
 		if(resCheckMsg != null){
 			curstate = "st_Smartphone_endMission";
@@ -147,11 +156,11 @@ public abstract class SmartphoneSupport extends Subject{
 	}
 	protected void st_Smartphone_receivedData()  throws Exception{
 		
-		inputMessageList=new String[]{  "dataSensor"  };
+		inputMessageList=new String[]{  "sensorsData"  };
 		curInputMsg=selectWithPriority(false, inputMessageList);
 		curInputMsgContent = curInputMsg.msgContent();
 		dataDroneReceived =curInputMsgContent;
-		showDataSensorsReceived(dataDroneReceived);curstate = "st_Smartphone_waitingForData"; 
+		showSensorsDatasReceived(dataDroneReceived);curstate = "st_Smartphone_waitingForData"; 
 		//resetCurVars(); //leave the current values on
 		return;
 		/* --- TRANSITION TO NEXT STATE --- */
@@ -220,17 +229,17 @@ public abstract class SmartphoneSupport extends Subject{
 	* --------------------------------------
 	*/
  
-	protected IMessage hl_smartphone_sense_dataSensor(   ) throws Exception {
-	IMessage m = new Message("signal(ANYx1y2,dataSensor,M,N)");
-	IMessage inMsg = comSup.rdw( getName() ,"dataSensor",  lastMsgRdMemo,m );
+	protected IMessage hl_smartphone_sense_sensorsData(   ) throws Exception {
+	IMessage m = new Message("signal(ANYx1y2,sensorsData,M,N)");
+	IMessage inMsg = comSup.rdw( getName() ,"sensorsData",  lastMsgRdMemo,m );
 		return inMsg;
 	
 	}
-	protected IMessage hl_smartphone_sense_dataSensor( boolean mostRecent  ) throws Exception {
-	if( ! mostRecent) return hl_smartphone_sense_dataSensor ();
+	protected IMessage hl_smartphone_sense_sensorsData( boolean mostRecent  ) throws Exception {
+	if( ! mostRecent) return hl_smartphone_sense_sensorsData ();
 	else{
-	IMessage m = new Message("signal(ANYx1y2,dataSensor,M,N)");
-	IMessage inMsg = comSup.rdwMostRecent(getName() ,"dataSensor",  lastMsgRdMemo,m );
+	IMessage m = new Message("signal(ANYx1y2,sensorsData,M,N)");
+	IMessage inMsg = comSup.rdwMostRecent(getName() ,"sensorsData",  lastMsgRdMemo,m );
 		return inMsg;
 	}
 	

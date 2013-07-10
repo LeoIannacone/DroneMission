@@ -9,7 +9,7 @@ Subject headQuarter -w;
 //		Messages
 Dispatch photo;
 Invitation command;
-Signal dataSensor;
+Signal sensorsData;
 Signal notify;
 
 //		Highlevel communications
@@ -19,10 +19,10 @@ sendDataPhoto: drone forward photo to headQuarter;
 receiveDataPhoto: headQuarter serve photo support=TCP [host="localhost" port=4060];
 
 //Drone sends data of sensors
-sendDataSensors: drone emit dataSensor;
+sendsensorsDatas: drone emit sensorsData;
 //Headquarter and Smartphone receive data of sensors
-headquarterReceiveDataSensors: headQuarter sense dataSensor;
-smartphoneReceiveDataSensors: smartphone sense dataSensor;
+headquarterReceivesensorsDatas: headQuarter sense sensorsData;
+smartphoneReceivesensorsDatas: smartphone sense sensorsData;
 
 //Drone notifies start/end mission
 sendnotify: drone emit notify;
@@ -46,7 +46,7 @@ BehaviorOf drone {
 	var boolean stop
 	var boolean speed
 
-	var String dataSensors
+	var String sensorsDatas
 	var String dataPhoto
 
 	action void startMission()
@@ -85,8 +85,8 @@ BehaviorOf drone {
 
 	state st_Drone_onMission
 		// send data sensors
-		set dataSensors = exec getDataFromSensors()
-		doOut sendDataSensors(dataSensors)
+		set sensorsDatas = exec getDataFromSensors()
+		doOut sendsensorsDatas(sensorsDatas)
 
 		// send photos
 		set dataPhoto = exec getDataPhoto()
@@ -122,11 +122,11 @@ BehaviorOf drone {
 BehaviorOf headQuarter{
 	
 	var String command
-	var String dataSensorsReceived
+	var String sensorsDatasReceived
 	var String photoReceived
 	
 	action String getCommandToSend()
-	action void updateDashboard(String dataSensorsReceived)
+	action void updateDashboard(String sensorsDatasReceived)
 	action void storePhotoData(String photoReceived)
 	
 	state st_HeadQuarter_init initial
@@ -148,7 +148,7 @@ BehaviorOf headQuarter{
 		if {command == "stop"} { goToState st_HeadQuarter_endMission }
 		
 		// get sensors data
-		onMessage? dataSensor goToState st_HeadQuarter_receivedSensorsData
+		onMessage? sensorsData goToState st_HeadQuarter_receivedSensorsData
 		
 		// get photos
 		onMessage? photo goToState st_HeadQuarter_receivedPhoto
@@ -157,10 +157,10 @@ BehaviorOf headQuarter{
 	
 	state st_HeadQuarter_receivedSensorsData
 		// get sensors data
-		doPerceive headquarterReceiveDataSensors()
-		set dataSensorsReceived = code.curInputMsgContent
+		doPerceive headquarterReceivesensorsDatas()
+		set sensorsDatasReceived = code.curInputMsgContent
 		// update Dashboard
-		call updateDashboard(dataSensorsReceived)
+		call updateDashboard(sensorsDatasReceived)
 
 		goToState st_HeadQuarter_onMission
 	endstate
@@ -187,7 +187,7 @@ BehaviorOf smartphone {
 	var String dataDroneReceived 
 	
 	action void notifyUserMissionStarted()
-	action void showDataSensorsReceived(String data)
+	action void showSensorsDatasReceived(String data)
 	action void missionFinished()
 	
 	state st_Smartphone_init initial
@@ -200,15 +200,15 @@ BehaviorOf smartphone {
 	endstate
 	
 	state st_Smartphone_waitingForData
-		onMessage? dataSensor goToState st_Smartphone_receivedData
+		onMessage? sensorsData goToState st_Smartphone_receivedData
 		onMessage? notify goToState st_Smartphone_endMission
 	endstate
 	
 	state st_Smartphone_receivedData
 		// get data from drone
-		doPerceive smartphoneReceiveDataSensors()
+		doPerceive smartphoneReceivesensorsDatas()
 		set dataDroneReceived = code.curInputMsgContent
-		call showDataSensorsReceived(dataDroneReceived)
+		call showSensorsDatasReceived(dataDroneReceived)
 
 		goToState st_Smartphone_waitingForData
 	endstate

@@ -27,10 +27,15 @@ public class Drone extends DroneSupport {
 		return "";
 	}
 	
+	
 	public void setSpeed() {
 		env.println("SET SPEED: " + curInputMsgContent);
 	}
 
+	@Override
+	protected void setSpeed(String value) throws Exception {
+		env.println("SET SPEED: " + value);
+	}
 
 	@Override
 	protected void startMission() throws Exception {
