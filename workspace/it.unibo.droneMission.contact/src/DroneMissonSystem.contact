@@ -10,9 +10,7 @@ Subject headQuarter -w;
 Dispatch photo;
 Invitation command;
 Signal dataSensor;
-Signal notifyStartMission;
-Signal notifyEndMission;
-
+Signal notify;
 
 //		Highlevel communications
 //Drone send photo
@@ -26,15 +24,10 @@ sendDataSensors: drone emit dataSensor;
 headquarterReceiveDataSensors: headQuarter sense dataSensor;
 smartphoneReceiveDataSensors: smartphone sense dataSensor;
 
-//Drone send startMission
-sendNotifyStartMission: drone emit notifyStartMission;
-//Smartphone receive notification of start mission
-smartphoneReceiveNotifyStartMission: smartphone sense notifyStartMission;
-
-//Drone send endMission
-sendNotifyEndMission: drone emit notifyEndMission;
-//Smartphone receive notification of start mission
-smartphoneReceiveNotifyEndMission: smartphone sense notifyEndMission;
+//Drone notifies start/end mission
+sendnotify: drone emit notify;
+//Smartphone receive notifications about mission
+smartphoneReceiveNotify: smartphone sense notify;
 
 //HeadQuarter send command
 sendCommand: headQuarter ask command to drone;
@@ -80,7 +73,7 @@ BehaviorOf drone {
 	
 	state st_Drone_startMission
 		exec startMission() // empty method - maybe can be used in future?
-		doOut sendNotifyStartMission("mission started")
+		doOut sendnotify("start")
 		goToState st_Drone_setspeed
 	endstate
 	
@@ -121,7 +114,7 @@ BehaviorOf drone {
 	
 	state st_Drone_endMission
 		exec endMission() // empty method - maybe can be used in future?
-		doOut sendNotifyEndMission("stop mission")
+		doOut sendnotify("end")
 		transitToEnd
 	endstate
 }
@@ -190,6 +183,7 @@ BehaviorOf headQuarter{
 
 BehaviorOf smartphone {
 	
+	var String notifyContent
 	var String dataDroneReceived 
 	
 	action void notifyUserMissionStarted()
@@ -197,7 +191,7 @@ BehaviorOf smartphone {
 	action void missionFinished()
 	
 	state st_Smartphone_init initial
-		onMessage notifyStartMission transitTo st_Smartphone_missionStart
+		onMessage notify transitTo st_Smartphone_missionStart
 	endstate
 	
 	state st_Smartphone_missionStart
@@ -207,7 +201,7 @@ BehaviorOf smartphone {
 	
 	state st_Smartphone_waitingForData
 		onMessage? dataSensor goToState st_Smartphone_receivedData
-		onMessage? notifyEndMission goToState st_Smartphone_endMission
+		onMessage? notify goToState st_Smartphone_endMission
 	endstate
 	
 	state st_Smartphone_receivedData
@@ -216,6 +210,14 @@ BehaviorOf smartphone {
 		set dataDroneReceived = code.curInputMsgContent
 		call showDataSensorsReceived(dataDroneReceived)
 
+		goToState st_Smartphone_waitingForData
+	endstate
+	
+	state st_Smartphone_notifyHandler
+		doPerceive smartphoneReceiveNotify()
+		set notifyContent = code.curInputMsgContent
+		if {notifyContent == "start"} { goToState st_Smartphone_missionStart }
+		if {notifyContent == "end" } { goToState st_Smartphone_endMission }
 		goToState st_Smartphone_waitingForData
 	endstate
 	

@@ -40,7 +40,7 @@ public abstract class SmartphoneSupport extends Subject{
 	public SmartphoneSupport(String name) throws Exception{
 		super(name);
 	 	isMultiInput=true;
-	 	inputMessageList=new String[]{"dataSensor","notifyStartMission","notifyEndMission", "endSelectInput"};
+	 	inputMessageList=new String[]{"dataSensor","notify", "endSelectInput"};
 	 	initLastMsgRdMemo();  //put in initGui since the name must be set
 		//Singleton
 		if( obj != null ) return;
@@ -57,8 +57,7 @@ public abstract class SmartphoneSupport extends Subject{
 	
  	protected void initLastMsgRdMemo(){
  			lastMsgRdMemo.put("dataSensor"+getName(),0);
- 			lastMsgRdMemo.put("notifyStartMission"+getName(),0);
- 			lastMsgRdMemo.put("notifyEndMission"+getName(),0);
+ 			lastMsgRdMemo.put("notify"+getName(),0);
  	}
 	protected void initGui(){
 	    env = new EnvFrame( getName(), this, new java.awt.Color(151, 228, 255), java.awt.Color.black );
@@ -83,7 +82,10 @@ public abstract class SmartphoneSupport extends Subject{
 	*/
 	//Variable behavior declarations
 	protected 
+	String notifyContent = null;
+	protected 
 	String dataDroneReceived = null;
+	public  java.lang.String get_notifyContent(){ return notifyContent; }
 	public  java.lang.String get_dataDroneReceived(){ return dataDroneReceived; }
 	
 	protected boolean endStateControl = false;
@@ -100,6 +102,7 @@ public abstract class SmartphoneSupport extends Subject{
 				case "st_Smartphone_missionStart" : st_Smartphone_missionStart(); break; 
 				case "st_Smartphone_waitingForData" : st_Smartphone_waitingForData(); break; 
 				case "st_Smartphone_receivedData" : st_Smartphone_receivedData(); break; 
+				case "st_Smartphone_notifyHandler" : st_Smartphone_notifyHandler(); break; 
 				case "st_Smartphone_endMission" : st_Smartphone_endMission(); break; 
 			}//switch	
 			*/
@@ -107,6 +110,7 @@ public abstract class SmartphoneSupport extends Subject{
 			else if( curstate.equals("st_Smartphone_missionStart")){ st_Smartphone_missionStart(); }
 			else if( curstate.equals("st_Smartphone_waitingForData")){ st_Smartphone_waitingForData(); }
 			else if( curstate.equals("st_Smartphone_receivedData")){ st_Smartphone_receivedData(); }
+			else if( curstate.equals("st_Smartphone_notifyHandler")){ st_Smartphone_notifyHandler(); }
 			else if( curstate.equals("st_Smartphone_endMission")){ st_Smartphone_endMission(); }
 		}//while
 		//DEBUG 
@@ -129,13 +133,13 @@ public abstract class SmartphoneSupport extends Subject{
 	}
 	protected void st_Smartphone_waitingForData()  throws Exception{
 		
-		//[it.unibo.indigo.contact.impl.SignalImpl@764142f5 (name: dataSensor) (var: null), it.unibo.indigo.contact.impl.SignalImpl@36931f7a (name: notifyStartMission) (var: null), it.unibo.indigo.contact.impl.SignalImpl@74f79e93 (name: notifyEndMission) (var: null)] | dataSensor isSignal=true
+		//[it.unibo.indigo.contact.impl.SignalImpl@4073951b (name: dataSensor) (var: null), it.unibo.indigo.contact.impl.SignalImpl@644240ab (name: notify) (var: null)] | dataSensor isSignal=true
 		resCheckMsg = checkSignal("ANY","dataSensor",false);
 		if(resCheckMsg != null){
 			curstate = "st_Smartphone_receivedData";
 			return;}
-		//[it.unibo.indigo.contact.impl.SignalImpl@764142f5 (name: dataSensor) (var: null), it.unibo.indigo.contact.impl.SignalImpl@36931f7a (name: notifyStartMission) (var: null), it.unibo.indigo.contact.impl.SignalImpl@74f79e93 (name: notifyEndMission) (var: null)] | notifyEndMission isSignal=true
-		resCheckMsg = checkSignal("ANY","notifyEndMission",false);
+		//[it.unibo.indigo.contact.impl.SignalImpl@4073951b (name: dataSensor) (var: null), it.unibo.indigo.contact.impl.SignalImpl@644240ab (name: notify) (var: null)] | notify isSignal=true
+		resCheckMsg = checkSignal("ANY","notify",false);
 		if(resCheckMsg != null){
 			curstate = "st_Smartphone_endMission";
 			return;}
@@ -152,6 +156,39 @@ public abstract class SmartphoneSupport extends Subject{
 		return;
 		/* --- TRANSITION TO NEXT STATE --- */
 	}
+	protected void st_Smartphone_notifyHandler()  throws Exception{
+		
+		inputMessageList=new String[]{  "notify"  };
+		curInputMsg=selectWithPriority(false, inputMessageList);
+		curInputMsgContent = curInputMsg.msgContent();
+		notifyContent =curInputMsgContent;
+		
+		{//XBlockcode
+		String _notifyContent = notifyContent;
+		boolean _operator_equals = ObjectExtensions.operator_equals(_notifyContent, "start");
+		expXabseResult=_operator_equals;
+		}//XBlockcode
+		if(  (Boolean)expXabseResult ){ //cond
+		curstate = "st_Smartphone_missionStart"; 
+		//resetCurVars(); //leave the current values on
+		return;
+		}//if cond
+		
+		{//XBlockcode
+		String _notifyContent = notifyContent;
+		boolean _operator_equals = ObjectExtensions.operator_equals(_notifyContent, "end");
+		expXabseResult=_operator_equals;
+		}//XBlockcode
+		if(  (Boolean)expXabseResult ){ //cond
+		curstate = "st_Smartphone_endMission"; 
+		//resetCurVars(); //leave the current values on
+		return;
+		}//if cond
+		curstate = "st_Smartphone_waitingForData"; 
+		//resetCurVars(); //leave the current values on
+		return;
+		/* --- TRANSITION TO NEXT STATE --- */
+	}
 	protected void st_Smartphone_endMission()  throws Exception{
 		
 		missionFinished();/* --- TRANSITION TO NEXT STATE --- */
@@ -163,7 +200,7 @@ public abstract class SmartphoneSupport extends Subject{
 		
 		/* --- TRANSITION TO NEXT STATE --- */
 		Vector<String> tempList=new Vector<String>();
-		tempList.add("notifyStartMission");
+		tempList.add("notify");
 		 		if( tempList.size()==0){
 					resetCurVars();
 					do_terminationState();
@@ -171,10 +208,10 @@ public abstract class SmartphoneSupport extends Subject{
 					return;
 				}
 		selectInput(false,tempList);
-		if(curInputMsg.msgId().equals("notifyStartMission")){ 
+		if(curInputMsg.msgId().equals("notify")){ 
 		curstate = "st_Smartphone_missionStart";
 		return;
-		}//if curInputMsg notifyStartMission
+		}//if curInputMsg notify
 	}
 	
    	
@@ -199,33 +236,17 @@ public abstract class SmartphoneSupport extends Subject{
 	
 	}
 	
-	protected IMessage hl_smartphone_sense_notifyStartMission(   ) throws Exception {
-	IMessage m = new Message("signal(ANYx1y2,notifyStartMission,M,N)");
-	IMessage inMsg = comSup.rdw( getName() ,"notifyStartMission",  lastMsgRdMemo,m );
+	protected IMessage hl_smartphone_sense_notify(   ) throws Exception {
+	IMessage m = new Message("signal(ANYx1y2,notify,M,N)");
+	IMessage inMsg = comSup.rdw( getName() ,"notify",  lastMsgRdMemo,m );
 		return inMsg;
 	
 	}
-	protected IMessage hl_smartphone_sense_notifyStartMission( boolean mostRecent  ) throws Exception {
-	if( ! mostRecent) return hl_smartphone_sense_notifyStartMission ();
+	protected IMessage hl_smartphone_sense_notify( boolean mostRecent  ) throws Exception {
+	if( ! mostRecent) return hl_smartphone_sense_notify ();
 	else{
-	IMessage m = new Message("signal(ANYx1y2,notifyStartMission,M,N)");
-	IMessage inMsg = comSup.rdwMostRecent(getName() ,"notifyStartMission",  lastMsgRdMemo,m );
-		return inMsg;
-	}
-	
-	}
-	
-	protected IMessage hl_smartphone_sense_notifyEndMission(   ) throws Exception {
-	IMessage m = new Message("signal(ANYx1y2,notifyEndMission,M,N)");
-	IMessage inMsg = comSup.rdw( getName() ,"notifyEndMission",  lastMsgRdMemo,m );
-		return inMsg;
-	
-	}
-	protected IMessage hl_smartphone_sense_notifyEndMission( boolean mostRecent  ) throws Exception {
-	if( ! mostRecent) return hl_smartphone_sense_notifyEndMission ();
-	else{
-	IMessage m = new Message("signal(ANYx1y2,notifyEndMission,M,N)");
-	IMessage inMsg = comSup.rdwMostRecent(getName() ,"notifyEndMission",  lastMsgRdMemo,m );
+	IMessage m = new Message("signal(ANYx1y2,notify,M,N)");
+	IMessage inMsg = comSup.rdwMostRecent(getName() ,"notify",  lastMsgRdMemo,m );
 		return inMsg;
 	}
 	

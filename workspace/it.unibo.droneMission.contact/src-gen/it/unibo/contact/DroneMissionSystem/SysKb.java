@@ -14,8 +14,7 @@ private static String curS;
 	
 	public  boolean isSignal( String msgId ){
 	return msgId.equals("dataSensor") ||
-	msgId.equals("notifyStartMission") ||
-	msgId.equals("notifyEndMission");
+	msgId.equals("notify");
 	}
 	
 	public static void setCurOut(String s){

@@ -169,7 +169,7 @@ public abstract class DroneSupport extends Subject{
 	}
 	protected void st_Drone_startMission()  throws Exception{
 		
-		startMission(  );hl_drone_emit_notifyStartMission( "mission started" );
+		startMission(  );hl_drone_emit_notify( "start" );
 		curstate = "st_Drone_setspeed"; 
 		//resetCurVars(); //leave the current values on
 		return;
@@ -188,7 +188,7 @@ public abstract class DroneSupport extends Subject{
 		hl_drone_emit_dataSensor( dataSensors );
 		dataPhoto =getDataPhoto(  ) ;
 		hl_drone_forward_photo_headQuarter(dataPhoto );
-		//[it.unibo.indigo.contact.impl.SignalImpl@764142f5 (name: dataSensor) (var: null), it.unibo.indigo.contact.impl.SignalImpl@36931f7a (name: notifyStartMission) (var: null), it.unibo.indigo.contact.impl.SignalImpl@74f79e93 (name: notifyEndMission) (var: null)] | command isSignal=false
+		//[it.unibo.indigo.contact.impl.SignalImpl@4073951b (name: dataSensor) (var: null), it.unibo.indigo.contact.impl.SignalImpl@644240ab (name: notify) (var: null)] | command isSignal=false
 		resCheck = checkForMsg(getName(),"command",null);
 		if(resCheck){
 			curstate = "st_Drone_commandHandler";
@@ -230,7 +230,7 @@ public abstract class DroneSupport extends Subject{
 	}
 	protected void st_Drone_endMission()  throws Exception{
 		
-		endMission(  );hl_drone_emit_notifyEndMission( "stop mission" );
+		endMission(  );hl_drone_emit_notify( "end" );
 		/* --- TRANSITION TO NEXT STATE --- */
 		resetCurVars();
 		do_terminationState();
@@ -267,18 +267,10 @@ public abstract class DroneSupport extends Subject{
 	
 	}
 	
-	protected void hl_drone_emit_notifyStartMission( String M  ) throws Exception {
+	protected void hl_drone_emit_notify( String M  ) throws Exception {
 	M = MsgUtil.putInEnvelope(M);
-	IMessage m = new Message("signal("+getName()+",notifyStartMission,"+M+","+msgNum+")");
-	comSup.outOnly( getName() ,"notifyStartMission",  m );
-	msgNum++;
-	
-	}
-	
-	protected void hl_drone_emit_notifyEndMission( String M  ) throws Exception {
-	M = MsgUtil.putInEnvelope(M);
-	IMessage m = new Message("signal("+getName()+",notifyEndMission,"+M+","+msgNum+")");
-	comSup.outOnly( getName() ,"notifyEndMission",  m );
+	IMessage m = new Message("signal("+getName()+",notify,"+M+","+msgNum+")");
+	comSup.outOnly( getName() ,"notify",  m );
 	msgNum++;
 	
 	}
@@ -378,8 +370,7 @@ public abstract class DroneSupport extends Subject{
 	public void terminate() throws Exception{ //by EndSubjectConnections
 		droneForward_photo_headQuarterEnd();
 		droneEmit_dataSensorEnd();
-		droneEmit_notifyStartMissionEnd();
-		droneEmit_notifyEndMissionEnd();
+		droneEmit_notifyEnd();
 		droneAccept_commandEnd();
 	 			 //Auto-forward a dispatch to finish selectInput operations
 	 		    String ms =
@@ -403,13 +394,7 @@ public abstract class DroneSupport extends Subject{
 	//		PlatformExpert.findOutSupportToEnd("space","coreCmd","coreToDSpace", view);		
 	//		showMsg("terminate signal support");
 	}
-	protected void droneEmit_notifyStartMissionEnd() throws Exception{
-		//No operation is done at subject level. The SenseRemote threads are terminates 
-		//when the main application is closed
-	//		PlatformExpert.findOutSupportToEnd("space","coreCmd","coreToDSpace", view);		
-	//		showMsg("terminate signal support");
-	}
-	protected void droneEmit_notifyEndMissionEnd() throws Exception{
+	protected void droneEmit_notifyEnd() throws Exception{
 		//No operation is done at subject level. The SenseRemote threads are terminates 
 		//when the main application is closed
 	//		PlatformExpert.findOutSupportToEnd("space","coreCmd","coreToDSpace", view);		
