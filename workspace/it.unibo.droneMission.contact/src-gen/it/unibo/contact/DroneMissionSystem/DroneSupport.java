@@ -96,7 +96,7 @@ public abstract class DroneSupport extends Subject{
 	protected 
 	boolean speed = false;
 	protected 
-	String dataSensors = null;
+	String sensorsDatas = null;
 	protected 
 	String dataPhoto = null;
 	public  java.lang.String get_msgCommand(){ return msgCommand; }
@@ -105,7 +105,7 @@ public abstract class DroneSupport extends Subject{
 	public  boolean get_start(){ return start; }
 	public  boolean get_stop(){ return stop; }
 	public  boolean get_speed(){ return speed; }
-	public  java.lang.String get_dataSensors(){ return dataSensors; }
+	public  java.lang.String get_sensorsDatas(){ return sensorsDatas; }
 	public  java.lang.String get_dataPhoto(){ return dataPhoto; }
 	
 	protected boolean endStateControl = false;
@@ -185,11 +185,11 @@ public abstract class DroneSupport extends Subject{
 	}
 	protected void st_Drone_onMission()  throws Exception{
 		
-		dataSensors =getDataFromSensors(  ) ;
-		hl_drone_emit_dataSensor( dataSensors );
+		sensorsDatas =getDataFromSensors(  ) ;
+		hl_drone_emit_sensorsData( sensorsDatas );
 		dataPhoto =getDataPhoto(  ) ;
 		hl_drone_forward_photo_headQuarter(dataPhoto );
-		//[it.unibo.indigo.contact.impl.SignalImpl@4958d855 (name: dataSensor) (var: null), it.unibo.indigo.contact.impl.SignalImpl@67e2da11 (name: notify) (var: null)] | command isSignal=false
+		//[it.unibo.indigo.contact.impl.SignalImpl@b0eac3e (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@704e201d (name: notify) (var: null)] | command isSignal=false
 		resCheck = checkForMsg(getName(),"command",null);
 		if(resCheck){
 			curstate = "st_Drone_commandHandler";
@@ -259,10 +259,10 @@ public abstract class DroneSupport extends Subject{
 	
 	}
 	
-	protected void hl_drone_emit_dataSensor( String M  ) throws Exception {
+	protected void hl_drone_emit_sensorsData( String M  ) throws Exception {
 	M = MsgUtil.putInEnvelope(M);
-	IMessage m = new Message("signal("+getName()+",dataSensor,"+M+","+msgNum+")");
-	comSup.outOnly( getName() ,"dataSensor",  m );
+	IMessage m = new Message("signal("+getName()+",sensorsData,"+M+","+msgNum+")");
+	comSup.outOnly( getName() ,"sensorsData",  m );
 	msgNum++;
 	
 	}
@@ -369,7 +369,7 @@ public abstract class DroneSupport extends Subject{
 	*/
 	public void terminate() throws Exception{ //by EndSubjectConnections
 		droneForward_photo_headQuarterEnd();
-		droneEmit_dataSensorEnd();
+		droneEmit_sensorsDataEnd();
 		droneEmit_notifyEnd();
 		droneAccept_commandEnd();
 	 			 //Auto-forward a dispatch to finish selectInput operations
@@ -388,7 +388,7 @@ public abstract class DroneSupport extends Subject{
 		PlatformExpert.findOutSupportToEnd("drone","photo",getName(),view );
 		//showMsg("terminate droneForward_photo_headQuarter");
 	}
-	protected void droneEmit_dataSensorEnd() throws Exception{
+	protected void droneEmit_sensorsDataEnd() throws Exception{
 		//No operation is done at subject level. The SenseRemote threads are terminates 
 		//when the main application is closed
 	//		PlatformExpert.findOutSupportToEnd("space","coreCmd","coreToDSpace", view);		

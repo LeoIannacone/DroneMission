@@ -82,7 +82,7 @@ protected void initSupport(IOutputView view){
 }
 
 protected boolean isSignal( String msgId ){
-	return msgId.equals("dataSensor") ||
+	return msgId.equals("sensorsData") ||
 	msgId.equals("notify");		 	  
 }
  
