@@ -1,0 +1,150 @@
+ContactSystem droneSubsystem -awt -o;
+
+
+Subject class sensor -w; 	//sensors class
+
+
+Subject drone -w; // (?)
+
+//sensors (sends tics or cumputed data?)
+Subject speedSensor inherits sensor -w;	
+Subject fuelSensor inherits sensor -w;
+Subject odoSensor inherits sensor -w;
+Subject locationSensor inherits sensor -w;
+
+Subject camera -w;			//camera
+
+
+//		internal Messages
+Signal tic; //or data?
+Signal photo;
+Signal stop;
+
+
+//		internal Highlevel communications
+//sensors emits tic
+sendTic: sensor emit tic;
+//drone receive tic from sensors
+receiveTic: drone sense tic;
+
+//camera sendsPhoto
+sendPhoto: camera emit photo;
+//drone receive photo
+receivePhoto: drone sense photo;
+
+//drone stops camera and sensors
+sendStop: drone emit stop;
+//camera receives stop
+cameraReceiveStop: camera sense stop;
+//sensors receives stop
+sensorReceiveStop: sensor sense stop;
+
+
+//		Behaviors
+//Behavior of drone
+
+BehaviorOf drone{
+	var String from = ""
+//	var String value = ""
+	var String photoPack = ""
+	var boolean fuel = true
+	var String s =""
+	
+	action void initDrone() 
+	action String updateStatus(String sensor) //(String sensor, String v)
+	action String preparePhotoPack()
+	action void sendPhotoToHeadQuarter(String packet)
+	action boolean fuelEmpty()
+	
+	state st_drone_init initial
+		println("Starting Drone")
+		call initDrone()
+		goToState st_drone_started
+	endstate
+	
+	state st_drone_started
+		onMessage? tic goToState st_drone_sensorsHandler
+		onMessage? photo goToState st_drone_sendPhoto 
+		set fuel = call fuelEmpty()
+		if { !fuel } { goToState st_drone_endState }  
+	endstate
+	
+	state st_drone_sensorsHandler
+		doPerceive receiveTic()
+		set from = call curInputMsg.msgEmitter()
+		println("Received message from " + from)
+	//	set value = call curInputMsg.msgContent() //if sensor send computed data
+		set s = call updateStatus(from) //(from, value)
+		println("Sensors updated")
+		println(s)
+		goToState st_drone_started
+	endstate
+	
+	state st_drone_sendPhoto
+		println("Received photo")
+		doPerceive receivePhoto()
+		set photoPack = call preparePhotoPack() //create a string with sensors data
+		println(photoPack)
+		set photoPack = photoPack + call curInputMsg.msgContent() //add to the previous string the photo message
+		call sendPhotoToHeadQuarter(photoPack) //send photo to head quarter
+		goToState st_drone_started
+	endstate
+	
+	state st_drone_endState
+		doOut sendStop("stop")
+		transitToEnd
+	endstate
+}
+
+BehaviorOf camera {
+	
+	var String photo = null
+	var int sleepTime
+	
+	action void initCamera()
+	action String takePhoto()
+	
+	state st_camera_init initial
+		call initCamera()
+		goToState st_camera_idle
+	endstate
+	
+	state st_camera_idle
+		call Thread.sleep( sleepTime )
+		onMessage? stop goToState st_camera_endState
+		goToState st_camera_takePhoto
+	endstate
+	
+	state st_camera_takePhoto
+		set photo = call takePhoto()
+		doOut sendPhoto(photo)
+		goToState st_camera_idle
+	endstate
+	
+	state st_camera_endState
+		transitToEnd
+	endstate
+}
+
+BehaviorOf sensor{
+	
+	var int time
+	
+	action void initSensor()
+	
+	state st_sensor_init initial
+		call initSensor()
+		println(""+time)
+		goToState st_sensor_working
+	endstate
+	
+	state st_sensor_working
+		call Thread.sleep( time )
+		onMessage? stop goToState st_sensor_endState
+		doOut sendTic ("tic")
+	endstate
+	
+	state st_sensor_endState
+		transitToEnd
+	endstate
+}

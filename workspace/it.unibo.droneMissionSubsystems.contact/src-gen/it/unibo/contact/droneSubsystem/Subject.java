@@ -1,4 +1,4 @@
-package it.unibo.contact.DroneMissionSystem;
+package it.unibo.contact.droneSubsystem;
 import it.unibo.is.interfaces.*;
 import java.util.Hashtable;
 import java.util.Vector;
@@ -7,9 +7,9 @@ import it.unibo.contact.platformuv.LindaLike;
 import it.unibo.contact.platformuv.*;
 import it.unibo.is.interfaces.IMessage;
 /*
-*  Abstract class SubjectPassive
+*  Abstract class Subject
 */
-public abstract class SubjectPassive  implements IContactSystem{
+public abstract class Subject extends Thread implements IContactSystem{
 
 protected ILindaLike core  ;
 protected IOutputView view = null;
@@ -40,13 +40,12 @@ protected int msgNum = 1;
 
 protected java.util.Hashtable<String,Integer> lastMsgRdMemo = 
 new java.util.Hashtable<String,Integer>();	
-protected String name = "";
 protected final boolean distributedSpace = false;
 
 
- 	public SubjectPassive() throws Exception{
+ 	public Subject() throws Exception{
 	}
- 	public SubjectPassive(String name) throws Exception{
+ 	public Subject(String name) throws Exception{
  		setName(name);
 	}	
 	public void setEnv(IBasicEnvAwt env) throws Exception{
@@ -54,13 +53,26 @@ protected final boolean distributedSpace = false;
 		initGui();
 		initSupport(view);		
 	}
-public void setName(String name){
-	this.name = name;
+public void run(){
+	try { 
+		doJob(); 
+		//showMsg(" ... sleep for a while before ending");
+		Thread.sleep(500);
+		//showMsg(" ============== GOING TO TERMINATE ============== "  );	
+		terminate();
+		showMsg(" --------------- TERMINATED ------------------ "  );	
+	} catch (Exception e) {
+		//showMsg("Subject ERROR " + e.getMessage());
+		try {
+			showMsg(" ============== GOING TO TERMINATE WITH EXCEPTION ============== "  );	
+			terminate();
+			showMsg(" --------------- TERMINATED ------------------ "  );	
+		} catch (Exception e1) {
+ 			e1.printStackTrace();
+		}
+		}
 }
-public String getName( ){
-	return name;
-}
-public boolean isPassive(){return true;}
+public boolean isPassive(){return false;}
 abstract public void doJob() throws Exception; //	stateControl( );
 abstract public void terminate() throws Exception;
 abstract protected void initGui() throws Exception;
@@ -70,8 +82,9 @@ protected void initSupport(IOutputView view){
 }
 
 protected boolean isSignal( String msgId ){
-	return msgId.equals("sensorsData") ||
-	msgId.equals("notify");		 	  
+	return msgId.equals("tic") ||
+	msgId.equals("photo") ||
+	msgId.equals("stop");		 	  
 }
  
  /* ==================================

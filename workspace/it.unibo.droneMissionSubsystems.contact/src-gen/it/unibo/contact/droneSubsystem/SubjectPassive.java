@@ -1,4 +1,4 @@
-package it.unibo.contact.DroneMissionSystem;
+package it.unibo.contact.droneSubsystem;
 import it.unibo.is.interfaces.*;
 import java.util.Hashtable;
 import java.util.Vector;
@@ -70,8 +70,9 @@ protected void initSupport(IOutputView view){
 }
 
 protected boolean isSignal( String msgId ){
-	return msgId.equals("sensorsData") ||
-	msgId.equals("notify");		 	  
+	return msgId.equals("tic") ||
+	msgId.equals("photo") ||
+	msgId.equals("stop");		 	  
 }
  
  /* ==================================
