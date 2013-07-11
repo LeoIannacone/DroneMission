@@ -133,21 +133,12 @@ public abstract class SmartphoneSupport extends Subject{
 	}
 	protected void st_Smartphone_waitingForData()  throws Exception{
 		
-<<<<<<< HEAD
-		//[it.unibo.indigo.contact.impl.SignalImpl@1d0737c8 (name: dataSensor) (var: null), it.unibo.indigo.contact.impl.SignalImpl@6a7fb9e2 (name: notify) (var: null)] | dataSensor isSignal=true
-		resCheckMsg = checkSignal("ANY","dataSensor",false);
-		if(resCheckMsg != null){
-			curstate = "st_Smartphone_receivedData";
-			return;}
-		//[it.unibo.indigo.contact.impl.SignalImpl@1d0737c8 (name: dataSensor) (var: null), it.unibo.indigo.contact.impl.SignalImpl@6a7fb9e2 (name: notify) (var: null)] | notify isSignal=true
-=======
-		//[it.unibo.indigo.contact.impl.SignalImpl@b0eac3e (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@704e201d (name: notify) (var: null)] | sensorsData isSignal=true
+		//[it.unibo.indigo.contact.impl.SignalImpl@7c50ecbc (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@24e66a67 (name: notify) (var: null)] | sensorsData isSignal=true
 		resCheckMsg = checkSignal("ANY","sensorsData",false);
 		if(resCheckMsg != null){
 			curstate = "st_Smartphone_receivedData";
 			return;}
-		//[it.unibo.indigo.contact.impl.SignalImpl@b0eac3e (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@704e201d (name: notify) (var: null)] | notify isSignal=true
->>>>>>> 7a2fbf6cc734e33d84eeba3bdcdd59c587b34328
+		//[it.unibo.indigo.contact.impl.SignalImpl@7c50ecbc (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@24e66a67 (name: notify) (var: null)] | notify isSignal=true
 		resCheckMsg = checkSignal("ANY","notify",false);
 		if(resCheckMsg != null){
 			curstate = "st_Smartphone_endMission";

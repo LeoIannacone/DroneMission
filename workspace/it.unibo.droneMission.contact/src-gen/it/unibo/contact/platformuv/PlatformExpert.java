@@ -118,7 +118,7 @@ public class PlatformExpert{
  		//1. Look if there is a specific connection active for the receiver for msgId (in subjConn)
  		//2. Look if there is a connection (in connChannel)
 		ILindaLike sup = RunTimeKb.getSubjectConnectionSupport( receiver   );  
-		if( sup != null ){	//Esiste già una connessione da una richiesta TCP (ReceiverTcpRequest.chSet=setConnChannel)
+		if( sup != null ){	//Esiste gi√† una connessione da una richiesta TCP (ReceiverTcpRequest.chSet=setConnChannel)
 			//inject knowledge
 			ConnReceiver.setInputMsg(msgId, withAnswer);
 			println(view,"getProtocolInSupport has found input connection for " + receiver+msgId );			

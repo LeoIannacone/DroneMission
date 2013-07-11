@@ -61,7 +61,7 @@ public class SupportFactory {
    			activePorts.put("TCP"+portNum, tcpR);
   			RunTimeKb.addSubjectInConnSupport(receiver, msgId, tcpR );
   		 	tcpR.start();
-  		}else{ //si usa una connessione già in atto (subject independent)			 
+  		}else{ //si usa una connessione gi√† in atto (subject independent)			 
     			RunTimeKb.addSubjectInConnSupport(receiver, msgId, activePorts.get("TCP"+portNum) );
     		}
    		return  LindaLike.getSpace(view);
