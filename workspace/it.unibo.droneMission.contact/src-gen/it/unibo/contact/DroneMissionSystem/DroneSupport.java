@@ -16,7 +16,6 @@ import it.unibo.is.interfaces.protocols.IConnInteraction;
 //For Xbase code 
 import org.eclipse.xtext.xbase.lib.Functions.*;
 import org.eclipse.xtext.xbase.lib.*;
-import it.unibo.baseEnv.basicFrame.EnvFrame;
 
 public abstract class DroneSupport extends Subject{
 	private static Drone obj = null;
@@ -60,17 +59,15 @@ public abstract class DroneSupport extends Subject{
  			lastMsgRdMemo.put("command"+getName(),0);
  	}
 	protected void initGui(){
-	    env = new EnvFrame( getName(), this, new java.awt.Color(151, 228, 255), java.awt.Color.black );
-	    env.init();
-	    env.writeOnStatusBar(getName() + " | DroneSupport working ... ",14);
-	    view = env.getOutputView();
+		if( env != null ) view = env.getOutputView();
 	    initLastMsgRdMemo(); //put here since the name must be set
-	 }
+	}
 	
 	/* -------------------------------------
 	* State-based Behavior
 	* -------------------------------------- 
 	*/ 
+	protected abstract boolean executeCommand(java.lang.String cmd,java.lang.String v) throws Exception;
 	protected abstract void startMission() throws Exception;
 	protected abstract void endMission() throws Exception;
 	protected abstract void setSpeed(java.lang.String value) throws Exception;
@@ -90,11 +87,9 @@ public abstract class DroneSupport extends Subject{
 	protected 
 	String cmdValue = "";
 	protected 
-	boolean start = false;
-	protected 
 	boolean stop = false;
 	protected 
-	boolean speed = false;
+	boolean cmdOk = false;
 	protected 
 	String sensorsDatas = null;
 	protected 
@@ -102,9 +97,8 @@ public abstract class DroneSupport extends Subject{
 	public  java.lang.String get_msgCommand(){ return msgCommand; }
 	public  java.lang.String get_cmdName(){ return cmdName; }
 	public  java.lang.String get_cmdValue(){ return cmdValue; }
-	public  boolean get_start(){ return start; }
 	public  boolean get_stop(){ return stop; }
-	public  boolean get_speed(){ return speed; }
+	public  boolean get_cmdOk(){ return cmdOk; }
 	public  java.lang.String get_sensorsDatas(){ return sensorsDatas; }
 	public  java.lang.String get_dataPhoto(){ return dataPhoto; }
 	
@@ -121,7 +115,6 @@ public abstract class DroneSupport extends Subject{
 				case "st_Drone_init" : st_Drone_init(); break; 
 				case "st_Drone_ready" : st_Drone_ready(); break; 
 				case "st_Drone_startMission" : st_Drone_startMission(); break; 
-				case "st_Drone_setspeed" : st_Drone_setspeed(); break; 
 				case "st_Drone_onMission" : st_Drone_onMission(); break; 
 				case "st_Drone_commandHandler" : st_Drone_commandHandler(); break; 
 				case "st_Drone_endMission" : st_Drone_endMission(); break; 
@@ -130,7 +123,6 @@ public abstract class DroneSupport extends Subject{
 			if( curstate.equals("st_Drone_init")){ st_Drone_init(); }
 			else if( curstate.equals("st_Drone_ready")){ st_Drone_ready(); }
 			else if( curstate.equals("st_Drone_startMission")){ st_Drone_startMission(); }
-			else if( curstate.equals("st_Drone_setspeed")){ st_Drone_setspeed(); }
 			else if( curstate.equals("st_Drone_onMission")){ st_Drone_onMission(); }
 			else if( curstate.equals("st_Drone_commandHandler")){ st_Drone_commandHandler(); }
 			else if( curstate.equals("st_Drone_endMission")){ st_Drone_endMission(); }
@@ -149,47 +141,51 @@ public abstract class DroneSupport extends Subject{
 	protected void st_Drone_ready()  throws Exception{
 		
 		showMsg("----- Waiting setSpeed -----");
-		curInputMsg=hl_drone_accept_command();
-		curInputMsgContent = curInputMsg.msgContent();
+		 curRequest=hl_drone_grant_command();
+		 curInputMsg= curRequest.getReceivedMessage();
+		 curInputMsgContent = curInputMsg.msgContent();
 		msgCommand =curInputMsg.msgContent() ;
 		cmdName =Drone.getCommandName(msgCommand) ;
-		start =cmdName.contains("setspeed") ;
+		cmdValue =Drone.getCommandValue(msgCommand) ;
+		cmdOk =executeCommand(cmdName,cmdValue) ;
 		
 		{//XBlockcode
-		boolean _start = start;
-		expXabseResult=_start;
+		boolean _cmdOk = cmdOk;
+		expXabseResult=_cmdOk;
 		}//XBlockcode
 		if(  (Boolean)expXabseResult ){ //cond
+		curRequest.replyToCaller( "completed" ); 
 		curstate = "st_Drone_startMission"; 
 		//resetCurVars(); //leave the current values on
 		return;
+		}//if cond
+		
+		{//XBlockcode
+		boolean _cmdOk = cmdOk;
+		boolean _operator_not = BooleanExtensions.operator_not(_cmdOk);
+		expXabseResult=_operator_not;
+		}//XBlockcode
+		if(  (Boolean)expXabseResult ){ //cond
+		curRequest.replyToCaller( "error" ); 
 		}//if cond
 		showMsg("ERROR: expected 'setspeed' command to start. Received: "+cmdName);
 		/* --- TRANSITION TO NEXT STATE --- */
 	}
 	protected void st_Drone_startMission()  throws Exception{
 		
+		showMsg("----- start mission -----");
 		startMission(  );hl_drone_emit_notify( "start" );
-		curstate = "st_Drone_setspeed"; 
-		//resetCurVars(); //leave the current values on
-		return;
-		/* --- TRANSITION TO NEXT STATE --- */
-	}
-	protected void st_Drone_setspeed()  throws Exception{
-		
-		cmdValue =Drone.getCommandValue(curInputMsgContent) ;
-		setSpeed( cmdValue );curstate = "st_Drone_onMission"; 
+		curstate = "st_Drone_onMission"; 
 		//resetCurVars(); //leave the current values on
 		return;
 		/* --- TRANSITION TO NEXT STATE --- */
 	}
 	protected void st_Drone_onMission()  throws Exception{
 		
+		showMsg("----- on mission -----");
 		sensorsDatas =getDataFromSensors(  ) ;
-		hl_drone_emit_sensorsData( sensorsDatas );
 		dataPhoto =getDataPhoto(  ) ;
-		hl_drone_forward_photo_headQuarter(dataPhoto );
-		//[it.unibo.indigo.contact.impl.SignalImpl@71e7c512 (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@273b5b2a (name: notify) (var: null)] | command isSignal=false
+		//[it.unibo.indigo.contact.impl.SignalImpl@1cf8a49a (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@7fe8952 (name: notify) (var: null)] | command isSignal=false
 		resCheck = checkForMsg(getName(),"command",null);
 		if(resCheck){
 			curstate = "st_Drone_commandHandler";
@@ -198,10 +194,30 @@ public abstract class DroneSupport extends Subject{
 	}
 	protected void st_Drone_commandHandler()  throws Exception{
 		
-		curInputMsg=hl_drone_accept_command();
-		curInputMsgContent = curInputMsg.msgContent();
+		showMsg("cmd handler");
+		 curRequest=hl_drone_grant_command();
+		 curInputMsg= curRequest.getReceivedMessage();
+		 curInputMsgContent = curInputMsg.msgContent();
 		cmdName =Drone.getCommandName(curInputMsgContent) ;
-		stop =cmdName.contains("stop") ;
+		cmdValue =Drone.getCommandValue(curInputMsgContent) ;
+		cmdOk =executeCommand(cmdName,cmdValue) ;
+		
+		{//XBlockcode
+		boolean _cmdOk = cmdOk;
+		expXabseResult=_cmdOk;
+		}//XBlockcode
+		if(  (Boolean)expXabseResult ){ //cond
+		curRequest.replyToCaller( "completed" ); 
+		}//if cond
+		
+		{//XBlockcode
+		boolean _cmdOk = cmdOk;
+		boolean _operator_not = BooleanExtensions.operator_not(_cmdOk);
+		expXabseResult=_operator_not;
+		}//XBlockcode
+		if(  (Boolean)expXabseResult ){ //cond
+		curRequest.replyToCaller( "error" ); 
+		}//if cond
 		
 		{//XBlockcode
 		boolean _stop = stop;
@@ -209,17 +225,6 @@ public abstract class DroneSupport extends Subject{
 		}//XBlockcode
 		if(  (Boolean)expXabseResult ){ //cond
 		curstate = "st_Drone_endMission"; 
-		//resetCurVars(); //leave the current values on
-		return;
-		}//if cond
-		speed =cmdName.contains("setspeed") ;
-		
-		{//XBlockcode
-		boolean _speed = speed;
-		expXabseResult=_speed;
-		}//XBlockcode
-		if(  (Boolean)expXabseResult ){ //cond
-		curstate = "st_Drone_setspeed"; 
 		//resetCurVars(); //leave the current values on
 		return;
 		}//if cond
@@ -275,9 +280,9 @@ public abstract class DroneSupport extends Subject{
 	
 	}
 	
-	protected IMessage hl_drone_accept_command(   ) throws Exception {
-	//EXPERT for COMPOSED drone_accept_command isInput=true withAnswer=true applVisible=false
-	IMessage answer = comSup.inOutAck(
+	protected IMessageAndContext hl_drone_grant_command(   ) throws Exception {
+	//EXPERT for COMPOSED drone_grant_command isInput=true withAnswer=true applVisible=true
+	IMessageAndContext answer = comSup.inOut(
 	getName() ,"command", 
 	"drone_command(ANYx1y2,command,M,N)" ); 
 	return answer;
@@ -344,8 +349,9 @@ public abstract class DroneSupport extends Subject{
 	  IMessage m;
 	  //USER MESSAGES
 	  if( msgId.equals("command")){
-	  	m = hl_drone_accept_command();
-	  	return m;
+	  	curRequest = hl_drone_grant_command();
+	  	m = curRequest.getReceivedMessage();
+	  	return m;		
 	  }
 	 if( msgId.equals("endSelectInput")){
 	  String ms = MsgUtil.bm(MsgUtil.channelInWithPolicy(InteractPolicy.nopolicy(),getName(), "endSelectInput"), 
@@ -371,7 +377,7 @@ public abstract class DroneSupport extends Subject{
 		droneForward_photo_headQuarterEnd();
 		droneEmit_sensorsDataEnd();
 		droneEmit_notifyEnd();
-		droneAccept_commandEnd();
+		droneGrant_commandEnd();
 	 			 //Auto-forward a dispatch to finish selectInput operations
 	 		    String ms =
 	 		      MsgUtil.bm(MsgUtil.channelInWithPolicy(InteractPolicy.nopolicy(),getName(), "endSelectInput"), 
@@ -400,8 +406,8 @@ public abstract class DroneSupport extends Subject{
 	//		PlatformExpert.findOutSupportToEnd("space","coreCmd","coreToDSpace", view);		
 	//		showMsg("terminate signal support");
 	}
-	protected void droneAccept_commandEnd() throws Exception{
-	 		PlatformExpert.findInSupportToEnd(getName(),"command",view );
-		//showMsg("terminate droneAccept_command");
+	protected void droneGrant_commandEnd() throws Exception{
+	 	PlatformExpert.findInSupportToEnd(getName(),"command",view );
+		//showMsg("terminate droneGrant_command");
 	}
 }//DroneSupport

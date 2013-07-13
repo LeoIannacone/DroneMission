@@ -3,7 +3,6 @@
 */
 package it.unibo.contact.DroneMissionSystem;
 import it.unibo.contact.platformuv.*;
-import it.unibo.baseEnv.basicFrame.EnvFrame;
 import it.unibo.contact.platformuv.LindaLike;
 import it.unibo.is.interfaces.IBasicEnvAwt;
 import it.unibo.is.interfaces.IContactSystem;
@@ -16,7 +15,7 @@ public abstract class DroneMissionSystemMain implements IContactSystem{
 	protected IBasicEnvAwt env = null;
 	protected IOutputView view = null;
  	protected LindaLike core = null;
-	protected SmartphoneSupport smartphone;
+	protected SmartdeviceSupport smartdevice;
 	protected DroneSupport drone;
 	protected HeadQuarterSupport headQuarter;
 protected DroneMissionSystemObserver observer;
@@ -51,16 +50,16 @@ protected DroneMissionSystemObserver observer;
 		core = ((LindaLike)LindaLike.initSpace(view,"droneMissionSystem"));
 	}
 	//For debug purpose
-	public Smartphone get_smartphone()throws Exception{while(smartphone==null)Thread.sleep(100);return (Smartphone)smartphone; }
+	public Smartdevice get_smartdevice()throws Exception{while(smartdevice==null)Thread.sleep(100);return (Smartdevice)smartdevice; }
 	public Drone get_drone()throws Exception{while(drone==null)Thread.sleep(100);return (Drone)drone; }
 	public HeadQuarter get_headQuarter()throws Exception{while(headQuarter==null)Thread.sleep(100);return (HeadQuarter)headQuarter; }
 	protected void configureSystem(){		
 		RunTimeKb.init(view);
 	//Protocols for application messages
-		RunTimeKb.addSubject("TCP","space","setConnChannel", "localhost", 4010  );		 
-			RunTimeKb.addSubject("TCP", "space","coreCmd", "localhost",4010);	
+		RunTimeKb.addSubject("TCP","space","setConnChannel", "localhost", 7070  );		 
+			RunTimeKb.addSubject("TCP", "space","coreCmd", "localhost",7070);	
 			RunTimeKb.addInputConnMsg( "update", false);
-			//RunTimeKb.addSubject("TCP", "space","outCmd", "localhost" ,4010);	
+			//RunTimeKb.addSubject("TCP", "space","outCmd", "localhost" ,7070);	
 		RunTimeKb.addSubject("TCP" , "headQuarter" , "photo","localhost",4060 );   	
 		RunTimeKb.addSubject("TCP" , "drone" , "command","localhost",4050 );   	
 	//Application messages

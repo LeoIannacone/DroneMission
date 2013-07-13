@@ -62,4 +62,23 @@ public class Drone extends DroneSupport {
 	protected String getDataPhoto() throws Exception {
 		return "photoX;dataY;timeZ";
 	}
+
+
+	@Override
+	protected boolean executeCommand(String cmd, String v) throws Exception {
+		if(cmd.equals("setspeed") && (Integer.parseInt(v)>=60) && (Integer.parseInt(v)<=120)){
+			env.println("Set speed to: " + v);
+			return true;
+		}
+		if(cmd.equals("start")){
+			env.println("Mission started");
+			return true;
+		}
+		if(cmd.equals("stop")){
+			env.println("Mission stopped");
+			this.stop=true;
+			return true;
+		}
+		return false;
+	}
 }

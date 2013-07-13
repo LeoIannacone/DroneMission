@@ -2678,8 +2678,9 @@ DroneMissionSystem
 \end_layout
 
 \begin_layout Standard
-Come detto il DroneMissionSystem sarà composto da tre Subject, e il primo
- passo per l'analisi sarà quindi definirli:
+Come detto il DroneMissionSystem sarà composto da tre sub systems eterogenei
+ e distribuiti, per questo verranno introdotti tre contesti, uno per il
+ drone, uno per la centrale operativa ed il terzo per lo smartdevice:
 \end_layout
 
 \begin_layout Standard
@@ -2690,27 +2691,46 @@ status open
 
 \begin_layout Plain Layout
 
-ContactSystem DroneMissionSystem -awt -o;
+ContactSystem DroneMissionSystem -awt -o spaceUpdater [host="localhost"
+ port=4010];
 \end_layout
 
 \begin_layout Plain Layout
 
-//		Subsystems -w (window) 
 \end_layout
 
 \begin_layout Plain Layout
 
-Subject smartphone -w; 
+Context subSystemDrone;
 \end_layout
 
 \begin_layout Plain Layout
 
-Subject drone -w; 
+Context subSystemHeadQuarter;
 \end_layout
 
 \begin_layout Plain Layout
 
-Subject headQuarter -w;
+Context subSystemSmartdevice;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Subject smartphone context subSystemSmartdevice -w; 
+\end_layout
+
+\begin_layout Plain Layout
+
+Subject drone context subSystemDrone -w; 
+\end_layout
+
+\begin_layout Plain Layout
+
+Subject headQuarter context subSystemHeadQuarter -w;
 \end_layout
 
 \end_inset
@@ -2719,20 +2739,37 @@ Subject headQuarter -w;
 \end_layout
 
 \begin_layout Standard
-Dopo aver definito quali saranno gli attori che entreranno in gioco nel
- sistema si procederà a definire i messaggi che questi si scambieranno e
- successivamente le loro comunicazioni di alto livello.
+Dopo aver definito quali saranno i sottosistemi che entreranno in gioco
+ si procederà a definire i messaggi che questi si scambieranno e successivamente
+ le loro comunicazioni di alto livello.
 \end_layout
 
 \begin_layout Standard
 I messaggi saranno di diverso tipo a seconda della loro funzionalità: i
- comandi inviati dalla centrale di controllo saranno visti come Invitation
- (una volta inviati, il mittente si metterà in attesa di un ACK da parte
- del destinatario), le notifiche ed i dati dei sensori inviati dal drone
- saranno invece dei Signal (verranno inseriti nello shared-space e potranno
- essere prelevati dagli altri soggetti in gioco), mentre per quanto riguarda
- le foto, queste saranno inviate sotto forma di Dispatch alla centrale di
- controllo (senza attendere l'ACK).
+ comandi inviati dalla centrale di controllo saranno visti come Request
+ (una volta inviati, il mittente si metterà in attesa di un risposta da
+ parte del destinatario, con l'esito dell'operazione svolta: 
+\begin_inset Quotes eld
+\end_inset
+
+COMPLETED
+\begin_inset Quotes erd
+\end_inset
+
+ o 
+\begin_inset Quotes eld
+\end_inset
+
+ERROR
+\begin_inset Quotes erd
+\end_inset
+
+), le notifiche ed i dati dei sensori inviati dal drone saranno invece dei
+ Signal (verranno inseriti nello shared-space e potranno essere prelevati
+ dagli altri soggetti in gioco, senza dover specificare chi), mentre per
+ quanto riguarda le foto, queste saranno inviate sotto forma di Dispatch
+ alla centrale di controllo (senza attendere l'unico sotto sistema in grado
+ di riceverla).
 \end_layout
 
 \begin_layout Standard
