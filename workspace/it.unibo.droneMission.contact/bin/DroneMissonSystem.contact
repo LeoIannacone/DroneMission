@@ -1,10 +1,13 @@
-ContactSystem DroneMissionSystem -awt -o;
+ContactSystem DroneMissionSystem -awt -o spaceUpdater [host="localhost" port=4010];
 
+Context ctxDrone -w;
+Context ctxSmartphone -w;
+Context ctxHeadQuarter -w;
 
 //		Subsystems -w (window)
-Subject smartphone -w;
-Subject drone -w;
-Subject headQuarter -w;
+Subject smartphone context ctxSmartphone-w;
+Subject drone context ctxDrone -w;
+Subject headQuarter context ctxHeadQuarter-w;
 
 
 //		Messages

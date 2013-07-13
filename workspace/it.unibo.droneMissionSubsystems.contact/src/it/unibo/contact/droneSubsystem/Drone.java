@@ -4,7 +4,7 @@ import it.unibo.contact.droneSubsystem.DroneSupport;
 
 public class Drone extends DroneSupport {
 	
-	protected double speed;
+	protected int speed;
 	protected double km;
 	protected double fuel;
 	protected double lat;
@@ -32,11 +32,11 @@ public class Drone extends DroneSupport {
 			//necessary?
 		}
 		if(sensor.contains("odo")){
-			km+=(speed/3600)*DefaultValues.ODOTIME;
+			km+=(speed/3600.0)*DefaultValues.ODOTIME;
 			return ("new km: "+km);
 		}
 		if(sensor.contains("fuel")){
-			fuel-=((speed*30)/3600)*DefaultValues.FUELTIME;
+			fuel-=((speed*30)/3600.0)*DefaultValues.FUELTIME;
 			return ("new fuel: "+fuel);
 		}
 		if(sensor.contains("loc")){

@@ -12,14 +12,13 @@ import it.unibo.is.interfaces.IOutputView;
 import it.unibo.is.interfaces.platforms.IAcquireOneReply;
 import it.unibo.is.interfaces.platforms.ILindaLike;
 import it.unibo.is.interfaces.protocols.IConnInteraction;
-public abstract class DroneMissionSystemMain implements IContactSystem{
+public class CtxDroneMain implements IContactSystem{
 	protected IBasicEnvAwt env = null;
 	protected IOutputView view = null;
  	protected LindaLike core = null;
 	protected SmartphoneSupport smartphone;
 	protected DroneSupport drone;
 	protected HeadQuarterSupport headQuarter;
-protected DroneMissionSystemObserver observer;
 	public void doJob(){
 		initProperty();
 		init();
@@ -44,12 +43,19 @@ protected DroneMissionSystemObserver observer;
 	System.setProperty("tcpLowTrace", "unset");
 	  }
 	protected void init(){
+		initGui();
 		initSupport();
 	}
 	protected void initSupport(){
 		MsgUtil.init(view);
-		core = ((LindaLike)LindaLike.initSpace(view,"droneMissionSystem"));
+		core = ((LindaLike)LindaLike.initSpace(view,"ctxDrone"));
 	}
+	protected void initGui(){
+	 env = new EnvFrame( "CtxDrone", this );
+	 env.init();
+	 env.writeOnStatusBar( Thread.currentThread() +  " | CtxDrone working ...",14);
+	 view = env.getOutputView();
+	}		
 	//For debug purpose
 	public Smartphone get_smartphone()throws Exception{while(smartphone==null)Thread.sleep(100);return (Smartphone)smartphone; }
 	public Drone get_drone()throws Exception{while(drone==null)Thread.sleep(100);return (Drone)drone; }
@@ -70,6 +76,9 @@ protected DroneMissionSystemObserver observer;
 	}
 	protected void configureSubjects(){
 	try {
+	drone = DroneSupport.create("drone");  
+	 	drone.setEnv(env);
+	drone.initInputSupports();	 
 	registerObservers();
 	}catch(Exception e){e.printStackTrace();}
 	}
@@ -77,30 +86,24 @@ protected DroneMissionSystemObserver observer;
 	 	configureSystem();
 		configureSubjects();  
 			try {
-				if( env != null) env.writeOnStatusBar( Thread.currentThread() +  " |  DroneMissionSystem connecting ...",14);			
+				if( env != null) env.writeOnStatusBar( Thread.currentThread() +  " |  ctxDrone connecting ...",14);			
 	 			ask_setConnChannel_space();
 				serveUpdateDispatchThread();
-				if( env != null) env.writeOnStatusBar( Thread.currentThread() +  " |  DroneMissionSystem working ...",14);
+				if( env != null) env.writeOnStatusBar( Thread.currentThread() +  " |  ctxDrone working ...",14);
 			} catch (Exception e) {
 	 			//e.printStackTrace();
 	 			if(view!=null) view.addOutput("configure ERROR " + e.getMessage() );
 			}
 	}	
 	protected void registerObservers(){
-			try {
-				observer = new DroneMissionSystemObserver();
-				LindaLike.register( observer );
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 	}
 	protected void start(){
+		drone.start();
 	}
    	public boolean isPassive() { return true; }
 	public void terminate() {
-	System.out.println("DroneMissionSystem TERMINATES");
+	System.out.println("CtxDrone TERMINATES");
 	try {
-	 	observer.terminate();
 	 	
 	 	} catch (Exception e) {
 		e.printStackTrace();
@@ -109,9 +112,9 @@ protected DroneMissionSystemObserver observer;
 	}
 	protected void ask_setConnChannel_space()  {
 		try{
-	  		ILindaLike support = PlatformExpert.findOutSupport("space","setConnChannel","droneMissionSystem",view);
-		 	RunTimeKb.addSubjectConnectionSupport("droneMissionSystem", support, view );
-		 	String msgOut = "space_setConnChannel(droneMissionSystem, setConnChannel, connect, 0) "  ;
+	  		ILindaLike support = PlatformExpert.findOutSupport("space","setConnChannel","ctxDrone",view);
+		 	RunTimeKb.addSubjectConnectionSupport("ctxDrone", support, view );
+		 	String msgOut = "space_setConnChannel(ctxDrone, setConnChannel, connect, 0) "  ;
 			support.out( msgOut );
 	/*		
 			System.out.println( " ask_setConnChannel_space: Now create a ConnReceiver input");
@@ -119,8 +122,8 @@ protected DroneMissionSystemObserver observer;
 			ConnReceiver cr = new ConnReceiver("inConn_space", conn, view);			
 			cr.start();
 	*/	
-			IAcquireOneReply answer = new AcquireOneReply("droneMissionSystem", "space","setConnChannel",core, 
-				"droneMissionSystem"+"_space_setConnChannel(space,setConnChannel,M,0)",view);
+			IAcquireOneReply answer = new AcquireOneReply("ctxDrone", "space","setConnChannel",core, 
+				"ctxDrone"+"_space_setConnChannel(space,setConnChannel,M,0)",view);
 			IMessage reply = answer.acquireReply();
 			if( reply.msgContent().contains("exception")) throw new Exception("connection not possible");
 			System.out.println(" ask_setConnChannel_space: reply= " + reply.msgContent() + " from " + reply.msgEmitter() );
@@ -135,17 +138,17 @@ protected DroneMissionSystemObserver observer;
 				protected CommLogic comSup = new CommLogic(view);
 				
 				protected IMessage hl_node_serve_update(   ) throws Exception {
-					IMessage m = new Message("droneMissionSystem"+"_update"+"(ANY,update,M,N)");
-					IMessage inMsg = comSup.inOnly( "droneMissionSystem" ,"update", m );				
+					IMessage m = new Message("ctxDrone"+"_update"+"(ANY,update,M,N)");
+					IMessage inMsg = comSup.inOnly( "ctxDrone" ,"update", m );				
 					return inMsg;				
 				}		
 		
 				public void run(){
-					System.out.println("droneMissionSystem serveUpdateDispatchThread started");
+					System.out.println("ctxDrone serveUpdateDispatchThread started");
 					while(goon)
 					try {
 						IMessage m =  hl_node_serve_update();
-	 					System.out.println("droneMissionSystem storing content of: " + m   );
+	 					System.out.println("ctxDrone storing content of: " + m   );
 						LindaLike.getSpace().out( m.msgContent() );					 
 					} catch (Exception e) {
 						goon=false;
@@ -156,7 +159,7 @@ protected DroneMissionSystemObserver observer;
 			}.start();
 	 }
 	public static void main(String args[]) throws Exception {
-	DroneMissionSystem system = new DroneMissionSystem( );
+	CtxDroneMain system = new CtxDroneMain( );
 	system.doJob();
 	}
-}//DroneMissionSystemSupportMain
+}//CtxDroneSupportMain

@@ -189,7 +189,7 @@ public abstract class DroneSupport extends Subject{
 		hl_drone_emit_sensorsData( sensorsDatas );
 		dataPhoto =getDataPhoto(  ) ;
 		hl_drone_forward_photo_headQuarter(dataPhoto );
-		//[it.unibo.indigo.contact.impl.SignalImpl@4ae23de5 (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@4b4dabcb (name: notify) (var: null)] | command isSignal=false
+		//[it.unibo.indigo.contact.impl.SignalImpl@71e7c512 (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@273b5b2a (name: notify) (var: null)] | command isSignal=false
 		resCheck = checkForMsg(getName(),"command",null);
 		if(resCheck){
 			curstate = "st_Drone_commandHandler";
