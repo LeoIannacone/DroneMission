@@ -48,21 +48,10 @@ public class ConnReceiver extends ConnInputReceiver{
 			println(" *** !!!!!!!!! *** ConnReceiver " + name + " for CONNECTION PORT starts " );
 			doJob();
 		}
-		for( int i = 0; i<mexs.size(); i++){
-			//System.out.println( " %%% ConnReceiver emits exception " + mexs.elementAt(i)  );
-			try {
-				core.out(mexs.elementAt(i));
-			} catch (Exception e) {
-				System.out.println( " %%% ConnReceiver error " + e.getMessage()  );
- 				//e.printStackTrace();
-			}
-		}
 		} catch (Exception e) {
 			println( "WARNING (ConnReceiver):" + e.getMessage() + " ... going to terminate" );
 			try {
 				conn.closeConnection();
-				//Generate an exception message to terminate the Sensor AcquireReply Thread 
-				core.out( "coreToDSpace_space_coreCmd(space,coreCmd,'exception',N)" );		
 			} catch (Exception e1) {
 				println( "ERROR " + e1  );
 			}

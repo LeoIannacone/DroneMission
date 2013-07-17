@@ -51,16 +51,6 @@ public class ConnInputReceiver extends Thread{
 	public void run() {
 		println( "STARTS " );
 		doJob();
-		//If doJob terminates send an exception to all the other connected nodes
-		for( int i = 0; i<mexs.size(); i++){
-			//System.out.println( " %%% ConnInputReceiver emits exception " + mexs.elementAt(i)  );
-			try {
-				core.out(mexs.elementAt(i));
-			} catch (Exception e) {
- 				//e.printStackTrace();
- 				println("ERROR " + e.getMessage() );
-			}
-		}
 		println( "ENDS " + name + " " + mexs.size());
 	}		
 
@@ -117,8 +107,6 @@ public class ConnInputReceiver extends Thread{
 			println( "WARNING:" + e.getMessage() + " ... going to terminate" );
 			try {
 				conn.closeConnection();
-				//Generate an exception message to terminate the Sensor AcquireReply Thread 
-				core.out( "coreToDSpace_space_coreCmd(space,coreCmd,'exception',N)" );		
 			} catch (Exception e1) {
 				println( "ERROR " + e1  );
 			}

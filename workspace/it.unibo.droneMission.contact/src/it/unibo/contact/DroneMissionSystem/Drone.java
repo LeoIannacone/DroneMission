@@ -64,7 +64,7 @@ public class Drone extends DroneSupport {
 	}
 
 
-	@Override
+	//@Override
 	protected boolean executeCommand(String cmd, String v) throws Exception {
 		if(cmd.equals("setspeed") && (Integer.parseInt(v)>=60) && (Integer.parseInt(v)<=120)){
 			env.println("Set speed to: " + v);

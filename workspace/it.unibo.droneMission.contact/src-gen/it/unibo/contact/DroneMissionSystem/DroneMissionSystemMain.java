@@ -3,6 +3,7 @@
 */
 package it.unibo.contact.DroneMissionSystem;
 import it.unibo.contact.platformuv.*;
+import it.unibo.baseEnv.basicFrame.EnvFrame;
 import it.unibo.contact.platformuv.LindaLike;
 import it.unibo.is.interfaces.IBasicEnvAwt;
 import it.unibo.is.interfaces.IContactSystem;
@@ -56,10 +57,6 @@ protected DroneMissionSystemObserver observer;
 	protected void configureSystem(){		
 		RunTimeKb.init(view);
 	//Protocols for application messages
-		RunTimeKb.addSubject("TCP","space","setConnChannel", "localhost", 7070  );		 
-			RunTimeKb.addSubject("TCP", "space","coreCmd", "localhost",7070);	
-			RunTimeKb.addInputConnMsg( "update", false);
-			//RunTimeKb.addSubject("TCP", "space","outCmd", "localhost" ,7070);	
 		RunTimeKb.addSubject("TCP" , "headQuarter" , "photo","localhost",4060 );   	
 		RunTimeKb.addSubject("TCP" , "drone" , "command","localhost",4050 );   	
 	//Application messages
@@ -69,22 +66,22 @@ protected DroneMissionSystemObserver observer;
 	}
 	protected void configureSubjects(){
 	try {
+	smartdevice = SmartdeviceSupport.create("smartdevice");  
+	 	smartdevice.setEnv(env);
+	smartdevice.initInputSupports();	 
+	drone = DroneSupport.create("drone");  
+	 	drone.setEnv(env);
+	drone.initInputSupports();	 
+	headQuarter = HeadQuarterSupport.create("headQuarter");  
+	 	headQuarter.setEnv(env);
+	headQuarter.initInputSupports();	 
 	registerObservers();
 	}catch(Exception e){e.printStackTrace();}
 	}
 	protected void configure(){
 	 	configureSystem();
 		configureSubjects();  
-			try {
-				if( env != null) env.writeOnStatusBar( Thread.currentThread() +  " |  DroneMissionSystem connecting ...",14);			
-	 			ask_setConnChannel_space();
-				serveUpdateDispatchThread();
-				if( env != null) env.writeOnStatusBar( Thread.currentThread() +  " |  DroneMissionSystem working ...",14);
-			} catch (Exception e) {
-	 			//e.printStackTrace();
-	 			if(view!=null) view.addOutput("configure ERROR " + e.getMessage() );
-			}
-	}	
+	}
 	protected void registerObservers(){
 			try {
 				observer = new DroneMissionSystemObserver();
@@ -94,6 +91,9 @@ protected DroneMissionSystemObserver observer;
 			}
 	}
 	protected void start(){
+		smartdevice.start();
+		drone.start();
+		headQuarter.start();
 	}
    	public boolean isPassive() { return true; }
 	public void terminate() {
@@ -106,54 +106,6 @@ protected DroneMissionSystemObserver observer;
 	}	
 	System.exit(1);//The radical solution
 	}
-	protected void ask_setConnChannel_space()  {
-		try{
-	  		ILindaLike support = PlatformExpert.findOutSupport("space","setConnChannel","droneMissionSystem",view);
-		 	RunTimeKb.addSubjectConnectionSupport("droneMissionSystem", support, view );
-		 	String msgOut = "space_setConnChannel(droneMissionSystem, setConnChannel, connect, 0) "  ;
-			support.out( msgOut );
-	/*		
-			System.out.println( " ask_setConnChannel_space: Now create a ConnReceiver input");
-			IConnInteraction conn = ((ConnProtOut)support).getConnection(); //could wait
-			ConnReceiver cr = new ConnReceiver("inConn_space", conn, view);			
-			cr.start();
-	*/	
-			IAcquireOneReply answer = new AcquireOneReply("droneMissionSystem", "space","setConnChannel",core, 
-				"droneMissionSystem"+"_space_setConnChannel(space,setConnChannel,M,0)",view);
-			IMessage reply = answer.acquireReply();
-			if( reply.msgContent().contains("exception")) throw new Exception("connection not possible");
-			System.out.println(" ask_setConnChannel_space: reply= " + reply.msgContent() + " from " + reply.msgEmitter() );
-	 	}catch( Exception e){
-			System.out.println(" ask_setConnChannel_space: ERROR " + e.getMessage() );	
-		}
-	 }
-	 
-	 protected void serveUpdateDispatchThread() throws Exception {
-			new Thread(){
-				protected boolean goon = true;
-				protected CommLogic comSup = new CommLogic(view);
-				
-				protected IMessage hl_node_serve_update(   ) throws Exception {
-					IMessage m = new Message("droneMissionSystem"+"_update"+"(ANY,update,M,N)");
-					IMessage inMsg = comSup.inOnly( "droneMissionSystem" ,"update", m );				
-					return inMsg;				
-				}		
-		
-				public void run(){
-					System.out.println("droneMissionSystem serveUpdateDispatchThread started");
-					while(goon)
-					try {
-						IMessage m =  hl_node_serve_update();
-	 					System.out.println("droneMissionSystem storing content of: " + m   );
-						LindaLike.getSpace().out( m.msgContent() );					 
-					} catch (Exception e) {
-						goon=false;
-	 					e.printStackTrace();
-					}
-					
-				}
-			}.start();
-	 }
 	public static void main(String args[]) throws Exception {
 	DroneMissionSystem system = new DroneMissionSystem( );
 	system.doJob();
