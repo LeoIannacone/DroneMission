@@ -104,7 +104,7 @@ public abstract class SensorSupport extends Subject{
 	
 	protected void st_sensor_working()  throws Exception{
 		
-		Thread.sleep(time);//[it.unibo.indigo.contact.impl.SignalImpl@67a33a8c (name: tic) (var: null), it.unibo.indigo.contact.impl.SignalImpl@d58f27c (name: photo) (var: null), it.unibo.indigo.contact.impl.SignalImpl@4a97b1bc (name: stop) (var: null)] | stop isSignal=true
+		Thread.sleep(time);//[it.unibo.indigo.contact.impl.SignalImpl@2e646d26 (name: tic) (var: null), it.unibo.indigo.contact.impl.SignalImpl@4339f195 (name: photo) (var: null), it.unibo.indigo.contact.impl.SignalImpl@11238fae (name: stop) (var: null)] | stop isSignal=true
 		resCheckMsg = checkSignal("ANY","stop",false);
 		if(resCheckMsg != null){
 			curstate = "st_sensor_endState";

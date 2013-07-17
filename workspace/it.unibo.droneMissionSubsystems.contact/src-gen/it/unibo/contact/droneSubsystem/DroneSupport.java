@@ -132,12 +132,12 @@ public abstract class DroneSupport extends Subject{
 	
 	protected void st_drone_started()  throws Exception{
 		
-		//[it.unibo.indigo.contact.impl.SignalImpl@67a33a8c (name: tic) (var: null), it.unibo.indigo.contact.impl.SignalImpl@d58f27c (name: photo) (var: null), it.unibo.indigo.contact.impl.SignalImpl@4a97b1bc (name: stop) (var: null)] | tic isSignal=true
+		//[it.unibo.indigo.contact.impl.SignalImpl@2e646d26 (name: tic) (var: null), it.unibo.indigo.contact.impl.SignalImpl@4339f195 (name: photo) (var: null), it.unibo.indigo.contact.impl.SignalImpl@11238fae (name: stop) (var: null)] | tic isSignal=true
 		resCheckMsg = checkSignal("ANY","tic",false);
 		if(resCheckMsg != null){
 			curstate = "st_drone_sensorsHandler";
 			return;}
-		//[it.unibo.indigo.contact.impl.SignalImpl@67a33a8c (name: tic) (var: null), it.unibo.indigo.contact.impl.SignalImpl@d58f27c (name: photo) (var: null), it.unibo.indigo.contact.impl.SignalImpl@4a97b1bc (name: stop) (var: null)] | photo isSignal=true
+		//[it.unibo.indigo.contact.impl.SignalImpl@2e646d26 (name: tic) (var: null), it.unibo.indigo.contact.impl.SignalImpl@4339f195 (name: photo) (var: null), it.unibo.indigo.contact.impl.SignalImpl@11238fae (name: stop) (var: null)] | photo isSignal=true
 		resCheckMsg = checkSignal("ANY","photo",false);
 		if(resCheckMsg != null){
 			curstate = "st_drone_sendPhoto";
