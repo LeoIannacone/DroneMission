@@ -216,6 +216,7 @@ BehaviorOf smartdevice {
 	state st_Smartdevice_notifyHandler
 		doPerceive smartdeviceReceiveNotify()
 		set notifyContent = code.curInputMsgContent
+		println(notifyContent)
 		if {notifyContent == "start"} { goToState st_Smartdevice_missionStart }
 		if {notifyContent == "end" } { goToState st_Smartdevice_endMission }
 		goToState st_Smartdevice_waitingForData
