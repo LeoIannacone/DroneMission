@@ -1,6 +1,6 @@
 package it.unibo.droneMission.interfaces.messages;
 
-public class CommandsType {
+public class TypesCommand {
 	
 	// replies
 	public final static int REPLY_OK = 0;
