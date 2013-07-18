@@ -149,8 +149,9 @@ public abstract class DroneSupport extends Subject{
 	protected void st_Drone_ready()  throws Exception{
 		
 		showMsg("----- Waiting setSpeed -----");
-		curInputMsg=hl_drone_accept_command();
-		curInputMsgContent = curInputMsg.msgContent();
+		 curRequest=hl_drone_grant_command();
+		 curInputMsg= curRequest.getReceivedMessage();
+		 curInputMsgContent = curInputMsg.msgContent();
 		msgCommand =curInputMsg.msgContent() ;
 		cmdName =Drone.getCommandName(msgCommand) ;
 		start =cmdName.contains("setspeed") ;
@@ -160,10 +161,12 @@ public abstract class DroneSupport extends Subject{
 		expXabseResult=_start;
 		}//XBlockcode
 		if(  (Boolean)expXabseResult ){ //cond
+		curRequest.replyToCaller( "OK" ); 
 		curstate = "st_Drone_startMission"; 
 		//resetCurVars(); //leave the current values on
 		return;
 		}//if cond
+		curRequest.replyToCaller( "FAIL" ); 
 		showMsg("ERROR: expected 'setspeed' command to start. Received: "+cmdName);
 		/* --- TRANSITION TO NEXT STATE --- */
 	}
@@ -189,7 +192,7 @@ public abstract class DroneSupport extends Subject{
 		hl_drone_emit_sensorsData( sensorsDatas );
 		dataPhoto =getDataPhoto(  ) ;
 		hl_drone_forward_photo_headQuarter(dataPhoto );
-		//[it.unibo.indigo.contact.impl.SignalImpl@5debf240 (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@2d6d77ec (name: notify) (var: null)] | command isSignal=false
+		//[it.unibo.indigo.contact.impl.SignalImpl@4189ffa7 (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@4aef4e8e (name: notify) (var: null)] | command isSignal=false
 		resCheck = checkForMsg(getName(),"command",null);
 		if(resCheck){
 			curstate = "st_Drone_commandHandler";
@@ -198,10 +201,26 @@ public abstract class DroneSupport extends Subject{
 	}
 	protected void st_Drone_commandHandler()  throws Exception{
 		
-		curInputMsg=hl_drone_accept_command();
-		curInputMsgContent = curInputMsg.msgContent();
+		 curRequest=hl_drone_grant_command();
+		 curInputMsg= curRequest.getReceivedMessage();
+		 curInputMsgContent = curInputMsg.msgContent();
 		cmdName =Drone.getCommandName(curInputMsgContent) ;
 		stop =cmdName.contains("stop") ;
+		speed =cmdName.contains("setspeed") ;
+		
+		{//XBlockcode
+		boolean _operator_or = false;
+		boolean _stop = stop;
+		if (_stop) {
+		  _operator_or = true;
+		} else {
+		  boolean _speed = speed;
+		  _operator_or = BooleanExtensions.operator_or(_stop, _speed);
+		}
+		expXabseResult=_operator_or;
+		}//XBlockcode
+		if(  (Boolean)expXabseResult ){ //cond
+		curRequest.replyToCaller( "OK" ); 
 		
 		{//XBlockcode
 		boolean _stop = stop;
@@ -212,7 +231,6 @@ public abstract class DroneSupport extends Subject{
 		//resetCurVars(); //leave the current values on
 		return;
 		}//if cond
-		speed =cmdName.contains("setspeed") ;
 		
 		{//XBlockcode
 		boolean _speed = speed;
@@ -223,6 +241,8 @@ public abstract class DroneSupport extends Subject{
 		//resetCurVars(); //leave the current values on
 		return;
 		}//if cond
+		}//if cond
+		curRequest.replyToCaller( "FAIL" ); 
 		curstate = "st_Drone_onMission"; 
 		//resetCurVars(); //leave the current values on
 		return;
@@ -275,9 +295,9 @@ public abstract class DroneSupport extends Subject{
 	
 	}
 	
-	protected IMessage hl_drone_accept_command(   ) throws Exception {
-	//EXPERT for COMPOSED drone_accept_command isInput=true withAnswer=true applVisible=false
-	IMessage answer = comSup.inOutAck(
+	protected IMessageAndContext hl_drone_grant_command(   ) throws Exception {
+	//EXPERT for COMPOSED drone_grant_command isInput=true withAnswer=true applVisible=true
+	IMessageAndContext answer = comSup.inOut(
 	getName() ,"command", 
 	"drone_command(ANYx1y2,command,M,N)" ); 
 	return answer;
@@ -344,8 +364,9 @@ public abstract class DroneSupport extends Subject{
 	  IMessage m;
 	  //USER MESSAGES
 	  if( msgId.equals("command")){
-	  	m = hl_drone_accept_command();
-	  	return m;
+	  	curRequest = hl_drone_grant_command();
+	  	m = curRequest.getReceivedMessage();
+	  	return m;		
 	  }
 	 if( msgId.equals("endSelectInput")){
 	  String ms = MsgUtil.bm(MsgUtil.channelInWithPolicy(InteractPolicy.nopolicy(),getName(), "endSelectInput"), 
@@ -371,7 +392,7 @@ public abstract class DroneSupport extends Subject{
 		droneForward_photo_headQuarterEnd();
 		droneEmit_sensorsDataEnd();
 		droneEmit_notifyEnd();
-		droneAccept_commandEnd();
+		droneGrant_commandEnd();
 	 			 //Auto-forward a dispatch to finish selectInput operations
 	 		    String ms =
 	 		      MsgUtil.bm(MsgUtil.channelInWithPolicy(InteractPolicy.nopolicy(),getName(), "endSelectInput"), 
@@ -400,8 +421,8 @@ public abstract class DroneSupport extends Subject{
 	//		PlatformExpert.findOutSupportToEnd("space","coreCmd","coreToDSpace", view);		
 	//		showMsg("terminate signal support");
 	}
-	protected void droneAccept_commandEnd() throws Exception{
-	 		PlatformExpert.findInSupportToEnd(getName(),"command",view );
-		//showMsg("terminate droneAccept_command");
+	protected void droneGrant_commandEnd() throws Exception{
+	 	PlatformExpert.findInSupportToEnd(getName(),"command",view );
+		//showMsg("terminate droneGrant_command");
 	}
 }//DroneSupport

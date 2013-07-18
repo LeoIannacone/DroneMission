@@ -89,9 +89,12 @@ public abstract class HeadQuarterSupport extends Subject{
 	String sensorsDatasReceived = null;
 	protected 
 	String photoReceived = null;
+	protected 
+	String commandAnswer = null;
 	public  java.lang.String get_command(){ return command; }
 	public  java.lang.String get_sensorsDatasReceived(){ return sensorsDatasReceived; }
 	public  java.lang.String get_photoReceived(){ return photoReceived; }
+	public  java.lang.String get_commandAnswer(){ return commandAnswer; }
 	
 	protected boolean endStateControl = false;
 	protected String curstate ="st_HeadQuarter_init";
@@ -132,35 +135,65 @@ public abstract class HeadQuarterSupport extends Subject{
 	protected void st_HeadQuarter_ready()  throws Exception{
 		
 		showMsg("----- Ready to send command -----");
-		curAcquireOneReply=hl_headQuarter_ask_command_drone("setspeed 60");
-		curReply=curAcquireOneReply.acquireReply(); 
+		curAcquireOneReply=hl_headQuarter_demand_command_drone( "setspeed 60");
+		curReply=curAcquireOneReply.acquireReply();
 		curReplyContent = curReply.msgContent();
+		commandAnswer =curReplyContent;
+		showMsg("DRONE REPLY: "+commandAnswer);
+		
+		{//XBlockcode
+		String _commandAnswer = commandAnswer;
+		boolean _operator_equals = ObjectExtensions.operator_equals(_commandAnswer, "OK");
+		expXabseResult=_operator_equals;
+		}//XBlockcode
+		if(  (Boolean)expXabseResult ){ //cond
 		curstate = "st_HeadQuarter_onMission"; 
 		//resetCurVars(); //leave the current values on
 		return;
+		}//if cond
 		/* --- TRANSITION TO NEXT STATE --- */
 	}
 	protected void st_HeadQuarter_onMission()  throws Exception{
 		
 		command =getCommandToSend(  ) ;
-		curAcquireOneReply=hl_headQuarter_ask_command_drone(command);
+		curAcquireOneReply=hl_headQuarter_demand_command_drone( command);
+		curReply=curAcquireOneReply.acquireReply();
+		curReplyContent = curReply.msgContent();
+		commandAnswer =curReplyContent;
 		
 		{//XBlockcode
-		String _command = command;
-		boolean _operator_equals = ObjectExtensions.operator_equals(_command, "stop");
+		String _commandAnswer = commandAnswer;
+		boolean _operator_equals = ObjectExtensions.operator_equals(_commandAnswer, "FAIL");
 		expXabseResult=_operator_equals;
+		}//XBlockcode
+		if(  (Boolean)expXabseResult ){ //cond
+		showMsg("DRONE CMD FAILED: "+commandAnswer);
+		}//if cond
+		
+		{//XBlockcode
+		boolean _operator_and = false;
+		String _commandAnswer = commandAnswer;
+		boolean _operator_equals = ObjectExtensions.operator_equals(_commandAnswer, "OK");
+		if (!_operator_equals) {
+		  _operator_and = false;
+		} else {
+		  String _command = command;
+		  boolean _operator_equals_1 = ObjectExtensions.operator_equals(_command, "stop");
+		  _operator_and = BooleanExtensions.operator_and(_operator_equals, _operator_equals_1);
+		}
+		expXabseResult=_operator_and;
 		}//XBlockcode
 		if(  (Boolean)expXabseResult ){ //cond
 		curstate = "st_HeadQuarter_endMission"; 
 		//resetCurVars(); //leave the current values on
 		return;
 		}//if cond
-		//[it.unibo.indigo.contact.impl.SignalImpl@5debf240 (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@2d6d77ec (name: notify) (var: null)] | sensorsData isSignal=true
+		//[it.unibo.indigo.contact.impl.SignalImpl@4189ffa7 (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@4aef4e8e (name: notify) (var: null)] | sensorsData isSignal=true
 		resCheckMsg = checkSignal("ANY","sensorsData",false);
 		if(resCheckMsg != null){
 			curstate = "st_HeadQuarter_receivedSensorsData";
 			return;}
-		//[it.unibo.indigo.contact.impl.SignalImpl@5debf240 (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@2d6d77ec (name: notify) (var: null)] | photo isSignal=false
+		//[it.unibo.indigo.contact.impl.SignalImpl@4189ffa7 (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@4aef4e8e (name: notify) (var: null)] | photo isSignal=false
 		resCheck = checkForMsg(getName(),"photo",null);
 		if(resCheck){
 			curstate = "st_HeadQuarter_receivedPhoto";
@@ -234,8 +267,8 @@ public abstract class HeadQuarterSupport extends Subject{
 	
 	}
 	
-	protected IAcquireOneReply hl_headQuarter_ask_command_drone( String M  ) throws Exception {
-	//EXPERT for COMPOSED headQuarter_ask_command_drone isInput=false withAnswer=true applVisible=true
+	protected IAcquireOneReply hl_headQuarter_demand_command_drone( String M  ) throws Exception {
+	//EXPERT for COMPOSED headQuarter_demand_command_drone isInput=false withAnswer=true applVisible=true
 	M = MsgUtil.putInEnvelope(M);
 	IAcquireOneReply answer = comSup.outIn(
 	"drone","command",getName(), 
@@ -328,7 +361,7 @@ public abstract class HeadQuarterSupport extends Subject{
 	* --------------------------------------
 	*/
 	public void terminate() throws Exception{ //by EndSubjectConnections
-		headQuarterAsk_command_droneEnd();headQuarterServe_photoEnd();
+		headQuarterDemand_command_droneEnd();headQuarterServe_photoEnd();
 	 			 //Auto-forward a dispatch to finish selectInput operations
 	 		    String ms =
 	 		      MsgUtil.bm(MsgUtil.channelInWithPolicy(InteractPolicy.nopolicy(),getName(), "endSelectInput"), 
@@ -341,9 +374,9 @@ public abstract class HeadQuarterSupport extends Subject{
 	//System.out.println(getName() + " terminated");
 	}	
 	// Teminate operations
-	protected void headQuarterAsk_command_droneEnd() throws Exception{
+	protected void headQuarterDemand_command_droneEnd() throws Exception{
 	 		PlatformExpert.findOutSupportToEnd("headQuarter","command",getName(),view );
-		//showMsg("terminate headQuarterAsk_command_drone");
+		//showMsg("terminate headQuarterDemand_command_drone");
 	}	
 	protected void headQuarterServe_photoEnd() throws Exception{
 	 		PlatformExpert.findInSupportToEnd(getName(),"photo",view );
