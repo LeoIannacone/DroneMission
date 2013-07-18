@@ -16,7 +16,6 @@ import it.unibo.is.interfaces.protocols.IConnInteraction;
 //For Xbase code 
 import org.eclipse.xtext.xbase.lib.Functions.*;
 import org.eclipse.xtext.xbase.lib.*;
-import it.unibo.baseEnv.basicFrame.EnvFrame;
 
 public abstract class HeadQuarterSupport extends Subject{
 	private static HeadQuarter obj = null;
@@ -61,12 +60,9 @@ public abstract class HeadQuarterSupport extends Subject{
  			lastMsgRdMemo.put("photo"+getName(),0);
  	}
 	protected void initGui(){
-	    env = new EnvFrame( getName(), this, new java.awt.Color(151, 228, 255), java.awt.Color.black );
-	    env.init();
-	    env.writeOnStatusBar(getName() + " | HeadQuarterSupport working ... ",14);
-	    view = env.getOutputView();
+		if( env != null ) view = env.getOutputView();
 	    initLastMsgRdMemo(); //put here since the name must be set
-	 }
+	}
 	
 	/* -------------------------------------
 	* State-based Behavior
@@ -188,12 +184,12 @@ public abstract class HeadQuarterSupport extends Subject{
 		//resetCurVars(); //leave the current values on
 		return;
 		}//if cond
-		//[it.unibo.indigo.contact.impl.SignalImpl@4189ffa7 (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@4aef4e8e (name: notify) (var: null)] | sensorsData isSignal=true
+		//[it.unibo.indigo.contact.impl.SignalImpl@6f453c04 (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@2a6763ae (name: notify) (var: null)] | sensorsData isSignal=true
 		resCheckMsg = checkSignal("ANY","sensorsData",false);
 		if(resCheckMsg != null){
 			curstate = "st_HeadQuarter_receivedSensorsData";
 			return;}
-		//[it.unibo.indigo.contact.impl.SignalImpl@4189ffa7 (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@4aef4e8e (name: notify) (var: null)] | photo isSignal=false
+		//[it.unibo.indigo.contact.impl.SignalImpl@6f453c04 (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@2a6763ae (name: notify) (var: null)] | photo isSignal=false
 		resCheck = checkForMsg(getName(),"photo",null);
 		if(resCheck){
 			curstate = "st_HeadQuarter_receivedPhoto";

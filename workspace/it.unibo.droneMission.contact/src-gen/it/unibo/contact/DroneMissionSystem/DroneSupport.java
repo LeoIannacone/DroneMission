@@ -16,7 +16,6 @@ import it.unibo.is.interfaces.protocols.IConnInteraction;
 //For Xbase code 
 import org.eclipse.xtext.xbase.lib.Functions.*;
 import org.eclipse.xtext.xbase.lib.*;
-import it.unibo.baseEnv.basicFrame.EnvFrame;
 
 public abstract class DroneSupport extends Subject{
 	private static Drone obj = null;
@@ -60,12 +59,9 @@ public abstract class DroneSupport extends Subject{
  			lastMsgRdMemo.put("command"+getName(),0);
  	}
 	protected void initGui(){
-	    env = new EnvFrame( getName(), this, new java.awt.Color(151, 228, 255), java.awt.Color.black );
-	    env.init();
-	    env.writeOnStatusBar(getName() + " | DroneSupport working ... ",14);
-	    view = env.getOutputView();
+		if( env != null ) view = env.getOutputView();
 	    initLastMsgRdMemo(); //put here since the name must be set
-	 }
+	}
 	
 	/* -------------------------------------
 	* State-based Behavior
@@ -192,7 +188,7 @@ public abstract class DroneSupport extends Subject{
 		hl_drone_emit_sensorsData( sensorsDatas );
 		dataPhoto =getDataPhoto(  ) ;
 		hl_drone_forward_photo_headQuarter(dataPhoto );
-		//[it.unibo.indigo.contact.impl.SignalImpl@4189ffa7 (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@4aef4e8e (name: notify) (var: null)] | command isSignal=false
+		//[it.unibo.indigo.contact.impl.SignalImpl@6f453c04 (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@2a6763ae (name: notify) (var: null)] | command isSignal=false
 		resCheck = checkForMsg(getName(),"command",null);
 		if(resCheck){
 			curstate = "st_Drone_commandHandler";

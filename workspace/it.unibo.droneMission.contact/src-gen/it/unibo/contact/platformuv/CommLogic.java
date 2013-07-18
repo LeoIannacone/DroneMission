@@ -214,6 +214,9 @@ public Vector<IMessage> prepareInput(boolean mostRecent,String subjName, ISysKb 
   		}
   		inpList.add( m );
 	}
+//Added to handle signal in a distributed space
+ 	prepareSignalHandling( mostRecent, kb, subjName, inpList );
+//End Added  
 	return inpList;
 }
 
@@ -237,9 +240,47 @@ public Vector<IMessage> prepareInput(boolean mostRecent, String subjName, ISysKb
   		}
   		inpList.add( m );
 	}
+//Added to handle signal in a distributed space
+ 	prepareSignalHandling( mostRecent, kb, subjName, inpList );
+//End Added  
 	return inpList;
 }
 
+/*
+* Start SenseRemote for each signal
+* and modifies the content of the givan input lists
+* All the signals are put at the end of the queries
+* TOCHECK
+*/
+protected void prepareSignalHandling( boolean mostRecent,ISysKb kb, String subjName,Vector<IMessage> queries){
+ for( int i=0; i<queries.size(); i++ ){
+	   IMessage first = queries.elementAt(i);
+	   String queryId = first.msgId();
+	   //System.out.println(" *** prepareSignalHandling queryId "  +  queryId   );
+	   //TO REMOVE
+	   //if( kb.isSignal( queryId ) ){
+		//SenseRemote.doJob(first.toString(),queryId,subjName, mostRecent, space,view);	//acquire all
+  	   //}
+ }//for	 
+}
+/* TO BE REMOVED since we must avoid duplicates
+protected synchronized void acquireDSpaceAnswer(final SenseRemote curJob ) throws Exception{
+ 	IMessage m = curJob.getAnswer();
+	//System.out.println(" 				*** acquireDSpaceAnswer m "  +  m   );
+	space.out( m.toString() );
+	curJob.repeat();
+	//Prepare to acquire the answer from that specific thread and repeat
+	   new Thread(){
+		   public void run(){
+			   try {
+				acquireDSpaceAnswer(curJob);
+			} catch (Exception e) {
+					e.printStackTrace();
+			}
+		   }
+	   }.start();
+}
+*/
 
 //Select a message
 public IMessage selectOneMessage( boolean mostRecent, String subjName,ISysKb kb, Hashtable<String,Integer> lastMsgRdMemo,
