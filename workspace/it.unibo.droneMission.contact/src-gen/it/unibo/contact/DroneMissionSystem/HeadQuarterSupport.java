@@ -75,6 +75,7 @@ public abstract class HeadQuarterSupport extends Subject{
 	protected abstract java.lang.String getCommandToSend() throws Exception;
 	protected abstract void updateDashboard(java.lang.String sensorsDatasReceived) throws Exception;
 	protected abstract void storePhotoData(java.lang.String photoReceived) throws Exception;
+	protected abstract void shutdown() throws Exception;
 	/* --- USER DEFINED STATE ACTIONS --- */
 	/* --- USER DEFINED TASKS --- */
 	/* 
@@ -154,12 +155,12 @@ public abstract class HeadQuarterSupport extends Subject{
 		//resetCurVars(); //leave the current values on
 		return;
 		}//if cond
-		//[it.unibo.indigo.contact.impl.SignalImpl@6da040 (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@1d33c9f8 (name: notify) (var: null)] | sensorsData isSignal=true
+		//[it.unibo.indigo.contact.impl.SignalImpl@5debf240 (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@2d6d77ec (name: notify) (var: null)] | sensorsData isSignal=true
 		resCheckMsg = checkSignal("ANY","sensorsData",false);
 		if(resCheckMsg != null){
 			curstate = "st_HeadQuarter_receivedSensorsData";
 			return;}
-		//[it.unibo.indigo.contact.impl.SignalImpl@6da040 (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@1d33c9f8 (name: notify) (var: null)] | photo isSignal=false
+		//[it.unibo.indigo.contact.impl.SignalImpl@5debf240 (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@2d6d77ec (name: notify) (var: null)] | photo isSignal=false
 		resCheck = checkForMsg(getName(),"photo",null);
 		if(resCheck){
 			curstate = "st_HeadQuarter_receivedPhoto";
@@ -189,7 +190,7 @@ public abstract class HeadQuarterSupport extends Subject{
 	}
 	protected void st_HeadQuarter_endMission()  throws Exception{
 		
-		/* --- TRANSITION TO NEXT STATE --- */
+		shutdown();/* --- TRANSITION TO NEXT STATE --- */
 		resetCurVars();
 		do_terminationState();
 		endStateControl=true;

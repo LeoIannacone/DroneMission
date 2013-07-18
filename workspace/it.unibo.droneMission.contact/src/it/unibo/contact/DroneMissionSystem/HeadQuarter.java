@@ -33,6 +33,10 @@ public class HeadQuarter extends HeadQuarterSupport {
 		@Override
 		protected void storePhotoData(String photoReceived) throws Exception {
 			env.println("PHOTO RECEIVED: " +photoReceived);
-			
+		}
+
+		@Override
+		protected void shutdown() throws Exception {
+			env.println("MISSION END - SHUTDOWN.");			
 		}
 }

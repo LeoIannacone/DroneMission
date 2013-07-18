@@ -133,12 +133,12 @@ public abstract class SmartdeviceSupport extends Subject{
 	}
 	protected void st_Smartdevice_waitingForData()  throws Exception{
 		
-		//[it.unibo.indigo.contact.impl.SignalImpl@6da040 (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@1d33c9f8 (name: notify) (var: null)] | sensorsData isSignal=true
+		//[it.unibo.indigo.contact.impl.SignalImpl@5debf240 (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@2d6d77ec (name: notify) (var: null)] | sensorsData isSignal=true
 		resCheckMsg = checkSignal("ANY","sensorsData",false);
 		if(resCheckMsg != null){
 			curstate = "st_Smartdevice_receivedData";
 			return;}
-		//[it.unibo.indigo.contact.impl.SignalImpl@6da040 (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@1d33c9f8 (name: notify) (var: null)] | notify isSignal=true
+		//[it.unibo.indigo.contact.impl.SignalImpl@5debf240 (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@2d6d77ec (name: notify) (var: null)] | notify isSignal=true
 		resCheckMsg = checkSignal("ANY","notify",false);
 		if(resCheckMsg != null){
 			curstate = "st_Smartdevice_endMission";
@@ -162,7 +162,6 @@ public abstract class SmartdeviceSupport extends Subject{
 		curInputMsg=selectWithPriority(false, inputMessageList);
 		curInputMsgContent = curInputMsg.msgContent();
 		notifyContent =curInputMsgContent;
-		showMsg(notifyContent);
 		
 		{//XBlockcode
 		String _notifyContent = notifyContent;

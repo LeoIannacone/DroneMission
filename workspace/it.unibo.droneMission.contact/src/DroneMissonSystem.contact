@@ -128,6 +128,7 @@ BehaviorOf headQuarter{
 	action String getCommandToSend()
 	action void updateDashboard(String sensorsDatasReceived)
 	action void storePhotoData(String photoReceived)
+	action void shutdown()
 	
 	state st_HeadQuarter_init initial
 		println ("----- HeadQuarter Initialized -----") 
@@ -177,6 +178,7 @@ BehaviorOf headQuarter{
 	endstate
 	
 	state st_HeadQuarter_endMission
+		call shutdown()
 		transitToEnd
 	endstate
 }
@@ -216,7 +218,6 @@ BehaviorOf smartdevice {
 	state st_Smartdevice_notifyHandler
 		doPerceive smartdeviceReceiveNotify()
 		set notifyContent = code.curInputMsgContent
-		println(notifyContent)
 		if {notifyContent == "start"} { goToState st_Smartdevice_missionStart }
 		if {notifyContent == "end" } { goToState st_Smartdevice_endMission }
 		goToState st_Smartdevice_waitingForData
