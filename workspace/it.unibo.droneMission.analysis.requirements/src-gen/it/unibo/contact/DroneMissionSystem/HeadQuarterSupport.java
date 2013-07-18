@@ -184,12 +184,12 @@ public abstract class HeadQuarterSupport extends Subject{
 		//resetCurVars(); //leave the current values on
 		return;
 		}//if cond
-		//[it.unibo.indigo.contact.impl.SignalImpl@6f453c04 (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@2a6763ae (name: notify) (var: null)] | sensorsData isSignal=true
+		//[it.unibo.indigo.contact.impl.SignalImpl@31adf6a9 (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@141ceaba (name: notify) (var: null)] | sensorsData isSignal=true
 		resCheckMsg = checkSignal("ANY","sensorsData",false);
 		if(resCheckMsg != null){
 			curstate = "st_HeadQuarter_receivedSensorsData";
 			return;}
-		//[it.unibo.indigo.contact.impl.SignalImpl@6f453c04 (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@2a6763ae (name: notify) (var: null)] | photo isSignal=false
+		//[it.unibo.indigo.contact.impl.SignalImpl@31adf6a9 (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@141ceaba (name: notify) (var: null)] | photo isSignal=false
 		resCheck = checkForMsg(getName(),"photo",null);
 		if(resCheck){
 			curstate = "st_HeadQuarter_receivedPhoto";
