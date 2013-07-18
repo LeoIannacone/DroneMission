@@ -2,9 +2,9 @@ package it.unibo.droneMission.gauge;
 
 import java.util.Observer;
 
-import it.unibo.droneMission.interfaces.IGaugeValue;
-import it.unibo.droneMission.interfaces.IGaugeValueInt;
-import it.unibo.droneMission.interfaces.ISpeedometer;
+import it.unibo.droneMission.interfaces.gauges.IGaugeValue;
+import it.unibo.droneMission.interfaces.gauges.IGaugeValueInt;
+import it.unibo.droneMission.interfaces.gauges.ISpeedometer;
 
 public class Speedometer implements ISpeedometer{
 

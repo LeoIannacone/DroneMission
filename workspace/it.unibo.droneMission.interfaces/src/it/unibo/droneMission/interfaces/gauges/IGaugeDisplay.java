@@ -1,4 +1,4 @@
-package it.unibo.droneMission.interfaces;
+package it.unibo.droneMission.interfaces.gauges;
 
 
 /**
@@ -10,7 +10,7 @@ public interface IGaugeDisplay extends IDisplay{
 	 */
 	public String getDisplayedVal();
 	/**
-	 * Sets the value of the '{@link it.unibo.droneMission.interfaces.IGaugeDisplay#getDisplayedVal <em>Displayed Val</em>}' attribute.
+	 * Sets the value of the '{@link it.unibo.droneMission.interfaces.gauges.IGaugeDisplay#getDisplayedVal <em>Displayed Val</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Displayed Val</em>' attribute.

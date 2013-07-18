@@ -3,9 +3,9 @@ package it.unibo.droneMission.gauge;
 import java.math.BigDecimal;
 import java.util.Observer;
 
-import it.unibo.droneMission.interfaces.IFuelometer;
-import it.unibo.droneMission.interfaces.IGaugeValue;
-import it.unibo.droneMission.interfaces.IGaugeValueDouble;
+import it.unibo.droneMission.interfaces.gauges.IFuelometer;
+import it.unibo.droneMission.interfaces.gauges.IGaugeValue;
+import it.unibo.droneMission.interfaces.gauges.IGaugeValueDouble;
 
 public class Fuelometer implements IFuelometer {
 	

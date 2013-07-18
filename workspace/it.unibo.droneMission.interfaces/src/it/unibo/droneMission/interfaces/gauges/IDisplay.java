@@ -1,4 +1,4 @@
-package it.unibo.droneMission.interfaces;
+package it.unibo.droneMission.interfaces.gauges;
 
 import java.util.Observer;
 
@@ -11,7 +11,7 @@ public interface IDisplay extends Observer{
 	 */
 	public String getCurVal();
 	/**
-	 * Sets the value of the '{@link it.unibo.droneMission.interfaces.IDisplay#getCurVal <em>Cur Val</em>}' attribute.
+	 * Sets the value of the '{@link it.unibo.droneMission.interfaces.gauges.IDisplay#getCurVal <em>Cur Val</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Cur Val</em>' attribute.

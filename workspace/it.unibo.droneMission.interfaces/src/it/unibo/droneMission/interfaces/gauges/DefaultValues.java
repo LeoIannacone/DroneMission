@@ -1,4 +1,4 @@
-package it.unibo.droneMission.interfaces;
+package it.unibo.droneMission.interfaces.gauges;
 
 public final class DefaultValues {
 	public static final int INITSPEED=0; //Km/h

@@ -2,9 +2,9 @@ package it.unibo.droneMission.gauge;
 
 import java.util.Observer;
 
-import it.unibo.droneMission.interfaces.IGaugeValue;
-import it.unibo.droneMission.interfaces.IGaugeValueDouble;
-import it.unibo.droneMission.interfaces.ILocTracker;
+import it.unibo.droneMission.interfaces.gauges.IGaugeValue;
+import it.unibo.droneMission.interfaces.gauges.IGaugeValueDouble;
+import it.unibo.droneMission.interfaces.gauges.ILocTracker;
 
 public class LocTracker implements ILocTracker {
 	

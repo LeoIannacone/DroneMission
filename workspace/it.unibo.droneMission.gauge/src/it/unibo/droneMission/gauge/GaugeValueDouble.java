@@ -1,7 +1,7 @@
 package it.unibo.droneMission.gauge;
 
 
-import it.unibo.droneMission.interfaces.IGaugeValueDouble;
+import it.unibo.droneMission.interfaces.gauges.IGaugeValueDouble;
 
 public class GaugeValueDouble implements IGaugeValueDouble {
 	

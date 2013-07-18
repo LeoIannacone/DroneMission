@@ -1,7 +1,7 @@
 package it.unibo.droneMission.gauge;
 
-import it.unibo.droneMission.interfaces.IGaugeDisplay;
-import it.unibo.droneMission.interfaces.IGaugeValue;
+import it.unibo.droneMission.interfaces.gauges.IGaugeDisplay;
+import it.unibo.droneMission.interfaces.gauges.IGaugeValue;
 
 public class OdometerWithDisplay extends Odometer{
 	protected IGaugeDisplay Dis;

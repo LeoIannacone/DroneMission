@@ -1,4 +1,4 @@
-package it.unibo.droneMission.interfaces;
+package it.unibo.droneMission.interfaces.gauges;
 
 
 /**

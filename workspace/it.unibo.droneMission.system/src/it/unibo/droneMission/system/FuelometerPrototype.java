@@ -3,7 +3,7 @@ package it.unibo.droneMission.system;
 import it.unibo.baseEnv.basicFrame.EnvFrame;
 import it.unibo.droneMission.display.DisplayGuiOdometer;
 import it.unibo.droneMission.gauge.FuelometerWithDisplay;
-import it.unibo.droneMission.interfaces.IGaugeDisplay;
+import it.unibo.droneMission.interfaces.gauges.IGaugeDisplay;
 import it.unibo.is.interfaces.IBasicEnvAwt;
 
 import java.awt.Button;

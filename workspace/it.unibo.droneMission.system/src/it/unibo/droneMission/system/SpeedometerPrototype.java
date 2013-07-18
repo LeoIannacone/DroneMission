@@ -5,7 +5,7 @@ import it.unibo.droneMission.display.DisplayGuiSpeedometer;
 import it.unibo.droneMission.gauge.GaugeValueInt;
 import it.unibo.droneMission.gauge.Speedometer;
 import it.unibo.droneMission.gauge.SpeedometerWithDisplay;
-import it.unibo.droneMission.interfaces.IGaugeDisplay;
+import it.unibo.droneMission.interfaces.gauges.IGaugeDisplay;
 import it.unibo.is.interfaces.IBasicEnvAwt;
 
 import java.awt.Button;
