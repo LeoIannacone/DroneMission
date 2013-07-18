@@ -1,9 +1,11 @@
-ContactSystem DroneMissionSystem -awt -o ; //spaceUpdater [host="localhost" port=8070];
+ContactSystem DroneMissionSystem -awt -o spaceUpdater [host="localhost" port=8070];
+
+Context ctxTesting -w;
 
 //		Subsystems -w (window)
-Subject smartdevice -w;
-Subject drone -w;
-Subject headQuarter -w;
+Subject smartdevice context ctxTesting ; //-w;
+Subject drone context ctxTesting ; //-w;
+Subject headQuarter context ctxTesting ; //-w;
 
 
 //		Messages

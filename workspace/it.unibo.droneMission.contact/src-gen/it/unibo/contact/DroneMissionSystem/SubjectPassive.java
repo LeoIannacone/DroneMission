@@ -41,7 +41,7 @@ protected int msgNum = 1;
 protected java.util.Hashtable<String,Integer> lastMsgRdMemo = 
 new java.util.Hashtable<String,Integer>();	
 protected String name = "";
-protected final boolean distributedSpace = false;
+protected final boolean distributedSpace = true;
 
 
  	public SubjectPassive() throws Exception{

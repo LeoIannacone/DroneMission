@@ -32,6 +32,9 @@ public class PlatformExpert{
 	public static ILindaLike findOutSupport(
 			String receiver,String msgId,String sender,IOutputView view) throws Exception{
 	ILindaLike sup = null;	
+		//EMITTING A SIGNAL in a distributed environment    
+		if( receiver.length()==0 )
+			return  createSupportEmitDspace( "space","coreCmd",sender,view );
 		//1 - The receiver has defined a protocol specific port
 		if( RunTimeKb.worksWithConnProtocol( receiver, msgId) ){
 			//sup = RunTimeKb.getSubjectOutConnSupport(sender, receiver);
@@ -148,12 +151,38 @@ public class PlatformExpert{
 */ 		
 	public static ILindaLike findInSignalSupport(
 			String receiver, String msgId, boolean withAnswer,IOutputView view ) throws Exception{
-        //isDistributed=false 
-return getDefaultSupport(view);
+        //isDistributed=true 
+//SENSING A SIGNAL in a distributed environment
+return createSupportSenseDSpace( "space","coreCmd",receiver,view );
 	}
   
+/* 
+	* ==================================================
+	* A TCP support to emit via the shared space    
+	* ==================================================
+*/	
+		protected static ILindaLike createSupportEmitDspace(
+				String receiver,String msgId,String sender,IOutputView view) throws Exception{
+			//the receiver is dspace
+			checkLoadJar(tcpJarLoaded, Consts.tcpBasicJar);
+			ILindaLike support   =  CoreToDSpace.getCoreToDSpace( sender, view );
+			return support;		
+		}
  
 	
+/* 
+* ==================================================
+* A TCP support to sense (via the shared space)   
+* ==================================================
+*/	
+	protected static ILindaLike createSupportSenseDSpace(
+			String receiver,String msgId, String sender, IOutputView view ) throws Exception{
+		//the receiver is space, msgId a signal, 
+		//the sender is the receiver of a sense in form of an answer to coreCmd
+		checkLoadJar(tcpJarLoaded, Consts.tcpBasicJar);
+		ILindaLike support   =  CoreToDSpace.getCoreToDSpace( sender, view );
+		return support;		
+	}
 
 /* 
 * ==================================================
