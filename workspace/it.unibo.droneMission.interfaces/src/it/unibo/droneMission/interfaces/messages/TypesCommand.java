@@ -15,5 +15,7 @@ public class TypesCommand {
 	public final static int SPEED_SET = 3;
 	public final static int SPEED_INCREASE = 4;
 	public final static int SPEED_DECREASE = 5;
-		
+	
+	// set picture delay
+	public final static int PICTURES_DELAY = 6;
 }

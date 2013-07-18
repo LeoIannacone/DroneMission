@@ -8,7 +8,6 @@ public interface IFile extends IMessage {
 	public void setName(String name);
 	public String getName();
 	
-
 	// file times
 	public void setCreationTime(long time);
 	public long getCreationTime();
