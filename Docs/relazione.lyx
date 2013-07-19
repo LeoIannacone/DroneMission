@@ -3857,6 +3857,31 @@ come le notifiche di avvio e fine missione, anche i dati dei sensori verranno
 Piano di lavoro
 \end_layout
 
+\begin_layout Standard
+Dopo aver analizzato i requisiti e il problema, ed ottenuti dal system designer
+ le specifiche, definite in modo generale e non ambiguo grazie all'utilizzo
+ di Contact, dei tre sottosistemi è possibile suddividere il lavoro da assegnare
+ ai team di application design, ognuno dei quali dovrà attenersi alle specifiche
+ e sarà guidato nel suo lavoro di implementazione sia dalle classi generate
+ dal motore Contact, sia dai Test Plan definiti nell'analisi dei requisiti:
+ Contact definirà le modalità di interazione tra i sottosistemi, garantendo
+ quindi che i messaggi inviati e ricevuti saranno sicuramente comprensibili
+ a prescidere da come verrà implementata una entità rispetto all'altra,
+ mentre i test plan garantiranno la correttezza del comportamente di ogni
+ singola entità al fine di garantire la coerenza generale del sistema.
+ In questo modo, quindi, si semplifica il lavoro dell'application designer
+ che, una volta ricevute le specifiche Contact, non dovrà fare altro che
+ implementare i metodi del sottosistema a lui assegnato senza preoccuparsi
+ di come verranno implementati gli altri o di come il suo sottosistema di
+ competenza dovrà relazionarsi con il sistema globale.
+\end_layout
+
+\begin_layout Standard
+Nel caso in esame, a ciascuno dei tre team di application designer, verrà
+ assegnato un sottosistema.
+ 
+\end_layout
+
 \begin_layout Chapter
 Progetto
 \end_layout
