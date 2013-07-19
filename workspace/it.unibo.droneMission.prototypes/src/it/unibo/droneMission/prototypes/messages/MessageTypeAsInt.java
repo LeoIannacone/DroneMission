@@ -4,6 +4,7 @@ import it.unibo.droneMission.interfaces.messages.IMessageTypeAsInt;
 
 public abstract class MessageTypeAsInt extends Message implements IMessageTypeAsInt {
 	protected int type;
+	protected boolean hasvalue = false;
 	
 	@Override
 	public int getType() {

@@ -5,15 +5,13 @@ import it.unibo.droneMission.interfaces.messages.ICommand;
 public class Command extends MessageTypeAsIntValueAsInt implements ICommand {
 
 	public Command(int type) {
-		this.type = type;
-	}
-	
-	public Command(int type, int value) {
-		this.type = type;
-		this.value = value;
-		this.hasvalue = true;
+		super(type);
 	}
 
+	public Command(int type, int value) {
+		super(type, value);
+	}
+	
 	public String toString() {
 		if (this.hasvalue)
 			return String.format("CMD: type[%d] - value[%d]", this.type, this.value);

@@ -2,25 +2,41 @@ package it.unibo.droneMission.prototypes.messages;
 
 import it.unibo.droneMission.interfaces.messages.IMessageValueAsString;
 
-public abstract class MessageTypeAsIntValueAsString extends MessageTypeAsInt implements IMessageValueAsString {
+public class MessageTypeAsIntValueAsString extends MessageTypeAsInt implements IMessageValueAsString {
 
-	protected boolean hasmessage;
-	protected String message;
+	protected String value;
+	
+	public MessageTypeAsIntValueAsString(int type) {
+		super.type = type;
+		super.hasvalue = false;
+	}	
+	
+	public MessageTypeAsIntValueAsString(int type, String value) {
+		super.type = type;
+		this.value = value;
+		super.hasvalue = true;
+	}
 	
 	@Override
-	public boolean hasMessage() {
-		return hasmessage;
+	public boolean hasValue() {
+		return hasvalue;
 	}
 
 	@Override
-	public String getMessage() {
-		return this.message;
+	public String getValue() {
+		return this.value;
 	}
 
 	@Override
-	public void setMessage(String message) {
-		this.hasmessage = true;
-		this.message= message;
+	public void setValue(String value) {
+		this.hasvalue = true;
+		this.value = value;
+	}
+	
+	@Override
+	public void deleteValue() {
+		this.hasvalue = false;
+		this.value = null;
 	}
 	
 }

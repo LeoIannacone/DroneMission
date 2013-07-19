@@ -2,11 +2,7 @@ package it.unibo.droneMission.interfaces.messages;
 /**
  * @model 
  */
-public interface IMessageValueAsInt extends IMessage {
-	/**
-	 * @model 
-	 */
-	public boolean hasValue();
+public interface IMessageValueAsInt extends IMessageValue {
 	/**
 	 * @model 
 	 */
@@ -15,4 +11,5 @@ public interface IMessageValueAsInt extends IMessage {
 	 * @model 
 	 */
 	public void setValue(int value);
+	
 }

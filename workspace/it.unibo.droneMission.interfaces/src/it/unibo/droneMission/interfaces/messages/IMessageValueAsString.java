@@ -1,18 +1,15 @@
 package it.unibo.droneMission.interfaces.messages;
-
-public interface IMessageValueAsString extends IMessage {
+/**
+ * @model 
+ */
+public interface IMessageValueAsString extends IMessageValue {
 	/**
 	 * @model 
 	 */
-	public void setMessage(String message);
+	public void setValue(String value);
 	
 	/**
 	 * @model 
 	 */
-	public String getMessage();
-	
-	/**
-	 * @model 
-	 */
-	public boolean hasMessage();
+	public String getValue();
 }
