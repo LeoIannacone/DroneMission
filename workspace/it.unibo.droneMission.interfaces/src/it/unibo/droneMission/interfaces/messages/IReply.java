@@ -19,5 +19,10 @@ public interface IReply extends IMessage {
 	 * @model 
 	 */
 	public String getMessage();
+	
+	/**
+	 * @model 
+	 */
+	public boolean hasMessage();
 
 }
