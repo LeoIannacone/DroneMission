@@ -1,4 +1,4 @@
-package it.unibo.droneMission.tests;
+package it.unibo.droneMission.tests.gauges;
 
 import it.unibo.droneMission.gauge.GaugeValueInt;
 import it.unibo.droneMission.gauge.Speedometer;
