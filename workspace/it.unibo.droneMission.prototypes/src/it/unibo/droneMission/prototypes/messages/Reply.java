@@ -3,7 +3,7 @@ package it.unibo.droneMission.prototypes.messages;
 import it.unibo.droneMission.interfaces.messages.IReply;
 
 
-public class Reply extends Message implements IReply {
+public class Reply extends MessageTypeAsIntValueAsString implements IReply {
 
 	private int type;
 	private String message;
@@ -20,28 +20,6 @@ public class Reply extends Message implements IReply {
 		this.hasmessage = true;
 	}
 		
-	
-	@Override
-	public int getType() {
-		return this.type;
-	}
-
-	@Override
-	public boolean hasMessage() {
-		return hasmessage;
-	}
-
-	@Override
-	public String getMessage() {
-		return this.message;
-	}
-
-	@Override
-	public void setMessage(String message) {
-		this.hasmessage = true;
-		this.message= message;
-	}
-	
 	public String toString() {
 		if (hasmessage)
 			return String.format("REPLY: type[%d] - message[\"%s\"]", this.type, this.message);
