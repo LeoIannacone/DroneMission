@@ -3820,6 +3820,39 @@ Abstraction gap
 Risk analysis
 \end_layout
 
+\begin_layout Standard
+Dopo aver analizzato i requisiti e aver definito quella che sarà l'architettura
+ logica del sistema il system designer avrà la possibilità di scegliere
+ quelle che secondo lui sono le soluzioni migliori ad alcuni problemi che
+ il committente non ha specificato chiaramente nei requisiti.
+ In questo contesto rientra tutto ciò che concerne le modalità di comunicazione:
+\end_layout
+
+\begin_layout Itemize
+i comandi inviati dalla centrale operativa vengono gestiti come una request-resp
+onse, operando una comunicazione diretta tra i due sotto sistemi in cui,
+ dopo aver inviato un comando, il quartier generale, prima di eseguire altre
+ operazioni, si metterà in attesa di una risposta da parte del drone, che
+ potrà confermare la ricezione e l'esecuzione del comando, segnalare un
+ errore, o comunicare che il comando non può essere eseguito;
+\end_layout
+
+\begin_layout Itemize
+le notifiche di avvio e fine missione, inviate dal drone agli smart device,
+ sono gestite come dei segnali (comunicazione uno a molti, in cui non si
+ conoscono gli effettivi destinatari né il loro numero); le notifiche vengono
+ inserite in uno shared space (condiviso da tutti i sottosistemi) da dove
+ i destinatari che saranno sconosciuti al mittente le estrarranno;
+\end_layout
+
+\begin_layout Itemize
+come le notifiche di avvio e fine missione, anche i dati dei sensori verranno
+ inviati sotto forma di segnale per lo stesso motivo, inoltre, per ottimizzare
+ il dispendio di risorse di comunicazione, tali dati verranno inviati in
+ un unico messaggio sfruttando la codifica JSon (potrebbero essere previste
+ ulteriori forme di codifica, quali ad esempio XML o Prolog);
+\end_layout
+
 \begin_layout Chapter
 Piano di lavoro
 \end_layout
