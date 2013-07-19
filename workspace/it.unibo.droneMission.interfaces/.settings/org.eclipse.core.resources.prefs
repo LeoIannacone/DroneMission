@@ -1,4 +1,5 @@
-#Thu Jul 18 15:58:24 CEST 2013
+#Fri Jul 19 10:04:02 CEST 2013
 eclipse.preferences.version=1
-encoding//Model/interfaces.ecorediag=UTF-8
+encoding//Model/gauges.ecorediag=UTF-8
+encoding//Model/messages.ecorediag=UTF-8
 encoding//src/it/unibo/droneMission/interfaces/gauges/IGauge.java=UTF-8

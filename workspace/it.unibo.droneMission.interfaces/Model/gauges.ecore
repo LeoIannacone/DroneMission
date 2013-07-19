@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="interfaces"
-    nsURI="http:///it/unibo/droneMission/interfaces.ecore" nsPrefix="it.unibo.droneMission.interfaces">
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="gauges"
+    nsURI="http:///it/unibo/droneMission/interfaces/gauges.ecore" nsPrefix="it.unibo.droneMission.interfaces.gauges">
   <eClassifiers xsi:type="ecore:EClass" name="IControlDashboard">
     <eOperations name="startMission"/>
     <eOperations name="stopMission"/>
@@ -51,7 +51,14 @@
   <eClassifiers xsi:type="ecore:EClass" name="IGaugeVariant" eSuperTypes="#//IGauge">
     <eOperations name="update" eExceptions="#//Exception"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ILocTracker" eSuperTypes="#//IGaugeVariant"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ILocTracker" eSuperTypes="#//IGaugeVariant">
+    <eOperations name="update">
+      <eParameters name="lat" eType="#//IGaugeValue"/>
+      <eParameters name="lon" eType="#//IGaugeValue"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="lon" eType="#//IGaugeValue"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="lat" eType="#//IGaugeValue"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="IOdometer" eSuperTypes="#//IGaugeMonotonic"/>
   <eClassifiers xsi:type="ecore:EClass" name="ISpeedometer" eSuperTypes="#//IGaugeVariant"/>
   <eClassifiers xsi:type="ecore:EClass" name="Observer" instanceClassName="java.util.Observer"
