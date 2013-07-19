@@ -5,20 +5,6 @@ package it.unibo.droneMission.interfaces.messages;
  */
 public class TypesCommand {
 	
-	// replies
-	/**
-	 * @model 
-	 */
-	public final static int REPLY_OK = 0;
-	/**
-	 * @model 
-	 */
-	public final static int REPLY_NO = -1;
-	/**
-	 * @model 
-	 */
-	public final static int REPLY_FAIL = -2;
-	
 	// start and stop
 	/**
 	 * @model 

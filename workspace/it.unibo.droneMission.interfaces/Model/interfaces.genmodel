@@ -70,9 +70,6 @@
   <genPackages prefix="Messages" basePackage="it.unibo.droneMission.interfaces" disposableProviderFactory="true"
       ecorePackage="messages.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="messages.ecore#//TypesCommand">
-      <genEnumLiterals ecoreEnumLiteral="messages.ecore#//TypesCommand/REPLY_OK"/>
-      <genEnumLiterals ecoreEnumLiteral="messages.ecore#//TypesCommand/REPLY_NO"/>
-      <genEnumLiterals ecoreEnumLiteral="messages.ecore#//TypesCommand/REPLY_FAIL"/>
       <genEnumLiterals ecoreEnumLiteral="messages.ecore#//TypesCommand/START_MISSION"/>
       <genEnumLiterals ecoreEnumLiteral="messages.ecore#//TypesCommand/END_MISSION"/>
       <genEnumLiterals ecoreEnumLiteral="messages.ecore#//TypesCommand/SPEED_SET"/>
@@ -83,6 +80,11 @@
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="messages.ecore#//TypesNotify">
       <genEnumLiterals ecoreEnumLiteral="messages.ecore#//TypesNotify/START_MISSION"/>
       <genEnumLiterals ecoreEnumLiteral="messages.ecore#//TypesNotify/END_MISSION"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="messages.ecore#//TypesReply">
+      <genEnumLiterals ecoreEnumLiteral="messages.ecore#//TypesReply/REPLY_OK"/>
+      <genEnumLiterals ecoreEnumLiteral="messages.ecore#//TypesReply/REPLY_NO"/>
+      <genEnumLiterals ecoreEnumLiteral="messages.ecore#//TypesReply/REPLY_FAIL"/>
     </genEnums>
     <genDataTypes ecoreDataType="messages.ecore#//InputStream"/>
     <genClasses ecoreClass="messages.ecore#//ICommand">
@@ -123,6 +125,13 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute messages.ecore#//INotify/message"/>
       <genOperations ecoreOperation="messages.ecore#//INotify/setMessage">
         <genParameters ecoreParameter="messages.ecore#//INotify/setMessage/message"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="messages.ecore#//IReply">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute messages.ecore#//IReply/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute messages.ecore#//IReply/message"/>
+      <genOperations ecoreOperation="messages.ecore#//IReply/setMessage">
+        <genParameters ecoreParameter="messages.ecore#//IReply/setMessage/message"/>
       </genOperations>
     </genClasses>
     <genClasses ecoreClass="messages.ecore#//ISensorsData">

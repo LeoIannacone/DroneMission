@@ -43,6 +43,13 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IReply" eSuperTypes="#//IMessage">
+    <eOperations name="setMessage">
+      <eParameters name="message" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ISensorsData" eSuperTypes="#//IMessage">
     <eOperations name="addGauge">
       <eParameters name="gauge" eType="ecore:EClass gauges.ecore#//IGauge"/>
@@ -57,9 +64,6 @@
         eType="ecore:EClass gauges.ecore#//IGauge"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="TypesCommand">
-    <eLiterals name="REPLY_OK"/>
-    <eLiterals name="REPLY_NO" value="-1"/>
-    <eLiterals name="REPLY_FAIL" value="-2"/>
     <eLiterals name="START_MISSION" value="1"/>
     <eLiterals name="END_MISSION" value="2"/>
     <eLiterals name="SPEED_SET" value="3"/>
@@ -70,6 +74,11 @@
   <eClassifiers xsi:type="ecore:EEnum" name="TypesNotify">
     <eLiterals name="START_MISSION"/>
     <eLiterals name="END_MISSION" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TypesReply">
+    <eLiterals name="REPLY_OK"/>
+    <eLiterals name="REPLY_NO" value="1"/>
+    <eLiterals name="REPLY_FAIL" value="2"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="InputStream" instanceClassName="java.io.InputStream"/>
 </ecore:EPackage>
