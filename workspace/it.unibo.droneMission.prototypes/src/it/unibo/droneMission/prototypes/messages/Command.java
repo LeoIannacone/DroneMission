@@ -1,7 +1,5 @@
 package it.unibo.droneMission.prototypes.messages;
 
-import java.util.Formatter;
-
 import it.unibo.droneMission.interfaces.messages.ICommand;
 
 public class Command extends Message implements ICommand {

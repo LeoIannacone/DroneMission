@@ -18,4 +18,20 @@ public abstract class Factory {
 		else
 			return new Command(type);		
 	}
+	
+	public static Reply createReply(String json) {
+		JsonParser parser = new JsonParser();
+		JsonObject object = parser.parse(json).getAsJsonObject();
+		
+		boolean hasmessage = object.get("hasmessage").getAsBoolean();
+		String message = "";
+		if (hasmessage)
+			message = object.get("message").getAsString();
+		int type = object.get("type").getAsInt();
+		
+		if(hasmessage)
+			return new Reply(type, message);
+		else
+			return new Reply(type);		
+	}
 }
