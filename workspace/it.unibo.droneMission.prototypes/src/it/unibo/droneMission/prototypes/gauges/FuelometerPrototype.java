@@ -1,21 +1,23 @@
-package it.unibo.droneMission.system;
+package it.unibo.droneMission.prototypes.gauges;
+
 import it.unibo.baseEnv.basicFrame.EnvFrame;
 import it.unibo.droneMission.display.DisplayGuiOdometer;
-import it.unibo.droneMission.gauge.OdometerWithDisplay;
+import it.unibo.droneMission.gauge.FuelometerWithDisplay;
 import it.unibo.droneMission.interfaces.gauges.IGaugeDisplay;
 import it.unibo.is.interfaces.IBasicEnvAwt;
+
 import java.awt.Button;
 import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class OdometerPrototype {
-	public OdometerWithDisplay odometer=null;
+public class FuelometerPrototype {
+	public FuelometerWithDisplay fuelometer=null;
 	private IGaugeDisplay dis=null;
 	private IBasicEnvAwt env=null;
 	
 	public static void main(String[] args) throws Exception{
-		new OdometerPrototype().configure();
+		new FuelometerPrototype().configure();
 	}
 	
 	protected void configure(){
@@ -24,19 +26,19 @@ public class OdometerPrototype {
 	}
 		
 	protected void initDisplay() {
-		env = new EnvFrame( "Odometer", null );
+		env = new EnvFrame( "Fuelometer", null );
 		//        env.initNoFrame();        //does not show the frame
 		env.init();
-		env.writeOnStatusBar("Odometer" + " | working ... ",14);
+		env.writeOnStatusBar("Fuelometer" + " | working ... ",14);
 		dis = new DisplayGuiOdometer( env );
 		
-		Button b=new Button("Incrementa");
+		Button b=new Button("Consuma");
 		b.addActionListener(new ActionListener(){
 
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					try {
-						odometer.update();
+						fuelometer.update();
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -48,7 +50,7 @@ public class OdometerPrototype {
 	}
 	protected void configureCkm(){
 		env.addPanel((Panel) dis);
-		odometer=new OdometerWithDisplay(dis);		
+		fuelometer=new FuelometerWithDisplay(dis);		
 	}
 }
 

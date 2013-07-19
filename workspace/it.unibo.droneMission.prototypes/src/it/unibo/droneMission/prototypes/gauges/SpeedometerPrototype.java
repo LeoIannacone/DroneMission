@@ -1,4 +1,4 @@
-package it.unibo.droneMission.system;
+package it.unibo.droneMission.prototypes.gauges;
 
 import it.unibo.baseEnv.basicFrame.EnvFrame;
 import it.unibo.droneMission.display.DisplayGuiSpeedometer;

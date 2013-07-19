@@ -1,4 +1,4 @@
-package it.unibo.droneMission.system;
+package it.unibo.droneMission.prototypes.gauges;
 
 import java.awt.Button;
 import java.awt.Panel;
