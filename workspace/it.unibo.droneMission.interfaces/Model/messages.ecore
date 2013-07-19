@@ -3,14 +3,7 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="messages"
     nsURI="http:///it/unibo/droneMission/interfaces/messages.ecore" nsPrefix="it.unibo.droneMission.interfaces.messages">
-  <eClassifiers xsi:type="ecore:EClass" name="ICommand" eSuperTypes="#//IMessage">
-    <eOperations name="hasValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-    <eOperations name="setValue">
-      <eParameters name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    </eOperations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ICommand" eSuperTypes="#//IMessageTypeAsInt #//IMessageValueAsInt"/>
   <eClassifiers xsi:type="ecore:EClass" name="IFile" eSuperTypes="#//IMessage">
     <eOperations name="setName">
       <eParameters name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -36,20 +29,30 @@
   <eClassifiers xsi:type="ecore:EClass" name="IMessage">
     <eOperations name="toJSON" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="INotify" eSuperTypes="#//IMessage">
-    <eOperations name="setMessage">
-      <eParameters name="message" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IMessageTypeAsInt" eSuperTypes="#//IMessage">
+    <eOperations name="setType">
+      <eParameters name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="IReply" eSuperTypes="#//IMessage">
-    <eOperations name="setMessage">
-      <eParameters name="message" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IMessageValue" eSuperTypes="#//IMessage">
+    <eOperations name="hasValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eOperations name="deleteValue"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IMessageValueAsInt" eSuperTypes="#//IMessageValue">
+    <eOperations name="setValue">
+      <eParameters name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     </eOperations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IMessageValueAsString" eSuperTypes="#//IMessageValue">
+    <eOperations name="setValue">
+      <eParameters name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="INotify" eSuperTypes="#//IMessageTypeAsInt #//IMessageValueAsString"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IReply" eSuperTypes="#//IMessageTypeAsInt #//IMessageValueAsString"/>
   <eClassifiers xsi:type="ecore:EClass" name="ISensorsData" eSuperTypes="#//IMessage">
     <eOperations name="addGauge">
       <eParameters name="gauge" eType="ecore:EClass gauges.ecore#//IGauge"/>
