@@ -32,6 +32,17 @@ public abstract class Factory {
 			return new Notify(m.getType());
 	}
 	
+	
+	public static SensorData createSensorData(String json) {
+		MessageTypeAsIntValueAsString m = createTypeAsIntValueAsString(json);
+		if (m.hasvalue) {
+			int valueType =  (new JsonParser()).parse(json).getAsJsonObject().get("valueType").getAsInt();
+			return new SensorData(m.getType(), m.getValue(), valueType);
+		}
+		else
+			return new SensorData(m.getType());
+	}
+	
 
 	private static MessageTypeAsIntValueAsInt createTypeAsIntValueAsInt(String json) {
 		JsonParser parser = new JsonParser();

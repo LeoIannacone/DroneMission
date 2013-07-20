@@ -3,10 +3,13 @@ package it.unibo.droneMission.tests.messages;
 import it.unibo.droneMission.interfaces.messages.TypesCommand;
 import it.unibo.droneMission.interfaces.messages.TypesNotify;
 import it.unibo.droneMission.interfaces.messages.TypesReply;
+import it.unibo.droneMission.interfaces.messages.TypesSensor;
+import it.unibo.droneMission.interfaces.messages.TypesSensorsValue;
 import it.unibo.droneMission.prototypes.messages.Command;
 import it.unibo.droneMission.prototypes.messages.Factory;
 import it.unibo.droneMission.prototypes.messages.Notify;
 import it.unibo.droneMission.prototypes.messages.Reply;
+import it.unibo.droneMission.prototypes.messages.SensorData;
 import junit.framework.TestCase;
 
 public class FactoryTest extends TestCase {
@@ -85,5 +88,19 @@ public class FactoryTest extends TestCase {
 		
 		assertEquals(n.getType(), nNew.getType());
 		assertEquals(n.getValue(), nNew.getValue());
+	}
+	
+	public void testCreationSensorData() {
+		int type = TypesSensor.ODOMETER;
+		int valueType = TypesSensorsValue.INT;
+		String message = "This is just a test";
+		SensorData s = new SensorData(type, message, valueType);
+		
+		String json = s.toJSON();
+		Notify sNew = Factory.createNotify(json);
+		
+		assertEquals(s.getType(), sNew.getType());
+		assertEquals(s.hasValue(), sNew.hasValue());
+		assertEquals(s.getValue(), sNew.getValue());
 	}
 }
