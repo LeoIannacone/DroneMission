@@ -1,8 +1,5 @@
 package it.unibo.droneMission.prototypes.messages;
 
-import it.unibo.droneMission.interfaces.messages.IMessage;
-import it.unibo.droneMission.interfaces.messages.IMessageValue;
-
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -24,6 +21,15 @@ public abstract class Factory {
 			return new Reply(m.getType(), m.getValue());
 		else
 			return new Reply(m.getType());
+	}
+	
+	public static Notify createNotify(String json) {
+		//return (Reply) createTypeAsIntValueAsString(json);
+		MessageTypeAsIntValueAsString m = createTypeAsIntValueAsString(json);
+		if(m.hasValue())
+			return new Notify(m.getType(), m.getValue());
+		else
+			return new Notify(m.getType());
 	}
 	
 

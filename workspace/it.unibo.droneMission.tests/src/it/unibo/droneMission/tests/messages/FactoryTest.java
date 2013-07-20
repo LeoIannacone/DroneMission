@@ -1,9 +1,11 @@
 package it.unibo.droneMission.tests.messages;
 
 import it.unibo.droneMission.interfaces.messages.TypesCommand;
+import it.unibo.droneMission.interfaces.messages.TypesNotify;
 import it.unibo.droneMission.interfaces.messages.TypesReply;
 import it.unibo.droneMission.prototypes.messages.Command;
 import it.unibo.droneMission.prototypes.messages.Factory;
+import it.unibo.droneMission.prototypes.messages.Notify;
 import it.unibo.droneMission.prototypes.messages.Reply;
 import junit.framework.TestCase;
 
@@ -59,5 +61,29 @@ public class FactoryTest extends TestCase {
 		
 		assertEquals(r.getType(), rNew.getType());
 		assertEquals(r.getValue(), rNew.getValue());
+	}
+	
+	public void testNotifyCreationWithMessage() {
+		int type = TypesNotify.END_MISSION;
+		String message = "This is just a test";
+		Notify n = new Notify(type, message);
+		
+		String json = n.toJSON();
+		Notify nNew = Factory.createNotify(json);
+		
+		assertEquals(n.getType(), nNew.getType());
+		assertEquals(n.hasValue(), nNew.hasValue());
+		assertEquals(n.getValue(), nNew.getValue());
+	}
+	
+	public void testNotifyCreationWithNoMessage() {
+		int type = TypesNotify.END_MISSION;
+		Notify n = new Notify(type);
+		
+		String json = n.toJSON();
+		Notify nNew = Factory.createNotify(json);
+		
+		assertEquals(n.getType(), nNew.getType());
+		assertEquals(n.getValue(), nNew.getValue());
 	}
 }
