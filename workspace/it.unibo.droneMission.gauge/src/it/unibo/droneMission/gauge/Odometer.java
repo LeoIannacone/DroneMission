@@ -57,8 +57,7 @@ public class Odometer implements IOdometer{
 
 	@Override
 	public void setVal(IGaugeValue value) {
-		// TODO Auto-generated method stub
-		//utilizzato per GaugeVariant
+		km=new GaugeValueInt(value.valAsInt());
 	}
 	
 

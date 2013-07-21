@@ -62,8 +62,7 @@ public class Fuelometer implements IFuelometer {
 
 	@Override
 	public void setVal(IGaugeValue value) {
-		// TODO Auto-generated method stub
-	
+		this.fuel = new GaugeValueDouble(value.valAsDouble());	
 	}
 
 }
