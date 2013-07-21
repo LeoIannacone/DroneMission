@@ -7,7 +7,6 @@ import it.unibo.droneMission.gauge.LocTracker;
 import it.unibo.droneMission.gauge.Odometer;
 import it.unibo.droneMission.gauge.Speedometer;
 import it.unibo.droneMission.interfaces.gauges.IGauge;
-import it.unibo.droneMission.interfaces.gauges.IGaugeValue;
 import it.unibo.droneMission.interfaces.messages.ISensor;
 import it.unibo.droneMission.interfaces.messages.TypesSensor;
 
@@ -57,7 +56,7 @@ public class Utils {
 		}
 		
 		else {
-			GaugeValueInt valueInt = new GaugeValueInt(Integer.parseInt(sensor.getValue()));
+			GaugeValueInt valueInt = new GaugeValueInt((int) Double.parseDouble(sensor.getValue()));
 			GaugeValueDouble valueDouble = new GaugeValueDouble(Double.parseDouble(sensor.getValue()));
 			
 			if (type == TypesSensor.FUELOMETER) {
