@@ -1,5 +1,9 @@
 package it.unibo.droneMission.prototypes.messages;
 
+import it.unibo.droneMission.interfaces.gauges.IGauge;
+
+import java.util.List;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -32,8 +36,11 @@ public abstract class Factory {
 			return new Notify(m.getType());
 	}
 	
+	public static List<IGauge> createGaugesList(String json) throws Exception {
+		return null;
+	}
 	
-	public static Sensor createSensorData(String json) throws Exception {
+	public static Sensor createSensor(String json) throws Exception {
 		MessageTypeAsIntValueAsString m = createTypeAsIntValueAsString(json);
 		if (m.hasvalue) {
 			return new Sensor(m.getType(), m.getValue());
