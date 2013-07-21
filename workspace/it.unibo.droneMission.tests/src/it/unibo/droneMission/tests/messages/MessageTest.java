@@ -15,7 +15,7 @@ import it.unibo.droneMission.interfaces.messages.TypesCommand;
 import it.unibo.droneMission.prototypes.messages.Command;
 import it.unibo.droneMission.prototypes.messages.Factory;
 import it.unibo.droneMission.prototypes.messages.Message;
-import it.unibo.droneMission.prototypes.messages.SensorData;
+import it.unibo.droneMission.prototypes.messages.Sensor;
 import it.unibo.droneMission.prototypes.messages.SensorsData;
 public class MessageTest {
 
@@ -48,7 +48,7 @@ public class MessageTest {
 	}
 	
 	public static void testSensor( ) {
-		SensorData c = new SensorData(TypesCommand.START_MISSION, "2.34");
+		Sensor c = new Sensor(TypesCommand.START_MISSION, "2.34");
 //		c.setValue(3);
 		Gson gson = new Gson();
 		System.out.println(c);

@@ -33,10 +33,10 @@ public abstract class Factory {
 	}
 	
 	
-	public static SensorData createSensorData(String json) throws Exception {
+	public static Sensor createSensorData(String json) throws Exception {
 		MessageTypeAsIntValueAsString m = createTypeAsIntValueAsString(json);
 		if (m.hasvalue) {
-			return new SensorData(m.getType(), m.getValue());
+			return new Sensor(m.getType(), m.getValue());
 		}
 		else
 			throw new Exception("SensordData Message has no value");
