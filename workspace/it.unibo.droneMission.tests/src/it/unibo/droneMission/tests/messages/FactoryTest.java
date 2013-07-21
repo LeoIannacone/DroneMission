@@ -4,7 +4,6 @@ import it.unibo.droneMission.interfaces.messages.TypesCommand;
 import it.unibo.droneMission.interfaces.messages.TypesNotify;
 import it.unibo.droneMission.interfaces.messages.TypesReply;
 import it.unibo.droneMission.interfaces.messages.TypesSensor;
-import it.unibo.droneMission.interfaces.messages.TypesSensorsValue;
 import it.unibo.droneMission.prototypes.messages.Command;
 import it.unibo.droneMission.prototypes.messages.Factory;
 import it.unibo.droneMission.prototypes.messages.Notify;
@@ -92,9 +91,8 @@ public class FactoryTest extends TestCase {
 	
 	public void testCreationSensorData() {
 		int type = TypesSensor.ODOMETER;
-		int valueType = TypesSensorsValue.INT;
 		String message = "This is just a test";
-		SensorData s = new SensorData(type, message, valueType);
+		SensorData s = new SensorData(type, message);
 		
 		String json = s.toJSON();
 		Notify sNew = Factory.createNotify(json);
