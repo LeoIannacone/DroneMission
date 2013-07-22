@@ -17,9 +17,21 @@ public class Utils {
 	public static ISensor fromGaugeToSensor(IGauge gauge) {
 		int type = -1;
 		Class<?> cls = gauge.getClass();
+		String value;
 		
-		String value = "" + gauge.getVal().valAsDouble();
+		if (cls == LocTracker.class) {
+			type = TypesSensor.LOCTRACKER;
+			LocTracker locTracker = (LocTracker) gauge;
+			value = String.format("%s%s%s", 
+					locTracker.getLat().valAsDouble(),
+					LOCTRACKER_VALUE_SEPARATOR,
+					locTracker.getLon().valAsDouble()
+					);
+			return new Sensor(type, value);
+		}
+		 value = "" + gauge.getVal().valAsDouble();
 		
+	
 		if (cls == Odometer.class)
 			type = TypesSensor.ODOMETER;
 		
@@ -29,15 +41,7 @@ public class Utils {
 		else if (cls == Fuelometer.class)
 			type = TypesSensor.FUELOMETER;
 	
-		else if (cls == LocTracker.class) {
-			type = TypesSensor.LOCTRACKER;
-			LocTracker locTracker = (LocTracker) gauge;
-			value = String.format("%s%s%s", 
-					locTracker.getLat().valAsDouble(),
-					LOCTRACKER_VALUE_SEPARATOR,
-					locTracker.getLon().valAsDouble()
-					);
-		}
+	
 
 		return new Sensor(type, value);
 	}
