@@ -51,7 +51,7 @@ public class UtilsTest extends TestCase {
 		
 		ISensor position = Utils.fromGaugeToSensor(loctracker);
 				
-		System.out.println(position.getValue());
+		
 		assertEquals(position.getType(),TypesSensor.LOCTRACKER);
 		assertEquals(position.getValue(),loctracker.toString());
 		assertTrue(position.hasValue());
@@ -61,9 +61,27 @@ public class UtilsTest extends TestCase {
 	
 	public static void testFromSensorToGauge()
 	{
-		IGauge speedometer =Utils.fromSensorToGauge(new Sensor(TypesSensor.SPEEDOMETER,"60"));
-		assertEquals(speedometer.getVal().valAsInt(),60);
+		Sensor s =new Sensor(TypesSensor.SPEEDOMETER,"60");
+		IGauge speedometer =Utils.fromSensorToGauge(s);
+		assertEquals(speedometer.getClass(),Speedometer.class);
+		assertEquals(""+speedometer.getVal().valAsInt(),s.getValue());
 		
+		
+		s = new Sensor(TypesSensor.ODOMETER,"40");
+		IGauge odometer = Utils.fromSensorToGauge(s);
+		assertEquals(odometer.getClass(), Odometer.class);
+		assertEquals(""+odometer.getVal().valAsInt(),s.getValue());
+		
+		
+		s= new Sensor(TypesSensor.FUELOMETER,"96.2");
+		IGauge fuelometer = Utils.fromSensorToGauge(s);
+		assertEquals(fuelometer.getClass(), Fuelometer.class);
+		assertEquals(""+fuelometer.getVal().valAsDouble(),s.getValue());
+		
+		s = new Sensor(TypesSensor.LOCTRACKER,"45.2;36.8");
+		IGauge loctracker = Utils.fromSensorToGauge(s);
+		assertEquals(loctracker.getClass(),LocTracker.class);
+		assertEquals(""+loctracker.toString(),s.getValue());
 	}
 	
 	
