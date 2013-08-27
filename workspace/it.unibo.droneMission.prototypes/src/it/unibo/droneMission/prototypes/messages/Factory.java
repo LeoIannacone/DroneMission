@@ -4,8 +4,10 @@ import it.unibo.droneMission.interfaces.gauges.IGauge;
 
 import java.util.List;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 
 public abstract class Factory {
 	
@@ -34,6 +36,21 @@ public abstract class Factory {
 			return new Notify(m.getType(), m.getValue());
 		else
 			return new Notify(m.getType());
+	}
+	
+	public static SensorsData createSensorsData(String json)
+	{
+		Gson gson = new Gson();
+		
+		List<Sensor> sensori = gson.fromJson(json,new TypeToken<List<Sensor>>(){}.getType());
+		
+		SensorsData sensorsData = new SensorsData();
+		for(Sensor s : sensori)
+		{
+			sensorsData.addGauge(Utils.fromSensorToGauge(s));
+		}
+		return sensorsData;
+		
 	}
 	
 	public static List<IGauge> createGaugesList(String json) throws Exception {

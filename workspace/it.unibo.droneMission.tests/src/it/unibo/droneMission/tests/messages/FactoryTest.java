@@ -1,5 +1,11 @@
 package it.unibo.droneMission.tests.messages;
 
+import it.unibo.droneMission.gauge.Fuelometer;
+import it.unibo.droneMission.gauge.GaugeValueDouble;
+import it.unibo.droneMission.gauge.GaugeValueInt;
+import it.unibo.droneMission.gauge.Odometer;
+import it.unibo.droneMission.gauge.Speedometer;
+import it.unibo.droneMission.interfaces.gauges.IGauge;
 import it.unibo.droneMission.interfaces.messages.TypesCommand;
 import it.unibo.droneMission.interfaces.messages.TypesNotify;
 import it.unibo.droneMission.interfaces.messages.TypesReply;
@@ -9,6 +15,7 @@ import it.unibo.droneMission.prototypes.messages.Factory;
 import it.unibo.droneMission.prototypes.messages.Notify;
 import it.unibo.droneMission.prototypes.messages.Reply;
 import it.unibo.droneMission.prototypes.messages.Sensor;
+import it.unibo.droneMission.prototypes.messages.SensorsData;
 import junit.framework.TestCase;
 
 public class FactoryTest extends TestCase {
@@ -88,6 +95,33 @@ public class FactoryTest extends TestCase {
 		assertEquals(n.getType(), nNew.getType());
 		assertEquals(n.getValue(), nNew.getValue());
 	}
+	public void testCreationSensorsData()
+	{
+		SensorsData sensors = new SensorsData();
+		
+		Odometer o = new Odometer();
+		o.setVal(new GaugeValueInt(3));
+		sensors.addGauge(o);
+		
+		Fuelometer f = new Fuelometer();
+		f.setVal(new GaugeValueDouble(12.3));
+		sensors.addGauge(f);
+		
+		Speedometer s = new Speedometer();
+		s.setVal(new GaugeValueInt(130));
+		sensors.addGauge(s);
+		
+		String json = sensors.toJSON();
+		SensorsData s2 = Factory.createSensorsData(json);
+		
+		for(int i=0;i<sensors.getGauges().size();i++)
+		{
+			assertEquals(sensors.getGauges().get(i).getVal().valAsString(),
+					     s2.getGauges().get(i).getVal().valAsString());
+		}
+			
+	}
+	
 	
 	public void testCreationSensorData() {
 		int type = TypesSensor.ODOMETER;
