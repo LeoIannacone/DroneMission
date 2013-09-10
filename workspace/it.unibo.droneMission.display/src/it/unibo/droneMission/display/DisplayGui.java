@@ -1,6 +1,6 @@
 package it.unibo.droneMission.display;
 
-import it.unibo.droneMission.interfaces.IDisplay;
+import it.unibo.droneMission.interfaces.gauges.IDisplay;
 import it.unibo.is.interfaces.IBasicEnvAwt;
 
 import java.awt.Panel;

@@ -1,6 +1,6 @@
 package it.unibo.droneMission.gauge;
 
-import it.unibo.droneMission.interfaces.IGaugeValueInt;
+import it.unibo.droneMission.interfaces.gauges.IGaugeValueInt;
 
 public class GaugeValueInt implements IGaugeValueInt{
 	

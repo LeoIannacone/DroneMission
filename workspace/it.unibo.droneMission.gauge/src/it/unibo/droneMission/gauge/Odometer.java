@@ -1,7 +1,7 @@
 package it.unibo.droneMission.gauge;
 import java.util.Observer;
 
-import it.unibo.droneMission.interfaces.*;
+import it.unibo.droneMission.interfaces.gauges.*;
 
 
 public class Odometer implements IOdometer{
@@ -57,8 +57,7 @@ public class Odometer implements IOdometer{
 
 	@Override
 	public void setVal(IGaugeValue value) {
-		// TODO Auto-generated method stub
-		//utilizzato per GaugeVariant
+		km=new GaugeValueInt(value.valAsInt());
 	}
 	
 

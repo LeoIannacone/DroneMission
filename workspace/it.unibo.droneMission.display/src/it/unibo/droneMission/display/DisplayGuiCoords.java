@@ -1,7 +1,7 @@
 package it.unibo.droneMission.display;
 
 
-import it.unibo.droneMission.interfaces.IGaugeDisplay;
+import it.unibo.droneMission.interfaces.gauges.IGaugeDisplay;
 import it.unibo.is.interfaces.IBasicEnvAwt;
 
 public class DisplayGuiCoords extends DisplayGuiGauge implements IGaugeDisplay{
