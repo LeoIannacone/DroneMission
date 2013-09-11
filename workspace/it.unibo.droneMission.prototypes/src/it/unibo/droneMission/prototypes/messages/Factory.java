@@ -5,6 +5,7 @@ import it.unibo.droneMission.interfaces.gauges.IGauge;
 import java.util.List;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
@@ -40,12 +41,18 @@ public abstract class Factory {
 	
 	public static SensorsData createSensorsData(String json)
 	{
-		Gson gson = new Gson();
+		JsonParser parser = new JsonParser();
+		JsonObject object = parser.parse(json).getAsJsonObject();
 		
-		List<Sensor> sensori = gson.fromJson(json,new TypeToken<List<Sensor>>(){}.getType());
+		long time = object.get("time").getAsLong();
+		
+		Gson gson = new Gson();		
+		List<Sensor> sensors = gson.fromJson(object.get("sensors"),new TypeToken<List<Sensor>>(){}.getType());
 		
 		SensorsData sensorsData = new SensorsData();
-		for(Sensor s : sensori)
+		sensorsData.setTime(time);
+		
+		for(Sensor s : sensors)
 		{
 			sensorsData.addGauge(Utils.fromSensorToGauge(s));
 		}

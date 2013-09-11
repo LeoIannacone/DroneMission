@@ -1,10 +1,13 @@
 package it.unibo.droneMission.tests.messages;
 
+import java.util.List;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 
 import it.unibo.droneMission.gauge.Fuelometer;
 import it.unibo.droneMission.gauge.GaugeValueDouble;
@@ -43,7 +46,16 @@ public class MessageTest {
 		s.setVal(new GaugeValueInt(130));
 		sensors.addGauge(s);
 		
-		System.out.println(sensors.toJSON());
+		String json = sensors.toJSON();
+		System.out.println("FULL JSON: " + json);
+		
+		JsonParser parser = new JsonParser();
+		JsonObject object = parser.parse(json).getAsJsonObject();		
+		JsonElement jsonSensors = object.get("sensors");
+		Gson gson = new Gson();		
+		List<Sensor> se = gson.fromJson(jsonSensors,new TypeToken<List<Sensor>>(){}.getType());
+		
+		System.out.println(se);
 		
 	}
 	
