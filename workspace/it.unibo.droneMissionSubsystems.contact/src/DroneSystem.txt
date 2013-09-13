@@ -1,0 +1,205 @@
+ContactSystem droneSystem -awt -o spaceUpdater [host="localhost" port=8070];
+ 
+
+Subject headQuarter external;
+Subject smartDevice external;
+
+
+Subject class Sensor;
+Subject drone -w;
+
+Subject speedSensor inherits Sensor -w;	
+Subject fuelSensor inherits Sensor -w;
+Subject odoSensor inherits Sensor -w;
+Subject locationSensor inherits Sensor -w;
+
+Subject camera -w;
+
+  
+Dispatch datapackage;
+Signal notify;
+Signal sensorvalue;
+Request command;
+Signal file;
+
+sendDataPackage: drone forward datapackage to headQuarter;
+receiveDataPackage: headQuarter serve datapackage support=TCP [host="localhost" port=4060];
+
+  
+emitNotify: drone emit notify;
+receiveNotifyhq: headQuarter sense notify;
+receiveNotifysd: smartDevice sense notify;
+receiveNotifysensor: odoSensor sense notify;
+receiveNotifycamera: camera sense notify;
+
+
+sendCommand: headQuarter demand command to drone;
+receiveCommand: drone grant command support=TCP [host="localhost" port=4070];
+
+
+sensorEmitData: Sensor emit sensorvalue;
+droneSenseData: drone sense sensorvalue;
+
+cameraInsertFile: camera emit file;
+droneRemoveFile: drone sense file;
+
+//		Behaviors
+//Behavior of drone
+
+BehaviorOf drone{
+	var String from = ""
+	var String content = ""
+	var String photoPack = ""
+	var boolean empty = false
+	var String s =""
+	var boolean start
+	
+	action void initDrone() 
+	action String updateStatus(String sensor) //(String sensor, String v)
+	action String preparePhotoPack()
+	action void sendPhotoToHeadQuarter(String packet)
+	action boolean fuelFinished()
+	
+	state st_drone_init initial
+		println("Starting Drone")
+		call initDrone()
+		goToState st_drone_ready
+	endstate
+	
+	state st_drone_ready
+		println ("----- Waiting setSpeed -----")
+		doInOut receiveCommand()
+		set s = call curInputMsg.msgContent()
+		set cmdName = call Drone.getCommandName(s)
+		set start = call cmdName.contains("setspeed")
+		if{start} {	
+			replyToRequest command("OK"); 
+			doOut emitNotify("start");
+			goToState st_drone_started
+		}
+		replyToRequest command("FAIL");
+		println ("ERROR: expected 'setspeed' command to start. Received: " + s)
+	endstate
+	
+	
+	
+	
+	
+	state st_drone_started
+		set empty = call fuelFinished();
+		if { empty } { goToState st_drone_endState }
+		onMessage? file goToState st_drone_sendPhoto 
+		onMessage? sensorvalue goToState st_drone_sensorsHandler
+		  
+	endstate
+	
+	state st_drone_sensorsHandler
+		doPerceive droneSenseData()
+		set from = call curInputMsg.msgEmitter()
+		set content = call curInputMsg.msgContent()
+		println("Received message from " + from)
+	//	set value = call curInputMsg.msgContent() //if sensor send computed data
+		set s = call updateStatus(from,content) //(from, value)
+		
+		println("Sensors updated")
+		println(s)
+		goToState st_drone_started
+	endstate
+	
+	
+		state st_drone_sendPhoto
+		println("Received photo")
+		doPerceive droneSenseData()
+		set photoPack = call preparePhotoPack() //create a string with sensors data
+		println(photoPack)
+		set photoPack = photoPack + call curInputMsg.msgContent() //add to the previous string the photo message
+		call sendPhotoToHeadQuarter(photoPack) //send photo to head quarter
+		goToState st_drone_started
+	endstate
+	
+	state st_drone_endState
+		doOut emitNotify("EndMission")
+		transitToEnd
+	endstate
+}
+
+BehaviorOf camera {
+	
+	var boolean go
+	var boolean off
+	var String photo
+	
+	
+	action boolean started(String msg)
+	action void initCamera()
+	action String takePhoto()
+	action void waitDTF()
+	
+	state st_camera_init initial
+		call initCamera()
+		goToState st_camera_ready
+	endstate
+	
+	state st_camera_ready
+			doPerceive receiveNotifycamera()
+			set go = call started(code.curInputMsgContent)
+			if{go}{goToState st_camera_idle} 
+	endstate
+	
+	state st_camera_idle
+		call delay()
+		doPerceive receiveNotifycamera()
+		set off = call offcamera(code.curInputMsgContent)
+	  	if{off}{ goToState st_camera_endState}
+		goToState st_camera_takePhoto
+	endstate
+	
+	
+	//TODO
+	state st_camera_takePhoto
+		call waitDTF()
+		set photo = call takePhoto()
+		doOut cameraInsertFile(photo)
+		goToState st_camera_idle
+	endstate 
+	 
+	state st_camera_endState
+		transitToEnd
+	endstate
+}
+
+BehaviorOf Sensor{
+	
+	var int time
+	var boolean turnOn=false
+	var boolean turnOff=true
+	
+	action void initSensor()
+	action void delay()
+	action boolean onMission(String value)
+	action boolean endMission(String value)
+	action String getValue()
+	
+	state st_sensor_init initial
+		call initSensor()
+		goToState st_sensor_ready
+	endstate
+	
+	state st_sensor_ready
+		doPerceive receiveNotifysensor()
+		set turnOn = call onMission(code.curInputMsgContent)
+		if{turnOn} {goToState st_sensor_working}
+	endstate
+	
+	state st_sensor_working
+		call delay()
+		doOut sensorEmitData(call getValue())
+		doPerceive receiveNotifysensor()
+		set turnOff = call endMission(code.curInputMsgContent) 
+		if{turnOff}{goToState st_sensor_endState}
+	endstate
+	
+	state st_sensor_endState
+		transitToEnd
+	endstate
+}
