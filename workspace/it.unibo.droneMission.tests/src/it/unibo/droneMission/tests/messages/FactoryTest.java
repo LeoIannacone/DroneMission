@@ -12,6 +12,7 @@ import it.unibo.droneMission.interfaces.messages.TypesReply;
 import it.unibo.droneMission.interfaces.messages.TypesSensor;
 import it.unibo.droneMission.prototypes.messages.Command;
 import it.unibo.droneMission.prototypes.messages.Factory;
+import it.unibo.droneMission.prototypes.messages.File;
 import it.unibo.droneMission.prototypes.messages.Notify;
 import it.unibo.droneMission.prototypes.messages.Reply;
 import it.unibo.droneMission.prototypes.messages.Sensor;
@@ -135,5 +136,23 @@ public class FactoryTest extends TestCase {
 		assertEquals(s.getType(), sNew.getType());
 		assertEquals(s.hasValue(), sNew.hasValue());
 		assertEquals(s.getValue(), sNew.getValue());
+	}
+	
+	public void testCreationFile() {
+		String name = "file name";
+		String data = "aGVsbG8gd29ybGQK"; // $ echo "hello world"| base64 
+		long time = 1379080909;
+		
+		File f = new File();
+		f.setName(name);
+		f.setData(data);
+		f.setCreationTime(time);
+		
+		String json = f.toJSON();
+		File fNew = Factory.createFile(json);
+		
+		assertEquals(f.getName(), fNew.getName());
+		assertEquals(f.getDataAsBase64(), fNew.getDataAsBase64());
+		assertEquals(f.getCreationTime(), fNew.getCreationTime());
 	}
 }
