@@ -14,6 +14,7 @@ import it.unibo.droneMission.prototypes.messages.Command;
 import it.unibo.droneMission.prototypes.messages.Factory;
 import it.unibo.droneMission.prototypes.messages.File;
 import it.unibo.droneMission.prototypes.messages.Notify;
+import it.unibo.droneMission.prototypes.messages.PicturePackage;
 import it.unibo.droneMission.prototypes.messages.Reply;
 import it.unibo.droneMission.prototypes.messages.Sensor;
 import it.unibo.droneMission.prototypes.messages.SensorsData;
@@ -136,6 +137,53 @@ public class FactoryTest extends TestCase {
 		
 		String json = f.toJSON();
 		File fNew = Factory.createFile(json);
+		
+		assertEquals(f.getName(), fNew.getName());
+		assertEquals(f.getDataAsBase64(), fNew.getDataAsBase64());
+		assertEquals(f.getCreationTime(), fNew.getCreationTime());
+	}
+	
+	
+	public void testCreationPicturePackage() {
+		// create File
+		String name = "file name";
+		String data = "aGVsbG8gd29ybGQK"; // $ echo "hello world"| base64 
+		long time = 1379080909;
+		File f = new File();
+		f.setName(name);
+		f.setData(data);
+		f.setCreationTime(time);
+		
+		// Create sensors data
+		SensorsData s = new SensorsData();
+		Odometer o = new Odometer();
+		o.setVal(new GaugeValueInt(3));
+		s.addGauge(o);
+		Fuelometer fu = new Fuelometer();
+		fu.setVal(new GaugeValueDouble(12.3));
+		s.addGauge(fu);
+		Speedometer sp = new Speedometer();
+		sp.setVal(new GaugeValueInt(130));
+		s.addGauge(sp);
+		
+		
+		// Create picture package
+		PicturePackage pack = new PicturePackage(s, f);
+		
+		String json = pack.toJSON();
+		PicturePackage packNew = Factory.createPicturePackage(json);
+		
+		SensorsData s2 = (SensorsData) packNew.getSensorsData();
+		
+		for(int i=0;i<s.getGauges().size();i++)
+		{
+			assertEquals(s.getGauges().get(i).getVal().valAsString(),
+					     s2.getGauges().get(i).getVal().valAsString());
+		}
+		assertEquals(s.getTime(), s2.getTime());
+		
+		
+		File fNew = (File) packNew.getFile();
 		
 		assertEquals(f.getName(), fNew.getName());
 		assertEquals(f.getDataAsBase64(), fNew.getDataAsBase64());
