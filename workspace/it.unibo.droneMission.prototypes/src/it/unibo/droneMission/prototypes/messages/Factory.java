@@ -72,6 +72,21 @@ public abstract class Factory {
 			throw new Exception("SensordData Message has no value");
 	}
 	
+	public static File createFile(String json) {
+		
+		JsonParser parser = new JsonParser();
+		JsonObject object = parser.parse(json).getAsJsonObject();
+		
+		long creationTime = object.get("creationTime").getAsLong();
+		String name = object.get("name").getAsString();
+		String data = object.get("data").getAsString();
+		
+		File file = new File();
+		file.setCreationTime(creationTime);
+		file.setName(name);
+		file.setData(data);
+		return file;
+	}
 
 	private static MessageTypeAsIntValueAsInt createTypeAsIntValueAsInt(String json) {
 		JsonParser parser = new JsonParser();
