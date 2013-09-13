@@ -32,6 +32,13 @@ public class File extends Message implements IFile{
 		this(new java.io.File(fileName));
 	}
 	
+	// a simple null constructor
+	public File() {
+		this.name = "";
+		this.data = "";
+		this.creationTime = 0;
+	}
+	
 
 	@Override
 	public void setName(String name) {
