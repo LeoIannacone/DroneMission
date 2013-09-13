@@ -18,6 +18,7 @@ import it.unibo.droneMission.gauge.Odometer;
 import it.unibo.droneMission.gauge.Speedometer;
 import it.unibo.droneMission.interfaces.messages.TypesCommand;
 import it.unibo.droneMission.prototypes.messages.File;
+import it.unibo.droneMission.prototypes.messages.PicturePackage;
 import it.unibo.droneMission.prototypes.messages.Sensor;
 import it.unibo.droneMission.prototypes.messages.SensorsData;
 import it.unibo.droneMission.prototypes.messages.Utils;
@@ -28,8 +29,31 @@ public class MessageTest {
 	 */
 	public static void main(String[] args) {
 
-		testFile();
+		testPicturePackage();
 	}
+	
+	
+	public static void testPicturePackage() {
+		SensorsData sensors = new SensorsData();
+		
+		Odometer o = new Odometer();
+		o.setVal(new GaugeValueInt(3));
+		sensors.addGauge(o);
+		
+		Fuelometer f = new Fuelometer();
+		f.setVal(new GaugeValueDouble(12.3));
+		sensors.addGauge(f);
+		
+		Speedometer s = new Speedometer();
+		s.setVal(new GaugeValueInt(130));
+		sensors.addGauge(s);
+		
+		File file = new File("/home/l3on/tmp/image.jpg");
+		
+		PicturePackage pack = new PicturePackage(sensors, file);
+		System.out.println(pack.toJSON());
+	}
+	
 	
 	public static void testFile() {
 		
