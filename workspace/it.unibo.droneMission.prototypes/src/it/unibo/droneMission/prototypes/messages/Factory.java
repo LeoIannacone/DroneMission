@@ -72,6 +72,20 @@ public abstract class Factory {
 			throw new Exception("SensordData Message has no value");
 	}
 	
+	public static PicturePackage createPicturePackage(String json) {
+		Gson gson = new Gson();
+		JsonParser parser = new JsonParser();
+		JsonObject object = parser.parse(json).getAsJsonObject();
+				
+		JsonObject sensorsJSON = object.get("sensorsData").getAsJsonObject();
+		JsonObject fileJSON = object.get("file").getAsJsonObject();
+		
+		SensorsData sensors = createSensorsData(gson.toJson(sensorsJSON));
+		File file = createFile(gson.toJson(fileJSON));
+		
+		return new PicturePackage(sensors, file);
+	}
+	
 	public static File createFile(String json) {
 		
 		JsonParser parser = new JsonParser();
