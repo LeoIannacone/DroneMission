@@ -124,20 +124,6 @@ public class FactoryTest extends TestCase {
 			
 	}
 	
-	
-	public void testCreationSensorData() {
-		int type = TypesSensor.ODOMETER;
-		String message = "This is just a test";
-		Sensor s = new Sensor(type, message);
-		
-		String json = s.toJSON();
-		Notify sNew = Factory.createNotify(json);
-		
-		assertEquals(s.getType(), sNew.getType());
-		assertEquals(s.hasValue(), sNew.hasValue());
-		assertEquals(s.getValue(), sNew.getValue());
-	}
-	
 	public void testCreationFile() {
 		String name = "file name";
 		String data = "aGVsbG8gd29ybGQK"; // $ echo "hello world"| base64 
