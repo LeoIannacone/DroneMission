@@ -1,5 +1,12 @@
 package it.unibo.droneMission.prototypes.messages;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
+
 import it.unibo.droneMission.gauge.Fuelometer;
 import it.unibo.droneMission.gauge.GaugeValueDouble;
 import it.unibo.droneMission.gauge.GaugeValueInt;
@@ -9,6 +16,7 @@ import it.unibo.droneMission.gauge.Speedometer;
 import it.unibo.droneMission.interfaces.gauges.IGauge;
 import it.unibo.droneMission.interfaces.messages.ISensor;
 import it.unibo.droneMission.interfaces.messages.TypesSensor;
+
 
 public class Utils {
 	
@@ -80,5 +88,32 @@ public class Utils {
 		}
 		
 		return g;
+	}
+	
+	public static byte[] decodeFileFromBase64(String base64) {
+		BASE64Decoder decoder = new BASE64Decoder();
+		try {
+			return decoder.decodeBuffer(base64);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public static String encodeFileToBase64(java.io.File file) {
+		BASE64Encoder encoder = new BASE64Encoder();
+		byte fileContent[] = new byte[(int)file.length()];
+		FileInputStream f;
+		try {
+			f = new FileInputStream(file);
+			try {
+				f.read(fileContent);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return encoder.encodeBuffer(fileContent);
 	}
 }
