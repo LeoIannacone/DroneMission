@@ -29,4 +29,15 @@ public interface ISensorsData extends IMessage {
 	 */
 	public boolean hasGauge(IGauge gauge);
 	
+	/**
+	 * @model 
+	 */
+	public void setTime(long milliseconds);
+	
+	/**
+	 * @model 
+	 */
+	public long getTime();
+	
+	
 }

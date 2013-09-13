@@ -119,6 +119,7 @@ public class FactoryTest extends TestCase {
 			assertEquals(sensors.getGauges().get(i).getVal().valAsString(),
 					     s2.getGauges().get(i).getVal().valAsString());
 		}
+		assertEquals(sensors.getTime(), s2.getTime());
 			
 	}
 	

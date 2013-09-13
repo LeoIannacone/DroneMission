@@ -1,5 +1,7 @@
 package it.unibo.droneMission.tests.messages;	
 
+import java.io.UnsupportedEncodingException;
+
 import it.unibo.droneMission.gauge.Fuelometer;
 import it.unibo.droneMission.gauge.GaugeValueDouble;
 import it.unibo.droneMission.gauge.GaugeValueInt;
@@ -85,4 +87,44 @@ public class UtilsTest extends TestCase {
 	}
 	
 	
+	public static void testDecodeFile() {
+		String clear = "hello world";  
+		String base64 = "aGVsbG8gd29ybGQK";
+		
+		String test = null;
+		try {
+			test = new String(Utils.decodeFileFromBase64(base64), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (test.charAt(test.length()-1) == '\n')
+			clear += '\n'; // needed \n - base64 decode/encode add newline automatically
+		assertEquals(clear, test);
+	}
+	
+	/*
+	 * Hard to test - tested with images in MessageTest
+	 * 
+	public static void testEncodeFile() {
+		String clear = "hello world";  
+		String base64 = "aGVsbG8gd29ybGQK"; // needed \n - base64 decode/encode add them automatically
+		
+		java.io.File temp = null;
+		try {
+			temp = java.io.File.createTempFile("tempfile", ".tmp");
+			BufferedWriter bw = new BufferedWriter(new FileWriter(temp));
+		    bw.write(clear);
+		    bw.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		String test = Utils.encodeFileToBase64(temp);
+//		if (test.charAt(test.length()-1) == '\n')
+//			base64 += '\n';
+		assertEquals(base64, test);
+	}
+	*/
 }
