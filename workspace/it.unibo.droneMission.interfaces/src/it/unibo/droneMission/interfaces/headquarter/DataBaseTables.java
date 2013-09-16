@@ -16,7 +16,7 @@ public class DataBaseTables {
 	public static final String REPLIES_COLUMN_ID = "id";
 	public static final String REPLIES_COLUMN_TYPE = "type";	
 	public static final String REPLIES_COLUMN_VALUE = "value";
-	public static final String REPLIES_COLUMN_COMMAND = "command";
+	public static final String REPLIES_COLUMN_COMMAND = "command_id";
 	public static final String REPLIES_COLUMN_TIME = "time";
 	
 	// Notifies table
@@ -35,7 +35,7 @@ public class DataBaseTables {
 	// Pictures table
 	public static final String PICTURES_TABLENAME = "pictures";
 	public static final String PICTURES_COLUMN_ID = "id";
-	public static final String PICTURES_COLUMN_SENSORS = "sensors";
+	public static final String PICTURES_COLUMN_SENSORS = "sensors_id";
 	public static final String PICTURES_COLUMN_FILE_NAME = "name";
 	public static final String PICTURES_COLUMN_FILE_DATA = "data_base64";
 	public static final String PICTURES_COLUMN_FILE_TIME = "time_creation";
