@@ -49,7 +49,7 @@ public class MySQL extends DataBase {
 	public int update(Hashtable<String, String> set) {
 		
 		String updateValues = joinSet(set, ", "); 
-		String table = joinList(from, ", ", false);
+		String table = joinList(from, ", ");
 		String where = joinSet(this.where, " AND ");
 				
 		String sql = String.format("UPDATE %s SET %s", table, updateValues);
@@ -73,7 +73,7 @@ public class MySQL extends DataBase {
 
 	@Override
 	public int insert(Hashtable<String, String> set) {
-		String table = joinList(from, ", ", false);
+		String table = joinList(from, ", ");
 		
 		// get to ordered arrays
 		ArrayList<String> keys = new ArrayList<String>(set.keySet());
@@ -82,8 +82,8 @@ public class MySQL extends DataBase {
 		for(int i = 0; i < keys.size() ; i++)
 			vals.add(set.get(keys.get(i)));
 				
-		String columns = joinList(keys, ", ", false);
-		String values = joinList(vals, ", ");
+		String columns = joinList(keys, ", ");
+		String values = joinList(vals, ", ", true);
 		
 		String sql = String.format("INSERT INTO %s (%s) VALUES (%s)", table, columns, values);
 
@@ -107,8 +107,8 @@ public class MySQL extends DataBase {
 			this.select.add("*");
 		
 		String where = joinSet(this.where, " AND ");
-		String from = joinList(this.from, ", ", false);
-		String select = joinList(this.select, ", ", false);
+		String from = joinList(this.from, ", ");
+		String select = joinList(this.select, ", ");
 		
 		String sql = String.format("SELECT %s FROM %s", select, from);
 		
@@ -150,7 +150,7 @@ public class MySQL extends DataBase {
 	}
 	
 	private String joinList(ArrayList<String> list, String separator) {
-		return joinList(list, separator, true);
+		return joinList(list, separator, false);
 	}
 	
 	private String joinList(ArrayList<String> list, String separator, boolean withQuotes) {
