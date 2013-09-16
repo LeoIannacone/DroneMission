@@ -1,8 +1,11 @@
 package it.unibo.droneMission.systems.headquarter;
 
+import java.security.KeyPair;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Map;
 
 
 public class MySQL extends DataBase {
@@ -60,20 +63,74 @@ public class MySQL extends DataBase {
 
 	@Override
 	public ResultSet update(Hashtable<String, String> set) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		String updateValues = joinSet(set, ", "); 
+		String table = joinList(from, ", ");
+		String where = joinSet(this.where, " AND ");
+				
+		String sql = String.format("UPDATE %s SET %s", table, updateValues);
+
+		if(where.length() > 0)
+				sql += where;
+		
+		return executeQuery(sql);
 	}
 
 	@Override
 	public ResultSet insert(Hashtable<String, String> set) {
-		// TODO Auto-generated method stub
-		return null;
+		String values = joinSet(set, ", ");
+		String table = joinList(from, ", ");
+		
+		String sql = String.format("INSERT IN %s (%s)");
+		return executeQuery(sql);
+		
 	}
 
 	@Override
 	public ResultSet get() {
-		// TODO Auto-generated method stub
-		return null;
+		if (this.select.size() == 0)
+			this.select.add("*");
+		
+		String where = joinSet(this.where, " AND ");
+		String from = joinList(this.from, ", ");
+		String select = joinList(this.select, ", ");
+		
+		String sql = String.format("SELECT %s FROM %s", select, from);
+		
+		if (where.length() > 0)
+			sql += " WHERE " + where;
+		
+		if (limit >= 0)
+			sql += " LIMIT " + limit;
+		if (orderBy.length() > 0) {
+			sql += String.format(" ORDER BY %s %s", orderBy, orderByDirection); 
+		}
+		if (offset >= 0)
+			sql += " OFFSET " + offset;
+		
+		return executeQuery(sql);
+	}
+	
+	private String joinSet(Hashtable<String, String> set, String separator) {
+		String result = "";
+		Iterator<Map.Entry<String, String>> it = set.entrySet().iterator();
+		while (it.hasNext()) {
+			  Map.Entry<String, String> entry = it.next();
+			  result += String.format("'%s' = '%s'", entry.getKey(), entry.getValue());
+			  if (it.hasNext()) result += separator;
+		}
+		return result;
+	}
+	
+	private String joinList(ArrayList<String> list, String separator) {
+		String result = "";
+		Iterator<String> it = list.iterator();
+		while(it.hasNext())
+		{
+		    result  += String.format("'%s'", it.next());
+		    if (it.hasNext()) result += separator;
+		}
+		return result;
 	}
 	
 }
