@@ -51,7 +51,7 @@ public abstract class DataBase implements IDataBase {
 	
 	public void debug(String s, int level) {
 		if(level <= DEBUG) {
-			System.err.println(s);
+			System.err.println(String.format("debug (%d): %s", level, s));
 		}
 	}
 	
