@@ -39,9 +39,8 @@ public interface IDataBase extends IStorage {
 	public void limit(int n);
 	public void offset(int n);
 	
-	public ResultSet update(Hashtable<String, String> set);
-	public ResultSet insert(Hashtable<String, String> set);
+	public int update(Hashtable<String, String> set);
+	public int insert(Hashtable<String, String> set);
 	public ResultSet get();
 	
-	public ResultSet executeQuery(String sql);
 }
