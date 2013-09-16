@@ -9,5 +9,7 @@
 	<classpathentry kind="var" path="ISS_LIBRARIES/jars/it.unibo.interfaces_1.6.12.jar"/>
 	<classpathentry kind="var" path="ISS_LIBRARIES/jars/it.unibo.tuprolog_1.0.1.jar"/>
 	<classpathentry kind="var" path="ISS_LIBRARIES/jars/org.eclipse.xtext.xbase.lib_2.2.1.v201112130541.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/it.unibo.droneMission.interfaces"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/it.unibo.droneMission.prototypes"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
