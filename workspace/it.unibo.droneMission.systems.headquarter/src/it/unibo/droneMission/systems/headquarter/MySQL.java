@@ -1,6 +1,5 @@
 package it.unibo.droneMission.systems.headquarter;
 
-import java.security.KeyPair;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -19,16 +18,6 @@ public class MySQL extends DataBase {
 		resetSQLParams();
 	}
 	
-	private void resetSQLParams() {
-		select = new ArrayList<String>();
-		from = new ArrayList<String>();
-		where = new Hashtable<String, String>();
-		orderBy = "";
-		orderByDirection = "";
-		limit = -1;
-		offset = -1;
-	}
-	
 	public static MySQL getInstance() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		if (instance == null)
 			instance = new MySQL();
@@ -39,13 +28,8 @@ public class MySQL extends DataBase {
 	@Override
 	public void connect() {
 		try {
-			db =  DriverManager.getConnection(String.format("jdbc:mysql://%s:%d/%s?user=%s&password=%s",
-					dbname,
-					host,
-					port,
-					username,
-					password)
-				);
+			String url = String.format("jdbc:mysql://%s:%d/%s", host, port, dbname);
+			db =  DriverManager.getConnection(url, username, password);
 		} catch (SQLException e) {
 			System.err.println("Error in connecting to database.");
 			e.printStackTrace();
@@ -62,27 +46,58 @@ public class MySQL extends DataBase {
 	}
 
 	@Override
-	public ResultSet update(Hashtable<String, String> set) {
+	public int update(Hashtable<String, String> set) {
 		
 		String updateValues = joinSet(set, ", "); 
-		String table = joinList(from, ", ");
+		String table = joinList(from, ", ", false);
 		String where = joinSet(this.where, " AND ");
 				
 		String sql = String.format("UPDATE %s SET %s", table, updateValues);
 
 		if(where.length() > 0)
-				sql += where;
+				sql += " WHERE " + where;
 		
-		return executeQuery(sql);
+		resetSQLParams();
+		
+		try {
+			debug(sql, 3);
+			return stmt.executeUpdate(sql);
+		} catch (SQLException e) {
+			System.err.println("Error in executing udpate().");
+			System.err.println("SQL:\n"+sql);
+			e.printStackTrace();
+		}
+		return 0;
+		
 	}
 
 	@Override
-	public ResultSet insert(Hashtable<String, String> set) {
-		String values = joinSet(set, ", ");
-		String table = joinList(from, ", ");
+	public int insert(Hashtable<String, String> set) {
+		String table = joinList(from, ", ", false);
 		
-		String sql = String.format("INSERT IN %s (%s)");
-		return executeQuery(sql);
+		// get to ordered arrays
+		ArrayList<String> keys = new ArrayList<String>(set.keySet());
+		ArrayList<String> vals = new ArrayList<String>();
+		
+		for(int i = 0; i < keys.size() ; i++)
+			vals.add(set.get(keys.get(i)));
+				
+		String columns = joinList(keys, ", ", false);
+		String values = joinList(vals, ", ");
+		
+		String sql = String.format("INSERT INTO %s (%s) VALUES (%s)", table, columns, values);
+
+		resetSQLParams();
+	
+		try {
+			debug(sql, 3);
+			return stmt.executeUpdate(sql);
+		} catch (SQLException e) {
+			System.err.println("Error in executing insert().");
+			System.err.println("SQL:\n"+sql);
+			e.printStackTrace();
+		}
+		return 0;
 		
 	}
 
@@ -92,23 +107,35 @@ public class MySQL extends DataBase {
 			this.select.add("*");
 		
 		String where = joinSet(this.where, " AND ");
-		String from = joinList(this.from, ", ");
-		String select = joinList(this.select, ", ");
+		String from = joinList(this.from, ", ", false);
+		String select = joinList(this.select, ", ", false);
 		
 		String sql = String.format("SELECT %s FROM %s", select, from);
 		
 		if (where.length() > 0)
 			sql += " WHERE " + where;
 		
-		if (limit >= 0)
-			sql += " LIMIT " + limit;
 		if (orderBy.length() > 0) {
 			sql += String.format(" ORDER BY %s %s", orderBy, orderByDirection); 
 		}
+		
+		if (limit >= 0)
+			sql += " LIMIT " + limit;
+
 		if (offset >= 0)
 			sql += " OFFSET " + offset;
 		
-		return executeQuery(sql);
+		resetSQLParams();
+		
+		try {
+			debug(sql, 3);
+			return stmt.executeQuery(sql);
+		} catch (SQLException e) {
+			System.err.println("Error in executing get().");
+			System.err.println("SQL:\n"+sql);
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	private String joinSet(Hashtable<String, String> set, String separator) {
@@ -116,18 +143,25 @@ public class MySQL extends DataBase {
 		Iterator<Map.Entry<String, String>> it = set.entrySet().iterator();
 		while (it.hasNext()) {
 			  Map.Entry<String, String> entry = it.next();
-			  result += String.format("'%s' = '%s'", entry.getKey(), entry.getValue());
+			  result += String.format("%s = '%s'", entry.getKey(), entry.getValue());
 			  if (it.hasNext()) result += separator;
 		}
 		return result;
 	}
 	
 	private String joinList(ArrayList<String> list, String separator) {
+		return joinList(list, separator, true);
+	}
+	
+	private String joinList(ArrayList<String> list, String separator, boolean withQuotes) {
 		String result = "";
 		Iterator<String> it = list.iterator();
 		while(it.hasNext())
 		{
-		    result  += String.format("'%s'", it.next());
+			if (withQuotes)
+				result  += String.format("'%s'", it.next());
+			else
+				result  += String.format("%s", it.next());
 		    if (it.hasNext()) result += separator;
 		}
 		return result;
