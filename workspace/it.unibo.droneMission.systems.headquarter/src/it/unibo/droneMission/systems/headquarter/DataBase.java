@@ -22,6 +22,8 @@ import it.unibo.droneMission.prototypes.messages.Command;
 
 public abstract class DataBase implements IDataBase {
 
+	public int DEBUG = -1;
+	
 	public static final String ASC = "ASC";
 	public static final String DESC = "DESC";
 	
@@ -47,6 +49,12 @@ public abstract class DataBase implements IDataBase {
 		
 	}
 	
+	public void debug(String s, int level) {
+		if(level <= DEBUG) {
+			System.err.println(s);
+		}
+	}
+	
 	public boolean checkTables() {
 		try {
 			DatabaseMetaData metadata = db.getMetaData();
@@ -60,6 +68,7 @@ public abstract class DataBase implements IDataBase {
 	@Override
 	public void disconnect() {
 		try {
+			stmt.close();
 			db.close();
 		} catch (SQLException e) {
 			System.err.println("Error trying to closing database connection.");
@@ -149,6 +158,7 @@ public abstract class DataBase implements IDataBase {
 		Hashtable<String, String> set = new Hashtable<>();
 		
 		try {
+			cmd.next();
 			String cmd_id = cmd.getString(DataBaseTables.COMMANDS_COLUMN_ID);
 			// update cmd status
 			set.put(DataBaseTables.COMMANDS_COLUMN_STATUS, "" + CommandsStatus.REPLIED);
@@ -175,7 +185,6 @@ public abstract class DataBase implements IDataBase {
 	
 	private ResultSet getOldestCommandToSend() {
 		
-		this.select(DataBaseTables.COMMANDS_COLUMN_ID);
 		this.from(DataBaseTables.COMMANDS_TABLENAME);
 		this.where(DataBaseTables.COMMANDS_COLUMN_STATUS, "" + CommandsStatus.TO_SEND);
 		this.orderBy(DataBaseTables.COMMANDS_COLUMN_ID, this.DESC);
@@ -200,7 +209,8 @@ public abstract class DataBase implements IDataBase {
 		int type;
 		int value;
 		try {
-			type = cmdSQL.getInt(DataBaseTables.COMMANDS_COLUMN_TYPE);
+			cmdSQL.next();
+			type = cmdSQL.getInt(DataBaseTables.COMMANDS_COLUMN_ID);
 		} catch (SQLException e) {
 			System.err.println("SQL Error getting type from Command - getCommandToSend()");
 			e.printStackTrace();
@@ -237,16 +247,27 @@ public abstract class DataBase implements IDataBase {
 
 	@Override
 	public void storeSensorsData(ISensorsData data) {
-		storeSensorsDataAndGetResult(data);
+		storeSensorsDataAndGetResult(data, false);
 	}
 
-	private ResultSet storeSensorsDataAndGetResult(ISensorsData data) {
+	private ResultSet storeSensorsDataAndGetResult(ISensorsData data, boolean getResult) {
 		Hashtable<String, String> set = new Hashtable<>();
 		set.put(DataBaseTables.SENSORS_COLUMN_DATA, "" + data.toJSON());
 		set.put(DataBaseTables.SENSORS_COLUMN_TIME, "" + data.getTime());
 		
 		this.from(DataBaseTables.SENSORS_TABLENAME);
-		return this.insert(set);
+		
+		if(this.insert(set) > 0 && getResult)
+			return getLastSensorsData_SQL();
+		
+		return null;
+	}
+	
+	private ResultSet getLastSensorsData_SQL() {
+		this.from(DataBaseTables.SENSORS_TABLENAME);
+		this.limit(1);
+		this.orderBy(DataBaseTables.SENSORS_COLUMN_ID, this.DESC);
+		return this.get();
 	}
 	
 	@Override
@@ -264,9 +285,10 @@ public abstract class DataBase implements IDataBase {
 	@Override
 	public void storePicturePackage(IPicturePackage pack) {
 		
-		ResultSet sensorsSQL = storeSensorsDataAndGetResult(pack.getSensorsData());
+		ResultSet sensorsSQL = storeSensorsDataAndGetResult(pack.getSensorsData(), true);
 		int sensorsID;
 		try {
+			sensorsSQL.next();
 			sensorsID = sensorsSQL.getInt(DataBaseTables.SENSORS_COLUMN_ID);
 		} catch (SQLException e) {
 			System.err.println("Error getting ID from sensors ResultSet - storePicturePackage(IPicturePackage pack)");
@@ -354,6 +376,15 @@ public abstract class DataBase implements IDataBase {
 	public void offset(int n) {
 		this.offset = n;
 	}
-
+	
+	protected void resetSQLParams() {
+		select = new ArrayList<String>();
+		from = new ArrayList<String>();
+		where = new Hashtable<String, String>();
+		orderBy = "";
+		orderByDirection = "";
+		limit = -1;
+		offset = -1;
+	}
 	
 }
