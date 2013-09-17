@@ -16,6 +16,7 @@ import it.unibo.is.interfaces.protocols.IConnInteraction;
 //For Xbase code 
 import org.eclipse.xtext.xbase.lib.Functions.*;
 import org.eclipse.xtext.xbase.lib.*;
+import it.unibo.baseEnv.basicFrame.EnvFrame;
 
 public abstract class SmartdeviceSupport extends Subject{
 	private static Smartdevice obj = null;
@@ -59,9 +60,12 @@ public abstract class SmartdeviceSupport extends Subject{
  			lastMsgRdMemo.put("notify"+getName(),0);
  	}
 	protected void initGui(){
-		if( env != null ) view = env.getOutputView();
+	    env = new EnvFrame( getName(), this, new java.awt.Color(151, 228, 255), java.awt.Color.black );
+	    env.init();
+	    env.writeOnStatusBar(getName() + " | SmartdeviceSupport working ... ",14);
+	    view = env.getOutputView();
 	    initLastMsgRdMemo(); //put here since the name must be set
-	}
+	 }
 	
 	/* -------------------------------------
 	* State-based Behavior
@@ -129,12 +133,12 @@ public abstract class SmartdeviceSupport extends Subject{
 	}
 	protected void st_Smartdevice_waitingForData()  throws Exception{
 		
-		//[it.unibo.indigo.contact.impl.SignalImpl@38b00bd1 (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@2dd7e36a (name: notify) (var: null)] | sensorsData isSignal=true
+		//[it.unibo.indigo.contact.impl.SignalImpl@63b05255 (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@4ced7d94 (name: notify) (var: null)] | sensorsData isSignal=true
 		resCheckMsg = checkSignal("ANY","sensorsData",false);
 		if(resCheckMsg != null){
 			curstate = "st_Smartdevice_receivedData";
 			return;}
-		//[it.unibo.indigo.contact.impl.SignalImpl@38b00bd1 (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@2dd7e36a (name: notify) (var: null)] | notify isSignal=true
+		//[it.unibo.indigo.contact.impl.SignalImpl@63b05255 (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@4ced7d94 (name: notify) (var: null)] | notify isSignal=true
 		resCheckMsg = checkSignal("ANY","notify",false);
 		if(resCheckMsg != null){
 			curstate = "st_Smartdevice_endMission";

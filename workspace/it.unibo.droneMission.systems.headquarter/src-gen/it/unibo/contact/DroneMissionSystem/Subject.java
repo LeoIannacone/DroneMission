@@ -40,7 +40,7 @@ protected int msgNum = 1;
 
 protected java.util.Hashtable<String,Integer> lastMsgRdMemo = 
 new java.util.Hashtable<String,Integer>();	
-protected final boolean distributedSpace = true;
+protected final boolean distributedSpace = false;
 
 
  	public Subject() throws Exception{
