@@ -337,6 +337,13 @@ class ReceiveThread extends ConnInputReceiver {
   				goon = false;
   				return;
   			}
+  			if( msgAvailable.equals(RunTimeKb.endOfRawStr) ){
+ 	 			System.out.println("***receiveTheAnswwer received "+ RunTimeKb.endOfRawStr+ " conn=" + conn);
+ 	 			if( conn instanceof it.unibo.platform.tcp.SocketTcpConnSupport ){
+ 	 				((it.unibo.platform.tcp.SocketTcpConnSupport)conn).resumeSender( ); //TODO since ADHOC by AN
+ 	 				return;
+ 	 			}
+  			}
   			else checkAndStoreAnswer(msgAvailable)  ;
 			requestOn = false;
 			notifyAll();

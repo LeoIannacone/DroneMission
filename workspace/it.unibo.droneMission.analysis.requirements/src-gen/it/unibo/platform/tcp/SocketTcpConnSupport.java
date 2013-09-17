@@ -25,6 +25,7 @@ private IOutputView view;
 protected boolean isRaw = false;
 protected OutputStream outStream 	;
 protected InputStream inStream  	;
+protected boolean endOfRaw = false;
 
 	public SocketTcpConnSupport(String logo, Socket socket,IOutputView view) {
 		this.logo 	= logo;
@@ -74,8 +75,20 @@ protected InputStream inStream  	;
 		sendALine(msg);
 	}
 	
+ 	public synchronized void resumeSender(){
+ 		endOfRaw = true;
+ 		notifyAll();
+ 	}
+
 	@Override
-	public void sendRaw(byte[] msg) throws Exception {
+	public synchronized void sendRaw(byte[] msg) throws Exception {
+		if( msg == null ){
+			//nothing more to send
+  			while( ! endOfRaw ) wait();
+			endOfRaw = false;
+ 			//System.out.println("SocketTcpConnSupport sender raw RESUMES "  );
+ 			return;
+		}
 		//System.out.println("SocketTcpConnSupport sendALine byte " + (msg.length));
  		outputChannel.write( msg );
 		outputChannel.flush();
@@ -121,8 +134,9 @@ protected InputStream inStream  	;
    			if( nn > 0  && nn < buffer.length   ) { 
    				isRaw = false;
    				System.out.println( " **** COMMUTE BACK TO STRING " + " conn="  + this );
+  				sendRaw( (it.unibo.contact.platformuv.RunTimeKb.endOfRawStr+"\n").getBytes());
 				it.unibo.contact.platformuv.ConnInputReceiver.resumeNormalMode();
-  			}
+ 			}
    			//System.out.println( "receiveRaw return ... " + nn);
   			return nn;
  		} catch (SocketException e) {

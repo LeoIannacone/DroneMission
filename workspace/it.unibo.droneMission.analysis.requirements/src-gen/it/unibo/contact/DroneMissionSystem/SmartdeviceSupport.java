@@ -129,12 +129,12 @@ public abstract class SmartdeviceSupport extends Subject{
 	}
 	protected void st_Smartdevice_waitingForData()  throws Exception{
 		
-		//[it.unibo.indigo.contact.impl.SignalImpl@31adf6a9 (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@141ceaba (name: notify) (var: null)] | sensorsData isSignal=true
+		//[it.unibo.indigo.contact.impl.SignalImpl@2b61066a (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@541bc8c7 (name: notify) (var: null)] | sensorsData isSignal=true
 		resCheckMsg = checkSignal("ANY","sensorsData",false);
 		if(resCheckMsg != null){
 			curstate = "st_Smartdevice_receivedData";
 			return;}
-		//[it.unibo.indigo.contact.impl.SignalImpl@31adf6a9 (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@141ceaba (name: notify) (var: null)] | notify isSignal=true
+		//[it.unibo.indigo.contact.impl.SignalImpl@2b61066a (name: sensorsData) (var: null), it.unibo.indigo.contact.impl.SignalImpl@541bc8c7 (name: notify) (var: null)] | notify isSignal=true
 		resCheckMsg = checkSignal("ANY","notify",false);
 		if(resCheckMsg != null){
 			curstate = "st_Smartdevice_endMission";

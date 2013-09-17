@@ -217,24 +217,15 @@ public class ConnInputReceiver extends Thread{
 			while(goon){
 				IMessage receivedMsg = core.in(query );
 				String outMsg = receivedMsg.getMsgContent();
+	 			if( outMsg.contains(IMessageAndContext.endMessage)){
+	 				println("ENDS "  );
+	 				goon = false;
+	 			}	 			
 				if( outMsg.startsWith("proxy")) outMsg = outMsg.replaceFirst("proxy", "");
 	 			println("sending " + outMsg  );
-/*	 			
-	 			if( outMsg.contains("endOfAnswerSysMsg") ){
-	 				goon = false;
-	 			} else if( outMsg.contains(IMessageAndContext.endMessage)){
-	 				goon = false;
-	 				//conn.sendALine(outMsg);
-	 				break;
-	 			}
-*/
-	 			if( outMsg.contains(IMessageAndContext.endMessage)){
-	 				goon = false;
-  	 			}	 			
 				conn.sendALine(outMsg);
 			}
-			println("ENDS "  );
-		 } catch (Exception e) {
+ 		 } catch (Exception e) {
 			 goon = false;
 			 System.out.println("WaitAnswerThread "+ mm + " error =" + e.getMessage() );
 		 }

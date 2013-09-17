@@ -7,6 +7,8 @@ import it.unibo.is.interfaces.platforms.ILindaLike;
 import it.unibo.is.interfaces.protocols.IConnInteraction;
 import java.util.HashMap;
 public class RunTimeKb{
+public static String endOfRawStr = "endOdRawReception";
+	
 	private static HashMap<String,Boolean> inputConnMsg = new HashMap<String,Boolean>();
 private static HashMap<String,ProtocolInfo> subjNS = new HashMap<String,ProtocolInfo>();
 	private static HashMap<String,ConnProtIn> subjInConn = new HashMap<String,ConnProtIn>();
