@@ -1,3 +1,7 @@
 */*.metadata
 *.class
 Docs/#relazione.lyx#
+
+# headquarter ignore bin and auto generate files
+workspace/it.unibo.droneMission.systems.headquarter/src-gen/*
+workspace/it.unibo.droneMission.systems.headquarter/bin/*
