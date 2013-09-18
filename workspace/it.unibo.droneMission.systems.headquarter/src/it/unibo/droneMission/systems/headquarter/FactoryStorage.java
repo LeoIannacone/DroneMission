@@ -7,7 +7,19 @@ public class FactoryStorage {
 	public static IStorage getInstance(String storagetype) throws Exception {
 		if (storagetype.equalsIgnoreCase("mysql"))
 			try {
-				return MySQL.getInstance();
+				MySQL db = MySQL.getInstance();
+				//db.setDebug(3);
+				
+				if (!db.isConnected()) {
+					db.setDatabaseName("dronemission");
+					db.setUsername("dronemission");
+					db.setPassword("estate");
+					db.setHostname("10.1.1.10");
+					db.connect();
+				}
+				
+				return db;
+				
 			} catch (InstantiationException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
