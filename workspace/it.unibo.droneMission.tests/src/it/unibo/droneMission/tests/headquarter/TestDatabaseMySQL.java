@@ -6,6 +6,7 @@ import it.unibo.droneMission.gauge.GaugeValueInt;
 import it.unibo.droneMission.gauge.Odometer;
 import it.unibo.droneMission.gauge.Speedometer;
 import it.unibo.droneMission.interfaces.headquarter.IDataBase;
+import it.unibo.droneMission.interfaces.headquarter.IStorage;
 import it.unibo.droneMission.interfaces.messages.ICommand;
 import it.unibo.droneMission.interfaces.messages.IPicturePackage;
 import it.unibo.droneMission.interfaces.messages.IReply;
@@ -18,14 +19,14 @@ import it.unibo.droneMission.systems.headquarter.FactoryStorage;
 
 public class TestDatabaseMySQL {
 
-	private static IDataBase db;
+	private static IStorage db;
 	
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		try {
-			db = (IDataBase) FactoryStorage.getInstance("mysql");
+			db = FactoryStorage.getInstance("mysql");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
