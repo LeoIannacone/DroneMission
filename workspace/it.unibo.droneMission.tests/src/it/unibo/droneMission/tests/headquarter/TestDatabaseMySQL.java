@@ -6,7 +6,6 @@ import it.unibo.droneMission.gauge.GaugeValueInt;
 import it.unibo.droneMission.gauge.Odometer;
 import it.unibo.droneMission.gauge.Speedometer;
 import it.unibo.droneMission.interfaces.headquarter.IDataBase;
-import it.unibo.droneMission.interfaces.headquarter.IStorage;
 import it.unibo.droneMission.interfaces.messages.ICommand;
 import it.unibo.droneMission.interfaces.messages.IReply;
 import it.unibo.droneMission.prototypes.messages.Command;
@@ -15,7 +14,6 @@ import it.unibo.droneMission.prototypes.messages.PicturePackage;
 import it.unibo.droneMission.prototypes.messages.Reply;
 import it.unibo.droneMission.prototypes.messages.SensorsData;
 import it.unibo.droneMission.systems.headquarter.FactoryStorage;
-import it.unibo.droneMission.systems.headquarter.MySQL;
 
 public class TestDatabaseMySQL {
 
