@@ -158,7 +158,7 @@ public abstract class DataBase implements IDataBase {
 
 	@Override
 	public void storeCommandReply(IReply reply) {
-		ResultSet cmd = getOldestCommandToSend();
+		ResultSet cmd = _getOldestCommandToSend_SQL();
 		if (cmd == null)
 			return;
 		
@@ -190,7 +190,7 @@ public abstract class DataBase implements IDataBase {
 		
 	}
 	
-	private ResultSet getOldestCommandToSend() {
+	private ResultSet _getOldestCommandToSend_SQL() {
 		
 		this.from(DataBaseTables.COMMANDS_TABLENAME);
 		this.where(DataBaseTables.COMMANDS_COLUMN_STATUS, "" + CommandsStatus.TO_SEND);
@@ -210,7 +210,7 @@ public abstract class DataBase implements IDataBase {
 
 	@Override
 	public ICommand getCommandToSend() {
-		ResultSet cmdSQL = getOldestCommandToSend();
+		ResultSet cmdSQL = _getOldestCommandToSend_SQL();
 		if (cmdSQL == null)
 			return null;
 		int type;
@@ -254,10 +254,10 @@ public abstract class DataBase implements IDataBase {
 
 	@Override
 	public void storeSensorsData(ISensorsData data) {
-		storeSensorsDataAndGetResult(data, false);
+		_storeSensorsDataAndGetResult_SQL(data, false);
 	}
 
-	private ResultSet storeSensorsDataAndGetResult(ISensorsData data, boolean getResult) {
+	private ResultSet _storeSensorsDataAndGetResult_SQL(ISensorsData data, boolean getResult) {
 		Hashtable<String, String> set = new Hashtable<>();
 		set.put(DataBaseTables.SENSORS_COLUMN_DATA, "" + data.toJSON());
 		set.put(DataBaseTables.SENSORS_COLUMN_TIME, "" + data.getTime());
@@ -265,12 +265,12 @@ public abstract class DataBase implements IDataBase {
 		this.from(DataBaseTables.SENSORS_TABLENAME);
 		
 		if(this.insert(set) > 0 && getResult)
-			return getLastSensorsData_SQL();
+			return _getLastSensorsData_SQL();
 		
 		return null;
 	}
 	
-	private ResultSet getLastSensorsData_SQL() {
+	private ResultSet _getLastSensorsData_SQL() {
 		this.from(DataBaseTables.SENSORS_TABLENAME);
 		this.limit(1);
 		this.orderBy(DataBaseTables.SENSORS_COLUMN_ID, this.DESC);
@@ -292,7 +292,7 @@ public abstract class DataBase implements IDataBase {
 	@Override
 	public void storePicturePackage(IPicturePackage pack) {
 		
-		ResultSet sensorsSQL = storeSensorsDataAndGetResult(pack.getSensorsData(), true);
+		ResultSet sensorsSQL = _storeSensorsDataAndGetResult_SQL(pack.getSensorsData(), true);
 		int sensorsID;
 		try {
 			sensorsSQL.next();
