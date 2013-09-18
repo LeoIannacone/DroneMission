@@ -19,11 +19,11 @@ public interface IStorage {
 	
 	// notify
 	public void storeNotify(INotify notify);
-	public INotify getNotify();
+	public INotify getLatestNotify();
 	
 	// sensors data
 	public void storeSensorsData(ISensorsData data);
-	public ISensorsData getLastSensorsData();
+	public ISensorsData getLatestSensorsData();
 	public ISensorsData getSensorsData(long time);
 	
 	// picture package

@@ -24,8 +24,8 @@ public abstract class DataBase implements IDataBase {
 
 	protected int DEBUG = -1;
 	
-	public static final String ASC = "ASC";
-	public static final String DESC = "DESC";
+	public final String ASC = "ASC";
+	public final String DESC = "DESC";
 	
 	protected String dbname;
 	protected String username;
@@ -46,7 +46,8 @@ public abstract class DataBase implements IDataBase {
 	
 	@Override
 	public void init() {
-		
+		// TODO NEEDS IMPLEMENTATION
+
 	}
 	
 	public void setDebug(int level) {
@@ -60,6 +61,8 @@ public abstract class DataBase implements IDataBase {
 	}
 	
 	public boolean checkTables() {
+		// TODO NEEDS IMPLEMENTATION
+
 		try {
 			DatabaseMetaData metadata = db.getMetaData();
 		} catch (SQLException e) {
@@ -244,7 +247,7 @@ public abstract class DataBase implements IDataBase {
 	}
 
 	@Override
-	public INotify getNotify() {
+	public INotify getLatestNotify() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -275,7 +278,7 @@ public abstract class DataBase implements IDataBase {
 	}
 	
 	@Override
-	public ISensorsData getLastSensorsData() {
+	public ISensorsData getLatestSensorsData() {
 		// TODO Auto-generated method stub
 		return null;
 	}
