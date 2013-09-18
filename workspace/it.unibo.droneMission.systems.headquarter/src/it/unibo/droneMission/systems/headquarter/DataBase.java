@@ -83,7 +83,7 @@ public abstract class DataBase implements IDataBase {
 	@Override
 	public boolean isConnected() {
 		try {
-			return !db.isClosed();
+			return db != null && !db.isClosed();
 		} catch (SQLException e) {
 			System.err.println("Error trying to check if connection is closed.");
 			e.printStackTrace();
