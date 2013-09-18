@@ -7,6 +7,7 @@ import it.unibo.droneMission.gauge.Odometer;
 import it.unibo.droneMission.gauge.Speedometer;
 import it.unibo.droneMission.interfaces.headquarter.IDataBase;
 import it.unibo.droneMission.interfaces.messages.ICommand;
+import it.unibo.droneMission.interfaces.messages.IPicturePackage;
 import it.unibo.droneMission.interfaces.messages.IReply;
 import it.unibo.droneMission.prototypes.messages.Command;
 import it.unibo.droneMission.prototypes.messages.File;
@@ -30,9 +31,13 @@ public class TestDatabaseMySQL {
 		}
 		db.setDebug(3);
 		
-		testReplySQL();
-		testStorePicturePackage();
+		testGetLatestPicturePackage();
 		
+	}
+	
+	public static void testGetLatestPicturePackage() {
+		IPicturePackage p = db.getLatestPicturePackage();
+		System.out.println(p.toJSON());
 	}
 	
 	public static void testStoreCommand() {
