@@ -5,6 +5,8 @@ import it.unibo.droneMission.gauge.GaugeValueDouble;
 import it.unibo.droneMission.gauge.GaugeValueInt;
 import it.unibo.droneMission.gauge.Odometer;
 import it.unibo.droneMission.gauge.Speedometer;
+import it.unibo.droneMission.interfaces.headquarter.IDataBase;
+import it.unibo.droneMission.interfaces.headquarter.IStorage;
 import it.unibo.droneMission.interfaces.messages.ICommand;
 import it.unibo.droneMission.interfaces.messages.IReply;
 import it.unibo.droneMission.prototypes.messages.Command;
@@ -12,34 +14,31 @@ import it.unibo.droneMission.prototypes.messages.File;
 import it.unibo.droneMission.prototypes.messages.PicturePackage;
 import it.unibo.droneMission.prototypes.messages.Reply;
 import it.unibo.droneMission.prototypes.messages.SensorsData;
+import it.unibo.droneMission.systems.headquarter.FactoryStorage;
 import it.unibo.droneMission.systems.headquarter.MySQL;
 
 public class TestDatabaseMySQL {
 
-	private static MySQL db;
+	private static IDataBase db;
 	
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		try {
-			db = MySQL.getInstance();
-			db.setDatabaseName("dronemission");
-			db.setUsername("dronemission");
-			db.setPassword("estate");
-			db.setHostname("10.1.1.10");
-			db.DEBUG = 3;
-			db.connect();
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+			db = (IDataBase) FactoryStorage.getInstance("mysql");
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		//db = MySQL.getInstance();
+		db.setDatabaseName("dronemission");
+		db.setUsername("dronemission");
+		db.setPassword("estate");
+		db.setHostname("10.1.1.10");
+		db.setDebug(3);
+		db.connect();
+		
+		testReplySQL();
 		testStorePicturePackage();
 		
 	}
