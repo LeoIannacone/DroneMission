@@ -28,6 +28,9 @@ public interface IStorage {
 	
 	// picture package
 	public void storePicturePackage(IPicturePackage pack);
+	public IPicturePackage getLatestPicturePackage();
+	
+	// general file
 	public void storeFile(IFile file);
 	public IFile getFile(String filename);
 	public IFile getFile(long time);

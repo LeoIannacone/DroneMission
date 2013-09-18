@@ -315,6 +315,12 @@ public abstract class DataBase implements IDataBase {
 		this.insert(set);
 
 	}
+	
+	@Override 
+	public IPicturePackage getLatestPicturePackage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	public void storeFile(IFile file) {
