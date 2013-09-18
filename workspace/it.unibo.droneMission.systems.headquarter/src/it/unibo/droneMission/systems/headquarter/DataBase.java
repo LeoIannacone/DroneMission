@@ -19,6 +19,10 @@ import it.unibo.droneMission.interfaces.messages.IPicturePackage;
 import it.unibo.droneMission.interfaces.messages.IReply;
 import it.unibo.droneMission.interfaces.messages.ISensorsData;
 import it.unibo.droneMission.prototypes.messages.Command;
+import it.unibo.droneMission.prototypes.messages.Factory;
+import it.unibo.droneMission.prototypes.messages.File;
+import it.unibo.droneMission.prototypes.messages.PicturePackage;
+import it.unibo.droneMission.prototypes.messages.SensorsData;
 
 public abstract class DataBase implements IDataBase {
 
@@ -277,10 +281,27 @@ public abstract class DataBase implements IDataBase {
 		return this.get();
 	}
 	
+	private ResultSet _getSensorsData_ById_SQL(int id) {
+		this.from(DataBaseTables.SENSORS_TABLENAME);
+		this.where(DataBaseTables.SENSORS_COLUMN_ID, "" + id);
+		return this.get();
+	}
+	
 	@Override
 	public ISensorsData getLatestSensorsData() {
-		// TODO Auto-generated method stub
-		return null;
+		ResultSet set = _getLastSensorsData_SQL();
+		if (set == null)
+			return null;
+		try {
+			set.next();
+			String data = set.getString(DataBaseTables.SENSORS_COLUMN_DATA);
+			return Factory.createSensorsData(data);
+			
+		} catch (SQLException e) {
+			System.err.println("Error catching value from getLatestSensorsData()");
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
@@ -318,8 +339,54 @@ public abstract class DataBase implements IDataBase {
 	
 	@Override 
 	public IPicturePackage getLatestPicturePackage() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		File file = new File(); 
+		SensorsData sensors = new SensorsData();
+		
+		int sensors_id = -1;
+		
+		this.from(DataBaseTables.PICTURES_TABLENAME);
+		this.orderBy(DataBaseTables.PICTURES_COLUMN_ID, this.DESC);
+		this.limit(1);
+		ResultSet set = this.get();
+		
+		if (set == null)
+			return null;
+		
+		try {
+			set.next();
+			String filename = set.getString(DataBaseTables.PICTURES_COLUMN_FILE_NAME);
+			String data = set.getString(DataBaseTables.PICTURES_COLUMN_FILE_DATA);
+			long time = set.getLong(DataBaseTables.PICTURES_COLUMN_FILE_TIME);
+			
+			sensors_id = set.getInt(DataBaseTables.PICTURES_COLUMN_ID);
+			
+			file.setData(data);
+			file.setName(filename);
+			file.setCreationTime(time);
+			
+		} catch (SQLException e) {
+			System.err.println("Error catching file information - getLatestPicturePackage()");
+			e.printStackTrace();
+			return null;
+		}
+		
+		set = _getSensorsData_ById_SQL(sensors_id);
+		
+		if (set == null)
+			return null;
+		
+		try {
+			set.next();
+			String data = set.getString(DataBaseTables.SENSORS_COLUMN_DATA);
+			sensors = Factory.createSensorsData(data);
+		} catch (SQLException e) {
+			System.err.println("Error catching sensors information - getLatestPicturePackage()");
+			e.printStackTrace();
+			return null;
+		}
+		
+		return new PicturePackage(sensors, file);
 	}
 
 	@Override
