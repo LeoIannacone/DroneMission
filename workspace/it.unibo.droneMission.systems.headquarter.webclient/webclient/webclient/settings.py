@@ -14,17 +14,19 @@ def loc(path):
 
 MANAGERS = ADMINS
 
-DATABASES = {
-    'default': {
-#        'ENGINE': 'django.db.backends.mysql',
-        'ENGINE': 'doj.backends.zxjdbc.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'dronemission',                      # Or path to database file if using sqlite3.
-        'USER': 'dronemission',                      # Not used with sqlite3.
-        'PASSWORD': 'estate',                  # Not used with sqlite3.
-        'HOST': '10.1.1.10',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-    }
-}
+# DATABASES = {
+#     'default': {
+# #        'ENGINE': 'django.db.backends.mysql',
+#         'ENGINE': 'doj.backends.zxjdbc.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+#         'NAME': 'dronemission',                      # Or path to database file if using sqlite3.
+#         'USER': 'dronemission',                      # Not used with sqlite3.
+#         'PASSWORD': 'estate',                  # Not used with sqlite3.
+#         'HOST': '10.1.1.10',                      # Set to empty string for localhost. Not used with sqlite3.
+#         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+#     }
+# }
+
+DATABASES = { }
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
