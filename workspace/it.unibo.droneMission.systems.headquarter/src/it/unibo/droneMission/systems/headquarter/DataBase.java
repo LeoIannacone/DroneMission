@@ -22,7 +22,7 @@ import it.unibo.droneMission.prototypes.messages.Command;
 
 public abstract class DataBase implements IDataBase {
 
-	public int DEBUG = -1;
+	protected int DEBUG = -1;
 	
 	public static final String ASC = "ASC";
 	public static final String DESC = "DESC";
@@ -49,7 +49,11 @@ public abstract class DataBase implements IDataBase {
 		
 	}
 	
-	public void debug(String s, int level) {
+	public void setDebug(int level) {
+		this.DEBUG = level;
+	}
+	
+	protected void debug(String s, int level) {
 		if(level <= DEBUG) {
 			System.err.println(String.format("debug (%d): %s", level, s));
 		}
