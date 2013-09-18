@@ -37,5 +37,6 @@ public interface IStorage {
 	
 	// for debuggin purpose
 	public void setDebug(int level);
+	public void debug(String s, int level);
 
 }

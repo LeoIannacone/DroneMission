@@ -24,10 +24,8 @@ import it.unibo.droneMission.prototypes.messages.File;
 import it.unibo.droneMission.prototypes.messages.PicturePackage;
 import it.unibo.droneMission.prototypes.messages.SensorsData;
 
-public abstract class DataBase implements IDataBase {
+public abstract class DataBase extends Storage implements IDataBase {
 
-	protected int DEBUG = -1;
-	
 	public final String ASC = "ASC";
 	public final String DESC = "DESC";
 	
@@ -52,16 +50,6 @@ public abstract class DataBase implements IDataBase {
 	public void init() {
 		// TODO NEEDS IMPLEMENTATION
 
-	}
-	
-	public void setDebug(int level) {
-		this.DEBUG = level;
-	}
-	
-	protected void debug(String s, int level) {
-		if(level <= DEBUG) {
-			System.err.println(String.format("debug (%d): %s", level, s));
-		}
 	}
 	
 	public boolean checkTables() {
