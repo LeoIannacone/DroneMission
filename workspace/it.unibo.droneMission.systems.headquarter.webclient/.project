@@ -5,6 +5,7 @@
 	<projects>
 		<project>it.unibo.droneMission.interfaces</project>
 		<project>it.unibo.droneMission.prototypes</project>
+		<project>it.unibo.droneMission.systems.headquarter</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
