@@ -7,6 +7,11 @@ ADMINS = (
     # ('Your Name', 'your_email@domain.com'),
 )
 
+import os
+def loc(path):
+    PROJECT_DIR = os.path.abspath(os.path.dirname(__file__))
+    return os.path.join(PROJECT_DIR, path)
+
 MANAGERS = ADMINS
 
 DATABASES = {
