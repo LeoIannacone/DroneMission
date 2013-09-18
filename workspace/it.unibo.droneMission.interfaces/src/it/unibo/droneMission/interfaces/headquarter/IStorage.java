@@ -31,5 +31,8 @@ public interface IStorage {
 	public void storeFile(IFile file);
 	public IFile getFile(String filename);
 	public IFile getFile(long time);
+	
+	// for debuggin purpose
+	public void setDebug(int level);
 
 }
