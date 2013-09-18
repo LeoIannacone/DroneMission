@@ -28,13 +28,7 @@ public class TestDatabaseMySQL {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		//db = MySQL.getInstance();
-		db.setDatabaseName("dronemission");
-		db.setUsername("dronemission");
-		db.setPassword("estate");
-		db.setHostname("10.1.1.10");
 		db.setDebug(3);
-		db.connect();
 		
 		testReplySQL();
 		testStorePicturePackage();
