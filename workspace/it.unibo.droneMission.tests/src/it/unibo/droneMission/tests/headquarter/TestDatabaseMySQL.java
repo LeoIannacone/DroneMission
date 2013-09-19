@@ -34,7 +34,7 @@ public class TestDatabaseMySQL {
 		}
 		db.setDebug(3);
 		
-//		testGetLatestPicturePackage();
+		testStorePicturePackage();
 		testGetLatestPicturePackage();
 //		testStoreNotify();
 //		testStoreNotify();
