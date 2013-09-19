@@ -116,4 +116,18 @@ public class Utils {
 		}
 		return encoder.encodeBuffer(fileContent);
 	}
+	
+	public String getGaugeName(int gaugeType) {
+		
+		if (gaugeType == TypesSensor.FUELOMETER)
+			return "Fuelometer";
+		else if (gaugeType == TypesSensor.LOCTRACKER)
+			return "Locktracker";
+		else if (gaugeType == TypesSensor.ODOMETER)
+			return "Odometer";
+		else if (gaugeType == TypesSensor.SPEEDOMETER)
+			return "Speedometer";
+				
+		return "";
+	}
 }
