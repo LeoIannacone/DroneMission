@@ -117,7 +117,7 @@ public class Utils {
 		return encoder.encodeBuffer(fileContent);
 	}
 	
-	public String getGaugeName(int gaugeType) {
+	public static String getGaugeName(int gaugeType) {
 		
 		if (gaugeType == TypesSensor.FUELOMETER)
 			return "Fuelometer";
@@ -131,7 +131,7 @@ public class Utils {
 		return "";
 	}
 	
-	public int getGaugeType(IGauge gauge) {
+	public static int getGaugeType(IGauge gauge) {
 		
 		Class<?> cls = gauge.getClass();
 		
