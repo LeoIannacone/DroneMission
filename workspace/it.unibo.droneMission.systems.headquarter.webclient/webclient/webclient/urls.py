@@ -19,5 +19,8 @@ urlpatterns = patterns('',
     # Required to make static serving work 
     (r'^libs/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
     
+    # ajax
+    (r'ajax/sensors/latest$', 'headquarter.views.latest_sensors'),
+    
     (r'/*', 'headquarter.views.index'),
 )

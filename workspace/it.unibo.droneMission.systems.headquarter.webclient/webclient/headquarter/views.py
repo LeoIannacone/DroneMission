@@ -7,6 +7,7 @@ from headquarter.models import storage
 def index(request):
     
     c = storage.getCommandToSend()
+    
     if c is None:
         print("NO COMMAND")
     #print("AA %s" % c.getType())
@@ -14,6 +15,9 @@ def index(request):
     values['latest_command'] = c
    
     return render_to_response('index.html', values)
+
+def latest_sensors(request):
+    sensors = storage.getLatestSensors()
 
 # def latest_command(request):
 #     c = Commands.objects.latest('id')
