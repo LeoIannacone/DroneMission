@@ -1,9 +1,50 @@
 {% include "header.html" %}
 
+<div id="body">
+
+<div id="controls" class="row">
+
+	<div id="commands" class="span6">
+		<div class="inner">
+			<div class="buttons">
+				<h3>Commands</h3>
+				<ul>
+				</ul>
+			</div> <!-- .buttons -->
+			
+			<div class="notifies">
+				<h3>Notifies</h3>
+			<textarea></textarea>
+			</div>
+		</div>
+	</div> <!-- #commands -->
+	
+	<div id="sensors" class="span6">
+		<div class="inner">
+			<div class="gauges">
+				<h3>Drone Sensors</h3>
+				<ul>
+				</ul>
+			</div>
+			
+			<div class="position">
+				<h3>Current Position</h3>
+				<div id="map"></map>
+			</div>
+		</div>
+	</div> <!-- #sensors -->
+
+</div> <!-- #controls -->
+
+</div> <!-- #body -->
+
 {% if latest_command %}
 <a href="" class="btn btn-primary">ciao</a>
-	ID = {{ latest_command.id }}
 	TYPE = {{ latest_command.type }}
+{% endif %}
+
+{% if latest_sensors %}
+	{{ latest_sensors.data }}
 {% endif %}
 
 {% include "footer.html" %}
