@@ -3,6 +3,7 @@ package it.unibo.droneMission.tests.headquarter;
 import it.unibo.droneMission.gauge.Fuelometer;
 import it.unibo.droneMission.gauge.GaugeValueDouble;
 import it.unibo.droneMission.gauge.GaugeValueInt;
+import it.unibo.droneMission.gauge.LocTracker;
 import it.unibo.droneMission.gauge.Odometer;
 import it.unibo.droneMission.gauge.Speedometer;
 import it.unibo.droneMission.interfaces.headquarter.IDataBase;
@@ -34,12 +35,13 @@ public class TestDatabaseMySQL {
 		}
 		db.setDebug(3);
 		
-		testStorePicturePackage();
-		testGetLatestPicturePackage();
+//		testStorePicturePackage();
+//		testGetLatestPicturePackage();
 //		testStoreNotify();
 //		testStoreNotify();
 //		testStoreNotify();
 //		testGetLatestNotify();
+		testStoreSensors();
 		
 	}
 	
@@ -83,6 +85,11 @@ public class TestDatabaseMySQL {
 		Speedometer s = new Speedometer();
 		s.setVal(new GaugeValueInt(130));
 		sensors.addGauge(s);
+		
+		GaugeValueDouble lat = new GaugeValueDouble(44.494914);
+		GaugeValueDouble lon = new GaugeValueDouble(11.342611);
+		LocTracker l = new LocTracker(lat, lon);
+		sensors.addGauge(l);
 				
 		db.storeSensorsData(sensors);
 		
@@ -109,6 +116,11 @@ public class TestDatabaseMySQL {
 		Speedometer sp = new Speedometer();
 		sp.setVal(new GaugeValueInt(130));
 		s.addGauge(sp);
+		
+		GaugeValueDouble lat = new GaugeValueDouble(44.494914);
+		GaugeValueDouble lon = new GaugeValueDouble(11.342611);
+		LocTracker l = new LocTracker(lat, lon);
+		s.addGauge(l);
 		
 		
 		// Create picture package
