@@ -35,14 +35,6 @@ public class MySQL extends DataBase {
 			e.printStackTrace();
 			System.exit(1);
 		}
-		
-		try {
-			stmt =  (Statement) db.createStatement();
-		} catch (SQLException e) {
-			System.err.println("Error in creating query statement.");
-			e.printStackTrace();
-			System.exit(1);
-		}
 	}
 
 	@Override
@@ -61,7 +53,8 @@ public class MySQL extends DataBase {
 		
 		try {
 			debug(sql, 3);
-			return stmt.executeUpdate(sql);
+			Statement st = db.createStatement();
+			return st.executeUpdate(sql);
 		} catch (SQLException e) {
 			System.err.println("Error in executing udpate().");
 			System.err.println("SQL:\n"+sql);
@@ -91,7 +84,8 @@ public class MySQL extends DataBase {
 	
 		try {
 			debug(sql, 3);
-			return stmt.executeUpdate(sql);
+			Statement st = db.createStatement();
+			return st.executeUpdate(sql);
 		} catch (SQLException e) {
 			System.err.println("Error in executing insert().");
 			System.err.println("SQL:\n"+sql);
@@ -129,7 +123,8 @@ public class MySQL extends DataBase {
 		
 		try {
 			debug(sql, 3);
-			return stmt.executeQuery(sql);
+			Statement st = db.createStatement();
+			return st.executeQuery(sql);
 		} catch (SQLException e) {
 			System.err.println("Error in executing get().");
 			System.err.println("SQL:\n"+sql);
