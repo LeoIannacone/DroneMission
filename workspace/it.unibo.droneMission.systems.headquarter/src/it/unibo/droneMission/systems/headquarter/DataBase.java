@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Hashtable;
+import java.util.List;
 
 import it.unibo.droneMission.interfaces.headquarter.CommandsStatus;
 import it.unibo.droneMission.interfaces.headquarter.DataBaseTables;
@@ -21,6 +22,7 @@ import it.unibo.droneMission.interfaces.messages.ISensorsData;
 import it.unibo.droneMission.prototypes.messages.Command;
 import it.unibo.droneMission.prototypes.messages.Factory;
 import it.unibo.droneMission.prototypes.messages.File;
+import it.unibo.droneMission.prototypes.messages.Notify;
 import it.unibo.droneMission.prototypes.messages.PicturePackage;
 import it.unibo.droneMission.prototypes.messages.SensorsData;
 
@@ -209,7 +211,7 @@ public abstract class DataBase extends Storage implements IDataBase {
 		int value;
 		try {
 			cmdSQL.next();
-			type = cmdSQL.getInt(DataBaseTables.COMMANDS_COLUMN_ID);
+			type = cmdSQL.getInt(DataBaseTables.COMMANDS_COLUMN_TYPE);
 		} catch (SQLException e) {
 			System.err.println("SQL Error getting type from Command - getCommandToSend()");
 			e.printStackTrace();
@@ -225,6 +227,37 @@ public abstract class DataBase extends Storage implements IDataBase {
 		Command cmd = new Command(type, value);
 		return cmd;
 	}
+	
+	@Override
+	public List<ICommand> getLatestCommands(int n) {
+		
+		if (n <= 0)
+			return null;
+		
+		this.from(DataBaseTables.COMMANDS_TABLENAME);
+		this.where(DataBaseTables.COMMANDS_COLUMN_STATUS, "" + CommandsStatus.TO_SEND);
+		this.orderBy(DataBaseTables.COMMANDS_COLUMN_ID, this.DESC);
+		this.limit(n);
+		
+		ResultSet set = this.get();
+		
+		ArrayList<ICommand> list = new ArrayList<>();
+		
+		try {
+			while (set.next()) {
+				int type = set.getInt(DataBaseTables.COMMANDS_COLUMN_TYPE);
+				int value = set.getInt(DataBaseTables.COMMANDS_COLUMN_VALUE);
+				Command cmd = new Command(type, value);
+				list.add(cmd);
+			}
+		} catch (SQLException e) {
+			System.err.println("Error ciclying result from getLatestCommands(int n)");
+			e.printStackTrace();
+			return null;
+		}
+		
+		return list;
+	}
 
 	@Override
 	public void storeNotify(INotify notify) {
@@ -239,9 +272,31 @@ public abstract class DataBase extends Storage implements IDataBase {
 	}
 
 	@Override
-	public INotify getLatestNotify() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<INotify> getLatestNotifies(int n) {
+		if (n <= 0)
+			return null;
+					
+		this.from(DataBaseTables.COMMANDS_TABLENAME);
+		this.where(DataBaseTables.COMMANDS_COLUMN_STATUS, "" + CommandsStatus.TO_SEND);
+		this.orderBy(DataBaseTables.COMMANDS_COLUMN_ID, this.DESC);
+		this.limit(n);
+		
+		ResultSet set = this.get();
+		ArrayList<INotify> list = new ArrayList<INotify>();
+		
+		try {
+			while (set.next()) {
+				int type = set.getInt(DataBaseTables.NOTIFIES_COLUMN_TYPE);
+				String value = set.getString(DataBaseTables.NOTIFIES_COLUMN_VALUE);
+				Notify notify = new Notify(type, value);
+				list.add(notify);
+			}
+				
+		} catch (SQLException e) {
+			System.err.println("Error checking if there's data in oldest notifies query - getLatestNotifies()");
+			e.printStackTrace();
+		}
+		return list;
 	}
 
 	@Override
@@ -257,14 +312,14 @@ public abstract class DataBase extends Storage implements IDataBase {
 		this.from(DataBaseTables.SENSORS_TABLENAME);
 		
 		if(this.insert(set) > 0 && getResult)
-			return _getLastSensorsData_SQL();
+			return _getLatestSensorsData_SQL(1);
 		
 		return null;
 	}
 	
-	private ResultSet _getLastSensorsData_SQL() {
+	private ResultSet _getLatestSensorsData_SQL(int n) {
 		this.from(DataBaseTables.SENSORS_TABLENAME);
-		this.limit(1);
+		this.limit(n);
 		this.orderBy(DataBaseTables.SENSORS_COLUMN_ID, this.DESC);
 		return this.get();
 	}
@@ -276,20 +331,22 @@ public abstract class DataBase extends Storage implements IDataBase {
 	}
 	
 	@Override
-	public ISensorsData getLatestSensorsData() {
-		ResultSet set = _getLastSensorsData_SQL();
+	public List<ISensorsData> getLatestSensorsDatas(int n) {
+		ResultSet set = _getLatestSensorsData_SQL(n);
 		if (set == null)
 			return null;
+		ArrayList<ISensorsData> list = new ArrayList<ISensorsData>();
 		try {
-			set.next();
-			String data = set.getString(DataBaseTables.SENSORS_COLUMN_DATA);
-			return Factory.createSensorsData(data);
+			while (set.next()) {
+				String data = set.getString(DataBaseTables.SENSORS_COLUMN_DATA);
+				list.add(Factory.createSensorsData(data));
+			}
 			
 		} catch (SQLException e) {
-			System.err.println("Error catching value from getLatestSensorsData()");
+			System.err.println("Error catching value from getLatestSensorsDatas(int n)");
 			e.printStackTrace();
-			return null;
 		}
+		return list;
 	}
 
 	@Override
@@ -326,7 +383,7 @@ public abstract class DataBase extends Storage implements IDataBase {
 	}
 	
 	@Override 
-	public IPicturePackage getLatestPicturePackage() {
+	public List<IPicturePackage> getLatestPicturePackages(int n) {
 		
 		File file = new File(); 
 		SensorsData sensors = new SensorsData();
@@ -338,43 +395,54 @@ public abstract class DataBase extends Storage implements IDataBase {
 		this.limit(1);
 		ResultSet set = this.get();
 		
-		if (set == null)
-			return null;
-		
-		try {
-			set.next();
-			String filename = set.getString(DataBaseTables.PICTURES_COLUMN_FILE_NAME);
-			String data = set.getString(DataBaseTables.PICTURES_COLUMN_FILE_DATA);
-			long time = set.getLong(DataBaseTables.PICTURES_COLUMN_FILE_TIME);
-			
-			sensors_id = set.getInt(DataBaseTables.PICTURES_COLUMN_ID);
-			
-			file.setData(data);
-			file.setName(filename);
-			file.setCreationTime(time);
-			
-		} catch (SQLException e) {
-			System.err.println("Error catching file information - getLatestPicturePackage()");
-			e.printStackTrace();
-			return null;
-		}
-		
-		set = _getSensorsData_ById_SQL(sensors_id);
+		ArrayList<IPicturePackage> list = new ArrayList<>();
 		
 		if (set == null)
 			return null;
 		
 		try {
-			set.next();
-			String data = set.getString(DataBaseTables.SENSORS_COLUMN_DATA);
-			sensors = Factory.createSensorsData(data);
+			while (set.next()) {	
+				try {
+				
+					String filename = set.getString(DataBaseTables.PICTURES_COLUMN_FILE_NAME);
+					String data = set.getString(DataBaseTables.PICTURES_COLUMN_FILE_DATA);
+					long time = set.getLong(DataBaseTables.PICTURES_COLUMN_FILE_TIME);
+					
+					sensors_id = set.getInt(DataBaseTables.PICTURES_COLUMN_SENSORS);
+					
+					file.setData(data);
+					file.setName(filename);
+					file.setCreationTime(time);
+				
+					
+				} catch (SQLException e) {
+					System.err.println("Error catching file information - getLatestPicturePackages()");
+					e.printStackTrace();
+					continue;
+				}
+				
+				ResultSet setSensors = _getSensorsData_ById_SQL(sensors_id);
+				
+				if (setSensors == null)
+					continue;
+				
+				try {
+					setSensors.next();
+					String data = setSensors.getString(DataBaseTables.SENSORS_COLUMN_DATA);
+					sensors = Factory.createSensorsData(data);
+				} catch (SQLException e) {
+					System.err.println("Error catching sensors information - getLatestPicturePackages()");
+					e.printStackTrace();
+					continue;
+				}
+				
+				list.add(new PicturePackage(sensors, file));
+			}
 		} catch (SQLException e) {
-			System.err.println("Error catching sensors information - getLatestPicturePackage()");
+			System.err.println("Error cycling set in getLatestPicturePackages()");
 			e.printStackTrace();
-			return null;
 		}
-		
-		return new PicturePackage(sensors, file);
+		return list;
 	}
 
 	@Override
@@ -391,6 +459,12 @@ public abstract class DataBase extends Storage implements IDataBase {
 
 	@Override
 	public IFile getFile(long time) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public List<IFile> getLatestFiles(int n) {
 		// TODO Auto-generated method stub
 		return null;
 	}
