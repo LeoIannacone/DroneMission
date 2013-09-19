@@ -3,6 +3,17 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response
 
 from headquarter.models import storage
+from it.unibo.droneMission.prototypes.messages import Utils
+
+def format_gauges(gauges):
+    formatted_gauges = []
+    for gauge in gauges:
+        g = {}
+        type = Utils.getGaugeType(gauge)
+        g['name'] = Utils.getGaugeName(type)
+        g['value'] = gauge.getVal().valAsString()
+        formatted_gauges.append(g)
+    return formatted_gauges
 
 def index(request):
     
@@ -17,7 +28,12 @@ def index(request):
     return render_to_response('index.html', values)
 
 def latest_sensors(request):
-    sensors = storage.getLatestSensors()
+    
+    sensors = storage.getLatestSensorsData()
+    gauges = format_gauges(sensors.getGauges())
+    
+    return render_to_response('ajax/sensors_latest.html', {'gauges': gauges})
+                
 
 # def latest_command(request):
 #     c = Commands.objects.latest('id')
