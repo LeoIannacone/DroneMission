@@ -1,5 +1,5 @@
 #from django.db import models
-from it.unibo.droneMission.systems.headquarter import FactoryStorage, MySQL
+from it.unibo.droneMission.systems.headquarter import FactoryStorage
 
 storage = FactoryStorage.getInstance("mysql")
 storage.setDebug(3)
