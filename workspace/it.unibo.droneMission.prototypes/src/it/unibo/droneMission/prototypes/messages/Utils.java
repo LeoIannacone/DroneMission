@@ -130,4 +130,20 @@ public class Utils {
 				
 		return "";
 	}
+	
+	public int getGaugeType(IGauge gauge) {
+		
+		Class<?> cls = gauge.getClass();
+		
+		if (cls == Fuelometer.class)
+			return TypesSensor.FUELOMETER;
+		else if (cls == LocTracker.class)
+			return TypesSensor.LOCTRACKER;
+		else if (cls == Odometer.class)
+			return TypesSensor.ODOMETER;
+		else if (cls == Speedometer.class)
+			return TypesSensor.SPEEDOMETER;
+				
+		return -1;
+	}
 }
