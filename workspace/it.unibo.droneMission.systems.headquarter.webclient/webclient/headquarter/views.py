@@ -4,6 +4,7 @@ from django.shortcuts import render_to_response
 
 from headquarter.models import storage
 from it.unibo.droneMission.prototypes.messages import Utils
+from it.unibo.droneMission.interfaces.messages import TypesSensor
 
 def format_gauges(gauges):
     formatted_gauges = []
@@ -11,7 +12,10 @@ def format_gauges(gauges):
         g = {}
         type = Utils.getGaugeType(gauge)
         g['name'] = Utils.getGaugeName(type)
-        g['value'] = gauge.getVal().valAsString()
+        if type == TypesSensor.LOCTRACKER:
+            g['value'] = gauge.toString()
+        else:
+            g['value'] = gauge.getVal().valAsString()
         formatted_gauges.append(g)
     return formatted_gauges
 
