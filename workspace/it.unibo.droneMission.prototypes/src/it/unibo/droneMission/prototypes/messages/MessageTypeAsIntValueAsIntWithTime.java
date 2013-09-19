@@ -1,5 +1,7 @@
 package it.unibo.droneMission.prototypes.messages;
 
+import java.util.Date;
+
 import it.unibo.droneMission.interfaces.messages.IMessageWithTime;
 
 public class MessageTypeAsIntValueAsIntWithTime extends
@@ -9,12 +11,12 @@ public class MessageTypeAsIntValueAsIntWithTime extends
 	
 	public MessageTypeAsIntValueAsIntWithTime(int type) {
 		super(type);
-		this.time = 0;
+		this.time = new Date().getTime();
 	}
 	
 	public MessageTypeAsIntValueAsIntWithTime(int type, int value) {
 		super(type,value);
-		this.time = 0;
+		this.time = new Date().getTime();
 	}
 	
 	public MessageTypeAsIntValueAsIntWithTime(int type, long time) {
