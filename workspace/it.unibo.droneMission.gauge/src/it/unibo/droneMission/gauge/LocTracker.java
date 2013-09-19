@@ -46,8 +46,7 @@ public class LocTracker implements ILocTracker {
 
 	@Override
 	public String getCurValRepDisplayed() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Lat: " + latitude.toString() + " - Lng: " + longitude.toString();
 	}
 
 	@Override
