@@ -8,10 +8,12 @@ import it.unibo.droneMission.gauge.Speedometer;
 import it.unibo.droneMission.interfaces.headquarter.IDataBase;
 import it.unibo.droneMission.interfaces.headquarter.IStorage;
 import it.unibo.droneMission.interfaces.messages.ICommand;
+import it.unibo.droneMission.interfaces.messages.INotify;
 import it.unibo.droneMission.interfaces.messages.IPicturePackage;
 import it.unibo.droneMission.interfaces.messages.IReply;
 import it.unibo.droneMission.prototypes.messages.Command;
 import it.unibo.droneMission.prototypes.messages.File;
+import it.unibo.droneMission.prototypes.messages.Notify;
 import it.unibo.droneMission.prototypes.messages.PicturePackage;
 import it.unibo.droneMission.prototypes.messages.Reply;
 import it.unibo.droneMission.prototypes.messages.SensorsData;
@@ -32,8 +34,23 @@ public class TestDatabaseMySQL {
 		}
 		db.setDebug(3);
 		
+//		testGetLatestPicturePackage();
 		testGetLatestPicturePackage();
+//		testStoreNotify();
+//		testStoreNotify();
+//		testStoreNotify();
+//		testGetLatestNotify();
 		
+	}
+	
+	public static void testStoreNotify() {
+		Notify n = new Notify(1, "This is a notify");
+		db.storeNotify(n);
+	}
+	
+	public static void testGetLatestNotify() {
+		INotify n = db.getLatestNotify();
+		System.out.println(n.toJSON());
 	}
 	
 	public static void testGetLatestPicturePackage() {
