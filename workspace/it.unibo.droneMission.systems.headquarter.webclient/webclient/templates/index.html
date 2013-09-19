@@ -23,8 +23,7 @@
 		<div class="inner">
 			<div class="gauges">
 				<h3>Drone Sensors</h3>
-				<ul>
-				</ul>
+				<div class="content"></div>
 			</div>
 			
 			<div class="position">
@@ -37,14 +36,3 @@
 </div> <!-- #controls -->
 
 </div> <!-- #body -->
-
-{% if latest_command %}
-<a href="" class="btn btn-primary">ciao</a>
-	TYPE = {{ latest_command.type }}
-{% endif %}
-
-{% if latest_sensors %}
-	{{ latest_sensors.data }}
-{% endif %}
-
-{% include "footer.html" %}

@@ -91,3 +91,7 @@ header h1.brand small {
 #main .inner {
 	padding: 0 10px
 }
+
+#map {
+    height: 300px;
+}
