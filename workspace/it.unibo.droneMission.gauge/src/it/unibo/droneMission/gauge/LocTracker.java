@@ -46,7 +46,7 @@ public class LocTracker implements ILocTracker {
 
 	@Override
 	public String getCurValRepDisplayed() {
-		return "Lat: " + latitude.toString() + " - Lng: " + longitude.toString();
+		return "Lat: " + latitude.valAsString() + " - Lng: " + longitude.valAsString();
 	}
 
 	@Override
