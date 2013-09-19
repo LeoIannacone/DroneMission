@@ -5,6 +5,7 @@ from django.shortcuts import render_to_response
 from headquarter.models import storage
 from it.unibo.droneMission.prototypes.messages import Utils
 from it.unibo.droneMission.interfaces.messages import TypesSensor
+from datetime import datetime
 
 def format_sensors(sensors):
     formatted_gauges = []
@@ -24,7 +25,10 @@ def format_sensors(sensors):
     result["gauges"] = formatted_gauges
     result["latitude"] = lat
     result["longitude"] = lon
-    result["time"] = sensors.getTime()
+    # time / 1000.0:
+    #     java takes in account milliseconds, python uses
+    #     float for them
+    result["time"] = datetime.fromtimestamp(sensors.getTime() / 1000.0) 
     
     return result
 
