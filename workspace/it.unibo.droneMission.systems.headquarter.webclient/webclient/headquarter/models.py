@@ -2,6 +2,7 @@
 from it.unibo.droneMission.systems.headquarter import FactoryStorage, MySQL
 
 storage = FactoryStorage.getInstance("mysql")
+storage.setDebug(3)
 
 # class Commands(models.Model):
 #     id = models.IntegerField(primary_key=True)
