@@ -142,7 +142,7 @@ public abstract class DataBase extends Storage implements IDataBase {
 	public void storeCommand(ICommand command) {
 		Hashtable<String, String> set = new Hashtable<>();
 		set.put(DataBaseTables.COMMANDS_COLUMN_TYPE, "" + command.getType());
-		set.put(DataBaseTables.COMMANDS_COLUMN_TIME, "" + (new Date()).getTime());
+		set.put(DataBaseTables.COMMANDS_COLUMN_TIME, "" + command.getTime());
 		set.put(DataBaseTables.COMMANDS_COLUMN_STATUS, "" + CommandsStatus.TO_SEND);
 		set.put(DataBaseTables.COMMANDS_COLUMN_VALUE, "" + command.getValue());
 		
@@ -170,7 +170,7 @@ public abstract class DataBase extends Storage implements IDataBase {
 			// store reply
 			set.clear();
 			set.put(DataBaseTables.REPLIES_COLUMN_TYPE, "" + reply.getType());
-			set.put(DataBaseTables.REPLIES_COLUMN_TIME, "" + (new Date()).getTime());
+			set.put(DataBaseTables.REPLIES_COLUMN_TIME, "" + reply.getTime());
 			set.put(DataBaseTables.REPLIES_COLUMN_COMMAND, cmd_id);
 			set.put(DataBaseTables.REPLIES_COLUMN_VALUE, "" + reply.getValue());
 			
@@ -263,7 +263,7 @@ public abstract class DataBase extends Storage implements IDataBase {
 	public void storeNotify(INotify notify) {
 		Hashtable<String, String> set = new Hashtable<>();
 		set.put(DataBaseTables.NOTIFIES_COLUMN_TYPE, "" + notify.getType());
-		set.put(DataBaseTables.NOTIFIES_COLUMN_TIME, "" + (new Date()).getTime());
+		set.put(DataBaseTables.NOTIFIES_COLUMN_TIME, "" + notify.getTime());
 		set.put(DataBaseTables.NOTIFIES_COLUMN_VALUE, "" + notify.getValue());
 		
 		this.from(DataBaseTables.NOTIFIES_TABLENAME);
