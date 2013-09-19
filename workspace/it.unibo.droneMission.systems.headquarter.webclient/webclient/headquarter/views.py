@@ -20,16 +20,8 @@ def format_gauges(gauges):
     return formatted_gauges
 
 def index(request):
-    
-    c = storage.getCommandToSend()
-    
-    if c is None:
-        print("NO COMMAND")
-    #print("AA %s" % c.getType())
-    values = {}
-    values['latest_command'] = c
-   
-    return render_to_response('index.html', values)
+       
+    return render_to_response('index.html')
 
 def latest_sensors(request):
     
