@@ -122,7 +122,7 @@ public class Utils {
 		if (gaugeType == TypesSensor.FUELOMETER)
 			return "Fuelometer";
 		else if (gaugeType == TypesSensor.LOCTRACKER)
-			return "Locktracker";
+			return "Loctracker";
 		else if (gaugeType == TypesSensor.ODOMETER)
 			return "Odometer";
 		else if (gaugeType == TypesSensor.SPEEDOMETER)
