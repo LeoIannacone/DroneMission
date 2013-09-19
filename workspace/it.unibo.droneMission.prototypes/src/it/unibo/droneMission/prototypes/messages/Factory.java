@@ -13,29 +13,29 @@ public abstract class Factory {
 	
 	public static Command createCommand(String json) {
 		// return (Command) createTypeAsIntValueAsInt(json)
-		MessageTypeAsIntValueAsInt m = createTypeAsIntValueAsInt(json);
+		MessageTypeAsIntValueAsIntWithTime m = createTypeAsIntValueAsInt(json);
 		if(m.hasValue())
-			return new Command(m.getType(), m.getValue());
+			return new Command(m.getType(), m.getValue(), m.getTime());
 		else
-			return new Command(m.getType());
+			return new Command(m.getType(), m.getTime());
 	}
 		
 	public static Reply createReply(String json) {
 		//return (Reply) createTypeAsIntValueAsString(json);
-		MessageTypeAsIntValueAsString m = createTypeAsIntValueAsString(json);
+		MessageTypeAsIntValueAsStringWithTime m = createTypeAsIntValueAsString(json);
 		if(m.hasValue())
-			return new Reply(m.getType(), m.getValue());
+			return new Reply(m.getType(), m.getValue(), m.getTime());
 		else
-			return new Reply(m.getType());
+			return new Reply(m.getType(), m.getTime());
 	}
 	
 	public static Notify createNotify(String json) {
 		//return (Reply) createTypeAsIntValueAsString(json);
-		MessageTypeAsIntValueAsString m = createTypeAsIntValueAsString(json);
+		MessageTypeAsIntValueAsStringWithTime m = createTypeAsIntValueAsString(json);
 		if(m.hasValue())
-			return new Notify(m.getType(), m.getValue());
+			return new Notify(m.getType(), m.getValue(), m.getTime());
 		else
-			return new Notify(m.getType());
+			return new Notify(m.getType(), m.getTime());
 	}
 	
 	public static SensorsData createSensorsData(String json)
@@ -102,21 +102,22 @@ public abstract class Factory {
 		return file;
 	}
 
-	private static MessageTypeAsIntValueAsInt createTypeAsIntValueAsInt(String json) {
+	private static MessageTypeAsIntValueAsIntWithTime createTypeAsIntValueAsInt(String json) {
 		JsonParser parser = new JsonParser();
 		JsonObject object = parser.parse(json).getAsJsonObject();
 		
 		boolean hasvalue = object.get("hasvalue").getAsBoolean();
 		int value = object.get("value").getAsInt();
 		int type = object.get("type").getAsInt();
+		long time = object.get("time").getAsLong();
 		
 		if(hasvalue)
-			return new MessageTypeAsIntValueAsInt(type, value);
+			return new MessageTypeAsIntValueAsIntWithTime(type, value, time);
 		else
-			return new MessageTypeAsIntValueAsInt(type);		
+			return new MessageTypeAsIntValueAsIntWithTime(type, time);		
 	}
 	
-	private static MessageTypeAsIntValueAsString createTypeAsIntValueAsString(String json) {
+	private static MessageTypeAsIntValueAsStringWithTime createTypeAsIntValueAsString(String json) {
 		JsonParser parser = new JsonParser();
 		JsonObject object = parser.parse(json).getAsJsonObject();
 		
@@ -125,11 +126,12 @@ public abstract class Factory {
 		if (hasvalue)
 			value = object.get("value").getAsString();
 		int type = object.get("type").getAsInt();
+		long time = object.get("time").getAsLong();
 		
 		if(hasvalue)
-			return new MessageTypeAsIntValueAsString(type, value);
+			return new MessageTypeAsIntValueAsStringWithTime(type, value, time);
 		else
-			return new MessageTypeAsIntValueAsString(type);			
+			return new MessageTypeAsIntValueAsStringWithTime(type, time);			
 	}
 	
 	

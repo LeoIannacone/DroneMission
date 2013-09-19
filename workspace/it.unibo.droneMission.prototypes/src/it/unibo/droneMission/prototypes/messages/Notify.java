@@ -2,7 +2,7 @@ package it.unibo.droneMission.prototypes.messages;
 
 import it.unibo.droneMission.interfaces.messages.INotify;
 
-public class Notify extends MessageTypeAsIntValueAsString implements INotify {
+public class Notify extends MessageTypeAsIntValueAsStringWithTime implements INotify {
 
 	public Notify(int type) {
 		super(type);
@@ -10,6 +10,14 @@ public class Notify extends MessageTypeAsIntValueAsString implements INotify {
 	
 	public Notify(int type, String value) {
 		super(type, value);
+	}
+	
+	public Notify(int type, long time) {
+		super(type, time);
+	}
+	
+	public Notify(int type, String value, long time) {
+		super(type, value, time);
 	}
 		
 	public String toString() {

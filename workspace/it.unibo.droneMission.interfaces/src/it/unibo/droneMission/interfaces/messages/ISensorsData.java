@@ -7,7 +7,7 @@ import it.unibo.droneMission.interfaces.gauges.IGauge;
 /**
  * @model 
  */
-public interface ISensorsData extends IMessage {
+public interface ISensorsData extends IMessage, IMessageWithTime {
 	
 	// add, remove and get gauges to package
 	/**
@@ -27,17 +27,6 @@ public interface ISensorsData extends IMessage {
 	/**
 	 * @model 
 	 */
-	public boolean hasGauge(IGauge gauge);
-	
-	/**
-	 * @model 
-	 */
-	public void setTime(long milliseconds);
-	
-	/**
-	 * @model 
-	 */
-	public long getTime();
-	
+	public boolean hasGauge(IGauge gauge);	
 	
 }
