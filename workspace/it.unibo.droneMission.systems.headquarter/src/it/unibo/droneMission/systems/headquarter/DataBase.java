@@ -46,7 +46,6 @@ public abstract class DataBase extends Storage implements IDataBase {
 	protected int offset;
 	
 	protected Connection db;
-	protected Statement stmt;
 	
 	@Override
 	public void init() {
@@ -69,7 +68,6 @@ public abstract class DataBase extends Storage implements IDataBase {
 	@Override
 	public void disconnect() {
 		try {
-			stmt.close();
 			db.close();
 		} catch (SQLException e) {
 			System.err.println("Error trying to closing database connection.");
@@ -207,25 +205,19 @@ public abstract class DataBase extends Storage implements IDataBase {
 		ResultSet cmdSQL = _getOldestCommandToSend_SQL();
 		if (cmdSQL == null)
 			return null;
-		int type;
-		int value;
+		
 		try {
 			cmdSQL.next();
-			type = cmdSQL.getInt(DataBaseTables.COMMANDS_COLUMN_TYPE);
+			int type = cmdSQL.getInt(DataBaseTables.COMMANDS_COLUMN_TYPE);
+			int value = cmdSQL.getInt(DataBaseTables.COMMANDS_COLUMN_VALUE);
+			long time = cmdSQL.getLong(DataBaseTables.COMMANDS_COLUMN_TIME);
+			Command cmd = new Command(type, value, time);
+			return cmd;
 		} catch (SQLException e) {
-			System.err.println("SQL Error getting type from Command - getCommandToSend()");
+			System.err.println("SQL Error catching command values getCommandToSend()");
 			e.printStackTrace();
 			return null;
 		}
-		try {
-			value = cmdSQL.getInt(DataBaseTables.COMMANDS_COLUMN_VALUE);
-		} catch (SQLException e) {
-			System.err.println("SQL Error getting value from Command - getCommandToSend()");
-			e.printStackTrace();
-			return null;
-		}
-		Command cmd = new Command(type, value);
-		return cmd;
 	}
 	
 	@Override
@@ -247,7 +239,8 @@ public abstract class DataBase extends Storage implements IDataBase {
 			while (set.next()) {
 				int type = set.getInt(DataBaseTables.COMMANDS_COLUMN_TYPE);
 				int value = set.getInt(DataBaseTables.COMMANDS_COLUMN_VALUE);
-				Command cmd = new Command(type, value);
+				long time = set.getLong(DataBaseTables.COMMANDS_COLUMN_TIME);
+				Command cmd = new Command(type, value, time);
 				list.add(cmd);
 			}
 		} catch (SQLException e) {
@@ -276,9 +269,8 @@ public abstract class DataBase extends Storage implements IDataBase {
 		if (n <= 0)
 			return null;
 					
-		this.from(DataBaseTables.COMMANDS_TABLENAME);
-		this.where(DataBaseTables.COMMANDS_COLUMN_STATUS, "" + CommandsStatus.TO_SEND);
-		this.orderBy(DataBaseTables.COMMANDS_COLUMN_ID, this.DESC);
+		this.from(DataBaseTables.NOTIFIES_TABLENAME);
+		this.orderBy(DataBaseTables.NOTIFIES_COLUMN_ID, this.DESC);
 		this.limit(n);
 		
 		ResultSet set = this.get();
@@ -288,7 +280,8 @@ public abstract class DataBase extends Storage implements IDataBase {
 			while (set.next()) {
 				int type = set.getInt(DataBaseTables.NOTIFIES_COLUMN_TYPE);
 				String value = set.getString(DataBaseTables.NOTIFIES_COLUMN_VALUE);
-				Notify notify = new Notify(type, value);
+				long time = set.getLong(DataBaseTables.NOTIFIES_COLUMN_TIME);
+				Notify notify = new Notify(type, value, time);
 				list.add(notify);
 			}
 				
@@ -385,6 +378,9 @@ public abstract class DataBase extends Storage implements IDataBase {
 	@Override 
 	public List<IPicturePackage> getLatestPicturePackages(int n) {
 		
+		if(n <= 0)
+			return null;
+		
 		File file = new File(); 
 		SensorsData sensors = new SensorsData();
 		
@@ -392,7 +388,7 @@ public abstract class DataBase extends Storage implements IDataBase {
 		
 		this.from(DataBaseTables.PICTURES_TABLENAME);
 		this.orderBy(DataBaseTables.PICTURES_COLUMN_ID, this.DESC);
-		this.limit(1);
+		this.limit(n);
 		ResultSet set = this.get();
 		
 		ArrayList<IPicturePackage> list = new ArrayList<>();
