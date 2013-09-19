@@ -3,6 +3,6 @@ package it.unibo.droneMission.interfaces.messages;
 /**
  * @model 
  */
-public interface ICommand extends IMessageTypeAsInt, IMessageValueAsInt {
+public interface ICommand extends IMessageTypeAsInt, IMessageValueAsInt, IMessageWithTime {
 	
 }
