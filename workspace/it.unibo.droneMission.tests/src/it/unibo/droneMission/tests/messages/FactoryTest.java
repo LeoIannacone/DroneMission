@@ -1,5 +1,7 @@
 package it.unibo.droneMission.tests.messages;
 
+import java.util.Date;
+
 import it.unibo.droneMission.gauge.Fuelometer;
 import it.unibo.droneMission.gauge.GaugeValueDouble;
 import it.unibo.droneMission.gauge.GaugeValueInt;
@@ -29,7 +31,8 @@ public class FactoryTest extends TestCase {
 	public void testCommandCreationWithValue() {
 		int type = TypesCommand.SPEED_SET;
 		int value = 60;
-		Command c = new Command(type, value);
+		long time = new Date().getTime();
+		Command c = new Command(type, value, time);
 		
 		String json = c.toJSON();
 		Command cNew = Factory.createCommand(json);
@@ -37,17 +40,20 @@ public class FactoryTest extends TestCase {
 		assertEquals(c.getType(), cNew.getType());
 		assertEquals(c.hasValue(), cNew.hasValue());
 		assertEquals(c.getValue(), cNew.getValue());
+		assertEquals(c.getTime(), cNew.getTime());
 	}
 	
 	public void testCommandCreationWithNoValue() {
 		int type = TypesCommand.SPEED_SET;
 		Command c = new Command(type);
+		long time = c.getTime();
 		
 		String json = c.toJSON();
 		Command cNew = Factory.createCommand(json);
 		
 		assertEquals(c.getType(), cNew.getType());
 		assertEquals(c.hasValue(), cNew.hasValue());
+		assertEquals(c.getTime(), cNew.getTime());
 	}
 	
 	public void testReplyCreationWithMessage() {
@@ -61,6 +67,7 @@ public class FactoryTest extends TestCase {
 		assertEquals(r.getType(), rNew.getType());
 		assertEquals(r.hasValue(), rNew.hasValue());
 		assertEquals(r.getValue(), rNew.getValue());
+		assertEquals(r.getTime(), rNew.getTime());
 	}
 	
 	public void testReplyCreationWithNoMessage() {
