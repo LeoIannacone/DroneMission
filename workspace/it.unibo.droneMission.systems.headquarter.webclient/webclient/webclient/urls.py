@@ -20,7 +20,8 @@ urlpatterns = patterns('',
     (r'^libs/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
     
     # ajax
-    (r'ajax/sensors/latest$', 'headquarter.views.latest_sensors'),
+    (r'^ajax/sensors/latest$', 'headquarter.views.latest_sensors'),
+    (r'^ajax/notifies/latest/(?P<limit>\d+)$', 'headquarter.views.get_notifies'),
     
-    (r'/*', 'headquarter.views.index'),
+    (r'^$', 'headquarter.views.index'),
 )
