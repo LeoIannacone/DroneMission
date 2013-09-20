@@ -20,7 +20,18 @@ function updateSensors() {
             $("#sensors .gauges .content").html(data);
         }
     });
+}
 
+function updateNotifies() {
+    var URL = "/ajax/notifies/latest/4";
+    $.ajax({ 
+        type: 'GET', 
+        url: URL, 
+        dataType: 'html',
+        success: function (data) {
+            $("#notifies .content").html(data);
+        }
+    });
 }
 
 function initMap() {
@@ -54,4 +65,5 @@ $(document).ready(function(){
     // init map
     initMap();
     setInterval(function(){updateSensors();}, CHECKTIME);
+    setInterval(function(){updateNotifies();}, CHECKTIME);
 })
