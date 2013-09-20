@@ -4,8 +4,11 @@ from django.shortcuts import render_to_response
 
 from headquarter.models import storage
 from it.unibo.droneMission.prototypes.messages import Utils
-from it.unibo.droneMission.interfaces.messages import TypesSensor
+from it.unibo.droneMission.interfaces.messages import TypesSensor, TypesNotify
 from datetime import datetime
+
+def get_time(java_time):
+    return datetime.fromtimestamp(java_time / 1000.0) 
 
 def format_sensors(sensors):
     formatted_gauges = []
@@ -28,9 +31,28 @@ def format_sensors(sensors):
     # time / 1000.0:
     #     java takes in account milliseconds, python uses
     #     float for them
-    result["time"] = datetime.fromtimestamp(sensors.getTime() / 1000.0) 
+    result["time"] = get_time(sensors.getTime())
     
     return result
+
+def format_notifies(notifies):
+    formatted_notifies = []
+#     if not isinstance(notifies, list):
+#         notifies = [notifies]
+    
+    for notify in notifies:
+        n = {}
+        n['name'] = ''
+        if notify.getType() == TypesNotify.START_MISSION: 
+            n['name'] = 'Start'
+            n['class'] = 'start'
+        elif notify.getType() == TypesNotify.END_MISSION: 
+            n['name'] = 'End'
+            n['class'] = 'end'
+        n['value'] = notify.getValue()
+        n['time'] = get_time(notify.getTime())
+        formatted_notifies.append(n)
+    return formatted_notifies 
 
 def index(request):
        
@@ -42,3 +64,11 @@ def latest_sensors(request):
     f_s = format_sensors(sensors)
     
     return render_to_response('ajax/sensors_latest.html', f_s)
+
+def get_notifies(request, limit):
+
+    limit = int(limit)
+    if limit <= 0: limit = 5
+    notifies = storage.getLatestNotifies(limit)
+    notifies = format_notifies(notifies)
+    return render_to_response('ajax/notifies.html', {'notifies': notifies}) 
