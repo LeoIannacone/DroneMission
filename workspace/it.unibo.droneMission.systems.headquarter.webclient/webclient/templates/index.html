@@ -4,22 +4,34 @@
 
 <div id="controls" class="row">
 
-	<div id="commands" class="span6">
+	<div class="span6">
 		<div class="inner">
-			<div class="buttons">
+			<div id="commands">
 				<h3>Commands</h3>
-				<div class="btn-group">
-    				<a class="btn btn-success ">Start</a>
-    				<a class="btn btn-danger disabled">Stop</a>
+				<div id="" class="btn-group">
+    				<a id="start" class="btn btn-success btn-large">Start</a>
+    				<a id="stop" class="btn btn-danger btn-large disabled">Stop</a>
     			</div>
-			</div> <!-- .buttons -->
+    			
+    			<div id="speed">
+    			    <div class="btn-group btn-group-vertical">
+            			    <a id="increase" class="btn btn-mini"><i class="icon-chevron-up"></i></a>
+            			    <a id="decrease" class="btn btn-mini"><i class="icon-chevron-down"></i></a>
+            			</div>
+    			    <div class="input-append">
+            		    <input class="set" type="text">
+            		    <span class="add-on">Km/h</span>
+            		</div>
+        		</div>
+    			
+			</div> <!-- #commands -->
 			
-			<div class="notifies">
+			<div id="notifies">
 				<h3>Notifies</h3>
-			<textarea></textarea>
+			    <div class="content"></div>
 			</div>
 		</div>
-	</div> <!-- #commands -->
+	</div> <!-- left sidebar -->
 	
 	<div id="sensors" class="span6">
 		<div class="inner">
@@ -33,7 +45,7 @@
 				<div id="map"></map>
 			</div>
 		</div>
-	</div> <!-- #sensors -->
+	</div> <!-- #sensors - right sidebar -->
 
 </div> <!-- #controls -->
 
