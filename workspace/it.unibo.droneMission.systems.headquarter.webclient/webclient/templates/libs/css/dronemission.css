@@ -95,3 +95,54 @@ header h1.brand small {
 #map {
     height: 300px;
 }
+
+
+#speed {
+    margin-top: 20px;
+}
+
+#speed .btn-mini {
+    height: 18px;
+    width: 36px;
+}
+
+#speed .set {
+    height: 28px;
+    width: 48px;
+    text-align: right;
+}
+
+#speed .input-append, #speed .input-prepend {
+    margin: 0;
+    margin-top: 1px;
+}
+
+#speed .add-on {
+    padding: 8px;
+}
+
+#notifies .name {
+    opacity: .50;
+    filter: alpha(opacity=50);
+    color: white;
+    font-weight: bold;
+}
+
+#notifies .end .name {
+    background: #bd362f;
+}
+
+#notifies .start .name {
+    background: #5bb75b;
+}
+
+#sensors .content {
+    position: relative;
+}
+
+#sensors .time {
+    position: absolute;
+    right: 0;
+    top: 8px
+}
+
