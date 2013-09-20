@@ -1,3 +1,4 @@
+<div class="time label">{{ time }}</div>
 <table class="table table-striped" >
 <thead>
 	<tr>
@@ -12,5 +13,4 @@
     </tr>
 {% endfor %}
 </table>
-<div class="time">Time {{ time|date:"h:m:s - D d M Y" }}<div>
 <script>updateMap({{ latitude }}, {{ longitude }});</script>
