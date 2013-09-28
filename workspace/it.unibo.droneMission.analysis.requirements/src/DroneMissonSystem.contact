@@ -77,7 +77,6 @@ BehaviorOf drone {
 		set cmdName = call Drone.getCommandName(msgCommand)
 		set start = call cmdName.contains("setspeed")
 		if{start} {	
-			replyToRequest command("OK"); 
 			goToState st_Drone_startMission
 		}
 		replyToRequest command("FAIL");
@@ -85,7 +84,8 @@ BehaviorOf drone {
 	endstate
 	
 	state st_Drone_startMission
-		exec startMission() // empty method - maybe can be used in future?
+		exec startMission() // contains setspeed and starmission
+		replyToRequest command("OK"); 
 		doOut sendnotify("start")
 		goToState st_Drone_setspeed
 	endstate
