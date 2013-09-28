@@ -214,7 +214,7 @@ BehaviorOf smartdevice {
 	var String dataDroneReceived 
 	
 	action void notifyUserMissionStarted()
-	action void showSensorsDatasReceived(String data)
+	action void updateGauges(String data)
 	action void missionFinished()
 	
 	state st_Smartdevice_init initial
@@ -235,7 +235,7 @@ BehaviorOf smartdevice {
 		// get data from drone
 		doPerceive smartdeviceReceivesensorsDatas()
 		set dataDroneReceived = code.curInputMsgContent
-		call showSensorsDatasReceived(dataDroneReceived)
+		call updateGauges(dataDroneReceived)
 
 		goToState st_Smartdevice_waitingForData
 	endstate
