@@ -84,10 +84,12 @@ BehaviorOf drone {
 	endstate
 	
 	state st_Drone_startMission
-		exec startMission() // contains setspeed and starmission
-		replyToRequest command("OK"); 
+		set cmdValue =  call Drone.getCommandValue(code.curInputMsgContent)
+		exec setSpeed(cmdValue)
+		replyToRequest command("OK");
+		exec startMission() // contains setspeed and starmission 
 		doOut sendnotify("start")
-		goToState st_Drone_setspeed
+		goToState st_Drone_onMission
 	endstate
 	
 	state st_Drone_setspeed
