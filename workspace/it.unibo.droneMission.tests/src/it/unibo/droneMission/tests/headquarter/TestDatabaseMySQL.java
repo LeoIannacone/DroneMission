@@ -12,12 +12,12 @@ import it.unibo.droneMission.interfaces.messages.ICommand;
 import it.unibo.droneMission.interfaces.messages.INotify;
 import it.unibo.droneMission.interfaces.messages.IPicturePackage;
 import it.unibo.droneMission.interfaces.messages.IReply;
-import it.unibo.droneMission.prototypes.messages.Command;
-import it.unibo.droneMission.prototypes.messages.File;
-import it.unibo.droneMission.prototypes.messages.Notify;
-import it.unibo.droneMission.prototypes.messages.PicturePackage;
-import it.unibo.droneMission.prototypes.messages.Reply;
-import it.unibo.droneMission.prototypes.messages.SensorsData;
+import it.unibo.droneMission.messages.Command;
+import it.unibo.droneMission.messages.File;
+import it.unibo.droneMission.messages.Notify;
+import it.unibo.droneMission.messages.PicturePackage;
+import it.unibo.droneMission.messages.Reply;
+import it.unibo.droneMission.messages.SensorsData;
 import it.unibo.droneMission.systems.headquarter.FactoryStorage;
 
 public class TestDatabaseMySQL {

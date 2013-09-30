@@ -17,12 +17,12 @@ import it.unibo.droneMission.interfaces.messages.INotify;
 import it.unibo.droneMission.interfaces.messages.IPicturePackage;
 import it.unibo.droneMission.interfaces.messages.IReply;
 import it.unibo.droneMission.interfaces.messages.ISensorsData;
-import it.unibo.droneMission.prototypes.messages.Command;
-import it.unibo.droneMission.prototypes.messages.Factory;
-import it.unibo.droneMission.prototypes.messages.File;
-import it.unibo.droneMission.prototypes.messages.Notify;
-import it.unibo.droneMission.prototypes.messages.PicturePackage;
-import it.unibo.droneMission.prototypes.messages.SensorsData;
+import it.unibo.droneMission.messages.Command;
+import it.unibo.droneMission.messages.Factory;
+import it.unibo.droneMission.messages.File;
+import it.unibo.droneMission.messages.Notify;
+import it.unibo.droneMission.messages.PicturePackage;
+import it.unibo.droneMission.messages.SensorsData;
 
 public abstract class DataBase extends Storage implements IDataBase {
 

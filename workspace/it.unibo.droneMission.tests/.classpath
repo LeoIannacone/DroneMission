@@ -4,9 +4,9 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
 	<classpathentry kind="src" path="/it.unibo.droneMission.gauge"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/it.unibo.droneMission.prototypes"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/it.unibo.droneMission.interfaces"/>
 	<classpathentry kind="var" path="ISS_LIBRARIES/jars/gson-2.2.4.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/it.unibo.droneMission.systems.headquarter"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/it.unibo.droneMission.messages"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
