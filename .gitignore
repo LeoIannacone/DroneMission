@@ -1,3 +1,9 @@
 */*.metadata
 *.class
 Docs/#relazione.lyx#
+
+# REMOVE ALL GENERATED FILES
+*/src-gen/*
+
+# REMOVE ALL BIN FILES
+*/bin/*
