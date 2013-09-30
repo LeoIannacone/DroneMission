@@ -1,4 +1,4 @@
-package it.unibo.droneMission.prototypes.messages;
+package it.unibo.droneMission.messages;
 
 import it.unibo.droneMission.interfaces.messages.INotify;
 

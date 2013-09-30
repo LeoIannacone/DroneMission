@@ -1,4 +1,4 @@
-package it.unibo.droneMission.prototypes.messages;
+package it.unibo.droneMission.messages;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

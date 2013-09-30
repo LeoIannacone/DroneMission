@@ -1,7 +1,7 @@
 package it.unibo.droneMission.tests.messages;
 
 import it.unibo.droneMission.interfaces.messages.TypesCommand;
-import it.unibo.droneMission.prototypes.messages.Command;
+import it.unibo.droneMission.messages.Command;
 import junit.framework.TestCase;
 
 public class CommandTest extends TestCase {

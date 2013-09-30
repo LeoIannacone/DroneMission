@@ -1,4 +1,4 @@
-package it.unibo.droneMission.prototypes.messages;
+package it.unibo.droneMission.messages;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;

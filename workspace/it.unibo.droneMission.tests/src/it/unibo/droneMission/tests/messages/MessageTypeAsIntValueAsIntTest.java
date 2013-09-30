@@ -1,8 +1,8 @@
 package it.unibo.droneMission.tests.messages;
 
 import it.unibo.droneMission.interfaces.messages.TypesCommand;
-import it.unibo.droneMission.prototypes.messages.Command;
-import it.unibo.droneMission.prototypes.messages.MessageTypeAsIntValueAsInt;
+import it.unibo.droneMission.messages.Command;
+import it.unibo.droneMission.messages.MessageTypeAsIntValueAsInt;
 import junit.framework.TestCase;
 
 public class MessageTypeAsIntValueAsIntTest extends TestCase {
