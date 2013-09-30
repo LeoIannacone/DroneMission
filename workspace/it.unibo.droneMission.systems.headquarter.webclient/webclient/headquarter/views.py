@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response
 
 from headquarter.models import storage
-from it.unibo.droneMission.prototypes.messages import Utils
+from it.unibo.droneMission.messages import Utils
 from it.unibo.droneMission.interfaces.messages import TypesSensor, TypesNotify
 from datetime import datetime
 
