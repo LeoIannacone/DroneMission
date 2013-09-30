@@ -77,7 +77,6 @@ BehaviorOf drone {
 		set cmdName = call Drone.getCommandName(msgCommand)
 		set start = call cmdName.contains("setspeed")
 		if{start} {	
-			replyToRequest command("OK"); 
 			goToState st_Drone_startMission
 		}
 		replyToRequest command("FAIL");
@@ -85,9 +84,12 @@ BehaviorOf drone {
 	endstate
 	
 	state st_Drone_startMission
-		exec startMission() // empty method - maybe can be used in future?
+		set cmdValue =  call Drone.getCommandValue(code.curInputMsgContent)
+		exec setSpeed(cmdValue)
+		replyToRequest command("OK");
+		exec startMission() // contains setspeed and starmission 
 		doOut sendnotify("start")
-		goToState st_Drone_setspeed
+		goToState st_Drone_onMission
 	endstate
 	
 	state st_Drone_setspeed
@@ -212,7 +214,7 @@ BehaviorOf smartdevice {
 	var String dataDroneReceived 
 	
 	action void notifyUserMissionStarted()
-	action void showSensorsDatasReceived(String data)
+	action void updateGauges(String data)
 	action void missionFinished()
 	
 	state st_Smartdevice_init initial
@@ -233,7 +235,7 @@ BehaviorOf smartdevice {
 		// get data from drone
 		doPerceive smartdeviceReceivesensorsDatas()
 		set dataDroneReceived = code.curInputMsgContent
-		call showSensorsDatasReceived(dataDroneReceived)
+		call updateGauges(dataDroneReceived)
 
 		goToState st_Smartdevice_waitingForData
 	endstate

@@ -19,7 +19,7 @@ public class Smartdevice extends SmartdeviceSupport {
 	}
 
 	@Override
-	protected void showSensorsDatasReceived(String data) throws Exception {
+	protected void updateGauges(String data) throws Exception {
 		env.println("DATA DRONE: " + data);
 	}
 

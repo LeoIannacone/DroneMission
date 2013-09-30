@@ -17,11 +17,11 @@ import it.unibo.droneMission.gauge.GaugeValueInt;
 import it.unibo.droneMission.gauge.Odometer;
 import it.unibo.droneMission.gauge.Speedometer;
 import it.unibo.droneMission.interfaces.messages.TypesCommand;
-import it.unibo.droneMission.prototypes.messages.File;
-import it.unibo.droneMission.prototypes.messages.PicturePackage;
-import it.unibo.droneMission.prototypes.messages.Sensor;
-import it.unibo.droneMission.prototypes.messages.SensorsData;
-import it.unibo.droneMission.prototypes.messages.Utils;
+import it.unibo.droneMission.messages.File;
+import it.unibo.droneMission.messages.PicturePackage;
+import it.unibo.droneMission.messages.Sensor;
+import it.unibo.droneMission.messages.SensorsData;
+import it.unibo.droneMission.messages.Utils;
 public class MessageTest {
 
 	/**
