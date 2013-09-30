@@ -3,7 +3,7 @@
 Docs/#relazione.lyx#
 
 # REMOVE ALL GENERATED FILES
-*/src-gen/*
+workspace/*/src-gen/*
 
 # REMOVE ALL BIN FILES
-*/bin/*
+workspace/*/bin/*
