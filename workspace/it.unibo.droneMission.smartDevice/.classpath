@@ -6,11 +6,13 @@
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
-	<classpathentry kind="var" path="ISS_LIBRARIES/jars/gson-2.2.4.jar"/>
 	<classpathentry kind="var" path="ISS_LIBRARIES/jars/it.unibo.allsupports.jar"/>
 	<classpathentry kind="var" path="ISS_LIBRARIES/jars/it.unibo.envBaseAwt_1.6.6.jar"/>
 	<classpathentry kind="var" path="ISS_LIBRARIES/jars/it.unibo.interfaces_1.6.12.jar"/>
 	<classpathentry kind="var" path="ISS_LIBRARIES/jars/it.unibo.tuprolog_1.0.1.jar"/>
 	<classpathentry kind="var" path="ISS_LIBRARIES/jars/org.eclipse.xtext.xbase.lib_2.2.1.v201112130541.jar"/>
+	<classpathentry kind="src" path="/it.unibo.droneMission.gauge"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/it.unibo.droneMission.messages"/>
+	<classpathentry kind="src" path="/it.unibo.droneMission.interfaces"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
