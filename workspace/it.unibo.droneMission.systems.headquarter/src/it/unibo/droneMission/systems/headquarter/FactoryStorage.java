@@ -14,7 +14,7 @@ public class FactoryStorage {
 					db.setDatabaseName("dronemission");
 					db.setUsername("dronemission");
 					db.setPassword("estate");
-					db.setHostname("10.1.1.10");
+					db.setHostname("10.1.1.99");
 					db.connect();
 				}
 				
