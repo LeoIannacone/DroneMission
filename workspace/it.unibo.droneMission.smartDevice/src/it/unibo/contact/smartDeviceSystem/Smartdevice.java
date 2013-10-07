@@ -1,12 +1,10 @@
 package it.unibo.contact.SmartDeviceSystem;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import it.unibo.droneMission.gauge.*;
 import it.unibo.droneMission.interfaces.gauges.IGauge;
 import it.unibo.droneMission.messages.Factory;
-import it.unibo.droneMission.messages.Sensor;
 import it.unibo.droneMission.messages.SensorsData;
 import it.unibo.droneMission.messages.Utils;
 
@@ -41,6 +39,7 @@ public class Smartdevice extends SmartdeviceSupport {
 	protected void updateGauges(String data) throws Exception {
 		SensorsData sensorsData = Factory.createSensorsData(data);
 		updateGaugesValues(sensorsData.getGauges());
+		//show values
 		
 	}
 
@@ -48,14 +47,14 @@ public class Smartdevice extends SmartdeviceSupport {
 		for(IGauge g : list) {
 			String type = Utils.getGaugeName(Utils.getGaugeType(g));
 			if (type.equals("Fuelometer"))
-				fuel.setVal(g.getVal());
+				env.println("Fuel = " + fuel.getCurValRepDisplayed());
 			if (type.equals("Speedometer"))
-				speed.setVal(g.getVal());
+				env.println("Speed = " + speed.getCurValRepDisplayed());
 			if (type.equals("Odometer"))
-				odo.setVal(g.getVal());
+				env.println("Odo = " + odo.getCurValRepDisplayed());
 			if (type.equals("Loctracker")){
-				LocTracker l = (LocTracker)g;
-				loctracker.update(l.getLat(), l.getLon());
+				env.println("Lat = " + loctracker.getLat());
+				env.println("Lon = " + loctracker.getLon());
 			}
 		}
 	}

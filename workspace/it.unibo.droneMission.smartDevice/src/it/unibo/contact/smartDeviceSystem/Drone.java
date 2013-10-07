@@ -1,8 +1,27 @@
 package it.unibo.contact.SmartDeviceSystem;
 
+
+import it.unibo.droneMission.gauge.Fuelometer;
+import it.unibo.droneMission.gauge.GaugeValueDouble;
+import it.unibo.droneMission.gauge.GaugeValueInt;
+import it.unibo.droneMission.gauge.LocTracker;
+import it.unibo.droneMission.gauge.Odometer;
+import it.unibo.droneMission.gauge.Speedometer;
+import it.unibo.droneMission.messages.SensorsData;
+
 public class Drone extends DroneSupport {
+	
+	protected Odometer odo;
+	protected Speedometer speed;
+	protected Fuelometer fuel;
+	protected LocTracker loctracker;
+	
 	public Drone(String s) throws Exception{
 		super(s);
+		odo = new Odometer();
+		speed = new Speedometer();
+		fuel = new Fuelometer();
+		loctracker = new LocTracker();
 	}
 	
 	
@@ -51,10 +70,16 @@ public class Drone extends DroneSupport {
 
 	@Override
 	protected String getDataFromSensors() throws Exception {
-		int odomenter = (int)(Math.random() * 100);
-		int speedometer = (int)(Math.random() * 100);
-		int fuel = (int)(Math.random() * 100);
-		return String.format("odomoter:%s;speedometer:%s;fuel:%s", odomenter, speedometer, fuel);
+		odo.setVal(new GaugeValueInt((int)(Math.random() * 100)));
+		speed.setVal(new GaugeValueInt((int)(Math.random() * 100)));
+		fuel.setVal(new GaugeValueInt((int)(Math.random() * 100)));
+		loctracker.update(new GaugeValueDouble(Math.random() * 100), new GaugeValueDouble(Math.random() * 100));
+		SensorsData sensors = new SensorsData();
+		sensors.addGauge(odo);
+		sensors.addGauge(speed);
+		sensors.addGauge(fuel);
+		sensors.addGauge(loctracker);
+		return sensors.toJSON();
 	}
 
 
