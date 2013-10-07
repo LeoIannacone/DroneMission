@@ -146,4 +146,12 @@ public class Utils {
 				
 		return -1;
 	}
+	
+	public static String cleanJSONString(String json){
+		if(json.startsWith("\'"))
+			json=json.substring(1, json.length()-1);
+		if(json.endsWith("\'"))
+			json=json.substring(0, json.length()-2);
+		return json.trim();
+	}
 }
