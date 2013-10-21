@@ -127,4 +127,10 @@ public class UtilsTest extends TestCase {
 		assertEquals(base64, test);
 	}
 	*/
+	
+	public static void testCleanString(){
+		String dataIn="string to clean";
+		String toClean="\' "+dataIn+" \'";
+		assertEquals(Utils.cleanJSONString(toClean), dataIn);
+	}
 }
