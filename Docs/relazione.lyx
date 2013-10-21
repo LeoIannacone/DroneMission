@@ -2746,7 +2746,7 @@ Dopo aver definito quali saranno i sottosistemi che entreranno in gioco
 
 \begin_layout Standard
 I messaggi saranno di diverso tipo a seconda della loro funzionalità: i
- comandi inviati dalla centrale di controllo saranno visti come Request
+ comandi inviati dalla centrale di controllo saranno visti come Request/Response
  (una volta inviati, il mittente si metterà in attesa di un risposta da
  parte del destinatario, con l'esito dell'operazione svolta: 
 \begin_inset Quotes eld
@@ -2764,12 +2764,15 @@ ERROR
 \begin_inset Quotes erd
 \end_inset
 
-), le notifiche ed i dati dei sensori inviati dal drone saranno invece dei
- Signal (verranno inseriti nello shared-space e potranno essere prelevati
- dagli altri soggetti in gioco, senza dover specificare chi), mentre per
- quanto riguarda le foto, queste saranno inviate sotto forma di Dispatch
- alla centrale di controllo (senza attendere l'unico sotto sistema in grado
- di riceverla).
+) poiché ci si aspetta che all'invio di ogni comando il drone metta in atto
+ la richiesta e risponda con l'esito dell'operazione, le notifiche ed i
+ dati dei sensori inviati dal drone saranno invece dei Signal (verranno
+ inseriti in uno shared-space e potranno essere prelevati dagli altri soggetti
+ in gioco, senza dover specificare chi), mentre per quanto riguarda le foto,
+ queste saranno inviate sotto forma di Dispatch alla centrale di controllo
+ (senza attendere l'unico sotto sistema in grado di riceverla) in quanto,
+ una volta ricevuta ci si aspetta che quest'ultima la memorizzi insieme
+ ai dati dell'istante in cui è stata inviata.
 \end_layout
 
 \begin_layout Standard
@@ -2891,7 +2894,7 @@ A questo punto è possibile specificare il comportamento di ogni singolo
  soggetto.
  Per quanto riguarda il drone, questo, una volta inizializzato, transiterà
  nello stato ready, in cui attenderà la ricezione del comando setspeed dalla
- centrale di controllo per transitare nello stato starMission, in cui avvierà
+ centrale di controllo per transitare nello stato startMission, in cui avvierà
  la missione e comunicherà agli Smartphone l'avvenuto decollo prima di spostarsi
  nel nuovo stato onMission.
  In questo stato il velivolo invierà i dati dei sensori e, ogni DS secondi,
