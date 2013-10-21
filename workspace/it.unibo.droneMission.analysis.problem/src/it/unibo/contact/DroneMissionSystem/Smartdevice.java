@@ -38,7 +38,7 @@ public class Smartdevice extends SmartdeviceSupport {
 	@Override
 	protected void updateGauges(String data) throws Exception {
 		try{
-		SensorsData sensorsData = Factory.createSensorsData(Utils.cleanJSONString(data));
+		SensorsData sensorsData = Factory.createSensorsData(Utils.cleanJSONFromContact(data));
 		for(IGauge g : sensorsData.getGauges()) {
 			int t = Utils.getGaugeType(g);
 			String type = Utils.getGaugeName(t);

@@ -16,7 +16,7 @@ Subject headQuarter context subSystemHeadQuarter ;
 //Subject headQuarter -w; 
 
 //		Messages
-Dispatch photo; 
+Dispatch photo;
 Request command;
 Signal sensorsData;
 Signal notify;
@@ -172,12 +172,12 @@ BehaviorOf headQuarter{
 		if { commandAnswer == "OK" && command == "stop"} { 
 			goToState st_HeadQuarter_endMission
 		}
-				
-		// get sensors data
-		onMessage? sensorsData goToState st_HeadQuarter_receivedSensorsData
 		
 		// get photos
 		onMessage? photo goToState st_HeadQuarter_receivedPhoto
+		
+		// get sensors data
+		onMessage? sensorsData goToState st_HeadQuarter_receivedSensorsData
 		
 	endstate
 	

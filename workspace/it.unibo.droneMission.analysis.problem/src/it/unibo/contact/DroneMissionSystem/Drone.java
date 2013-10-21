@@ -8,6 +8,7 @@ import it.unibo.droneMission.gauge.LocTracker;
 import it.unibo.droneMission.gauge.Odometer;
 import it.unibo.droneMission.gauge.Speedometer;
 import it.unibo.droneMission.messages.SensorsData;
+import it.unibo.droneMission.messages.Utils;
 
 public class Drone extends DroneSupport {
 	
@@ -80,7 +81,7 @@ public class Drone extends DroneSupport {
 		sensors.addGauge(fuel);
 		sensors.addGauge(loctracker);
 		
-		return sensors.toJSON();
+		return Utils.adaptJSONToContact(sensors.toJSON());
 	}
 
 
