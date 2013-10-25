@@ -1,0 +1,201 @@
+AndroidSystem DroneSmartDashboard
+	avd 15
+	permissions INTERNET
+	package it.unibo.droneMission.smartDevice.android
+
+action notifyReceived category "android.intent.category.DEFAULT"	
+action startMission category "android.intent.category.DEFAULT"
+action updateValues category "android.intent.category.DEFAULT"
+action endMission category "android.intent.category.DEFAULT"
+
+
+Activity SmartDashboard launchable
+	action startMission
+	action endMission
+	action updateValues
+	action notifyReceived
+	useLayout layout
+;
+
+<Layout> name layout as 
+	<LinearLayout>
+		orientation VERTICAL
+		width FILL_PARENT
+		height FILL_PARENT
+		 <LinearLayout> layoutidle
+		 	orientation VERTICAL
+		 	width FILL_PARENT
+		 	height FILL_PARENT
+		 	<TextView> idleTextView
+		 		width WRAP_CONTENT
+		 		height WRAP_CONTENT
+		 		text "Waiting for Mission"
+		 		textStyle BOLD
+		 		size 18
+		 		textColor RED
+		 	</TextView>
+		 	<Button> startReceivingData
+		 		width WRAP_CONTENT
+		 		height WRAP_CONTENT
+		 		text "Start Observing Mission"
+		 		onClickDoAction startMission
+		 	</Button>
+		 	<CheckBox> bool
+		 		width WRAP_CONTENT
+		 		height WRAP_CONTENT
+		 		text "start or stop?"
+		 		checked
+		 	</CheckBox>
+		 	
+		 	<Button> test
+		 		width WRAP_CONTENT
+		 		height WRAP_CONTENT
+		 		text "start mission"
+		 		onClickDoAction notifyReceived
+		 	</Button>
+		 </LinearLayout>
+		 
+	 <LinearLayout> layoutData
+		orientation VERTICAL
+		width FILL_PARENT
+		height WRAP_CONTENT
+		<LinearLayout>
+			orientation HORIZONTAL
+			width FILL_PARENT
+			height WRAP_CONTENT
+			<TextView> lblSpeed
+				width WRAP_CONTENT
+				height WRAP_CONTENT
+				text "SPEED"
+				textStyle BOLD
+				size 10
+				textColor RED
+			</TextView>
+			<TextView> valSpeed
+				width WRAP_CONTENT
+				height WRAP_CONTENT
+				text "UNKNOWN"
+				textStyle BOLD
+				size 10
+				textColor WHITE
+			</TextView>
+		</LinearLayout>
+		<LinearLayout>
+			orientation HORIZONTAL
+			width FILL_PARENT
+			height WRAP_CONTENT
+			<TextView> lblOdo
+				width FILL_PARENT
+				height WRAP_CONTENT
+				text "ODO"
+				textStyle BOLD
+				size 10
+				textColor RED
+			</TextView>
+			<TextView> valOdo
+				width FILL_PARENT
+				height WRAP_CONTENT
+				text "UNKNOWN"
+				textStyle BOLD
+				size 10
+				textColor WHITE
+			</TextView>
+		</LinearLayout>
+		<LinearLayout>
+			orientation HORIZONTAL
+			width FILL_PARENT
+			height WRAP_CONTENT
+			<TextView> lblFuel
+				width WRAP_CONTENT
+				height WRAP_CONTENT
+				text "FUEL"
+				textStyle BOLD
+				size 10
+				textColor RED
+			</TextView>
+			<LinearLayout>
+				orientation VERTICAL
+				width WRAP_CONTENT
+				height WRAP_CONTENT
+				<TextView> valFuel
+					width WRAP_CONTENT
+					height WRAP_CONTENT
+					text "UNKNOWN"
+					textStyle BOLD
+					size 10
+					textColor WHITE
+				</TextView>
+				<ProgressBar> pbFuel
+					width WRAP_CONTENT
+					height WRAP_CONTENT
+					max 100
+				</ProgressBar>
+			</LinearLayout>
+		</LinearLayout>
+		<LinearLayout>
+			orientation HORIZONTAL
+			width FILL_PARENT
+			height WRAP_CONTENT
+			<TextView> lblLat
+				width WRAP_CONTENT
+				height WRAP_CONTENT
+				text "LATITUDE"
+				textStyle BOLD
+				size 10
+				textColor RED
+			</TextView>
+			<TextView> valLat
+				width WRAP_CONTENT
+				height WRAP_CONTENT
+				text "UNKNOWN"
+				textStyle BOLD
+				size 10
+				textColor WHITE
+			</TextView>
+		</LinearLayout>
+		<LinearLayout>
+			orientation HORIZONTAL
+			width FILL_PARENT
+			height WRAP_CONTENT
+			<TextView> lblLong
+				width WRAP_CONTENT
+				height WRAP_CONTENT
+				text "LONGITUDE"
+				textStyle BOLD
+				size 10
+				textColor RED
+			</TextView>
+			<TextView> valLong
+				width WRAP_CONTENT
+				height WRAP_CONTENT
+				text "UNKNOWN"
+				textStyle BOLD
+				size 10
+				textColor WHITE
+			</TextView>
+		</LinearLayout>
+		<Button> update
+			width FILL_PARENT
+			 height WRAP_CONTENT
+			 text "update"
+			 onClickDoAction updateValues
+		</Button>
+		<Button> endmission
+			width FILL_PARENT
+			height WRAP_CONTENT
+			text "end mission"
+			onClickDoAction endMission
+		</Button>
+		<TextView> output
+			width FILL_PARENT
+			height FILL_PARENT
+			text ""
+			size 6
+			background WHITE
+			textColor BLACK
+			useOutputForActivity SmartDashboard
+		</TextView>
+	</LinearLayout>
+	</LinearLayout>
+</Layout>
+	
