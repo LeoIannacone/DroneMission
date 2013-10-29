@@ -1,4 +1,4 @@
-ContactSystem HeadQuarterAnalisys -awt -o spaceUpdater [host="localhost" port=8070];
+ContactSystem HeadQuarter -awt -o spaceUpdater [host="localhost" port=8070];
 
 Context subSystemDrone -w;
 Context subSystemHeadQuarter -w;
