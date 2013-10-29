@@ -58,12 +58,6 @@ public class Drone extends DroneSupport {
 	}
 
 
-	@Override
-	protected String getDataPhoto() throws Exception {
-		return "photoX;dataY;timeZ";
-	}
-
-
 	//@Override
 	protected boolean executeCommand(String cmd, String v) throws Exception {
 		if(cmd.equals("setspeed") && (Integer.parseInt(v)>=60) && (Integer.parseInt(v)<=120)){
@@ -80,5 +74,11 @@ public class Drone extends DroneSupport {
 			return true;
 		}
 		return false;
+	}
+
+
+	@Override
+	protected String getDatapicturePackage() throws Exception {
+		return "photoX;dataY;timeZ";
 	}
 }
