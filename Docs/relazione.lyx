@@ -710,10 +710,6 @@ Dalle specifiche del committente si è capito che questi desidera il sistema
 \end_layout
 
 \begin_layout Standard
-
-\end_layout
-
-\begin_layout Standard
 \begin_inset Float figure
 placement H
 wide false
@@ -722,7 +718,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Img/use_cases.png
+	filename /tmp/lynxXXXXh0xG8T/Img/use_cases.png
 	width 100text%
 
 \end_inset
@@ -3813,6 +3809,175 @@ Analisi del problema
 
 \begin_layout Section
 Logic architecture
+\end_layout
+
+\begin_layout Standard
+Il sistema tutto viene suddiviso in tre sottisistemi Drone - HeadQuarter
+ - SmarDevice che verranno poi analizzati uno ad uno:
+\end_layout
+
+\begin_layout LyX-Code
+Context subSystemDrone; 
+\end_layout
+
+\begin_layout LyX-Code
+Context subSystemHeadQuarter; 
+\end_layout
+
+\begin_layout LyX-Code
+Context subSystemSmartDevice; 
+\end_layout
+
+\begin_layout Standard
+Viene subito naturale definire anche una univoca e comune rappresentazione
+ dei dati che le varie entità (o Subject) dei sottosistemi andranno a scambiare.
+ 
+\end_layout
+
+\begin_layout Subsection
+Rappresentazione dei dati
+\end_layout
+
+\begin_layout Standard
+È necessario definire un modello unico di rappresentazione dei dati affinché
+ le varie unità riescano a interpretare correttamente le informazioni scambiate.
+\end_layout
+
+\begin_layout Standard
+Constatato che lo scambio di messaggi in Contact avviene tramite l'utilizzo
+ di stringhe, si è scelto di rappresentare i dati attraverso il formato
+ JSON.
+ Ogni messaggio (IMessage) sarà poi trasformato in classe (o instanza) attravers
+o l'utilizzo di Factory.
+\end_layout
+
+\begin_layout LyX-Code
+package it.unibo.droneMission.interfaces.messages;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public interface IMessage {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+public String toJSON(); 
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+Analizzando i requisiti, emergono diversi tipi di dati che le entità dei
+ sottosistemi si scambiano:
+\end_layout
+
+\begin_layout LyX-Code
+ICommand         -- comandi inviati al drone
+\end_layout
+
+\begin_layout LyX-Code
+IReply           -- le risposte dei comandi che il drone manda indietro
+\end_layout
+
+\begin_layout LyX-Code
+INotify          -- le notifiche inviate dal drone
+\end_layout
+
+\begin_layout LyX-Code
+ISensorsData     -- i dati dei sensori del drone
+\end_layout
+
+\begin_layout LyX-Code
+IPicturePackage  -- le foto con allegato i dati dei sensori
+\end_layout
+
+\begin_layout Standard
+È utile sottolineare che, per motivi di overhead nella comunicazione, si
+ è scelto di utlizzare un unico 
+\begin_inset Quotes eld
+\end_inset
+
+pacchetto
+\begin_inset Quotes erd
+\end_inset
+
+ di informazione (ISensorsData) che collezioni tutti i dati dei sensori
+ del drone e li invii alla centrale di controllo.
+ Un altro approccio sarebbe stato quello di inviare singolarmente lo stato
+ interno di ogni sensore, ma questo avrebbe aumentato enormemente il numero
+ di messaggi scambiati (e di costo, in termini di comunicazione) senza alcun
+ vantaggio apparente.
+\end_layout
+
+\begin_layout Standard
+È necessario anche far notare che IPicturePackage non è solo la rappresentazione
+ della fotografia che il drone ha scattato, ma contiene anche i dati dei
+ sensori al momento dello scatto, così come richiesto dal richiedente.
+\end_layout
+
+\begin_layout Standard
+ICommand, IReply e INotify sono invece dei IMessage con tipo (in questo
+ singolo caso, solo intero IMessageTypeAsInt) e un valore, un intero per
+ IComand (IMessageTypeAsInt) e una stringa per IReply e INotify (IMessageValueAs
+String).
+\end_layout
+
+\begin_layout Standard
+In aggiunta, si è scelto di aggiungere un timestamp ai vari messaggi in
+ modo da poter ricostruire in qualisiasi momento la cronologia dell'interazione:
+\end_layout
+
+\begin_layout LyX-Code
+package it.unibo.droneMission.interfaces.messages;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public interface IMessageWithTime extends IMessage {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+public long getTime();
+\end_layout
+
+\begin_layout LyX-Code
+public void setTime(long time); 
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+Ed ecco quindi il modello UML dei messaggi:
+\end_layout
+
+\begin_layout Standard
+#FIX_ME - qui UML interfaces.messages
+\end_layout
+
+\begin_layout Subsection
+Sottosistema DRONE
+\end_layout
+
+\begin_layout Standard
+QUI CI ANDREBBE LA DESCRIZIONE DEL DRONE E DEI GAUGES
+\end_layout
+
+\begin_layout Subsection
+Sottosistema HeadQuarter
 \end_layout
 
 \begin_layout Section
