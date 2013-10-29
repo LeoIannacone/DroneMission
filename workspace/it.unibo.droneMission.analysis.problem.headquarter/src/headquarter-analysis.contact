@@ -9,7 +9,7 @@ Subject smartdevice context subSystemSmartDevice ; //external;
 Subject drone context subSystemDrone ; //external;
 //Subject headQuarter context subSystemHeadQuarter;
 
-Subject storage context subSystemHeadQuarter;
+Subject server context subSystemHeadQuarter;
 Subject uiLog context subSystemHeadQuarter;
 Subject uiCommand context subSystemHeadQuarter;
 Subject controlUnit context subSystemHeadQuarter; 
@@ -25,6 +25,7 @@ Request showMeMission;
 Request showMeSensorsData;
 Request showMePicturePackage;
 Request newCommand;
+Request forwardCommand;
 
 // Forward
 
@@ -52,26 +53,29 @@ receiveCommand: drone grant command support=TCP [host="localhost" port=4050];
 
 // User communication
 // show me something
-sendShowMeMission: uiLog demand showMeMission to storage;
-receiveShowMeMission: storage grant showMeMission;
+sendShowMeMission: uiLog demand showMeMission to server;
+receiveShowMeMission: server grant showMeMission;
 
-sendShowMeSensorsData: uiLog demand showMeSensorsData to storage;
-receiveShowMeSensorsData: storage grant showMeSensorsData;
+sendShowMeSensorsData: uiLog demand showMeSensorsData to server;
+receiveShowMeSensorsData: server grant showMeSensorsData;
 
-sendShowMePackagepicturePackage: uiLog demand showMePicturePackage to storage;
-receiveShowMePackagepicturePackage: storage grant showMePicturePackage;
+sendShowMePackagepicturePackage: uiLog demand showMePicturePackage to server;
+receiveShowMePackagepicturePackage: server grant showMePicturePackage;
 
-// send command
-sendUINewCommand: uiCommand demand newCommand to storage;
-receiveUINewCommand: storage grant newCommand;
+// UI send command
+sendUINewCommand: uiCommand demand newCommand to server;
+receiveUINewCommand: server grant newCommand;
 
+// server sends command to drone handler
+sendForwardCommand: server demand forwardCommand to controlUnit;
+receiveForwardCommand: controlUnit grant forwardCommand;
 
 BehaviorOf controlUnit {
 	
-	var String command
+	var String cmd
+	var String rpl
 	var String sensorsDatasReceived
 	var String picturePackageReceived
-	var String commandAnswer
 	
 	var boolean tmpCheck
 	
@@ -79,16 +83,13 @@ BehaviorOf controlUnit {
 	action void storeDataSensors(String sensorsDatasReceived)
 	action void storePicturePackage(String picturePackageReceived)
 		
-	// check and get command to send
-	action boolean hasCommandToSend()
-	action String getCommandToSend()
-	action boolean isCommandStart(String cmd)
-	
-	// check and store reply 
-	action boolean checkCommandReply(String reply)
-	action void storeCommandReply(String reply)
+	// check commands to send
+	action boolean checkCommandStart()
+	action String getWrongStartCommandReply()
+	action boolean storeCommandAndReply(String c, String r)
 	
 	// shutdown
+	action boolean checkEndMission()
 	action void shutdown()
 	
 	state st_controlUnit_init initial
@@ -98,39 +99,52 @@ BehaviorOf controlUnit {
 	
 	state st_controlUnit_ready
 		println ("----- Ready to send command -----")
-		set tmpCheck = exec hasCommandToSend()
-		if { tmpCheck == true }	{ 
-			set command = exec getCommandToSend()
-			set tmpCheck = exec isCommandStart(command)
-			if { tmpCheck == true } {
-				doOutIn sendCommand
-				acquireAnswerFor command
-				set commandAnswer = code.curReplyContent 
-			}
+		doInOut receiveForwardCommand()
+		set tmpCheck = exec checkCommandStart(code.curInputMsgContent)
+		if { tmpCheck == true } {
+			goToState st_controlUnit_sendCommand
 		}
-//		acquireAnswerFor command
-//		set commandAnswer = code.curReplyContent
-//		println("DRONE REPLY: " + commandAnswer)
-//		if { commandAnswer == "OK" } { goToState st_controlUnit_onMission }
+		if { tmpCheck == false } {
+			goToState st_controlUnit_wrongStartCommand
+		}
+		
+	endstate
+	
+	// in case of wrong start command received
+	state st_controlUnit_wrongStartCommand
+		set cmd = code.curInputMsgContent
+		set rpl = exec getWrongStartCommandReply()
+		replyToRequest forwardCommand(rpl)
+		call storeCommandAndReply(cmd, rpl)
+		goToState st_controlUnit_ready
+	endstate
+	
+	state st_controlUnit_sendCommand
+		set cmd = code.curInputMsgContent
+		doOutIn sendCommand(cmd)
+		acquireAnswerFor command
+		set rpl = code.curInputMsgContent
+		call storeCommandAndReply(cmd, rpl)
+		replyToRequest forwardCommand(rpl)
+		goToState st_controlUnit_onMission
 	endstate
 	
 	state st_controlUnit_onMission
-		// check if command is clicked in Dashboard and send it
-		set command = exec getCommandToSend()
-		doOutIn newCommand(command)
-		acquireAnswerFor command
-		set commandAnswer = code.curReplyContent
-		if { commandAnswer == "FAIL" } { println("DRONE CMD FAILED: " + commandAnswer) }
-		
-		if { commandAnswer == "OK" && command == "stop"} { 
-			goToState st_controlUnit_endMission
-		}
-		
+			
+		// check if there are commands to send
+		onMessage? forwardCommand goToState st_controlUnit_sendCommand
+				
 		// get picturePackages
 		onMessage? picturePackage goToState st_controlUnit_receivedpicturePackage
 		
 		// get sensors data
 		onMessage? sensorsData goToState st_controlUnit_receivedSensorsData
+		
+		// check if end mission
+		set tmpCheck = exec checkEndMission()
+		if { tmpCheck == true } {
+			goToState st_controlUnit_endMission
+		}
 		
 	endstate
 	
@@ -160,6 +174,65 @@ BehaviorOf controlUnit {
 		call shutdown()
 		transitToEnd
 	endstate
+}
+
+BehaviorOf server {
+	
+	var String command
+	var String reply
+	var String sensorsData
+	var String picturePackage
+	var String mission
+	
+	var String what
+	
+	action int showReplyToCommand(String reply)
+	action String getSensorsData(String time)
+	action String getMission(String id)
+	
+	
+	state st_Server_init initial 
+		goToState st_Server_Handler
+	endstate
+	
+	state st_Server_Handler
+		onMessage? newCommand goToState st_Server_forwardCommand
+		onMessage? showMeMission goToState st_Server_showMission
+		onMessage? showMePicturePackage goToState st_Server_showPicturePackage
+		onMessage? showMeSensorsData goToState st_Server_showSensorsData
+	endstate
+	
+	state st_Server_showMission
+		doInOut receiveShowMeMission()
+		set mission = exec getSensorsData(code.curInputMsgContent)
+		replyToRequest showMeMission(mission)
+		goToState st_Server_Handler
+	endstate
+	
+	state st_Server_showPicturePackage
+		doInOut receiveShowMePackagepicturePackage()
+		set picturePackage = exec getDatapicturePackage(code.curInputMsgContent)
+		replyToRequest showMePicturePackage(picturePackage)
+		goToState st_Server_Handler
+	endstate
+	
+	state st_Server_showSensorsData
+		doInOut receiveShowMeSensorsData()
+		set mission = exec getMission(code.curInputMsgContent)
+		replyToRequest showMeMission(sensorsData)
+		goToState st_Server_Handler
+	endstate
+	
+	state st_Server_forwardCommand
+		doInOut receiveUINewCommand()
+		set command = code.curInputMsgContent
+		doOutIn sendForwardCommand(command)
+		acquireAnswerFor forwardCommand
+		set reply = code.curInputMsgContent
+		exec showReplyToCommand(reply)
+		goToState st_Server_Handler
+	endstate
+		
 }
 
 BehaviorOf smartdevice {
