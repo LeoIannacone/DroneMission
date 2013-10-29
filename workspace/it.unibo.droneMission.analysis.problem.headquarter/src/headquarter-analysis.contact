@@ -20,14 +20,16 @@ Request command;
 Signal sensorsData;
 Signal notify;
 
-// User messages
+// User log messages
 Request showMeMission;
 Request showMeSensorsData;
 Request showMePicturePackage;
-Request newCommand;
-Request forwardCommand;
 
-// Forward
+// User command
+Request newCommand;
+
+// Server forward command to drone through controlUnit
+Request forwardCommand;
 
 //		Highlevel communications
 //Drone sends picturePackage
@@ -105,7 +107,6 @@ BehaviorOf controlUnit {
 		if { tmpCheck == false } {
 			goToState st_controlUnit_wrongStartCommand
 		}
-		
 	endstate
 	
 	// in case of wrong start command received
