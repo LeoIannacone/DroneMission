@@ -93,12 +93,10 @@ BehaviorOf controlUnit {
 	action void shutdown()
 	
 	state st_controlUnit_init initial
-		println ("----- HeadQuarter Initialized -----") 
 		goToState st_controlUnit_ready
 	endstate
 	
 	state st_controlUnit_ready
-		println ("----- Ready to send command -----")
 		doInOut receiveForwardCommand()
 		set tmpCheck = exec checkCommandStart(code.curInputMsgContent)
 		if { tmpCheck == true } {
@@ -149,24 +147,16 @@ BehaviorOf controlUnit {
 	endstate
 	
 	state st_controlUnit_receivedSensorsData
-		// get sensors data
-		showMsg("on receivedSensorsData")
 		doPerceive controlUnitReceiveSensorsDatas()
 		set sensorsDatasReceived = code.curInputMsgContent
-		// update Dashboard
 		call storeDataSensors(sensorsDatasReceived)
-
 		goToState st_controlUnit_onMission
 	endstate
 	
 	state st_controlUnit_receivedpicturePackage
-		// get picturePackage data
 		doIn receiveDatapicturePackage()
 		set picturePackageReceived = code.curInputMsgContent
-		
-		// store info
 		call storePicturePackage(picturePackageReceived)
-		
 		goToState st_controlUnit_onMission
 	endstate
 	
@@ -183,13 +173,10 @@ BehaviorOf server {
 	var String sensorsData
 	var String picturePackage
 	var String mission
-	
-	var String what
-	
+
 	action int showReplyToCommand(String reply)
 	action String getSensorsData(String time)
 	action String getMission(String id)
-	
 	
 	state st_Server_init initial 
 		goToState st_Server_Handler
