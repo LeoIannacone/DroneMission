@@ -710,10 +710,6 @@ Dalle specifiche del committente si è capito che questi desidera il sistema
 \end_layout
 
 \begin_layout Standard
-
-\end_layout
-
-\begin_layout Standard
 \begin_inset Float figure
 placement H
 wide false
@@ -2746,7 +2742,7 @@ Dopo aver definito quali saranno i sottosistemi che entreranno in gioco
 
 \begin_layout Standard
 I messaggi saranno di diverso tipo a seconda della loro funzionalità: i
- comandi inviati dalla centrale di controllo saranno visti come Request
+ comandi inviati dalla centrale di controllo saranno visti come Request/Response
  (una volta inviati, il mittente si metterà in attesa di un risposta da
  parte del destinatario, con l'esito dell'operazione svolta: 
 \begin_inset Quotes eld
@@ -2764,12 +2760,15 @@ ERROR
 \begin_inset Quotes erd
 \end_inset
 
-), le notifiche ed i dati dei sensori inviati dal drone saranno invece dei
- Signal (verranno inseriti nello shared-space e potranno essere prelevati
- dagli altri soggetti in gioco, senza dover specificare chi), mentre per
- quanto riguarda le foto, queste saranno inviate sotto forma di Dispatch
- alla centrale di controllo (senza attendere l'unico sotto sistema in grado
- di riceverla).
+) poiché ci si aspetta che all'invio di ogni comando il drone metta in atto
+ la richiesta e risponda con l'esito dell'operazione, le notifiche ed i
+ dati dei sensori inviati dal drone saranno invece dei Signal (verranno
+ inseriti in uno shared-space e potranno essere prelevati dagli altri soggetti
+ in gioco, senza dover specificare chi), mentre per quanto riguarda le foto,
+ queste saranno inviate sotto forma di Dispatch alla centrale di controllo
+ (senza attendere l'unico sotto sistema in grado di riceverla) in quanto,
+ una volta ricevuta ci si aspetta che quest'ultima la memorizzi insieme
+ ai dati dell'istante in cui è stata inviata.
 \end_layout
 
 \begin_layout Standard
@@ -2891,7 +2890,7 @@ A questo punto è possibile specificare il comportamento di ogni singolo
  soggetto.
  Per quanto riguarda il drone, questo, una volta inizializzato, transiterà
  nello stato ready, in cui attenderà la ricezione del comando setspeed dalla
- centrale di controllo per transitare nello stato starMission, in cui avvierà
+ centrale di controllo per transitare nello stato startMission, in cui avvierà
  la missione e comunicherà agli Smartphone l'avvenuto decollo prima di spostarsi
  nel nuovo stato onMission.
  In questo stato il velivolo invierà i dati dei sensori e, ogni DS secondi,
@@ -3810,6 +3809,1091 @@ Analisi del problema
 
 \begin_layout Section
 Logic architecture
+\end_layout
+
+\begin_layout Standard
+Il sistema tutto viene suddiviso in tre sottisistemi Drone - HeadQuarter
+ - SmarDevice che verranno poi analizzati uno ad uno:
+\end_layout
+
+\begin_layout LyX-Code
+Context subSystemDrone; 
+\end_layout
+
+\begin_layout LyX-Code
+Context subSystemHeadQuarter; 
+\end_layout
+
+\begin_layout LyX-Code
+Context subSystemSmartDevice; 
+\end_layout
+
+\begin_layout Standard
+Viene subito naturale definire anche una univoca e comune rappresentazione
+ dei dati che le varie entità (o Subject) dei sottosistemi andranno a scambiare.
+ 
+\end_layout
+
+\begin_layout Subsection
+Rappresentazione dei dati
+\end_layout
+
+\begin_layout Standard
+È necessario definire un modello unico di rappresentazione dei dati affinché
+ le varie unità riescano a interpretare correttamente le informazioni scambiate.
+\end_layout
+
+\begin_layout Standard
+Constatato che lo scambio di messaggi in Contact avviene tramite l'utilizzo
+ di stringhe, si è scelto di rappresentare i dati attraverso il formato
+ JSON.
+ Ogni messaggio (IMessage) sarà poi trasformato in classe (o instanza) attravers
+o l'utilizzo di Factory.
+\end_layout
+
+\begin_layout LyX-Code
+package it.unibo.droneMission.interfaces.messages;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public interface IMessage {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+public String toJSON(); 
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+Analizzando i requisiti, emergono diversi tipi di dati che le entità dei
+ sottosistemi si scambiano:
+\end_layout
+
+\begin_layout LyX-Code
+ICommand         -- comandi inviati al drone
+\end_layout
+
+\begin_layout LyX-Code
+IReply           -- le risposte dei comandi che il drone manda indietro
+\end_layout
+
+\begin_layout LyX-Code
+INotify          -- le notifiche inviate dal drone
+\end_layout
+
+\begin_layout LyX-Code
+ISensorsData     -- i dati dei sensori del drone
+\end_layout
+
+\begin_layout LyX-Code
+IPicturePackage  -- le foto con allegato i dati dei sensori
+\end_layout
+
+\begin_layout Standard
+È utile sottolineare che, per motivi di overhead nella comunicazione, si
+ è scelto di utlizzare un unico 
+\begin_inset Quotes eld
+\end_inset
+
+pacchetto
+\begin_inset Quotes erd
+\end_inset
+
+ di informazione (ISensorsData) che collezioni tutti i dati dei sensori
+ del drone e li invii alla centrale di controllo.
+ Un altro approccio sarebbe stato quello di inviare singolarmente lo stato
+ interno di ogni sensore, ma questo avrebbe aumentato enormemente il numero
+ di messaggi scambiati (e di costo, in termini di comunicazione) senza alcun
+ vantaggio apparente.
+\end_layout
+
+\begin_layout Standard
+È necessario anche far notare che IPicturePackage non è solo la rappresentazione
+ della fotografia che il drone ha scattato, ma contiene anche i dati dei
+ sensori al momento dello scatto, così come richiesto dal richiedente.
+\end_layout
+
+\begin_layout Standard
+ICommand, IReply e INotify sono invece dei IMessage con tipo (in questo
+ singolo caso, solo intero IMessageTypeAsInt) e un valore, un intero per
+ IComand (IMessageTypeAsInt) e una stringa per IReply e INotify (IMessageValueAs
+String).
+\end_layout
+
+\begin_layout Standard
+In aggiunta, si è scelto di aggiungere un timestamp ai vari messaggi in
+ modo da poter ricostruire in qualisiasi momento la cronologia dell'interazione:
+\end_layout
+
+\begin_layout LyX-Code
+package it.unibo.droneMission.interfaces.messages;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public interface IMessageWithTime extends IMessage {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+public long getTime();
+\end_layout
+
+\begin_layout LyX-Code
+public void setTime(long time); 
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+Ed ecco quindi il modello UML dei messaggi:
+\end_layout
+
+\begin_layout Standard
+#FIX_ME - qui UML interfaces.messages
+\end_layout
+
+\begin_layout Subsection
+Sottosistema Drone
+\end_layout
+
+\begin_layout Standard
+QUI CI ANDREBBE LA DESCRIZIONE DEL DRONE E DEI GAUGES
+\end_layout
+
+\begin_layout Subsection
+Sottosistema HeadQuarter
+\end_layout
+
+\begin_layout Standard
+La centrale operativa avrà dunque il compito di controllare il drone e di
+ registrare (mostrandole agli operatori) le informazioni che esso invia.
+\end_layout
+
+\begin_layout Subsubsection
+Casi d'uso
+\end_layout
+
+\begin_layout Standard
+Al fine di analizzare la centrale operativa vengono proposti i seguenti
+ casi di uso secondo le specifiche:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename Img/Conrol Unit - Use Case.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+#FIX_ME: aggiungere descrizione casi d'uso
+\end_layout
+
+\begin_layout Subsubsection
+Struttura
+\end_layout
+
+\begin_layout Standard
+Analizzando la centrale di controllo, si decide suddividere il Subject headquart
+er in quattro nuove entità:
+\end_layout
+
+\begin_layout LyX-Code
+// Utente che visualizza informazioni
+\end_layout
+
+\begin_layout LyX-Code
+Subject uiLog context subSystemHeadQuarter;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// Utente che invia comandi al drone 
+\end_layout
+
+\begin_layout LyX-Code
+Subject uiCommand context subSystemHeadQuarter; 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// Server che interagisce con utente
+\end_layout
+
+\begin_layout LyX-Code
+Subject server context subSystemHeadQuarter;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// Unità che interagisce con drone
+\end_layout
+
+\begin_layout LyX-Code
+Subject controlUnit context subSystemHeadQuarter;  
+\end_layout
+
+\begin_layout Subsubsection
+Interazione
+\end_layout
+
+\begin_layout Standard
+Segue la parte della comunicazione fra i vari Subject.
+\end_layout
+
+\begin_layout Standard
+L'utente Log che vuole visualizzare i dati relativi ad una missione o le
+ immagini o i dati dei sensori (passati o correnti) invia una Request (resta
+ in attesa quindi di una risposta) al Server
+\end_layout
+
+\begin_layout LyX-Code
+// User log messages 
+\end_layout
+
+\begin_layout LyX-Code
+Request showMeMission; 
+\end_layout
+
+\begin_layout LyX-Code
+Request showMeSensorsData; 
+\end_layout
+
+\begin_layout LyX-Code
+Request showMePicturePackage;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// show me mission
+\end_layout
+
+\begin_layout LyX-Code
+sendShowMeMission: uiLog demand showMeMission to server; 
+\end_layout
+
+\begin_layout LyX-Code
+receiveShowMeMission: server grant showMeMission;
+\end_layout
+
+\begin_layout LyX-Code
+// show me sensors data
+\end_layout
+
+\begin_layout LyX-Code
+sendShowMeSensorsData: uiLog demand showMeSensorsData to server; 
+\end_layout
+
+\begin_layout LyX-Code
+receiveShowMeSensorsData: server grant showMeSensorsData;
+\end_layout
+
+\begin_layout LyX-Code
+// show me picture package
+\end_layout
+
+\begin_layout LyX-Code
+sendShowMePackagepicturePackage: uiLog demand showMePicturePackage to server;
+ receiveShowMePackagepicturePackage: server grant showMePicturePackage;
+ 
+\end_layout
+
+\begin_layout Standard
+Per quanto riguarda invece l'invio dei comandi, l'utente Command invia al
+ Server una Request newCommand che verrà inoltrata poi alla unitControl
+ attraverso una nuova Request forwardCommand.
+ Questa scelta è stata effettuata al fine di dividere le responsabilità
+ dei vari Subject, in particolare solo alla controlUnit viene affidato il
+ compito di interagire con il drone
+\end_layout
+
+\begin_layout LyX-Code
+// User command 
+\end_layout
+
+\begin_layout LyX-Code
+Request newCommand;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// Server forward command to drone through controlUnit 
+\end_layout
+
+\begin_layout LyX-Code
+Request forwardCommand; 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// UI send command 
+\end_layout
+
+\begin_layout LyX-Code
+sendUINewCommand: uiCommand demand newCommand to server; 
+\end_layout
+
+\begin_layout LyX-Code
+receiveUINewCommand: server grant newCommand;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// server sends command to drone handler 
+\end_layout
+
+\begin_layout LyX-Code
+sendForwardCommand: server demand forwardCommand to controlUnit; 
+\end_layout
+
+\begin_layout LyX-Code
+receiveForwardCommand: controlUnit grant forwardCommand;
+\end_layout
+
+\begin_layout Standard
+La controlUnit interagisce con il drone attraverso le scelte prese in fase
+ di analisi dei requisiti:
+\end_layout
+
+\begin_layout LyX-Code
+// messages between drone and controlUnit
+\end_layout
+
+\begin_layout LyX-Code
+Dispatch picturePackage;  
+\end_layout
+
+\begin_layout LyX-Code
+Request command; 
+\end_layout
+
+\begin_layout LyX-Code
+Signal sensorsData;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// drone sends sensors data
+\end_layout
+
+\begin_layout LyX-Code
+sendsensorsDatas: drone emit sensorsData;
+\end_layout
+
+\begin_layout LyX-Code
+sensors controlUnitReceiveSensorsDatas: controlUnit sense sensorsData; 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// controlUnit sends command 
+\end_layout
+
+\begin_layout LyX-Code
+sendCommand: controlUnit demand command to drone; 
+\end_layout
+
+\begin_layout LyX-Code
+receiveCommand: drone grant command;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// drone sends picturePackage 
+\end_layout
+
+\begin_layout LyX-Code
+sendDatapicturePackage: drone forward picturePackage to controlUnit;   
+\end_layout
+
+\begin_layout LyX-Code
+receiveDatapicturePackage: controlUnit serve picturePackage;
+\end_layout
+
+\begin_layout Standard
+È utile sottolineare che nel codice riportarto è sottointesa l'idea che
+ i Subject drone e controlUnit possono essere eseguiti su JVM diverse.
+ A tal fine è sufficiente specificare il relativo al supporto.
+ In fase di progettazione verrà utilizzato TCP, ad esempio support=TCP [host="lo
+calhost" port=4050].
+\end_layout
+
+\begin_layout Subsubsection
+Comportamento
+\end_layout
+
+\begin_layout Standard
+Seque la descrizione del comportamento della controlUnit, l'entità responsabile
+ dell'interazione con il drone.
+\end_layout
+
+\begin_layout LyX-Code
+BehaviorOf controlUnit { 
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+var String cmd
+\end_layout
+
+\begin_layout LyX-Code
+var String rpl 	
+\end_layout
+
+\begin_layout LyX-Code
+var String sensorsDatasReceived
+\end_layout
+
+\begin_layout LyX-Code
+var String picturePackageReceived
+\end_layout
+
+\begin_layout LyX-Code
+var boolean tmpCheck
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// store info from drone
+\end_layout
+
+\begin_layout LyX-Code
+action void storeDataSensors(String sensorsDatasReceived)
+\end_layout
+
+\begin_layout LyX-Code
+action void storePicturePackage(String picturePackageReceived)
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// check commands to send 	
+\end_layout
+
+\begin_layout LyX-Code
+action boolean checkCommandStart() 	
+\end_layout
+
+\begin_layout LyX-Code
+action String getWrongStartCommandReply() 	
+\end_layout
+
+\begin_layout LyX-Code
+action boolean storeCommandAndReply(String c, String r) 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// shutdown
+\end_layout
+
+\begin_layout LyX-Code
+action boolean checkEndMission()
+\end_layout
+
+\begin_layout LyX-Code
+action void shutdown() 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_controlUnit_init initial
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+goToState st_controlUnit_ready
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_controlUnit_ready 		
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+doInOut receiveForwardCommand()
+\end_layout
+
+\begin_layout LyX-Code
+set tmpCheck = exec checkCommandStart(code.curInputMsgContent)
+\end_layout
+
+\begin_layout LyX-Code
+if { tmpCheck == true } {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+goToState st_controlUnit_sendCommand
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+} if { tmpCheck == false } {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+goToState st_controlUnit_wrongStartCommand
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// in case of wrong start command received
+\end_layout
+
+\begin_layout LyX-Code
+state st_controlUnit_wrongStartCommand 
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+set cmd = code.curInputMsgContent
+\end_layout
+
+\begin_layout LyX-Code
+set rpl = exec getWrongStartCommandReply()
+\end_layout
+
+\begin_layout LyX-Code
+replyToRequest forwardCommand(rpl)
+\end_layout
+
+\begin_layout LyX-Code
+call storeCommandAndReply(cmd, rpl)
+\end_layout
+
+\begin_layout LyX-Code
+goToState st_controlUnit_ready
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_controlUnit_sendCommand
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+set cmd = code.curInputMsgContent
+\end_layout
+
+\begin_layout LyX-Code
+doOutIn sendCommand(cmd)
+\end_layout
+
+\begin_layout LyX-Code
+acquireAnswerFor command
+\end_layout
+
+\begin_layout LyX-Code
+set rpl = code.curInputMsgContent
+\end_layout
+
+\begin_layout LyX-Code
+call storeCommandAndReply(cmd, rpl)
+\end_layout
+
+\begin_layout LyX-Code
+replyToRequest forwardCommand(rpl)
+\end_layout
+
+\begin_layout LyX-Code
+goToState st_controlUnit_onMission
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_controlUnit_onMission 		
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+// check if there are commands to send
+\end_layout
+
+\begin_layout LyX-Code
+onMessage? forwardCommand goToState st_controlUnit_sendCommand 			
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// get picturePackages
+\end_layout
+
+\begin_layout LyX-Code
+onMessage? picturePackage goToState st_controlUnit_receivedpicturePackage
+ 	
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// get sensors data
+\end_layout
+
+\begin_layout LyX-Code
+onMessage? sensorsData goToState st_controlUnit_receivedSensorsData 	
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// check if end mission
+\end_layout
+
+\begin_layout LyX-Code
+set tmpCheck = exec checkEndMission() 		
+\end_layout
+
+\begin_layout LyX-Code
+if { tmpCheck == true } {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+goToState st_controlUnit_endMission
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+} 	
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_controlUnit_receivedSensorsData
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+doPerceive controlUnitReceiveSensorsDatas()
+\end_layout
+
+\begin_layout LyX-Code
+set sensorsDatasReceived = code.curInputMsgContent
+\end_layout
+
+\begin_layout LyX-Code
+call storeDataSensors(sensorsDatasReceived)
+\end_layout
+
+\begin_layout LyX-Code
+goToState st_controlUnit_onMission
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_controlUnit_receivedpicturePackage
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+doIn receiveDatapicturePackage()
+\end_layout
+
+\begin_layout LyX-Code
+set picturePackageReceived = code.curInputMsgContent
+\end_layout
+
+\begin_layout LyX-Code
+call storePicturePackage(picturePackageReceived)
+\end_layout
+
+\begin_layout LyX-Code
+goToState st_controlUnit_onMission
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_controlUnit_endMission
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+call shutdown() 		
+\end_layout
+
+\begin_layout LyX-Code
+transitToEnd
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate 
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+Ecco invece l'analisi completa del comportamento del server
+\end_layout
+
+\begin_layout LyX-Code
+BehaviorOf server { 
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+var String command 	
+\end_layout
+
+\begin_layout LyX-Code
+var String reply
+\end_layout
+
+\begin_layout LyX-Code
+var String sensorsData
+\end_layout
+
+\begin_layout LyX-Code
+var String picturePackage
+\end_layout
+
+\begin_layout LyX-Code
+var String mission
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+action int showReplyToCommand(String reply)
+\end_layout
+
+\begin_layout LyX-Code
+action String getSensorsData(String time)
+\end_layout
+
+\begin_layout LyX-Code
+action String getMission(String id)
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_Server_init initial
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+goToState st_Server_Handler
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_Server_Handler
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+onMessage? newCommand goToState st_Server_forwardCommand
+\end_layout
+
+\begin_layout LyX-Code
+onMessage? showMeMission goToState st_Server_showMission
+\end_layout
+
+\begin_layout LyX-Code
+onMessage? showMePicturePackage goToState st_Server_showPicturePackage
+\end_layout
+
+\begin_layout LyX-Code
+onMessage? showMeSensorsData goToState st_Server_showSensorsData
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_Server_showMission
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+doInOut receiveShowMeMission()
+\end_layout
+
+\begin_layout LyX-Code
+set mission = exec getSensorsData(code.curInputMsgContent)
+\end_layout
+
+\begin_layout LyX-Code
+replyToRequest showMeMission(mission)
+\end_layout
+
+\begin_layout LyX-Code
+goToState st_Server_Handler
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_Server_showPicturePackage
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+doInOut receiveShowMePackagepicturePackage()
+\end_layout
+
+\begin_layout LyX-Code
+set picturePackage = exec getDatapicturePackage(code.curInputMsgContent)
+\end_layout
+
+\begin_layout LyX-Code
+replyToRequest showMePicturePackage(picturePackage)
+\end_layout
+
+\begin_layout LyX-Code
+goToState st_Server_Handler
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_Server_showSensorsData
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+doInOut receiveShowMeSensorsData() 		
+\end_layout
+
+\begin_layout LyX-Code
+set mission = exec getMission(code.curInputMsgContent)
+\end_layout
+
+\begin_layout LyX-Code
+replyToRequest showMeMission(sensorsData)
+\end_layout
+
+\begin_layout LyX-Code
+goToState st_Server_Handler
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_Server_forwardCommand
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+doInOut receiveUINewCommand()
+\end_layout
+
+\begin_layout LyX-Code
+set command = code.curInputMsgContent
+\end_layout
+
+\begin_layout LyX-Code
+doOutIn sendForwardCommand(command)
+\end_layout
+
+\begin_layout LyX-Code
+acquireAnswerFor forwardCommand
+\end_layout
+
+\begin_layout LyX-Code
+set reply = code.curInputMsgContent
+\end_layout
+
+\begin_layout LyX-Code
+exec showReplyToCommand(reply)
+\end_layout
+
+\begin_layout LyX-Code
+goToState st_Server_Handler
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate 	
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+È utile ricordare che tutte le operzione di get e store saranno implementate
+ in fase di progettazione attraverso una nuova entità detta Storage che
+ sarà responsabile della persistenza dei dati.
+\end_layout
+
+\begin_layout Subsection
+Sottosistema SmartDevice
 \end_layout
 
 \begin_layout Section

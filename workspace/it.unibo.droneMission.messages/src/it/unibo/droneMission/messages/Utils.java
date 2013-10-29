@@ -146,4 +146,23 @@ public class Utils {
 				
 		return -1;
 	}
+	
+	private static String replaceQuotesInContact = "@@@";
+	
+	public static String adaptJSONToContact(String json) {
+		return json.replace("\"", replaceQuotesInContact);
+	}
+	
+	public static String cleanJSONFromContact(String message) {
+		
+		String json = message; 
+		
+		if(json.startsWith("\'") || json.startsWith("\""))
+			json=json.substring(1, json.length()-1);
+		if(json.endsWith("\'") || json.endsWith("\""))
+			json=json.substring(0, json.length()-2);
+		
+		return json.replace(replaceQuotesInContact, "\"").trim();
+		
+	}
 }
