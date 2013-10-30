@@ -1,4 +1,4 @@
-package it.unibo.contact.HeadQuarterAnalisys;
+package it.unibo.contact.HeadQuarterAnalysis;
 
 public class Drone extends DroneSupport {
 	public Drone(String s) throws Exception{

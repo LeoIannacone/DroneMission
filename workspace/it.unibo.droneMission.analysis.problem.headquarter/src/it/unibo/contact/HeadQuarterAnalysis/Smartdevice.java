@@ -1,4 +1,4 @@
-package it.unibo.contact.HeadQuarterAnalisys;
+package it.unibo.contact.HeadQuarterAnalysis;
 
 public class Smartdevice extends SmartdeviceSupport {
 	public Smartdevice(String s) throws Exception{
