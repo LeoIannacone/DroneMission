@@ -86,7 +86,7 @@ BehaviorOf controlUnit {
 	action void storePicturePackage(String picturePackageReceived)
 		
 	// check commands to send
-	action boolean checkCommandStart()
+	action boolean checkCommandStart(String command)
 	action String getWrongStartCommandReply()
 	action boolean storeCommandAndReply(String c, String r)
 	
@@ -177,6 +177,7 @@ BehaviorOf server {
 
 	action int showReplyToCommand(String reply)
 	action String getSensorsData(String time)
+	action String getPicturePackage(String time)
 	action String getMission(String id)
 	
 	state st_Server_init initial 
@@ -199,7 +200,7 @@ BehaviorOf server {
 	
 	state st_Server_showPicturePackage
 		doInOut receiveShowMePackagepicturePackage()
-		set picturePackage = exec getDatapicturePackage(code.curInputMsgContent)
+		set picturePackage = exec getPicturePackage(code.curInputMsgContent)
 		replyToRequest showMePicturePackage(picturePackage)
 		goToState st_Server_Handler
 	endstate

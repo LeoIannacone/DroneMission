@@ -21,7 +21,7 @@ public class ControlUnit extends ControlUnitSupport {
 	}
 
 	@Override
-	protected boolean checkCommandStart() throws Exception {
+	protected boolean checkCommandStart(String command) throws Exception {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -49,5 +49,4 @@ public class ControlUnit extends ControlUnitSupport {
 		// TODO Auto-generated method stub
 		
 	}
-
 }
