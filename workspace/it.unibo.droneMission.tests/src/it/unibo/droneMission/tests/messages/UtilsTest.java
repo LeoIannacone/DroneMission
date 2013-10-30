@@ -130,7 +130,7 @@ public class UtilsTest extends TestCase {
 	
 	public static void testCleanString(){
 		String dataIn="string to clean";
-		String toClean="\' "+dataIn+" \'";
-		assertEquals(Utils.cleanJSONString(toClean), dataIn);
+		String toClean= Utils.adaptJSONToContact(dataIn);
+		assertEquals(Utils.cleanJSONFromContact(toClean), dataIn);
 	}
 }
