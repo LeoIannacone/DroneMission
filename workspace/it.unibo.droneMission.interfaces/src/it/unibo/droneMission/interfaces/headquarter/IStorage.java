@@ -1,5 +1,6 @@
 package it.unibo.droneMission.interfaces.headquarter;
 
+import java.util.Hashtable;
 import java.util.List;
 
 import it.unibo.droneMission.interfaces.messages.ICommand;
@@ -14,27 +15,32 @@ public interface IStorage {
 	// init storage
 	public void init();
 	
+	// mission
+	public void startMission();
+	public void endMission();
+	
 	// commands
-	public void storeCommand(ICommand command);
-	public void storeCommandReply(IReply reply);
-	public ICommand getCommandToSend();
-	public List<ICommand> getLatestCommands(int n);
+	public void storeCommandAndReply(ICommand command, IReply reply);
+	public Hashtable<ICommand, IReply> getLatestCommands(int n);
+	public Hashtable<ICommand, IReply> getCommandsByMission(int missionID);
 	
 	// notify
 	public void storeNotify(INotify notify);
 	public INotify getLatestNotify();
 	public List<INotify> getLatestNotifies(int n);
+	public List<INotify> getNotifiesByMission(int missionID);
 	
 	// sensors data
 	public void storeSensorsData(ISensorsData data);
-	public ISensorsData getSensorsData(long time);
 	public ISensorsData getLatestSensorsData();
 	public List<ISensorsData> getLatestSensorsDatas(int n);
+	public List<ISensorsData> getSensorsDatasByMission(int missionID);
 	
 	// picture package
 	public void storePicturePackage(IPicturePackage pack);
 	public IPicturePackage getLatestPicturePackage();
 	public List<IPicturePackage> getLatestPicturePackages(int n);
+	public List<IPicturePackage> getPicturePackagesByMission(int missionID);
 	
 	// general file
 	public void storeFile(IFile file);

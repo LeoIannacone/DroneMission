@@ -2,6 +2,9 @@ package it.unibo.droneMission.interfaces.headquarter;
 
 public class DataBaseTables {
 	
+	// Missions table
+	// FIX_ME: change tables according with new interfaces
+	
 	// Commands table
 	public static final String COMMANDS_TABLENAME = "commands";
 	public static final String COMMANDS_COLUMN_ID = "id";

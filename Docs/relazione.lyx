@@ -718,7 +718,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Img/use_cases.png
+	filename /tmp/lynxXXXXd4IYBC/Img/use_cases.png
 	width 100text%
 
 \end_inset
@@ -3996,7 +3996,7 @@ Al fine di analizzare la centrale operativa vengono proposti i seguenti
 
 \begin_layout Standard
 \begin_inset Graphics
-	filename Img/Conrol Unit - Use Case.png
+	filename /tmp/lynxXXXXd4IYBC/Img/Conrol Unit - Use Case.png
 
 \end_inset
 
@@ -4890,6 +4890,14 @@ endstate
 È utile ricordare che tutte le operzione di get e store saranno implementate
  in fase di progettazione attraverso una nuova entità detta Storage che
  sarà responsabile della persistenza dei dati.
+\end_layout
+
+\begin_layout Standard
+L'edità Storage dovra implementare la seguente interfaccia:
+\end_layout
+
+\begin_layout Standard
+#FIX_ME: inserire interfaccia storage
 \end_layout
 
 \begin_layout Subsection
