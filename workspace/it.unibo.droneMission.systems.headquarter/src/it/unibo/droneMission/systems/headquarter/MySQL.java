@@ -84,14 +84,18 @@ public class MySQL extends DataBase {
 	
 		try {
 			debug(sql, 3);
-			Statement st = db.createStatement();
-			return st.executeUpdate(sql);
+			Statement st = db.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			st.executeUpdate(sql);
+			ResultSet generateKeys = st.getGeneratedKeys();
+			if(generateKeys.next()) {
+				return generateKeys.getInt("id");
+			}
 		} catch (SQLException e) {
 			System.err.println("Error in executing insert().");
 			System.err.println("SQL:\n"+sql);
 			e.printStackTrace();
 		}
-		return 0;
+		return -1;
 		
 	}
 
