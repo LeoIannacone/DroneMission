@@ -11,6 +11,7 @@ import java.util.List;
 
 import it.unibo.droneMission.interfaces.headquarter.DataBaseTables;
 import it.unibo.droneMission.interfaces.headquarter.IDataBase;
+import it.unibo.droneMission.interfaces.headquarter.IMission;
 import it.unibo.droneMission.interfaces.messages.ICommand;
 import it.unibo.droneMission.interfaces.messages.IFile;
 import it.unibo.droneMission.interfaces.messages.INotify;
@@ -158,6 +159,39 @@ public abstract class DataBase extends Storage implements IDataBase {
 		this.update(set);
 		
 		this.mission = -1;
+	}
+	
+	@Override
+	public IMission getMission(int mission_id) {
+		
+		long startTime = -1;
+		long endTime = -1;
+		
+		this.from(DataBaseTables.MISSIONS_TABLENAME);
+		this.where(DataBaseTables.MISSIONS_ID, "" + mission_id);
+		ResultSet missionSet = this.get();
+		
+		try {
+			if (missionSet.next()) {
+				startTime = missionSet.getLong(DataBaseTables.MISSIONS_START);
+				endTime = missionSet.getLong(DataBaseTables.MISSIONS_END);
+			}
+		} catch (SQLException e) {
+			System.err.println("Error catchig mission information - getMission(int mission_id)");
+			e.printStackTrace();
+			return null;
+		}
+	
+		Mission mission = new Mission();
+		mission.setStartTime(startTime);
+		mission.setEndTime(endTime);
+		mission.setCommands(getCommandsByMission(mission_id));
+		mission.setPicturePackages(getPicturePackagesByMission(mission_id));
+		mission.setNotifies(getNotifiesByMission(mission_id));
+		mission.setSensorsDatas(getSensorsDatasByMission(mission_id));
+		
+		return mission;
+			
 	}
 	
 	@Override
