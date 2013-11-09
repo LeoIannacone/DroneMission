@@ -1,5 +1,6 @@
 package it.unibo.droneMission.systems.headquarter;
 
+import it.unibo.droneMission.interfaces.headquarter.IMission;
 import it.unibo.droneMission.interfaces.messages.ICommand;
 import it.unibo.droneMission.interfaces.messages.INotify;
 import it.unibo.droneMission.interfaces.messages.IPicturePackage;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
-public class Mission {
+public class Mission implements IMission {
 
 	protected Hashtable<ICommand, IReply> commands;
 	protected List<INotify> notifies;
@@ -29,42 +30,52 @@ public class Mission {
 		endTime = -1;
 	}
 	
+	@Override
 	public void setCommands(Hashtable<ICommand, IReply> commands) {
 		this.commands = commands;
 	}
 
+	@Override
 	public Hashtable<ICommand, IReply> getCommands() {
 		return commands;
 	}
 
+	@Override
 	public List<INotify> getNotifies() {
 		return notifies;
 	}
 
+	@Override
 	public void setNotifies(List<INotify> notifies) {
 		this.notifies = notifies;
 	}
 
+	@Override
 	public List<IPicturePackage> getPicturePackages() {
 		return picturePackages;
 	}
 
+	@Override
 	public void setPicturePackages(List<IPicturePackage> picturePackages) {
 		this.picturePackages = picturePackages;
 	}
 
+	@Override
 	public long getStartTime() {
 		return startTime;
 	}
 
+	@Override
 	public void setStartTime(long startTime) {
 		this.startTime = startTime;
 	}
 
+	@Override
 	public long getEndTime() {
 		return endTime;
 	}
 
+	@Override
 	public void setEndTime(long endTime) {
 		this.endTime = endTime;
 	}
