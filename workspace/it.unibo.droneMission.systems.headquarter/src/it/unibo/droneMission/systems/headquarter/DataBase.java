@@ -23,6 +23,7 @@ import it.unibo.droneMission.messages.Factory;
 import it.unibo.droneMission.messages.File;
 import it.unibo.droneMission.messages.Notify;
 import it.unibo.droneMission.messages.PicturePackage;
+import it.unibo.droneMission.messages.Reply;
 import it.unibo.droneMission.messages.SensorsData;
 
 public abstract class DataBase extends Storage implements IDataBase {
@@ -169,83 +170,24 @@ public abstract class DataBase extends Storage implements IDataBase {
 		set.put(DataBaseTables.COMMANDS_COLUMN_VALUE, "" + command.getValue());
 		
 		this.from(DataBaseTables.COMMANDS_TABLENAME);
-		this.insert(set);
+		int command_id = this.insert(set);
+		this._storeCommandReply(reply, command_id);
 	}
 
-	@Override
-	public void storeCommandReply(IReply reply) {
-		ResultSet cmd = _getOldestCommandToSend_SQL();
-		if (cmd == null)
-			return;
-		
+	private void _storeCommandReply(IReply reply, int command_id) {
 		Hashtable<String, String> set = new Hashtable<>();
+		set.put(DataBaseTables.REPLIES_COLUMN_TYPE, "" + reply.getType());
+		set.put(DataBaseTables.REPLIES_COLUMN_TIME, "" + reply.getTime());
+		set.put(DataBaseTables.REPLIES_COLUMN_COMMAND, "" + command_id);
+		set.put(DataBaseTables.REPLIES_COLUMN_VALUE, "" + reply.getValue());
 		
-		try {
-			cmd.next();
-			String cmd_id = cmd.getString(DataBaseTables.COMMANDS_COLUMN_ID);
-			// update cmd status
-			set.put(DataBaseTables.COMMANDS_COLUMN_STATUS, "" + CommandsStatus.REPLIED);
-			this.from(DataBaseTables.COMMANDS_TABLENAME);
-			this.where(DataBaseTables.COMMANDS_COLUMN_ID, cmd_id);
-			this.update(set);
-			
-			// store reply
-			set.clear();
-			set.put(DataBaseTables.REPLIES_COLUMN_TYPE, "" + reply.getType());
-			set.put(DataBaseTables.REPLIES_COLUMN_TIME, "" + reply.getTime());
-			set.put(DataBaseTables.REPLIES_COLUMN_COMMAND, cmd_id);
-			set.put(DataBaseTables.REPLIES_COLUMN_VALUE, "" + reply.getValue());
-			
-			this.from(DataBaseTables.REPLIES_TABLENAME);
-			this.insert(set);
-			
-		} catch (SQLException e) {
-			System.err.println("Error catching command id in storeCommandReply().");
-			e.printStackTrace();
-		}
+		this.from(DataBaseTables.REPLIES_TABLENAME);
+		this.insert(set);
 		
 	}
-	
-	private ResultSet _getOldestCommandToSend_SQL() {
 		
-		this.from(DataBaseTables.COMMANDS_TABLENAME);
-		this.where(DataBaseTables.COMMANDS_COLUMN_STATUS, "" + CommandsStatus.TO_SEND);
-		this.orderBy(DataBaseTables.COMMANDS_COLUMN_ID, this.DESC);
-		this.limit(1);
-		
-		ResultSet cmd = this.get();
-		try {
-			if (cmd.isBeforeFirst())
-				return cmd;
-		} catch (SQLException e) {
-			System.err.println("Error checking if there's data in oldest command query - getOldestCommandToSend()");
-			e.printStackTrace();
-		}
-		return null;
-	}
-
 	@Override
-	public ICommand getCommandToSend() {
-		ResultSet cmdSQL = _getOldestCommandToSend_SQL();
-		if (cmdSQL == null)
-			return null;
-		
-		try {
-			cmdSQL.next();
-			int type = cmdSQL.getInt(DataBaseTables.COMMANDS_COLUMN_TYPE);
-			int value = cmdSQL.getInt(DataBaseTables.COMMANDS_COLUMN_VALUE);
-			long time = cmdSQL.getLong(DataBaseTables.COMMANDS_COLUMN_TIME);
-			Command cmd = new Command(type, value, time);
-			return cmd;
-		} catch (SQLException e) {
-			System.err.println("SQL Error catching command values getCommandToSend()");
-			e.printStackTrace();
-			return null;
-		}
-	}
-	
-	@Override
-	public List<ICommand> getLatestCommands(int n) {
+	public Hashtable<ICommand, IReply> getLatestCommands(int n) {
 		
 		if (n <= 0)
 			return null;
@@ -257,7 +199,7 @@ public abstract class DataBase extends Storage implements IDataBase {
 		
 		ResultSet set = this.get();
 		
-		ArrayList<ICommand> list = new ArrayList<>();
+		Hashtable<ICommand, IReply> list = new Hashtable<>();
 		
 		try {
 			while (set.next()) {
@@ -265,7 +207,9 @@ public abstract class DataBase extends Storage implements IDataBase {
 				int value = set.getInt(DataBaseTables.COMMANDS_COLUMN_VALUE);
 				long time = set.getLong(DataBaseTables.COMMANDS_COLUMN_TIME);
 				Command cmd = new Command(type, value, time);
-				list.add(cmd);
+				int id = set.getInt(DataBaseTables.COMMANDS_COLUMN_ID);
+				IReply rpl = _getReplyByCommandID(id);
+				list.put(cmd, rpl);
 			}
 		} catch (SQLException e) {
 			System.err.println("Error ciclying result from getLatestCommands(int n)");
@@ -274,6 +218,27 @@ public abstract class DataBase extends Storage implements IDataBase {
 		}
 		
 		return list;
+	}
+	
+	private IReply _getReplyByCommandID(int command_id) {
+		this.from(DataBaseTables.REPLIES_TABLENAME);
+		this.where(DataBaseTables.COMMANDS_COLUMN_ID, "" + command_id);
+		
+		ResultSet set = this.get();
+		Reply reply = null;
+		try {
+			if (set.next()) {
+				int type = set.getInt(DataBaseTables.REPLIES_COLUMN_TYPE);
+				String value = set.getString(DataBaseTables.REPLIES_COLUMN_VALUE);
+				long time = set.getLong(DataBaseTables.REPLIES_COLUMN_TIME);
+				reply = new Reply(type, value, time);
+			}
+		} catch (SQLException e) {
+			System.err.println("Error ciclying result from getLatestCommands(int n)");
+			e.printStackTrace();
+		}
+		
+		return reply;
 	}
 
 	@Override
