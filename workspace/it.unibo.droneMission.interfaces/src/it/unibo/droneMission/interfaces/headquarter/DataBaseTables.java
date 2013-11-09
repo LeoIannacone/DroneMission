@@ -19,7 +19,6 @@ public class DataBaseTables {
 	// Replies table
 	public static final String REPLIES_TABLENAME = "replies";
 	public static final String REPLIES_COLUMN_ID = "id";
-	public static final String REPLIES_COLUMN_MISSION = "mission";
 	public static final String REPLIES_COLUMN_TYPE = "type";	
 	public static final String REPLIES_COLUMN_VALUE = "value";
 	public static final String REPLIES_COLUMN_COMMAND = "command_id";
