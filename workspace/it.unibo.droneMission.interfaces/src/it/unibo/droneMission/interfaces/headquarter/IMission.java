@@ -4,6 +4,7 @@ import it.unibo.droneMission.interfaces.messages.ICommand;
 import it.unibo.droneMission.interfaces.messages.INotify;
 import it.unibo.droneMission.interfaces.messages.IPicturePackage;
 import it.unibo.droneMission.interfaces.messages.IReply;
+import it.unibo.droneMission.interfaces.messages.ISensorsData;
 
 import java.util.Hashtable;
 import java.util.List;
@@ -30,5 +31,9 @@ public interface IMission {
 	public abstract long getEndTime();
 
 	public abstract void setEndTime(long endTime);
+
+	List<ISensorsData> getSensorsDatas();
+
+	void setSensorsDatas(List<ISensorsData> sensorsDatas);
 
 }

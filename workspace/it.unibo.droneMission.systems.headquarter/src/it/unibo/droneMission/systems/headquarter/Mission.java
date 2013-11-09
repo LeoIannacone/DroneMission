@@ -79,5 +79,15 @@ public class Mission implements IMission {
 	public void setEndTime(long endTime) {
 		this.endTime = endTime;
 	}
+
+	@Override
+	public List<ISensorsData> getSensorsDatas() {
+		return sensorsDatas;
+	}
+
+	@Override
+	public void setSensorsDatas(List<ISensorsData> sensorsDatas) {
+		this.sensorsDatas = sensorsDatas;
+	}
 	
 }
