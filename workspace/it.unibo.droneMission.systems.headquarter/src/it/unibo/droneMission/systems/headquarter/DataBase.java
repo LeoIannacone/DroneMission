@@ -5,6 +5,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -44,6 +45,8 @@ public abstract class DataBase extends Storage implements IDataBase {
 	protected int offset;
 	
 	protected Connection db;
+	
+	protected int mission;
 	
 	@Override
 	public void init() {
@@ -133,9 +136,32 @@ public abstract class DataBase extends Storage implements IDataBase {
 		return dbname;
 	}
 	
-
 	@Override
-	public void storeCommand(ICommand command) {
+	public void startMission() {
+		long start = new Date().getTime();
+		Hashtable<String, String> set = new Hashtable<>();
+		set.put(DataBaseTables.MISSIONS_START, "" + start);
+		set.put(DataBaseTables.MISSIONS_END, "-1");
+		
+		this.from(DataBaseTables.MISSIONS_TABLENAME);
+		this.mission = this.insert(set);
+	}
+	
+	@Override
+	public void endMission() {
+		long end = new Date().getTime();
+		Hashtable<String, String> set = new Hashtable<>();
+		set.put(DataBaseTables.MISSIONS_END, "" + end);
+		
+		this.from(DataBaseTables.MISSIONS_TABLENAME);
+		this.where(DataBaseTables.MISSIONS_ID, "" + this.mission);
+		this.update(set);
+		
+		this.mission = -1;
+	}
+	
+	@Override
+	public void storeCommandAndReply(ICommand command, IReply reply) {
 		Hashtable<String, String> set = new Hashtable<>();
 		set.put(DataBaseTables.COMMANDS_COLUMN_TYPE, "" + command.getType());
 		set.put(DataBaseTables.COMMANDS_COLUMN_TIME, "" + command.getTime());
