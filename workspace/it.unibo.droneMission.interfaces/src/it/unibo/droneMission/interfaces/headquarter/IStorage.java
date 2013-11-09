@@ -18,6 +18,7 @@ public interface IStorage {
 	// mission
 	public void startMission();
 	public void endMission();
+	public IMission getMission(int id);
 	
 	// commands
 	public void storeCommandAndReply(ICommand command, IReply reply);
