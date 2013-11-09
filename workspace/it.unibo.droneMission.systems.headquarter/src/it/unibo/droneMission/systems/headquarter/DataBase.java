@@ -9,7 +9,6 @@ import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
 
-import it.unibo.droneMission.interfaces.headquarter.CommandsStatus;
 import it.unibo.droneMission.interfaces.headquarter.DataBaseTables;
 import it.unibo.droneMission.interfaces.headquarter.IDataBase;
 import it.unibo.droneMission.interfaces.messages.ICommand;
@@ -166,7 +165,6 @@ public abstract class DataBase extends Storage implements IDataBase {
 		Hashtable<String, String> set = new Hashtable<>();
 		set.put(DataBaseTables.COMMANDS_COLUMN_TYPE, "" + command.getType());
 		set.put(DataBaseTables.COMMANDS_COLUMN_TIME, "" + command.getTime());
-		set.put(DataBaseTables.COMMANDS_COLUMN_STATUS, "" + CommandsStatus.TO_SEND);
 		set.put(DataBaseTables.COMMANDS_COLUMN_VALUE, "" + command.getValue());
 		
 		this.from(DataBaseTables.COMMANDS_TABLENAME);
@@ -185,17 +183,31 @@ public abstract class DataBase extends Storage implements IDataBase {
 		this.insert(set);
 		
 	}
-		
+	
 	@Override
 	public Hashtable<ICommand, IReply> getLatestCommands(int n) {
+		return _getCommandsWithLimitAndMissionID(n, this.mission);
+	}
+
+	@Override
+	public Hashtable<ICommand, IReply> getCommandsByMission(int missionID) {
+		return _getCommandsWithLimitAndMissionID(-1, missionID);
+	}
+
+	private Hashtable<ICommand, IReply> _getCommandsWithLimitAndMissionID(int limit, int mission_id) {
 		
-		if (n <= 0)
+		if (limit == 0)
 			return null;
 		
+		if (mission_id <= 0)
+			mission_id = this.mission;
+		
 		this.from(DataBaseTables.COMMANDS_TABLENAME);
-		this.where(DataBaseTables.COMMANDS_COLUMN_STATUS, "" + CommandsStatus.TO_SEND);
+		this.where(DataBaseTables.COMMANDS_COLUMN_MISSION, "" + mission_id);
 		this.orderBy(DataBaseTables.COMMANDS_COLUMN_ID, this.DESC);
-		this.limit(n);
+		
+		if (limit > 0)
+			this.limit(limit);
 		
 		ResultSet set = this.get();
 		
@@ -240,7 +252,7 @@ public abstract class DataBase extends Storage implements IDataBase {
 		
 		return reply;
 	}
-
+	
 	@Override
 	public void storeNotify(INotify notify) {
 		Hashtable<String, String> set = new Hashtable<>();
@@ -255,12 +267,25 @@ public abstract class DataBase extends Storage implements IDataBase {
 
 	@Override
 	public List<INotify> getLatestNotifies(int n) {
-		if (n <= 0)
+		return _getNotifiesWithLimitAndMissionID(n, this.mission);
+	}
+
+	public List<INotify> getNotifiesByMission(int missionID) {
+		return _getNotifiesWithLimitAndMissionID(-1, missionID);
+	}
+	
+	private List<INotify> _getNotifiesWithLimitAndMissionID(int limit, int mission_id) {
+		if (limit == 0)
 			return null;
-					
+		
+		if (mission_id <= 0)
+			mission_id = this.mission;
+		
 		this.from(DataBaseTables.NOTIFIES_TABLENAME);
+		this.where(DataBaseTables.NOTIFIES_COLUMN_MISSION, "" + mission_id);
 		this.orderBy(DataBaseTables.NOTIFIES_COLUMN_ID, this.DESC);
-		this.limit(n);
+		if (limit > 0)
+			this.limit(limit);
 		
 		ResultSet set = this.get();
 		ArrayList<INotify> list = new ArrayList<INotify>();
@@ -283,40 +308,48 @@ public abstract class DataBase extends Storage implements IDataBase {
 
 	@Override
 	public void storeSensorsData(ISensorsData data) {
-		_storeSensorsDataAndGetResult_SQL(data, false);
+		_storeSensorsData(data);
 	}
 
-	private ResultSet _storeSensorsDataAndGetResult_SQL(ISensorsData data, boolean getResult) {
+	private int _storeSensorsData(ISensorsData data) {
 		Hashtable<String, String> set = new Hashtable<>();
 		set.put(DataBaseTables.SENSORS_COLUMN_DATA, "" + data.toJSON());
 		set.put(DataBaseTables.SENSORS_COLUMN_TIME, "" + data.getTime());
 		
 		this.from(DataBaseTables.SENSORS_TABLENAME);
 		
-		if(this.insert(set) > 0 && getResult)
-			return _getLatestSensorsData_SQL(1);
-		
-		return null;
+		return this.insert(set);
 	}
-	
-	private ResultSet _getLatestSensorsData_SQL(int n) {
-		this.from(DataBaseTables.SENSORS_TABLENAME);
-		this.limit(n);
-		this.orderBy(DataBaseTables.SENSORS_COLUMN_ID, this.DESC);
-		return this.get();
-	}
-	
-	private ResultSet _getSensorsData_ById_SQL(int id) {
-		this.from(DataBaseTables.SENSORS_TABLENAME);
-		this.where(DataBaseTables.SENSORS_COLUMN_ID, "" + id);
-		return this.get();
-	}
-	
-	@Override
+
+	@Override	
 	public List<ISensorsData> getLatestSensorsDatas(int n) {
-		ResultSet set = _getLatestSensorsData_SQL(n);
+		return _getSensorsDatasWithLimitAndMissionID(n, this.mission);
+	}
+
+	@Override
+	public List<ISensorsData> getSensorsDatasByMission(int missionID) {
+		return _getSensorsDatasWithLimitAndMissionID(-1, missionID);
+	}
+	
+	private List<ISensorsData> _getSensorsDatasWithLimitAndMissionID(int limit, int mission_id) {
+		if (limit == 0)
+			return null;
+		
+		if (mission_id <= 0)
+			mission_id = this.mission;
+		
+		this.from(DataBaseTables.SENSORS_TABLENAME);
+		this.where(DataBaseTables.SENSORS_COLUMN_MISSION, "" + mission_id);
+		this.orderBy(DataBaseTables.SENSORS_COLUMN_ID, this.DESC);
+		
+		if (limit > 0)
+			this.limit(limit);
+		
+		ResultSet set = this.get();
+		
 		if (set == null)
 			return null;
+		
 		ArrayList<ISensorsData> list = new ArrayList<ISensorsData>();
 		try {
 			while (set.next()) {
@@ -332,25 +365,10 @@ public abstract class DataBase extends Storage implements IDataBase {
 	}
 
 	@Override
-	public ISensorsData getSensorsData(long time) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void storePicturePackage(IPicturePackage pack) {
 		
-		ResultSet sensorsSQL = _storeSensorsDataAndGetResult_SQL(pack.getSensorsData(), true);
-		int sensorsID;
-		try {
-			sensorsSQL.next();
-			sensorsID = sensorsSQL.getInt(DataBaseTables.SENSORS_COLUMN_ID);
-		} catch (SQLException e) {
-			System.err.println("Error getting ID from sensors ResultSet - storePicturePackage(IPicturePackage pack)");
-			e.printStackTrace();
-			return;
-		}
-		
+		int sensorsID = _storeSensorsData(pack.getSensorsData());
+				
 		IFile picture = pack.getFile();
 		
 		Hashtable<String, String> set = new Hashtable<>();
@@ -363,12 +381,24 @@ public abstract class DataBase extends Storage implements IDataBase {
 		this.insert(set);
 
 	}
+
+	@Override
+	public List<IPicturePackage> getPicturePackagesByMission(int missionID) {
+		return _getPicturePackagesWithLimitAndMissiondID(-1, missionID);
+	}
 	
 	@Override 
 	public List<IPicturePackage> getLatestPicturePackages(int n) {
-		
-		if(n <= 0)
+		return _getPicturePackagesWithLimitAndMissiondID(n, this.mission);
+	}
+	
+	private List<IPicturePackage> _getPicturePackagesWithLimitAndMissiondID(int limit, int mission_id) {
+
+		if(limit == 0)
 			return null;
+		
+		if (mission_id <= 0)
+			mission_id = this.mission;
 		
 		File file = new File(); 
 		SensorsData sensors = new SensorsData();
@@ -376,8 +406,12 @@ public abstract class DataBase extends Storage implements IDataBase {
 		int sensors_id = -1;
 		
 		this.from(DataBaseTables.PICTURES_TABLENAME);
+		this.where(DataBaseTables.PICTURES_COLUMN_MISSION, "" + mission_id);
 		this.orderBy(DataBaseTables.PICTURES_COLUMN_ID, this.DESC);
-		this.limit(n);
+		
+		if (limit > 0)
+			this.limit(limit);
+		
 		ResultSet set = this.get();
 		
 		ArrayList<IPicturePackage> list = new ArrayList<>();
@@ -406,8 +440,11 @@ public abstract class DataBase extends Storage implements IDataBase {
 					continue;
 				}
 				
-				ResultSet setSensors = _getSensorsData_ById_SQL(sensors_id);
-				
+				// get sensors data referees to file
+				this.from(DataBaseTables.SENSORS_TABLENAME);
+				this.where(DataBaseTables.SENSORS_COLUMN_ID, "" + sensors_id);
+				ResultSet setSensors =  this.get();
+
 				if (setSensors == null)
 					continue;
 				
