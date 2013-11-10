@@ -49,7 +49,7 @@ public interface IStorage {
 	public IFile getFile(long time);
 	public List<IFile> getLatestFiles(int n);
 	
-	// for debuggin purpose
+	// for debugging purpose
 	public void setDebug(int level);
 	public void debug(String s, int level);
 
