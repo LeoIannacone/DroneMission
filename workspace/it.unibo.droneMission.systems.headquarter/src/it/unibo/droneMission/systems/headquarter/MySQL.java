@@ -1,5 +1,7 @@
 package it.unibo.droneMission.systems.headquarter;
 
+import it.unibo.droneMission.interfaces.headquarter.DataBaseTables;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -88,7 +90,7 @@ public class MySQL extends DataBase {
 			st.executeUpdate(sql);
 			ResultSet generateKeys = st.getGeneratedKeys();
 			if(generateKeys.next()) {
-				return generateKeys.getInt("id");
+				return generateKeys.getInt(DataBaseTables.DEFAULT_COLUMN_ID);
 			}
 		} catch (SQLException e) {
 			System.err.println("Error in executing insert().");
