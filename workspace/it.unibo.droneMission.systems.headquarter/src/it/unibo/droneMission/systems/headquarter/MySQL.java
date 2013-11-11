@@ -86,11 +86,12 @@ public class MySQL extends DataBase {
 	
 		try {
 			debug(sql, 3);
-			Statement st = db.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			st.executeUpdate(sql);
+			Statement st = db.createStatement();
+			st.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
 			ResultSet generateKeys = st.getGeneratedKeys();
 			if(generateKeys.next()) {
-				return generateKeys.getInt(DataBaseTables.DEFAULT_COLUMN_ID);
+				// return auto generated ID
+				return generateKeys.getInt(1);
 			}
 		} catch (SQLException e) {
 			System.err.println("Error in executing insert().");
