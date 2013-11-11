@@ -10,8 +10,8 @@ Subject drone context subSystemDrone ; //external;
 //Subject headQuarter context subSystemHeadQuarter;
 
 Subject server context subSystemHeadQuarter;
-Subject uiLog context subSystemHeadQuarter;
-Subject uiCommand context subSystemHeadQuarter;
+Subject uiLog context subSystemHeadQuarter external;
+Subject uiCommand context subSystemHeadQuarter external;
 Subject controlUnit context subSystemHeadQuarter; 
 
 //		Messages
