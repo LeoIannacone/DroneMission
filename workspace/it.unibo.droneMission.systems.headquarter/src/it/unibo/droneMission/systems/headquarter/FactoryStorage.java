@@ -4,6 +4,12 @@ import it.unibo.droneMission.interfaces.headquarter.IStorage;
 
 public class FactoryStorage {
 	
+	private static String getStorageName(int type) {
+		if (type == MYSQL)
+			return "MySql";
+		return "NO DATABASE";
+	}
+	
 	public static int MYSQL = 1;
 
 	public static IStorage getInstance(int databaseType) throws Exception {
@@ -33,7 +39,7 @@ public class FactoryStorage {
 				e.printStackTrace();
 			}
 		else
-			throw new Exception("Type storage: " + storagetype + "is not valid.");
+			throw new Exception("Type storage: " + getStorageName(databaseType) + "is not valid.");
 			return null;
 	}
 
