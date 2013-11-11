@@ -1,7 +1,5 @@
 package it.unibo.contact.HeadQuarter;
 
-import com.sun.xml.internal.ws.wsdl.writer.document.Types;
-
 import it.unibo.droneMission.interfaces.headquarter.IStorage;
 import it.unibo.droneMission.interfaces.messages.ICommand;
 import it.unibo.droneMission.interfaces.messages.IPicturePackage;
