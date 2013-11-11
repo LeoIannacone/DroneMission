@@ -18,6 +18,8 @@ public interface IStorage {
 	// mission
 	public void startMission();
 	public void endMission();
+	public boolean isOnMission();
+	public int getCurrentMissionID();
 	public IMission getMission(int id);
 	
 	// commands

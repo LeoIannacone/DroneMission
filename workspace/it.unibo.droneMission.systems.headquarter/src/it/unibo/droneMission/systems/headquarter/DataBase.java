@@ -162,6 +162,16 @@ public abstract class DataBase extends Storage implements IDataBase {
 	}
 	
 	@Override
+	public boolean isOnMission() {
+		return this.mission > 0;
+	}
+	
+	@Override
+	public int getCurrentMissionID() {
+		return this.mission;
+	}
+	
+	@Override
 	public IMission getMission(int mission_id) {
 		
 		long startTime = -1;
