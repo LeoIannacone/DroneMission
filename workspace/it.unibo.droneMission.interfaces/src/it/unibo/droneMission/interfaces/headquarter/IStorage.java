@@ -1,6 +1,7 @@
 package it.unibo.droneMission.interfaces.headquarter;
 
 import java.util.Hashtable;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import it.unibo.droneMission.interfaces.messages.ICommand;
@@ -24,8 +25,8 @@ public interface IStorage {
 	
 	// commands
 	public void storeCommandAndReply(ICommand command, IReply reply);
-	public Hashtable<ICommand, IReply> getLatestCommands(int n);
-	public Hashtable<ICommand, IReply> getCommandsByMission(int missionID);
+	public LinkedHashMap<ICommand, IReply> getLatestCommands(int n);
+	public LinkedHashMap<ICommand, IReply> getCommandsByMission(int missionID);
 	
 	// notify
 	public void storeNotify(INotify notify);

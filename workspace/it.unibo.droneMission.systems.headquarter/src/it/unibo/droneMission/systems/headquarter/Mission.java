@@ -8,12 +8,12 @@ import it.unibo.droneMission.interfaces.messages.IReply;
 import it.unibo.droneMission.interfaces.messages.ISensorsData;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class Mission implements IMission {
 
-	protected Hashtable<ICommand, IReply> commands;
+	protected LinkedHashMap<ICommand, IReply> commands;
 	protected List<INotify> notifies;
 	protected List<ISensorsData> sensorsDatas;
 	protected List<IPicturePackage> picturePackages;
@@ -22,7 +22,7 @@ public class Mission implements IMission {
 	protected long endTime;
 	
 	public Mission() {
-		commands = new Hashtable<ICommand, IReply>();
+		commands = new LinkedHashMap<ICommand, IReply>();
 		notifies = new ArrayList<INotify>();
 		sensorsDatas = new ArrayList<ISensorsData>();
 		picturePackages = new ArrayList<IPicturePackage>();
@@ -31,12 +31,12 @@ public class Mission implements IMission {
 	}
 	
 	@Override
-	public void setCommands(Hashtable<ICommand, IReply> commands) {
+	public void setCommands(LinkedHashMap<ICommand, IReply> commands) {
 		this.commands = commands;
 	}
 
 	@Override
-	public Hashtable<ICommand, IReply> getCommands() {
+	public LinkedHashMap<ICommand, IReply> getCommands() {
 		return commands;
 	}
 

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Hashtable;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import it.unibo.droneMission.interfaces.headquarter.DataBaseTables;
@@ -194,6 +195,21 @@ public abstract class DataBase extends Storage implements IDataBase {
 	@Override
 	public IMission getMission(int mission_id) {
 		
+		if (mission_id <= 0) {
+			this.from(DataBaseTables.MISSIONS_TABLENAME);
+			this.orderBy(DataBaseTables.MISSIONS_START, DESC);
+			this.limit(1);
+			ResultSet set = this.get();
+			try {
+				if (set.next()) {
+					mission_id = set.getInt(DataBaseTables.COMMANDS_COLUMN_ID);
+				}
+			} catch (SQLException e) {
+				System.err.println("Error catching last mission ID - getMission()");
+				e.printStackTrace();
+			}
+		}
+		
 		long startTime = -1;
 		long endTime = -1;
 		
@@ -250,17 +266,17 @@ public abstract class DataBase extends Storage implements IDataBase {
 	}
 	
 	@Override
-	public Hashtable<ICommand, IReply> getLatestCommands(int n) {
+	public LinkedHashMap<ICommand, IReply> getLatestCommands(int n) {
 		int mission = getCurrentMissionID();
 		return _getCommandsWithLimitAndMissionID(n, mission);
 	}
 
 	@Override
-	public Hashtable<ICommand, IReply> getCommandsByMission(int missionID) {
+	public LinkedHashMap<ICommand, IReply> getCommandsByMission(int missionID) {
 		return _getCommandsWithLimitAndMissionID(-1, missionID);
 	}
 
-	private Hashtable<ICommand, IReply> _getCommandsWithLimitAndMissionID(int limit, int mission_id) {
+	private LinkedHashMap<ICommand, IReply> _getCommandsWithLimitAndMissionID(int limit, int mission_id) {
 		
 		if (limit == 0)
 			return null;
@@ -277,7 +293,7 @@ public abstract class DataBase extends Storage implements IDataBase {
 		
 		ResultSet set = this.get();
 		
-		Hashtable<ICommand, IReply> list = new Hashtable<>();
+		LinkedHashMap<ICommand, IReply> list = new LinkedHashMap<ICommand, IReply>();
 		
 		try {
 			while (set.next()) {

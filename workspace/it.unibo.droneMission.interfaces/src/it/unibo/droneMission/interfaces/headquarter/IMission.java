@@ -6,14 +6,14 @@ import it.unibo.droneMission.interfaces.messages.IPicturePackage;
 import it.unibo.droneMission.interfaces.messages.IReply;
 import it.unibo.droneMission.interfaces.messages.ISensorsData;
 
-import java.util.Hashtable;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public interface IMission {
 
-	public abstract void setCommands(Hashtable<ICommand, IReply> commands);
+	public abstract void setCommands(LinkedHashMap<ICommand, IReply> commands);
 
-	public abstract Hashtable<ICommand, IReply> getCommands();
+	public abstract LinkedHashMap<ICommand, IReply> getCommands();
 
 	public abstract List<INotify> getNotifies();
 
