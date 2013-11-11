@@ -34,28 +34,31 @@ public class TestDatabaseMySQL {
 		}
 		db.setDebug(3);
 		
-		db.startMission();
+//		db.startMission();
 		
-//		testStartEndMission();
-		testStorePicturePackage();
-		testGetLatestPicturePackage();
-		testStoreNotify();
-		testGetLatestNotify();
-		testStoreSensors();
+		testStartEndMission();
+//		testStorePicturePackage();
+//		testGetLatestPicturePackage();
+//		testStoreNotify();
+//		testGetLatestNotify();
+//		testStoreSensors();
 		
-		db.endMission();
+//		db.endMission();
 		
 	}
 	
 	public static void testStartEndMission() {
-		db.startMission();
 		try {
+			db.startMission();
 			Thread.sleep(4000);
+			System.out.println(db.getCurrentMissionID());
+			Thread.sleep(1000);
+			db.endMission();		
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		db.endMission();		
+		
 	}
 	
 	public static void testStoreNotify() {

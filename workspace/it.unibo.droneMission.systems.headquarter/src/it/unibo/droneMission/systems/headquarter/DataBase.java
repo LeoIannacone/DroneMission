@@ -163,12 +163,31 @@ public abstract class DataBase extends Storage implements IDataBase {
 	
 	@Override
 	public boolean isOnMission() {
-		return this.mission > 0;
+		return getCurrentMissionID() > 0;
 	}
 	
 	@Override
 	public int getCurrentMissionID() {
-		return this.mission;
+		
+		if (this.mission > 0)
+			return this.mission;
+		else {
+			this.from(DataBaseTables.MISSIONS_TABLENAME);
+			this.orderBy(DataBaseTables.MISSIONS_START, DESC);
+			this.limit(1);
+			ResultSet set = this.get();
+			try {
+				if (set.next()) {
+					long end = set.getLong(DataBaseTables.MISSIONS_END);
+					if (end == -1)
+						this.mission = set.getInt(DataBaseTables.COMMANDS_COLUMN_ID);
+				}
+			} catch (SQLException e) {
+				System.err.println("Error catching current mission ID - getCurrentMissionID");
+				e.printStackTrace();
+			}
+			return this.mission;
+		}
 	}
 	
 	@Override
