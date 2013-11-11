@@ -122,7 +122,6 @@ BehaviorOf controlUnit {
 		set cmd = code.curInputMsgContent
 		set rpl = exec getWrongStartCommandReply()
 		replyToRequest forwardCommand(rpl)
-		call storeCommandAndReply(cmd, rpl)
 		goToState st_controlUnit_ready
 	endstate
 	
