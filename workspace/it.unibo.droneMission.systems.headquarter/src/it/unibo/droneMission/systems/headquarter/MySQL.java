@@ -1,7 +1,5 @@
 package it.unibo.droneMission.systems.headquarter;
 
-import it.unibo.droneMission.interfaces.headquarter.DataBaseTables;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Hashtable;
