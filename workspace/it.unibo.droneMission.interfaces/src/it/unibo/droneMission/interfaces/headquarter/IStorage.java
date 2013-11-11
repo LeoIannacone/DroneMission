@@ -1,6 +1,5 @@
 package it.unibo.droneMission.interfaces.headquarter;
 
-import java.util.Hashtable;
 import java.util.LinkedHashMap;
 import java.util.List;
 

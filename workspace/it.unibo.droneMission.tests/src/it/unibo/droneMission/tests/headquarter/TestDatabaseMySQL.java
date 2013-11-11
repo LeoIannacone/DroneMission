@@ -1,12 +1,5 @@
 package it.unibo.droneMission.tests.headquarter;
 
-import java.util.Hashtable;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Set;
-
-import com.sun.jmx.remote.util.OrderClassLoaders;
-
 import it.unibo.droneMission.gauge.Fuelometer;
 import it.unibo.droneMission.gauge.GaugeValueDouble;
 import it.unibo.droneMission.gauge.GaugeValueInt;
