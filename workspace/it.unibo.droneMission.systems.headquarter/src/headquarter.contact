@@ -81,6 +81,9 @@ BehaviorOf controlUnit {
 	
 	var boolean tmpCheck
 	
+	// store mission starts
+	action void storeMissionStarted()
+	
 	// store info from drone
 	action void storeDataSensors(String sensorsDatasReceived)
 	action void storePicturePackage(String picturePackageReceived)
@@ -88,7 +91,7 @@ BehaviorOf controlUnit {
 	// check commands to send
 	action boolean checkCommandStart(String command)
 	action String getWrongStartCommandReply()
-	action boolean storeCommandAndReply(String c, String r)
+	action void storeCommandAndReply(String c, String r)
 	
 	// shutdown
 	action boolean checkEndMission()
@@ -102,11 +105,16 @@ BehaviorOf controlUnit {
 		doInOut receiveForwardCommand()
 		set tmpCheck = exec checkCommandStart(code.curInputMsgContent)
 		if { tmpCheck == true } {
-			goToState st_controlUnit_sendCommand
+			goToState st_controlUnit_startMission
 		}
 		if { tmpCheck == false } {
 			goToState st_controlUnit_wrongStartCommand
 		}
+	endstate
+	
+	state st_controlUnit_startMission
+		call storeMissionStarted()
+		goToState st_controlUnit_sendCommand
 	endstate
 	
 	// in case of wrong start command received
