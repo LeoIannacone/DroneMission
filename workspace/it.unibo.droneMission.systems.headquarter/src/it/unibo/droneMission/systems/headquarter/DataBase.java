@@ -150,12 +150,13 @@ public abstract class DataBase extends Storage implements IDataBase {
 	
 	@Override
 	public void endMission() {
+		int mission = getCurrentMissionID();
 		long end = new Date().getTime();
 		Hashtable<String, String> set = new Hashtable<>();
 		set.put(DataBaseTables.MISSIONS_END, "" + end);
 		
 		this.from(DataBaseTables.MISSIONS_TABLENAME);
-		this.where(DataBaseTables.MISSIONS_ID, "" + this.mission);
+		this.where(DataBaseTables.MISSIONS_ID, "" + mission);
 		this.update(set);
 		
 		this.mission = -1;
@@ -250,7 +251,8 @@ public abstract class DataBase extends Storage implements IDataBase {
 	
 	@Override
 	public Hashtable<ICommand, IReply> getLatestCommands(int n) {
-		return _getCommandsWithLimitAndMissionID(n, this.mission);
+		int mission = getCurrentMissionID();
+		return _getCommandsWithLimitAndMissionID(n, mission);
 	}
 
 	@Override
@@ -332,7 +334,8 @@ public abstract class DataBase extends Storage implements IDataBase {
 
 	@Override
 	public List<INotify> getLatestNotifies(int n) {
-		return _getNotifiesWithLimitAndMissionID(n, this.mission);
+		int mission = getCurrentMissionID();
+		return _getNotifiesWithLimitAndMissionID(n, mission);
 	}
 
 	public List<INotify> getNotifiesByMission(int missionID) {
@@ -389,7 +392,8 @@ public abstract class DataBase extends Storage implements IDataBase {
 
 	@Override	
 	public List<ISensorsData> getLatestSensorsDatas(int n) {
-		return _getSensorsDatasWithLimitAndMissionID(n, this.mission);
+		int mission = getCurrentMissionID();
+		return _getSensorsDatasWithLimitAndMissionID(n, mission);
 	}
 
 	@Override
@@ -456,7 +460,8 @@ public abstract class DataBase extends Storage implements IDataBase {
 	
 	@Override 
 	public List<IPicturePackage> getLatestPicturePackages(int n) {
-		return _getPicturePackagesWithLimitAndMissiondID(n, this.mission);
+		int mission = getCurrentMissionID();
+		return _getPicturePackagesWithLimitAndMissiondID(n, mission);
 	}
 	
 	private List<IPicturePackage> _getPicturePackagesWithLimitAndMissiondID(int limit, int mission_id) {
