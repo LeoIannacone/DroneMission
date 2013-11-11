@@ -6,7 +6,6 @@ import it.unibo.droneMission.gauge.GaugeValueInt;
 import it.unibo.droneMission.gauge.LocTracker;
 import it.unibo.droneMission.gauge.Odometer;
 import it.unibo.droneMission.gauge.Speedometer;
-import it.unibo.droneMission.interfaces.headquarter.IDataBase;
 import it.unibo.droneMission.interfaces.headquarter.IStorage;
 import it.unibo.droneMission.interfaces.messages.ICommand;
 import it.unibo.droneMission.interfaces.messages.INotify;
@@ -29,20 +28,34 @@ public class TestDatabaseMySQL {
 	 */
 	public static void main(String[] args) {
 		try {
-			db = FactoryStorage.getInstance("mysql");
+			db = FactoryStorage.getInstance(FactoryStorage.MYSQL);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		db.setDebug(3);
 		
-//		testStorePicturePackage();
-//		testGetLatestPicturePackage();
-//		testStoreNotify();
-//		testStoreNotify();
-//		testStoreNotify();
-//		testGetLatestNotify();
+		db.startMission();
+		
+//		testStartEndMission();
+		testStorePicturePackage();
+		testGetLatestPicturePackage();
+		testStoreNotify();
+		testGetLatestNotify();
 		testStoreSensors();
 		
+		db.endMission();
+		
+	}
+	
+	public static void testStartEndMission() {
+		db.startMission();
+		try {
+			Thread.sleep(4000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		db.endMission();		
 	}
 	
 	public static void testStoreNotify() {
@@ -62,15 +75,12 @@ public class TestDatabaseMySQL {
 	
 	public static void testStoreCommand() {
 		ICommand command = new Command(10, 3);
-		db.storeCommand(command);
-	}
-	
-	public static void testReplySQL() {
-		testStoreCommand();
 		IReply r = new Reply(1, "This is a reply");
-		db.storeCommandReply(r);
+		
+		db.storeCommandAndReply(command, r);
 	}
 	
+		
 	public static void testStoreSensors() {
 		SensorsData sensors = new SensorsData();
 		
