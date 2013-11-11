@@ -1,11 +1,19 @@
 package it.unibo.droneMission.tests.headquarter;
 
+import java.util.Hashtable;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Set;
+
+import com.sun.jmx.remote.util.OrderClassLoaders;
+
 import it.unibo.droneMission.gauge.Fuelometer;
 import it.unibo.droneMission.gauge.GaugeValueDouble;
 import it.unibo.droneMission.gauge.GaugeValueInt;
 import it.unibo.droneMission.gauge.LocTracker;
 import it.unibo.droneMission.gauge.Odometer;
 import it.unibo.droneMission.gauge.Speedometer;
+import it.unibo.droneMission.interfaces.headquarter.IMission;
 import it.unibo.droneMission.interfaces.headquarter.IStorage;
 import it.unibo.droneMission.interfaces.messages.ICommand;
 import it.unibo.droneMission.interfaces.messages.INotify;
@@ -34,17 +42,57 @@ public class TestDatabaseMySQL {
 		}
 		db.setDebug(3);
 		
-//		db.startMission();
+		db.startMission();
 		
-		testStartEndMission();
+//		testStartEndMission();
 //		testStorePicturePackage();
 //		testGetLatestPicturePackage();
 //		testStoreNotify();
 //		testGetLatestNotify();
 //		testStoreSensors();
 		
-//		db.endMission();
+		testStoreAndGetMission();
 		
+		db.endMission();
+		
+	}
+	
+	public static void testStoreAndGetMission() {
+		testStorePicturePackage();
+		testStorePicturePackage();
+		testStorePicturePackage();
+		testStorePicturePackage();
+		testStoreNotify();
+		testStoreNotify();
+		testStoreNotify();
+		testStoreNotify();
+		testStoreCommand();
+		testStoreCommand();
+		testStoreCommand();
+		testStoreCommand();
+		testStoreSensors();
+		testStoreSensors();
+		testStoreSensors();
+		testStoreSensors();
+
+		IMission m = db.getMission(-1);
+		
+		Object[] cmds = m.getCommands().keySet().toArray();
+		for (int i = 0 ; i < cmds.length; i++) {
+			ICommand c = (ICommand) cmds[i];
+			System.out.println("COMMAND: " + c.toJSON() + " - " + m.getCommands().get(c).toJSON());
+		}
+		
+		for (int i = 0 ; i < m.getNotifies().size(); i++)
+			System.out.println("NOTIFY: " + m.getNotifies().get(i).toJSON());
+		
+		for (int i = 0 ; i < m.getSensorsDatas().size(); i++) {
+			System.out.println("SENSORS: " + m.getSensorsDatas().get(i).toJSON());
+		}
+		
+		for (int i = 0; i < m.getPicturePackages().size(); i++) {
+			System.out.println("PICT: " + m.getPicturePackages().get(i).toJSON());
+		}
 	}
 	
 	public static void testStartEndMission() {
