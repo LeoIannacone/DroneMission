@@ -3,9 +3,11 @@ package it.unibo.droneMission.systems.headquarter;
 import it.unibo.droneMission.interfaces.headquarter.IStorage;
 
 public class FactoryStorage {
+	
+	public static int MYSQL = 1;
 
-	public static IStorage getInstance(String storagetype) throws Exception {
-		if (storagetype.equalsIgnoreCase("mysql"))
+	public static IStorage getInstance(int databaseType) throws Exception {
+		if (databaseType == MYSQL)
 			try {
 				MySQL db = MySQL.getInstance();
 				//db.setDebug(3);
@@ -14,7 +16,7 @@ public class FactoryStorage {
 					db.setDatabaseName("dronemission");
 					db.setUsername("dronemission");
 					db.setPassword("estate");
-					db.setHostname("10.1.1.99");
+					db.setHostname("127.0.0.1");
 					db.connect();
 				}
 				
