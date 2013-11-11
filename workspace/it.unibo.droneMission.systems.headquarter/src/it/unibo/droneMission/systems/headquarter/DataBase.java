@@ -142,8 +142,8 @@ public abstract class DataBase extends Storage implements IDataBase {
 	public void startMission() {
 		long start = new Date().getTime();
 		Hashtable<String, String> set = new Hashtable<>();
-		set.put(DataBaseTables.MISSIONS_START, "" + start);
-		set.put(DataBaseTables.MISSIONS_END, "-1");
+		set.put(DataBaseTables.MISSIONS_COLUMN_START, "" + start);
+		set.put(DataBaseTables.MISSIONS_COLUMN_END, "-1");
 		
 		this.from(DataBaseTables.MISSIONS_TABLENAME);
 		this.mission = this.insert(set);
@@ -154,10 +154,10 @@ public abstract class DataBase extends Storage implements IDataBase {
 		int mission = getCurrentMissionID();
 		long end = new Date().getTime();
 		Hashtable<String, String> set = new Hashtable<>();
-		set.put(DataBaseTables.MISSIONS_END, "" + end);
+		set.put(DataBaseTables.MISSIONS_COLUMN_END, "" + end);
 		
 		this.from(DataBaseTables.MISSIONS_TABLENAME);
-		this.where(DataBaseTables.MISSIONS_ID, "" + mission);
+		this.where(DataBaseTables.MISSIONS_COLUMN_ID, "" + mission);
 		this.update(set);
 		
 		this.mission = -1;
@@ -175,12 +175,12 @@ public abstract class DataBase extends Storage implements IDataBase {
 			return this.mission;
 		else {
 			this.from(DataBaseTables.MISSIONS_TABLENAME);
-			this.orderBy(DataBaseTables.MISSIONS_START, DESC);
+			this.orderBy(DataBaseTables.MISSIONS_COLUMN_START, DESC);
 			this.limit(1);
 			ResultSet set = this.get();
 			try {
 				if (set.next()) {
-					long end = set.getLong(DataBaseTables.MISSIONS_END);
+					long end = set.getLong(DataBaseTables.MISSIONS_COLUMN_END);
 					if (end == -1)
 						this.mission = set.getInt(DataBaseTables.COMMANDS_COLUMN_ID);
 				}
@@ -197,7 +197,7 @@ public abstract class DataBase extends Storage implements IDataBase {
 		
 		if (mission_id <= 0) {
 			this.from(DataBaseTables.MISSIONS_TABLENAME);
-			this.orderBy(DataBaseTables.MISSIONS_START, DESC);
+			this.orderBy(DataBaseTables.MISSIONS_COLUMN_START, DESC);
 			this.limit(1);
 			ResultSet set = this.get();
 			try {
@@ -214,13 +214,13 @@ public abstract class DataBase extends Storage implements IDataBase {
 		long endTime = -1;
 		
 		this.from(DataBaseTables.MISSIONS_TABLENAME);
-		this.where(DataBaseTables.MISSIONS_ID, "" + mission_id);
+		this.where(DataBaseTables.MISSIONS_COLUMN_ID, "" + mission_id);
 		ResultSet missionSet = this.get();
 		
 		try {
 			if (missionSet.next()) {
-				startTime = missionSet.getLong(DataBaseTables.MISSIONS_START);
-				endTime = missionSet.getLong(DataBaseTables.MISSIONS_END);
+				startTime = missionSet.getLong(DataBaseTables.MISSIONS_COLUMN_START);
+				endTime = missionSet.getLong(DataBaseTables.MISSIONS_COLUMN_END);
 			}
 		} catch (SQLException e) {
 			System.err.println("Error catchig mission information - getMission(int mission_id)");

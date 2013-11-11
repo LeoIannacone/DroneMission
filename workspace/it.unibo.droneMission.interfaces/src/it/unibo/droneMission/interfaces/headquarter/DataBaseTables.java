@@ -7,9 +7,9 @@ public class DataBaseTables {
 	
 	// Missions table
 	public static final String MISSIONS_TABLENAME = "missions";
-	public static final String MISSIONS_ID = DEFAULT_COLUMN_ID;
-	public static final String MISSIONS_START = "t_start";
-	public static final String MISSIONS_END = "t_end";
+	public static final String MISSIONS_COLUMN_ID = DEFAULT_COLUMN_ID;
+	public static final String MISSIONS_COLUMN_START = "t_start";
+	public static final String MISSIONS_COLUMN_END = "t_end";
 	
 	// Commands table
 	public static final String COMMANDS_TABLENAME = "commands";
