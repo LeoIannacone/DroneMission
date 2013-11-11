@@ -50,9 +50,9 @@ public class TestDatabaseMySQL {
 	public static void testStartEndMission() {
 		try {
 			db.startMission();
-			Thread.sleep(4000);
+//			Thread.sleep(4000);
 			System.out.println(db.getCurrentMissionID());
-			Thread.sleep(1000);
+			Thread.sleep(10);
 			db.endMission();		
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block

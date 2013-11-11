@@ -47,7 +47,7 @@ public abstract class DataBase extends Storage implements IDataBase {
 	
 	protected Connection db;
 	
-	protected int mission;
+	protected int mission = -1;
 	
 	@Override
 	public void init() {
@@ -229,7 +229,7 @@ public abstract class DataBase extends Storage implements IDataBase {
 		Hashtable<String, String> set = new Hashtable<>();
 		set.put(DataBaseTables.COMMANDS_COLUMN_TYPE, "" + command.getType());
 		set.put(DataBaseTables.COMMANDS_COLUMN_TIME, "" + command.getTime());
-		set.put(DataBaseTables.COMMANDS_COLUMN_MISSION, "" + this.mission);
+		set.put(DataBaseTables.COMMANDS_COLUMN_MISSION, "" + getCurrentMissionID());
 		set.put(DataBaseTables.COMMANDS_COLUMN_VALUE, "" + command.getValue());
 		
 		this.from(DataBaseTables.COMMANDS_TABLENAME);
@@ -266,7 +266,7 @@ public abstract class DataBase extends Storage implements IDataBase {
 			return null;
 		
 		if (mission_id <= 0)
-			mission_id = this.mission;
+			mission_id = getCurrentMissionID();
 		
 		this.from(DataBaseTables.COMMANDS_TABLENAME);
 		this.where(DataBaseTables.COMMANDS_COLUMN_MISSION, "" + mission_id);
@@ -324,7 +324,7 @@ public abstract class DataBase extends Storage implements IDataBase {
 		Hashtable<String, String> set = new Hashtable<>();
 		set.put(DataBaseTables.NOTIFIES_COLUMN_TYPE, "" + notify.getType());
 		set.put(DataBaseTables.NOTIFIES_COLUMN_TIME, "" + notify.getTime());
-		set.put(DataBaseTables.NOTIFIES_COLUMN_MISSION, "" + this.mission);
+		set.put(DataBaseTables.NOTIFIES_COLUMN_MISSION, "" + getCurrentMissionID());
 		set.put(DataBaseTables.NOTIFIES_COLUMN_VALUE, "" + notify.getValue());
 		
 		this.from(DataBaseTables.NOTIFIES_TABLENAME);
@@ -347,7 +347,7 @@ public abstract class DataBase extends Storage implements IDataBase {
 			return null;
 		
 		if (mission_id <= 0)
-			mission_id = this.mission;
+			mission_id = getCurrentMissionID();
 		
 		this.from(DataBaseTables.NOTIFIES_TABLENAME);
 		this.where(DataBaseTables.NOTIFIES_COLUMN_MISSION, "" + mission_id);
@@ -382,7 +382,7 @@ public abstract class DataBase extends Storage implements IDataBase {
 	private int _storeSensorsData(ISensorsData data) {
 		Hashtable<String, String> set = new Hashtable<>();
 		set.put(DataBaseTables.SENSORS_COLUMN_DATA, "" + data.toJSON());
-		set.put(DataBaseTables.SENSORS_COLUMN_MISSION, "" + this.mission);
+		set.put(DataBaseTables.SENSORS_COLUMN_MISSION, "" + getCurrentMissionID());
 		set.put(DataBaseTables.SENSORS_COLUMN_TIME, "" + data.getTime());
 		
 		this.from(DataBaseTables.SENSORS_TABLENAME);
@@ -406,7 +406,7 @@ public abstract class DataBase extends Storage implements IDataBase {
 			return null;
 		
 		if (mission_id <= 0)
-			mission_id = this.mission;
+			mission_id = getCurrentMissionID();
 		
 		this.from(DataBaseTables.SENSORS_TABLENAME);
 		this.where(DataBaseTables.SENSORS_COLUMN_MISSION, "" + mission_id);
@@ -446,7 +446,7 @@ public abstract class DataBase extends Storage implements IDataBase {
 		set.put(DataBaseTables.PICTURES_COLUMN_FILE_NAME, "" + picture.getName());
 		set.put(DataBaseTables.PICTURES_COLUMN_FILE_DATA, "" + picture.getDataAsBase64());
 		set.put(DataBaseTables.PICTURES_COLUMN_SENSORS, "" + sensorsID);
-		set.put(DataBaseTables.PICTURES_COLUMN_MISSION, "" + this.mission);
+		set.put(DataBaseTables.PICTURES_COLUMN_MISSION, "" + getCurrentMissionID());
 		
 		this.from(DataBaseTables.PICTURES_TABLENAME);
 		this.insert(set);
@@ -470,7 +470,7 @@ public abstract class DataBase extends Storage implements IDataBase {
 			return null;
 		
 		if (mission_id <= 0)
-			mission_id = this.mission;
+			mission_id = getCurrentMissionID();
 		
 		File file = new File(); 
 		SensorsData sensors = new SensorsData();
