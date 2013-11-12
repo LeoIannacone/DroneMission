@@ -24,6 +24,7 @@ Signal notify;
 Request showMeMission;
 Request showMeSensorsData;
 Request showMePicturePackage;
+Request showMeNotifies;
 
 // User command
 Request newCommand;
@@ -38,7 +39,7 @@ sendDatapicturePackage: drone forward picturePackage to controlUnit;
 receiveDatapicturePackage: controlUnit serve picturePackage support=TCP [host="localhost" port=4060];
 
 //Drone sends data of sensors
-sendsensorsDatas: drone emit sensorsData;
+sendSensorsDatas: drone emit sensorsData;
 //Headquarter and smartdevice receive data of sensors
 controlUnitReceiveSensorsDatas: controlUnit sense sensorsData;
 smartdeviceReceivesensorsDatas: smartdevice sense sensorsData;
@@ -63,6 +64,9 @@ receiveShowMeSensorsData: server grant showMeSensorsData;
 
 sendShowMePackagepicturePackage: uiLog demand showMePicturePackage to server;
 receiveShowMePackagepicturePackage: server grant showMePicturePackage;
+
+sendShowMeNotifies: uiLog demand showMeNotifies to server;
+receiveShowMeNotifies: server grant showMeNotifies;
 
 // UI send command
 sendUINewCommand: uiCommand demand newCommand to server;
@@ -182,10 +186,11 @@ BehaviorOf server {
 	var String picturePackage
 	var String mission
 
-	action int showReplyToCommand(String reply)
-	action String getSensorsData(String time)
-	action String getPicturePackage(String time)
-	action String getMission(String id)
+	action String showReplyToCommand(String reply)
+	action String getSensorsData(String mission_id)
+	action String getPicturePackage(String  mission_id)
+	action String getNotifies(String mission_id)
+	action String getMission(String mission_id)
 	
 	state st_Server_init initial 
 		goToState st_Server_Handler
@@ -200,7 +205,7 @@ BehaviorOf server {
 	
 	state st_Server_showMission
 		doInOut receiveShowMeMission()
-		set mission = exec getSensorsData(code.curInputMsgContent)
+		set mission = exec getMission(code.curInputMsgContent)
 		replyToRequest showMeMission(mission)
 		goToState st_Server_Handler
 	endstate
@@ -214,7 +219,7 @@ BehaviorOf server {
 	
 	state st_Server_showSensorsData
 		doInOut receiveShowMeSensorsData()
-		set mission = exec getMission(code.curInputMsgContent)
+		set sensorsData = exec getSensorsData(code.curInputMsgContent)
 		replyToRequest showMeMission(sensorsData)
 		goToState st_Server_Handler
 	endstate
@@ -335,7 +340,7 @@ BehaviorOf drone {
 	state st_Drone_onMission
 		// send data sensors
 		set sensorsDatas = exec getDataFromSensors()
-		doOut sendsensorsDatas(sensorsDatas)
+		doOut sendSensorsDatas(sensorsDatas)
 
 		// send picturePackages
 		set datapicturePackage = exec getDatapicturePackage()
