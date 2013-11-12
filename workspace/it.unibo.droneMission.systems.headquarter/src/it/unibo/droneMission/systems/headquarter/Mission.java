@@ -18,6 +18,7 @@ public class Mission implements IMission {
 	protected List<ISensorsData> sensorsDatas;
 	protected List<IPicturePackage> picturePackages;
 
+	protected long id;
 	protected long startTime;
 	protected long endTime;
 	
@@ -28,6 +29,21 @@ public class Mission implements IMission {
 		picturePackages = new ArrayList<IPicturePackage>();
 		startTime = -1;
 		endTime = -1;
+	}
+	
+	public Mission(long id) {
+		this();
+		this.id = id;
+	}
+	
+	@Override 
+	public void setId(long id) {
+		this.id = id;
+	}
+	
+	@Override
+	public long getId() {
+		return id;
 	}
 	
 	@Override

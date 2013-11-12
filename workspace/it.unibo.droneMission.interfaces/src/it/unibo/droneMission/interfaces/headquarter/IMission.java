@@ -11,6 +11,9 @@ import java.util.List;
 
 public interface IMission {
 
+	public void setId(long id);
+	public long getId();
+	
 	public abstract void setCommands(LinkedHashMap<ICommand, IReply> commands);
 
 	public abstract LinkedHashMap<ICommand, IReply> getCommands();
