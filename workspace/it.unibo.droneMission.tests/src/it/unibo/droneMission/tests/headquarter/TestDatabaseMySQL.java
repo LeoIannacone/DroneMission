@@ -86,6 +86,8 @@ public class TestDatabaseMySQL {
 		for (int i = 0; i < m.getPicturePackages().size(); i++) {
 			System.out.println("PICT: " + m.getPicturePackages().get(i).toJSON());
 		}
+		
+		System.out.println("ID: " + m.getId());
 	}
 	
 	public static void testStartEndMission() {

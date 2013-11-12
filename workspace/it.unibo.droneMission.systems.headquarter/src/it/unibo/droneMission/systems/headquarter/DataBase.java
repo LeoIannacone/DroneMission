@@ -88,7 +88,8 @@ public abstract class DataBase extends Storage implements IDataBase {
 		}
 		return false;
 	}
-		@Override
+	
+	@Override
 	public void setUsername(String username) {
 		this.username = username;
 	}
