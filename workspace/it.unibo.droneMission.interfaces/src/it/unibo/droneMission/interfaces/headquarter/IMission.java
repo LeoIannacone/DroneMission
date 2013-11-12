@@ -11,32 +11,33 @@ import java.util.List;
 
 public interface IMission {
 
+	// mission ID
 	public void setId(long id);
 	public long getId();
-	
-	public abstract void setCommands(LinkedHashMap<ICommand, IReply> commands);
 
-	public abstract LinkedHashMap<ICommand, IReply> getCommands();
-
-	public abstract List<INotify> getNotifies();
-
-	public abstract void setNotifies(List<INotify> notifies);
-
-	public abstract List<IPicturePackage> getPicturePackages();
-
-	public abstract void setPicturePackages(
-			List<IPicturePackage> picturePackages);
-
+	// start mission time
 	public abstract long getStartTime();
-
 	public abstract void setStartTime(long startTime);
 
+	// end mission time
 	public abstract long getEndTime();
-
 	public abstract void setEndTime(long endTime);
 
-	List<ISensorsData> getSensorsDatas();
+	
+	// Commands and replies 
+	public abstract void setCommands(LinkedHashMap<ICommand, IReply> commands);
+	public abstract LinkedHashMap<ICommand, IReply> getCommands();
 
+	// notifies
+	public abstract List<INotify> getNotifies();
+	public abstract void setNotifies(List<INotify> notifies);
+
+	// picture packages
+	public abstract List<IPicturePackage> getPicturePackages();
+	public abstract void setPicturePackages(List<IPicturePackage> picturePackages);
+
+	// sensors data
+	List<ISensorsData> getSensorsDatas();
 	void setSensorsDatas(List<ISensorsData> sensorsDatas);
 
 }
