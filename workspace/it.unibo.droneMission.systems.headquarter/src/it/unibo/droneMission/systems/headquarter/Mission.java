@@ -29,6 +29,7 @@ public class Mission implements IMission {
 		picturePackages = new ArrayList<IPicturePackage>();
 		startTime = -1;
 		endTime = -1;
+		id = -1;
 	}
 	
 	public Mission(long id) {

@@ -196,6 +196,7 @@ public abstract class DataBase extends Storage implements IDataBase {
 	public IMission getMission(int mission_id) {
 		
 		if (mission_id <= 0) {
+			// get last mission ID
 			this.from(DataBaseTables.MISSIONS_TABLENAME);
 			this.orderBy(DataBaseTables.MISSIONS_COLUMN_START, DESC);
 			this.limit(1);
@@ -228,7 +229,7 @@ public abstract class DataBase extends Storage implements IDataBase {
 			return null;
 		}
 	
-		Mission mission = new Mission();
+		Mission mission = new Mission(mission_id);
 		mission.setStartTime(startTime);
 		mission.setEndTime(endTime);
 		mission.setCommands(getCommandsByMission(mission_id));
@@ -237,7 +238,7 @@ public abstract class DataBase extends Storage implements IDataBase {
 		mission.setSensorsDatas(getSensorsDatasByMission(mission_id));
 		
 		return mission;
-			
+
 	}
 	
 	@Override
