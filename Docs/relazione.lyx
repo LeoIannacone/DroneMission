@@ -2913,7 +2913,16 @@ status open
 
 \begin_layout Plain Layout
 
-//Behavior of Drone BehaviorOf drone {
+//Behavior of Drone 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+BehaviorOf drone {
 \end_layout
 
 \begin_layout Plain Layout
@@ -3973,7 +3982,7 @@ Sottosistema Drone
 \end_layout
 
 \begin_layout Standard
-QUI CI ANDREBBE LA DESCRIZIONE DEL DRONE E DEI GAUGES
+#FIX_ME: QUI CI ANDREBBE LA DESCRIZIONE DEL DRONE E DEI GAUGES
 \end_layout
 
 \begin_layout Subsection
@@ -4091,6 +4100,10 @@ Request showMePicturePackage;
 \end_layout
 
 \begin_layout LyX-Code
+Request showMeNotifies;
+\end_layout
+
+\begin_layout LyX-Code
 
 \end_layout
 
@@ -4126,6 +4139,18 @@ receiveShowMeSensorsData: server grant showMeSensorsData;
 sendShowMePackagepicturePackage: uiLog demand showMePicturePackage to server;
  receiveShowMePackagepicturePackage: server grant showMePicturePackage;
  
+\end_layout
+
+\begin_layout LyX-Code
+// show me notifies
+\end_layout
+
+\begin_layout LyX-Code
+sendShowMeNotifies: uiLog demand showMeNotifies to server; 
+\end_layout
+
+\begin_layout LyX-Code
+receiveShowMeNotifies: server grant showMeNotifies; 
 \end_layout
 
 \begin_layout Standard
@@ -4219,11 +4244,11 @@ Signal sensorsData;
 \end_layout
 
 \begin_layout LyX-Code
-sendsensorsDatas: drone emit sensorsData;
+sendSensorsDatas: drone emit sensorsData;
 \end_layout
 
 \begin_layout LyX-Code
-sensors controlUnitReceiveSensorsDatas: controlUnit sense sensorsData; 
+controlUnitReceiveSensorsDatas: controlUnit sense sensorsData; 
 \end_layout
 
 \begin_layout LyX-Code
@@ -4281,7 +4306,7 @@ BehaviorOf controlUnit {
 
 \begin_deeper
 \begin_layout LyX-Code
-var String cmd
+var String cmd 
 \end_layout
 
 \begin_layout LyX-Code
@@ -4289,15 +4314,15 @@ var String rpl
 \end_layout
 
 \begin_layout LyX-Code
-var String sensorsDatasReceived
+var String sensorsDatasReceived 	
 \end_layout
 
 \begin_layout LyX-Code
-var String picturePackageReceived
+var String picturePackageReceived 
 \end_layout
 
 \begin_layout LyX-Code
-var boolean tmpCheck
+var boolean tmpCheck 
 \end_layout
 
 \begin_layout LyX-Code
@@ -4305,15 +4330,27 @@ var boolean tmpCheck
 \end_layout
 
 \begin_layout LyX-Code
-// store info from drone
+// store mission starts 	
 \end_layout
 
 \begin_layout LyX-Code
-action void storeDataSensors(String sensorsDatasReceived)
+action void storeMissionStarted() 
 \end_layout
 
 \begin_layout LyX-Code
-action void storePicturePackage(String picturePackageReceived)
+
+\end_layout
+
+\begin_layout LyX-Code
+// store info from drone 	
+\end_layout
+
+\begin_layout LyX-Code
+action void storeDataSensors(String sensorsDatasReceived) 	
+\end_layout
+
+\begin_layout LyX-Code
+action void storePicturePackage(String picturePackageReceived) 	
 \end_layout
 
 \begin_layout LyX-Code
@@ -4325,7 +4362,7 @@ action void storePicturePackage(String picturePackageReceived)
 \end_layout
 
 \begin_layout LyX-Code
-action boolean checkCommandStart() 	
+action boolean checkCommandStart(String command) 	
 \end_layout
 
 \begin_layout LyX-Code
@@ -4333,7 +4370,7 @@ action String getWrongStartCommandReply()
 \end_layout
 
 \begin_layout LyX-Code
-action boolean storeCommandAndReply(String c, String r) 
+action void storeCommandAndReply(String c, String r) 
 \end_layout
 
 \begin_layout LyX-Code
@@ -4341,11 +4378,11 @@ action boolean storeCommandAndReply(String c, String r)
 \end_layout
 
 \begin_layout LyX-Code
-// shutdown
+// shutdown 	
 \end_layout
 
 \begin_layout LyX-Code
-action boolean checkEndMission()
+action boolean checkEndMission() 	
 \end_layout
 
 \begin_layout LyX-Code
@@ -4357,12 +4394,12 @@ action void shutdown()
 \end_layout
 
 \begin_layout LyX-Code
-state st_controlUnit_init initial
+state st_controlUnit_init initial 		
 \end_layout
 
 \begin_deeper
 \begin_layout LyX-Code
-goToState st_controlUnit_ready
+goToState st_controlUnit_ready 	
 \end_layout
 
 \end_deeper
@@ -4380,183 +4417,34 @@ state st_controlUnit_ready
 
 \begin_deeper
 \begin_layout LyX-Code
-doInOut receiveForwardCommand()
+doInOut receiveForwardCommand() 		
 \end_layout
 
 \begin_layout LyX-Code
-set tmpCheck = exec checkCommandStart(code.curInputMsgContent)
+set tmpCheck = exec checkCommandStart(code.curInputMsgContent) 		
 \end_layout
 
 \begin_layout LyX-Code
-if { tmpCheck == true } {
+if { tmpCheck == true } { 			
 \end_layout
 
 \begin_deeper
 \begin_layout LyX-Code
-goToState st_controlUnit_sendCommand
+goToState st_controlUnit_startMission 		
 \end_layout
 
 \end_deeper
 \begin_layout LyX-Code
-} if { tmpCheck == false } {
+} 		
+\end_layout
+
+\begin_layout LyX-Code
+if { tmpCheck == false } { 			
 \end_layout
 
 \begin_deeper
 \begin_layout LyX-Code
-goToState st_controlUnit_wrongStartCommand
-\end_layout
-
-\end_deeper
-\begin_layout LyX-Code
-}
-\end_layout
-
-\end_deeper
-\begin_layout LyX-Code
-endstate 
-\end_layout
-
-\begin_layout LyX-Code
-
-\end_layout
-
-\begin_layout LyX-Code
-// in case of wrong start command received
-\end_layout
-
-\begin_layout LyX-Code
-state st_controlUnit_wrongStartCommand 
-\end_layout
-
-\begin_deeper
-\begin_layout LyX-Code
-set cmd = code.curInputMsgContent
-\end_layout
-
-\begin_layout LyX-Code
-set rpl = exec getWrongStartCommandReply()
-\end_layout
-
-\begin_layout LyX-Code
-replyToRequest forwardCommand(rpl)
-\end_layout
-
-\begin_layout LyX-Code
-call storeCommandAndReply(cmd, rpl)
-\end_layout
-
-\begin_layout LyX-Code
-goToState st_controlUnit_ready
-\end_layout
-
-\end_deeper
-\begin_layout LyX-Code
-endstate
-\end_layout
-
-\begin_layout LyX-Code
-
-\end_layout
-
-\begin_layout LyX-Code
-state st_controlUnit_sendCommand
-\end_layout
-
-\begin_deeper
-\begin_layout LyX-Code
-set cmd = code.curInputMsgContent
-\end_layout
-
-\begin_layout LyX-Code
-doOutIn sendCommand(cmd)
-\end_layout
-
-\begin_layout LyX-Code
-acquireAnswerFor command
-\end_layout
-
-\begin_layout LyX-Code
-set rpl = code.curInputMsgContent
-\end_layout
-
-\begin_layout LyX-Code
-call storeCommandAndReply(cmd, rpl)
-\end_layout
-
-\begin_layout LyX-Code
-replyToRequest forwardCommand(rpl)
-\end_layout
-
-\begin_layout LyX-Code
-goToState st_controlUnit_onMission
-\end_layout
-
-\end_deeper
-\begin_layout LyX-Code
-endstate 
-\end_layout
-
-\begin_layout LyX-Code
-
-\end_layout
-
-\begin_layout LyX-Code
-state st_controlUnit_onMission 		
-\end_layout
-
-\begin_deeper
-\begin_layout LyX-Code
-// check if there are commands to send
-\end_layout
-
-\begin_layout LyX-Code
-onMessage? forwardCommand goToState st_controlUnit_sendCommand 			
-\end_layout
-
-\begin_layout LyX-Code
-
-\end_layout
-
-\begin_layout LyX-Code
-// get picturePackages
-\end_layout
-
-\begin_layout LyX-Code
-onMessage? picturePackage goToState st_controlUnit_receivedpicturePackage
- 	
-\end_layout
-
-\begin_layout LyX-Code
-
-\end_layout
-
-\begin_layout LyX-Code
-// get sensors data
-\end_layout
-
-\begin_layout LyX-Code
-onMessage? sensorsData goToState st_controlUnit_receivedSensorsData 	
-\end_layout
-
-\begin_layout LyX-Code
-
-\end_layout
-
-\begin_layout LyX-Code
-// check if end mission
-\end_layout
-
-\begin_layout LyX-Code
-set tmpCheck = exec checkEndMission() 		
-\end_layout
-
-\begin_layout LyX-Code
-if { tmpCheck == true } {
-\end_layout
-
-\begin_deeper
-\begin_layout LyX-Code
-goToState st_controlUnit_endMission
+goToState st_controlUnit_wrongStartCommand 		
 \end_layout
 
 \end_deeper
@@ -4574,24 +4462,16 @@ endstate
 \end_layout
 
 \begin_layout LyX-Code
-state st_controlUnit_receivedSensorsData
+state st_controlUnit_startMission 		
 \end_layout
 
 \begin_deeper
 \begin_layout LyX-Code
-doPerceive controlUnitReceiveSensorsDatas()
+call storeMissionStarted() 		
 \end_layout
 
 \begin_layout LyX-Code
-set sensorsDatasReceived = code.curInputMsgContent
-\end_layout
-
-\begin_layout LyX-Code
-call storeDataSensors(sensorsDatasReceived)
-\end_layout
-
-\begin_layout LyX-Code
-goToState st_controlUnit_onMission
+goToState st_controlUnit_sendCommand 	
 \end_layout
 
 \end_deeper
@@ -4604,24 +4484,28 @@ endstate
 \end_layout
 
 \begin_layout LyX-Code
-state st_controlUnit_receivedpicturePackage
+// in case of wrong start command received 	
+\end_layout
+
+\begin_layout LyX-Code
+state st_controlUnit_wrongStartCommand 		
 \end_layout
 
 \begin_deeper
 \begin_layout LyX-Code
-doIn receiveDatapicturePackage()
+set cmd = code.curInputMsgContent 		
 \end_layout
 
 \begin_layout LyX-Code
-set picturePackageReceived = code.curInputMsgContent
+set rpl = exec getWrongStartCommandReply() 		
 \end_layout
 
 \begin_layout LyX-Code
-call storePicturePackage(picturePackageReceived)
+replyToRequest forwardCommand(rpl) 		
 \end_layout
 
 \begin_layout LyX-Code
-goToState st_controlUnit_onMission
+goToState st_controlUnit_ready 	
 \end_layout
 
 \end_deeper
@@ -4634,7 +4518,170 @@ endstate
 \end_layout
 
 \begin_layout LyX-Code
-state st_controlUnit_endMission
+state st_controlUnit_sendCommand 		
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+set cmd = code.curInputMsgContent 		
+\end_layout
+
+\begin_layout LyX-Code
+doOutIn sendCommand(cmd) 		
+\end_layout
+
+\begin_layout LyX-Code
+acquireAnswerFor command 		
+\end_layout
+
+\begin_layout LyX-Code
+set rpl = code.curInputMsgContent 		
+\end_layout
+
+\begin_layout LyX-Code
+call storeCommandAndReply(cmd, rpl) 		
+\end_layout
+
+\begin_layout LyX-Code
+replyToRequest forwardCommand(rpl) 		
+\end_layout
+
+\begin_layout LyX-Code
+goToState st_controlUnit_onMission 	
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_controlUnit_onMission 		
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+// check if there are commands to send 		
+\end_layout
+
+\begin_layout LyX-Code
+onMessage? forwardCommand goToState st_controlUnit_sendCommand 			
+\end_layout
+
+\begin_layout LyX-Code
+// get picturePackages 		
+\end_layout
+
+\begin_layout LyX-Code
+onMessage? picturePackage goToState st_controlUnit_receivedpicturePackage
+ 	
+\end_layout
+
+\begin_layout LyX-Code
+// get sensors data 		
+\end_layout
+
+\begin_layout LyX-Code
+onMessage? sensorsData goToState st_controlUnit_receivedSensorsData 	
+\end_layout
+
+\begin_layout LyX-Code
+// check if end mission 		
+\end_layout
+
+\begin_layout LyX-Code
+set tmpCheck = exec checkEndMission() 		
+\end_layout
+
+\begin_layout LyX-Code
+if { tmpCheck == true } { 			
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+goToState st_controlUnit_endMission 		
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+} 	
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_controlUnit_receivedSensorsData 		
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+doPerceive controlUnitReceiveSensorsDatas() 		
+\end_layout
+
+\begin_layout LyX-Code
+set sensorsDatasReceived = code.curInputMsgContent 		
+\end_layout
+
+\begin_layout LyX-Code
+call storeDataSensors(sensorsDatasReceived) 		
+\end_layout
+
+\begin_layout LyX-Code
+goToState st_controlUnit_onMission 	
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_controlUnit_receivedpicturePackage 		
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+doIn receiveDatapicturePackage() 		
+\end_layout
+
+\begin_layout LyX-Code
+set picturePackageReceived = code.curInputMsgContent 		
+\end_layout
+
+\begin_layout LyX-Code
+call storePicturePackage(picturePackageReceived) 		
+\end_layout
+
+\begin_layout LyX-Code
+goToState st_controlUnit_onMission 	
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_controlUnit_endMission 		
 \end_layout
 
 \begin_deeper
@@ -4643,7 +4690,7 @@ call shutdown()
 \end_layout
 
 \begin_layout LyX-Code
-transitToEnd
+transitToEnd 	
 \end_layout
 
 \end_deeper
@@ -4670,15 +4717,15 @@ var String command
 \end_layout
 
 \begin_layout LyX-Code
-var String reply
+var String reply 	
 \end_layout
 
 \begin_layout LyX-Code
-var String sensorsData
+var String sensorsData 	
 \end_layout
 
 \begin_layout LyX-Code
-var String picturePackage
+var String picturePackage 	
 \end_layout
 
 \begin_layout LyX-Code
@@ -4686,19 +4733,27 @@ var String mission
 \end_layout
 
 \begin_layout LyX-Code
-
+	
 \end_layout
 
 \begin_layout LyX-Code
-action int showReplyToCommand(String reply)
+action String showReplyToCommand(String reply)
 \end_layout
 
 \begin_layout LyX-Code
-action String getSensorsData(String time)
+action String getSensorsData(String mission_id) 	
 \end_layout
 
 \begin_layout LyX-Code
-action String getMission(String id)
+action String getPicturePackage(String  mission_id) 	
+\end_layout
+
+\begin_layout LyX-Code
+action String getNotifies(String mission_id) 	
+\end_layout
+
+\begin_layout LyX-Code
+action String getMission(String mission_id)
 \end_layout
 
 \begin_layout LyX-Code
@@ -4709,9 +4764,67 @@ action String getMission(String id)
 state st_Server_init initial
 \end_layout
 
+\begin_layout LyX-Code
+	goToState st_Server_Handler 	
+\end_layout
+
+\begin_layout LyX-Code
+endstate 
+\end_layout
+
+\begin_layout LyX-Code
+	
+\end_layout
+
+\begin_layout LyX-Code
+state st_Server_Handler 		
+\end_layout
+
 \begin_deeper
 \begin_layout LyX-Code
-goToState st_Server_Handler
+onMessage? newCommand goToState st_Server_forwardCommand 		
+\end_layout
+
+\begin_layout LyX-Code
+onMessage? showMeMission goToState st_Server_showMission 		
+\end_layout
+
+\begin_layout LyX-Code
+onMessage? showMePicturePackage goToState st_Server_showPicturePackage 		
+\end_layout
+
+\begin_layout LyX-Code
+onMessage? showMeSensorsData goToState st_Server_showSensorsData 	
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate 
+\end_layout
+
+\begin_layout LyX-Code
+	
+\end_layout
+
+\begin_layout LyX-Code
+state st_Server_showMission 		
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+doInOut receiveShowMeMission() 		
+\end_layout
+
+\begin_layout LyX-Code
+set mission = exec getMission(code.curInputMsgContent) 		
+\end_layout
+
+\begin_layout LyX-Code
+replyToRequest showMeMission(mission) 		
+\end_layout
+
+\begin_layout LyX-Code
+goToState st_Server_Handler 	
 \end_layout
 
 \end_deeper
@@ -4724,24 +4837,24 @@ endstate
 \end_layout
 
 \begin_layout LyX-Code
-state st_Server_Handler
+state st_Server_showPicturePackage 		
 \end_layout
 
 \begin_deeper
 \begin_layout LyX-Code
-onMessage? newCommand goToState st_Server_forwardCommand
+doInOut receiveShowMePackagepicturePackage() 		
 \end_layout
 
 \begin_layout LyX-Code
-onMessage? showMeMission goToState st_Server_showMission
+set picturePackage = exec getPicturePackage(code.curInputMsgContent) 		
 \end_layout
 
 \begin_layout LyX-Code
-onMessage? showMePicturePackage goToState st_Server_showPicturePackage
+replyToRequest showMePicturePackage(picturePackage) 		
 \end_layout
 
 \begin_layout LyX-Code
-onMessage? showMeSensorsData goToState st_Server_showSensorsData
+goToState st_Server_Handler 	
 \end_layout
 
 \end_deeper
@@ -4754,67 +4867,7 @@ endstate
 \end_layout
 
 \begin_layout LyX-Code
-state st_Server_showMission
-\end_layout
-
-\begin_deeper
-\begin_layout LyX-Code
-doInOut receiveShowMeMission()
-\end_layout
-
-\begin_layout LyX-Code
-set mission = exec getSensorsData(code.curInputMsgContent)
-\end_layout
-
-\begin_layout LyX-Code
-replyToRequest showMeMission(mission)
-\end_layout
-
-\begin_layout LyX-Code
-goToState st_Server_Handler
-\end_layout
-
-\end_deeper
-\begin_layout LyX-Code
-endstate 
-\end_layout
-
-\begin_layout LyX-Code
-
-\end_layout
-
-\begin_layout LyX-Code
-state st_Server_showPicturePackage
-\end_layout
-
-\begin_deeper
-\begin_layout LyX-Code
-doInOut receiveShowMePackagepicturePackage()
-\end_layout
-
-\begin_layout LyX-Code
-set picturePackage = exec getDatapicturePackage(code.curInputMsgContent)
-\end_layout
-
-\begin_layout LyX-Code
-replyToRequest showMePicturePackage(picturePackage)
-\end_layout
-
-\begin_layout LyX-Code
-goToState st_Server_Handler
-\end_layout
-
-\end_deeper
-\begin_layout LyX-Code
-endstate 
-\end_layout
-
-\begin_layout LyX-Code
-
-\end_layout
-
-\begin_layout LyX-Code
-state st_Server_showSensorsData
+state st_Server_showSensorsData 		
 \end_layout
 
 \begin_deeper
@@ -4823,15 +4876,15 @@ doInOut receiveShowMeSensorsData()
 \end_layout
 
 \begin_layout LyX-Code
-set mission = exec getMission(code.curInputMsgContent)
+set sensorsData = exec getSensorsData(code.curInputMsgContent) 		
 \end_layout
 
 \begin_layout LyX-Code
-replyToRequest showMeMission(sensorsData)
+replyToRequest showMeMission(sensorsData) 		
 \end_layout
 
 \begin_layout LyX-Code
-goToState st_Server_Handler
+goToState st_Server_Handler 	
 \end_layout
 
 \end_deeper
@@ -4844,41 +4897,41 @@ endstate
 \end_layout
 
 \begin_layout LyX-Code
-state st_Server_forwardCommand
+state st_Server_forwardCommand 		
 \end_layout
 
 \begin_deeper
 \begin_layout LyX-Code
-doInOut receiveUINewCommand()
+doInOut receiveUINewCommand() 		
 \end_layout
 
 \begin_layout LyX-Code
-set command = code.curInputMsgContent
+set command = code.curInputMsgContent 		
 \end_layout
 
 \begin_layout LyX-Code
-doOutIn sendForwardCommand(command)
+doOutIn sendForwardCommand(command) 		
 \end_layout
 
 \begin_layout LyX-Code
-acquireAnswerFor forwardCommand
+acquireAnswerFor forwardCommand 		
 \end_layout
 
 \begin_layout LyX-Code
-set reply = code.curInputMsgContent
+set reply = code.curInputMsgContent 		
 \end_layout
 
 \begin_layout LyX-Code
-exec showReplyToCommand(reply)
+exec showReplyToCommand(reply) 		
 \end_layout
 
 \begin_layout LyX-Code
-goToState st_Server_Handler
+goToState st_Server_Handler 	
 \end_layout
 
 \end_deeper
 \begin_layout LyX-Code
-endstate 	
+endstate
 \end_layout
 
 \end_deeper
@@ -4887,17 +4940,326 @@ endstate
 \end_layout
 
 \begin_layout Standard
-È utile ricordare che tutte le operzione di get e store saranno implementate
+È utile ricordare che tutte le operzione di Get e Store saranno implementate
  in fase di progettazione attraverso una nuova entità detta Storage che
  sarà responsabile della persistenza dei dati.
 \end_layout
 
 \begin_layout Standard
-L'edità Storage dovra implementare la seguente interfaccia:
+L'entità Storage dovrà implementare la seguente interfaccia:
+\end_layout
+
+\begin_layout LyX-Code
+public interface IStorage {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+// init storage 	
+\end_layout
+
+\begin_layout LyX-Code
+public void init();
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// mission 	
+\end_layout
+
+\begin_layout LyX-Code
+public void startMission(); 	
+\end_layout
+
+\begin_layout LyX-Code
+public void endMission(); 	
+\end_layout
+
+\begin_layout LyX-Code
+public boolean isOnMission(); 	
+\end_layout
+
+\begin_layout LyX-Code
+public int getCurrentMissionID(); 	
+\end_layout
+
+\begin_layout LyX-Code
+public IMission getMission(int id);
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// commands 	
+\end_layout
+
+\begin_layout LyX-Code
+public void storeCommandAndReply(ICommand command, IReply reply); 	
+\end_layout
+
+\begin_layout LyX-Code
+public LinkedHashMap<ICommand, IReply> getLatestCommands(int n); 	
+\end_layout
+
+\begin_layout LyX-Code
+public LinkedHashMap<ICommand, IReply> getCommandsByMission(int missionID);
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// notify 	
+\end_layout
+
+\begin_layout LyX-Code
+public void storeNotify(INotify notify); 	
+\end_layout
+
+\begin_layout LyX-Code
+public INotify getLatestNotify(); 	
+\end_layout
+
+\begin_layout LyX-Code
+public List<INotify> getLatestNotifies(int n); 	
+\end_layout
+
+\begin_layout LyX-Code
+public List<INotify> getNotifiesByMission(int missionID); 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// sensors data 	
+\end_layout
+
+\begin_layout LyX-Code
+public void storeSensorsData(ISensorsData data); 	
+\end_layout
+
+\begin_layout LyX-Code
+public ISensorsData getLatestSensorsData(); 	
+\end_layout
+
+\begin_layout LyX-Code
+public List<ISensorsData> getLatestSensorsDatas(int n); 	
+\end_layout
+
+\begin_layout LyX-Code
+public List<ISensorsData> getSensorsDatasByMission(int missionID); 
+\end_layout
+
+\begin_layout LyX-Code
+	
+\end_layout
+
+\begin_layout LyX-Code
+// picture package 	
+\end_layout
+
+\begin_layout LyX-Code
+public void storePicturePackage(IPicturePackage pack); 	
+\end_layout
+
+\begin_layout LyX-Code
+public IPicturePackage getLatestPicturePackage(); 	
+\end_layout
+
+\begin_layout LyX-Code
+public List<IPicturePackage> getLatestPicturePackages(int n); 	
+\end_layout
+
+\begin_layout LyX-Code
+public List<IPicturePackage> getPicturePackagesByMission(int missionID);
+ 
+\end_layout
+
+\begin_layout LyX-Code
+	
+\end_layout
+
+\begin_layout LyX-Code
+// general file 	
+\end_layout
+
+\begin_layout LyX-Code
+public void storeFile(IFile file); 	
+\end_layout
+
+\begin_layout LyX-Code
+public IFile getFile(String filename); 	
+\end_layout
+
+\begin_layout LyX-Code
+public IFile getFile(long time); 	
+\end_layout
+
+\begin_layout LyX-Code
+public List<IFile> getLatestFiles(int n); 
+\end_layout
+
+\begin_layout LyX-Code
+	
+\end_layout
+
+\begin_layout LyX-Code
+// for debugging purpose 	
+\end_layout
+
+\begin_layout LyX-Code
+public void setDebug(int level); 	
+\end_layout
+
+\begin_layout LyX-Code
+public void debug(String s, int level); 
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
 \end_layout
 
 \begin_layout Standard
-#FIX_ME: inserire interfaccia storage
+Si sceglie di accorpare ICommand e IReply (strettamente connessi) attraverso
+ un LinkedHashMap in modo da mantenere un'ordine preciso dei comandi inviati,
+ in altre parole una lista ordinata cronologicamente.
+\end_layout
+
+\begin_layout Standard
+L'interfaccia IMission è ora definita come segue e rappresenta una completa
+ missione del drone con riferimento ai dati interni, alle fotografie scattate,
+ alle notifiche ricevute e ai comandi inviati:
+\end_layout
+
+\begin_layout LyX-Code
+public interface IMission {	
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+// mission ID 	
+\end_layout
+
+\begin_layout LyX-Code
+public void setId(long id); 	
+\end_layout
+
+\begin_layout LyX-Code
+public long getId();
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// start mission time 	
+\end_layout
+
+\begin_layout LyX-Code
+public long getStartTime(); 	
+\end_layout
+
+\begin_layout LyX-Code
+public void setStartTime(long startTime);
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// end mission time 	
+\end_layout
+
+\begin_layout LyX-Code
+public long getEndTime(); 	
+\end_layout
+
+\begin_layout LyX-Code
+public void setEndTime(long endTime);
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// Commands and replies  	
+\end_layout
+
+\begin_layout LyX-Code
+public void setCommands(LinkedHashMap<ICommand, IReply> commands); 	
+\end_layout
+
+\begin_layout LyX-Code
+public LinkedHashMap<ICommand, IReply> getCommands();
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// notifies 	
+\end_layout
+
+\begin_layout LyX-Code
+public List<INotify> getNotifies(); 	
+\end_layout
+
+\begin_layout LyX-Code
+public void setNotifies(List<INotify> notifies);
+\end_layout
+
+\begin_layout LyX-Code
+	
+\end_layout
+
+\begin_layout LyX-Code
+// picture packages 	
+\end_layout
+
+\begin_layout LyX-Code
+public List<IPicturePackage> getPicturePackages(); 	
+\end_layout
+
+\begin_layout LyX-Code
+public void setPicturePackages(List<IPicturePackage> picturePackages);
+\end_layout
+
+\begin_layout LyX-Code
+	
+\end_layout
+
+\begin_layout LyX-Code
+// sensors data 	
+\end_layout
+
+\begin_layout LyX-Code
+List<ISensorsData> getSensorsDatas(); 	
+\end_layout
+
+\begin_layout LyX-Code
+void setSensorsDatas(List<ISensorsData> sensorsDatas);
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+
 \end_layout
 
 \begin_layout Subsection
