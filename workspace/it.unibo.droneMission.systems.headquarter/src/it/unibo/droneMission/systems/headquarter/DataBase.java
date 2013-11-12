@@ -49,6 +49,7 @@ public abstract class DataBase extends Storage implements IDataBase {
 	protected Connection db;
 	
 	protected int mission = -1;
+	protected boolean isonmission = false;
 	
 	@Override
 	public void init() {
@@ -148,6 +149,7 @@ public abstract class DataBase extends Storage implements IDataBase {
 		
 		this.from(DataBaseTables.MISSIONS_TABLENAME);
 		this.mission = this.insert(set);
+		this.isonmission = true;
 	}
 	
 	@Override
@@ -162,11 +164,12 @@ public abstract class DataBase extends Storage implements IDataBase {
 		this.update(set);
 		
 		this.mission = -1;
+		this.isonmission = false;
 	}
 	
 	@Override
 	public boolean isOnMission() {
-		return getCurrentMissionID() > 0;
+		return this.isonmission;
 	}
 	
 	@Override
