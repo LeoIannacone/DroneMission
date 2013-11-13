@@ -8,27 +8,34 @@ public class Server extends ServerSupport {
 	}
 
 	@Override
-	protected int showReplyToCommand(String reply) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	protected String getSensorsData(String time) throws Exception {
+	protected String showReplyToCommand(String reply) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	protected String getMission(String id) throws Exception {
+	protected String getSensorsData(String mission_id) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	protected String getPicturePackage(String time) throws Exception {
+	protected String getPicturePackage(String mission_id) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	protected String getNotifies(String mission_id) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected String getMission(String mission_id) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

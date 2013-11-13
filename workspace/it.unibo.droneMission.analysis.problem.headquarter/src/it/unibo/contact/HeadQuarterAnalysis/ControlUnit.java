@@ -33,12 +33,6 @@ public class ControlUnit extends ControlUnitSupport {
 	}
 
 	@Override
-	protected boolean storeCommandAndReply(String c, String r) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	protected boolean checkEndMission() throws Exception {
 		// TODO Auto-generated method stub
 		return false;
@@ -46,6 +40,18 @@ public class ControlUnit extends ControlUnitSupport {
 
 	@Override
 	protected void shutdown() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void storeMissionStarted() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void storeCommandAndReply(String c, String r) throws Exception {
 		// TODO Auto-generated method stub
 		
 	}

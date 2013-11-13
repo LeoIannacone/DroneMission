@@ -10,8 +10,8 @@ Subject drone context subSystemDrone ; //external;
 //Subject headQuarter context subSystemHeadQuarter;
 
 Subject server context subSystemHeadQuarter;
-Subject uiLog context subSystemHeadQuarter;
-Subject uiCommand context subSystemHeadQuarter;
+Subject uiLog context subSystemHeadQuarter external;
+Subject uiCommand context subSystemHeadQuarter external;
 Subject controlUnit context subSystemHeadQuarter; 
 
 //		Messages
@@ -24,6 +24,7 @@ Signal notify;
 Request showMeMission;
 Request showMeSensorsData;
 Request showMePicturePackage;
+Request showMeNotifies;
 
 // User command
 Request newCommand;
@@ -38,7 +39,7 @@ sendDatapicturePackage: drone forward picturePackage to controlUnit;
 receiveDatapicturePackage: controlUnit serve picturePackage support=TCP [host="localhost" port=4060];
 
 //Drone sends data of sensors
-sendsensorsDatas: drone emit sensorsData;
+sendSensorsDatas: drone emit sensorsData;
 //Headquarter and smartdevice receive data of sensors
 controlUnitReceiveSensorsDatas: controlUnit sense sensorsData;
 smartdeviceReceivesensorsDatas: smartdevice sense sensorsData;
@@ -64,6 +65,9 @@ receiveShowMeSensorsData: server grant showMeSensorsData;
 sendShowMePackagepicturePackage: uiLog demand showMePicturePackage to server;
 receiveShowMePackagepicturePackage: server grant showMePicturePackage;
 
+sendShowMeNotifies: uiLog demand showMeNotifies to server;
+receiveShowMeNotifies: server grant showMeNotifies;
+
 // UI send command
 sendUINewCommand: uiCommand demand newCommand to server;
 receiveUINewCommand: server grant newCommand;
@@ -81,6 +85,9 @@ BehaviorOf controlUnit {
 	
 	var boolean tmpCheck
 	
+	// store mission starts
+	action void storeMissionStarted()
+	
 	// store info from drone
 	action void storeDataSensors(String sensorsDatasReceived)
 	action void storePicturePackage(String picturePackageReceived)
@@ -88,7 +95,7 @@ BehaviorOf controlUnit {
 	// check commands to send
 	action boolean checkCommandStart(String command)
 	action String getWrongStartCommandReply()
-	action boolean storeCommandAndReply(String c, String r)
+	action void storeCommandAndReply(String c, String r)
 	
 	// shutdown
 	action boolean checkEndMission()
@@ -102,11 +109,16 @@ BehaviorOf controlUnit {
 		doInOut receiveForwardCommand()
 		set tmpCheck = exec checkCommandStart(code.curInputMsgContent)
 		if { tmpCheck == true } {
-			goToState st_controlUnit_sendCommand
+			goToState st_controlUnit_startMission
 		}
 		if { tmpCheck == false } {
 			goToState st_controlUnit_wrongStartCommand
 		}
+	endstate
+	
+	state st_controlUnit_startMission
+		call storeMissionStarted()
+		goToState st_controlUnit_sendCommand
 	endstate
 	
 	// in case of wrong start command received
@@ -114,7 +126,6 @@ BehaviorOf controlUnit {
 		set cmd = code.curInputMsgContent
 		set rpl = exec getWrongStartCommandReply()
 		replyToRequest forwardCommand(rpl)
-		call storeCommandAndReply(cmd, rpl)
 		goToState st_controlUnit_ready
 	endstate
 	
@@ -175,10 +186,11 @@ BehaviorOf server {
 	var String picturePackage
 	var String mission
 
-	action int showReplyToCommand(String reply)
-	action String getSensorsData(String time)
-	action String getPicturePackage(String time)
-	action String getMission(String id)
+	action String showReplyToCommand(String reply)
+	action String getSensorsData(String mission_id)
+	action String getPicturePackage(String  mission_id)
+	action String getNotifies(String mission_id)
+	action String getMission(String mission_id)
 	
 	state st_Server_init initial 
 		goToState st_Server_Handler
@@ -193,7 +205,7 @@ BehaviorOf server {
 	
 	state st_Server_showMission
 		doInOut receiveShowMeMission()
-		set mission = exec getSensorsData(code.curInputMsgContent)
+		set mission = exec getMission(code.curInputMsgContent)
 		replyToRequest showMeMission(mission)
 		goToState st_Server_Handler
 	endstate
@@ -207,7 +219,7 @@ BehaviorOf server {
 	
 	state st_Server_showSensorsData
 		doInOut receiveShowMeSensorsData()
-		set mission = exec getMission(code.curInputMsgContent)
+		set sensorsData = exec getSensorsData(code.curInputMsgContent)
 		replyToRequest showMeMission(sensorsData)
 		goToState st_Server_Handler
 	endstate
@@ -328,7 +340,7 @@ BehaviorOf drone {
 	state st_Drone_onMission
 		// send data sensors
 		set sensorsDatas = exec getDataFromSensors()
-		doOut sendsensorsDatas(sensorsDatas)
+		doOut sendSensorsDatas(sensorsDatas)
 
 		// send picturePackages
 		set datapicturePackage = exec getDatapicturePackage()
