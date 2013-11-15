@@ -86,6 +86,7 @@ BehaviorOf drone {
 	action void startMission()
 	action void endMission()
 	action String handleCommand(String command)
+	action String getWrongCommandStartReply()
 	
 	action boolean checkStartMission(String command)
 	action boolean checkEndMission()
@@ -108,8 +109,16 @@ BehaviorOf drone {
 		if{ startMission } {	
 			goToState st_Drone_startMission
 		}
-		replyToRequest command("FAIL");
+		if { ! startMission } {
+			goToState st_Drone_wrongStartCommand
+		}
+	endstate
+	
+	state st_Drone_wrongStartCommand
+		set reply = call getWrongCommandStartReply()
+		replyToRequest command(reply)
 		println ("ERROR: expected 'setspeed' command to start. Received: " + code.curInputMsgContent)
+		goToState st_Drone_ready
 	endstate
 	
 	state st_Drone_startMission
