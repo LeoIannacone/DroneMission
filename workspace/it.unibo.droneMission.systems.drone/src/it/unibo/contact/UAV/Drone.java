@@ -22,6 +22,7 @@ public class Drone extends DroneSupport {
 	protected LocTracker loctracker;
 	protected Odometer odometer;
 	protected Speedometer speedometer;
+	protected DroneThread thread;
 	
 	public Drone(String name) throws Exception {
 		super(name);
@@ -29,18 +30,17 @@ public class Drone extends DroneSupport {
 		odometer = new Odometer();
 		loctracker = new LocTracker();
 		fuelometer = new Fuelometer();
+		thread = new DroneThread(speedometer, odometer, loctracker, fuelometer);
 	}
 
 	@Override
 	protected void startMission() throws Exception {
-		// TODO Auto-generated method stub
-		
+		thread.start();
 	}
 
 	@Override
 	protected void endMission() throws Exception {
-		// TODO Auto-generated method stub
-		
+		thread.stopMission();
 	}
 
 	protected void setSpeed(double value) {
@@ -106,4 +106,36 @@ public class Drone extends DroneSupport {
 	}
 
 
+	class DroneThread extends Thread {
+		protected Fuelometer fuelometer;
+		protected LocTracker loctracker;
+		protected Odometer odometer;
+		protected Speedometer speedometer;
+		protected boolean onMission;
+		
+		public DroneThread(Speedometer s, Odometer o, LocTracker l, Fuelometer f) {
+			speedometer = s;
+			odometer = o;
+			loctracker = l;
+			fuelometer = f;
+			onMission = true;
+		}
+		
+		public void run() {
+			while (onMission) {
+				try {		
+					fuelometer.update();
+					Thread.sleep(1000);
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}			
+		}
+		
+		public void stopMission() {
+			onMission = false;
+		}
+	}
 }
+
