@@ -64,7 +64,7 @@ public class Drone extends DroneSupport {
 	protected String handleCommand(String commandJSON) throws Exception {
 		IReply reply = new Reply(TypesReply.REPLY_OK);
 		ICommand command = Factory.createCommand(Utils.cleanJSONFromContact(commandJSON));
-		if (command.getTime() == TypesCommand.SPEED_SET) {
+		if (command.getType() == TypesCommand.SPEED_SET) {
 			reply.setValue("Speed set correctly");
 		}
 		
