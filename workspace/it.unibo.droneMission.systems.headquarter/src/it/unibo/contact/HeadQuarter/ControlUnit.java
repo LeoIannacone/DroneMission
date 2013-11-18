@@ -2,10 +2,12 @@ package it.unibo.contact.HeadQuarter;
 
 import it.unibo.droneMission.interfaces.headquarter.IStorage;
 import it.unibo.droneMission.interfaces.messages.ICommand;
+import it.unibo.droneMission.interfaces.messages.INotify;
 import it.unibo.droneMission.interfaces.messages.IPicturePackage;
 import it.unibo.droneMission.interfaces.messages.IReply;
 import it.unibo.droneMission.interfaces.messages.ISensorsData;
 import it.unibo.droneMission.interfaces.messages.TypesCommand;
+import it.unibo.droneMission.interfaces.messages.TypesNotify;
 import it.unibo.droneMission.interfaces.messages.TypesReply;
 import it.unibo.droneMission.messages.Factory;
 import it.unibo.droneMission.messages.Reply;
@@ -76,5 +78,17 @@ public class ControlUnit extends ControlUnitSupport {
 	@Override
 	protected void storeMissionStarted() throws Exception {
 		storage.startMission();
+	}
+
+	@Override
+	protected void storeNotify(String notifyReceived) throws Exception {
+		INotify n = Factory.createNotify(Utils.cleanJSONFromContact(notifyReceived));
+		storage.storeNotify(n);
+	}
+
+	@Override
+	protected boolean checkEndNotify(String notify) throws Exception {
+		INotify n = Factory.createNotify(Utils.cleanJSONFromContact(notifyReceived));
+		return n.getType() == TypesNotify.END_MISSION;
 	}
 }
