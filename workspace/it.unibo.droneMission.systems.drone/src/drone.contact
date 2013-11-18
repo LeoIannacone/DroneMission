@@ -126,6 +126,7 @@ BehaviorOf drone {
 		replyToRequest command(reply);
 		exec startMission()
 		set notify = call getNotifyStart()
+		showMsg("Notify START mission")
 		doOut sendnotify(notify)
 		goToState st_Drone_onMission
 	endstate
@@ -156,6 +157,7 @@ BehaviorOf drone {
 
 	state st_Drone_endMission
 		set notify = exec getNotifyEnd()
+		showMsg("Notify END mission")
 		doOut sendnotify(notify)
 		exec endMission() // empty method - maybe can be used in future?
 		transitToEnd

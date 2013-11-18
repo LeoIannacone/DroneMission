@@ -6,7 +6,7 @@ public final class DefaultValues {
 	public static final int MINSPEED=60; //Km/h
 	public static final int DS=10; // Km/h
 	public static final int DTF=5; // SEC
-	public static final double MAXFUEL =3000; // l --- 30 really 
+	public static final double MAXFUEL =30;
 	public static final double MINFUEL =0.5; // l
 	public static final int MAXODOMETER = 999999; //Km
 	public static final int INITODOMETER = 0; //Km
