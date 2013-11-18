@@ -16,8 +16,11 @@ public class Server extends ServerSupport {
 	public Server(String name) throws Exception {
 		super(name);
 		storage = FactoryStorage.getInstance(FactoryStorage.MYSQL);
-		
-		testStartMission();
+	}
+	
+	@Override
+	public void doJob() throws Exception {
+		testStartMission();	
 	}
 	
 	private void testStartMission() {
@@ -36,7 +39,7 @@ public class Server extends ServerSupport {
 			e.printStackTrace();
 		}
 		curReplyContent = curReply.msgContent();
-		reply =curInputMsgContent;
+		String reply =curInputMsgContent;
 		IReply r = Factory.createReply(Utils.cleanJSONFromContact(reply));
 		return r;
 	}
@@ -45,7 +48,7 @@ public class Server extends ServerSupport {
 		ICommand c = Factory.createCommand(commandJSON);
 		return forwardCommand(c);
 	}
-
+/*
 	@Override
 	protected String showReplyToCommand(String reply) throws Exception {
 		// TODO Auto-generated method stub
@@ -77,5 +80,5 @@ public class Server extends ServerSupport {
 		return null;
 	}
 
-
+*/
 }
