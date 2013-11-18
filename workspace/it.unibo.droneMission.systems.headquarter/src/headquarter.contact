@@ -5,14 +5,14 @@ Context subSystemHeadQuarter -w;
 Context subSystemSmartDevice -w;
 
 //		Subsystems -w (window)
-Subject smartdevice context subSystemSmartDevice ; //external;
-Subject drone context subSystemDrone ; //external;
+Subject smartdevice context subSystemSmartDevice external;
+Subject drone context subSystemDrone external;
 //Subject headQuarter context subSystemHeadQuarter;
 
-Subject server context subSystemHeadQuarter;
+Subject server context subSystemHeadQuarter -w;
 Subject uiLog context subSystemHeadQuarter external;
 Subject uiCommand context subSystemHeadQuarter external;
-Subject controlUnit context subSystemHeadQuarter; 
+Subject controlUnit context subSystemHeadQuarter -w; 
 
 //		Messages
 Dispatch picturePackage; 
@@ -102,6 +102,7 @@ BehaviorOf controlUnit {
 	action void shutdown()
 	
 	state st_controlUnit_init initial
+		showMsg("Control Unit - initial")
 		goToState st_controlUnit_ready
 	endstate
 	
@@ -193,6 +194,7 @@ BehaviorOf server {
 	action String getMission(String mission_id)
 	
 	state st_Server_init initial 
+		showMsg("Server - initial")
 		goToState st_Server_Handler
 	endstate
 	
