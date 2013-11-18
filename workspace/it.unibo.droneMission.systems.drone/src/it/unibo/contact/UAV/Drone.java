@@ -7,13 +7,17 @@ import it.unibo.droneMission.gauge.Odometer;
 import it.unibo.droneMission.gauge.Speedometer;
 import it.unibo.droneMission.interfaces.messages.ICommand;
 import it.unibo.droneMission.interfaces.messages.INotify;
+import it.unibo.droneMission.interfaces.messages.IPicturePackage;
 import it.unibo.droneMission.interfaces.messages.IReply;
 import it.unibo.droneMission.interfaces.messages.TypesCommand;
 import it.unibo.droneMission.interfaces.messages.TypesNotify;
 import it.unibo.droneMission.interfaces.messages.TypesReply;
 import it.unibo.droneMission.messages.Factory;
+import it.unibo.droneMission.messages.File;
 import it.unibo.droneMission.messages.Notify;
+import it.unibo.droneMission.messages.PicturePackage;
 import it.unibo.droneMission.messages.Reply;
+import it.unibo.droneMission.messages.SensorsData;
 import it.unibo.droneMission.messages.Utils;
 
 public class Drone extends DroneSupport {
@@ -23,14 +27,28 @@ public class Drone extends DroneSupport {
 	protected Odometer odometer;
 	protected Speedometer speedometer;
 	protected DroneThread thread;
+	protected SensorsData sensorsData;
+	
+	private int imageCounter;
 	
 	public Drone(String name) throws Exception {
 		super(name);
+		// init gauges
 		speedometer = new Speedometer();
 		odometer = new Odometer();
 		loctracker = new LocTracker();
 		fuelometer = new Fuelometer();
+		// init sensors data
+		sensorsData = new SensorsData();
+		sensorsData.addGauge(speedometer);
+		sensorsData.addGauge(fuelometer);
+		sensorsData.addGauge(loctracker);
+		sensorsData.addGauge(odometer);
+		// thread consumer
 		thread = new DroneThread(speedometer, odometer, loctracker, fuelometer);
+	
+		// image workaround
+		imageCounter = 0;
 	}
 
 	@Override
@@ -76,14 +94,26 @@ public class Drone extends DroneSupport {
 
 	@Override
 	protected String getSensorsData() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return Utils.adaptJSONToContact(sensorsData.toJSON());
 	}
 
 	@Override
 	protected String getPicturePackage() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		
+		// get picture
+		int MAX_FILE = 5;
+		String FILE_EXT = "jpg";
+		if (imageCounter < MAX_FILE)
+			imageCounter = 0;
+		String filePath = "/media/dronemission/pictures";
+		String filename = String.format("%s/%s.%s", filePath, imageCounter, FILE_EXT);
+		File f = new File(filename);
+		PicturePackage p = new PicturePackage(sensorsData, f);
+		
+		// update image counter
+		imageCounter++;
+		
+		return Utils.adaptJSONToContact(p.toJSON());
 	}
 
 	@Override
@@ -124,9 +154,18 @@ public class Drone extends DroneSupport {
 		public void run() {
 			while (onMission) {
 				try {		
+					// consume fuel
 					fuelometer.update();
-					Thread.sleep(1000);
 					
+					// change location
+					// for example - 1km for sec
+					double lat = loctracker.getLat().valAsDouble();
+					GaugeValueDouble newLat = new GaugeValueDouble(lat - 0.015060);
+					loctracker.update(newLat, loctracker.getLon());
+					
+					// sleep
+					Thread.sleep(1000);
+								
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
