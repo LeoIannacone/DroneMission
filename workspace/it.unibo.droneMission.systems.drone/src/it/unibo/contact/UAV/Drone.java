@@ -27,7 +27,6 @@ public class Drone extends DroneSupport {
 	protected Odometer odometer;
 	protected Speedometer speedometer;
 	protected DroneThread thread;
-	protected SensorsData sensorsData;
 	
 	private int imageCounter;
 	
@@ -38,12 +37,7 @@ public class Drone extends DroneSupport {
 		odometer = new Odometer();
 		loctracker = new LocTracker();
 		fuelometer = new Fuelometer();
-		// init sensors data
-		sensorsData = new SensorsData();
-		sensorsData.addGauge(speedometer);
-		sensorsData.addGauge(fuelometer);
-		sensorsData.addGauge(loctracker);
-		sensorsData.addGauge(odometer);
+
 		// thread consumer
 		thread = new DroneThread(speedometer, odometer, loctracker, fuelometer);
 	
@@ -58,6 +52,7 @@ public class Drone extends DroneSupport {
 
 	@Override
 	protected void endMission() throws Exception {
+		env.println("END MISSION");
 		thread.stopMission();
 	}
 
@@ -84,31 +79,46 @@ public class Drone extends DroneSupport {
 	@Override
 	protected boolean checkStartMission(String commandJSON) throws Exception {
 		ICommand command = Factory.createCommand(Utils.cleanJSONFromContact(commandJSON));
-		return command.getTime() == TypesCommand.SPEED_SET;
+		return command.getType() == TypesCommand.SPEED_SET;
 	}
 
 	@Override
 	protected boolean checkEndMission() throws Exception {
-		return fuelometer.getVal().valAsDouble() <= 0.5;
+		if (fuelometer.getVal().valAsDouble() <= 0.5)
+		{
+			env.println("FUEL is going to end");
+			return true;
+		} return false;
 	}
 
+	private SensorsData _getSensorsData() {
+		// init sensors data
+		SensorsData sensorsData = new SensorsData();
+		sensorsData.addGauge(speedometer);
+		sensorsData.addGauge(fuelometer);
+		sensorsData.addGauge(loctracker);
+		sensorsData.addGauge(odometer);
+		return sensorsData;
+	}
+	
 	@Override
 	protected String getSensorsData() throws Exception {
-		return Utils.adaptJSONToContact(sensorsData.toJSON());
+		env.println(String.format("Sending Sensors: %s %s %s %s", fuelometer.getCurValRepDisplayed(), odometer.getCurValRepDisplayed(), speedometer.getCurValRepDisplayed(), loctracker.getCurValRepDisplayed()));
+		return Utils.adaptJSONToContact(_getSensorsData().toJSON());
 	}
 
 	@Override
 	protected String getPicturePackage() throws Exception {
-		
 		// get picture
 		int MAX_FILE = 5;
 		String FILE_EXT = "jpg";
-		if (imageCounter < MAX_FILE)
+		if (imageCounter == MAX_FILE)
 			imageCounter = 0;
+		env.println("Sending picture: " + imageCounter);
 		String filePath = "/media/dronemission/pictures";
 		String filename = String.format("%s/%s.%s", filePath, imageCounter, FILE_EXT);
 		File f = new File(filename);
-		PicturePackage p = new PicturePackage(sensorsData, f);
+		PicturePackage p = new PicturePackage(_getSensorsData(), f);
 		
 		// update image counter
 		imageCounter++;
@@ -156,7 +166,7 @@ public class Drone extends DroneSupport {
 				try {		
 					// consume fuel
 					fuelometer.update();
-					
+					odometer.update();
 					// change location
 					// for example - 1km for sec
 					double lat = loctracker.getLat().valAsDouble();
