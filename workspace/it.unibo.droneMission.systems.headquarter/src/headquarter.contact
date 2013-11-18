@@ -9,10 +9,10 @@ Subject smartdevice context subSystemSmartDevice external;
 Subject drone context subSystemDrone external;
 //Subject headQuarter context subSystemHeadQuarter;
 
-Subject server context subSystemHeadQuarter -w;
+Subject server context subSystemHeadQuarter;
 Subject uiLog context subSystemHeadQuarter external;
 Subject uiCommand context subSystemHeadQuarter external;
-Subject controlUnit context subSystemHeadQuarter -w; 
+Subject controlUnit context subSystemHeadQuarter; 
 
 //		Messages
 Dispatch picturePackage; 
@@ -179,6 +179,7 @@ BehaviorOf controlUnit {
 	endstate
 }
 
+/*
 BehaviorOf server {
 	
 	var String command
@@ -236,7 +237,7 @@ BehaviorOf server {
 		goToState st_Server_Handler
 	endstate
 		
-}
+}*/
 
 BehaviorOf smartdevice {
 	
