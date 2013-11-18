@@ -3,6 +3,8 @@ package it.unibo.contact.HeadQuarter;
 import it.unibo.droneMission.interfaces.headquarter.IStorage;
 import it.unibo.droneMission.interfaces.messages.ICommand;
 import it.unibo.droneMission.interfaces.messages.IReply;
+import it.unibo.droneMission.interfaces.messages.TypesCommand;
+import it.unibo.droneMission.messages.Command;
 import it.unibo.droneMission.messages.Factory;
 import it.unibo.droneMission.messages.Utils;
 import it.unibo.droneMission.systems.headquarter.FactoryStorage;
@@ -14,6 +16,14 @@ public class Server extends ServerSupport {
 	public Server(String name) throws Exception {
 		super(name);
 		storage = FactoryStorage.getInstance(FactoryStorage.MYSQL);
+		
+		testStartMission();
+	}
+	
+	private void testStartMission() {
+		ICommand c = new Command(TypesCommand.SPEED_SET);
+		c.setValue(60);
+		forwardCommand(c);
 	}
 	
 	public IReply forwardCommand(ICommand command) {
