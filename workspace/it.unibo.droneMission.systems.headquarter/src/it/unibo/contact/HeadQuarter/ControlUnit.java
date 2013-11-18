@@ -19,6 +19,7 @@ public class ControlUnit extends ControlUnitSupport {
 	public ControlUnit(String name) throws Exception {
 		super(name);
 		storage = FactoryStorage.getInstance(FactoryStorage.MYSQL);
+		//storage.setDebug(3);
 	}
 
 	@Override
