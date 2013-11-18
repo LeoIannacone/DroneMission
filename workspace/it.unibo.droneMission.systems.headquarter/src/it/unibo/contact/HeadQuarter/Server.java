@@ -39,7 +39,7 @@ public class Server extends ServerSupport {
 			e.printStackTrace();
 		}
 		curReplyContent = curReply.msgContent();
-		String reply =curInputMsgContent;
+		String reply =curReplyContent;
 		IReply r = Factory.createReply(Utils.cleanJSONFromContact(reply));
 		return r;
 	}
