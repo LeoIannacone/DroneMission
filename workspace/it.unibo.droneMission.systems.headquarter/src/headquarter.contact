@@ -48,6 +48,7 @@ smartdeviceReceivesensorsDatas: smartdevice sense sensorsData;
 sendnotify: drone emit notify;
 //smartdevice receives notifications about mission
 smartdeviceReceiveNotify: smartdevice sense notify;
+controlUnitReceiveNotify: controlUnit sense notify;
 
 //HeadQuarter sends command
 sendCommand: controlUnit demand command to drone;
@@ -82,6 +83,7 @@ BehaviorOf controlUnit {
 	var String rpl
 	var String sensorsDatasReceived
 	var String picturePackageReceived
+	var String notifyReceived
 	
 	var boolean tmpCheck
 	
@@ -91,7 +93,8 @@ BehaviorOf controlUnit {
 	// store info from drone
 	action void storeDataSensors(String sensorsDatasReceived)
 	action void storePicturePackage(String picturePackageReceived)
-		
+	action void storeNotify(String notifyReceived)
+	
 	// check commands to send
 	action boolean checkCommandStart(String command)
 	action String getWrongStartCommandReply()
@@ -99,6 +102,7 @@ BehaviorOf controlUnit {
 	
 	// shutdown
 	action boolean checkEndMission()
+	action boolean checkEndNotify(String notify)
 	action void shutdown()
 	
 	state st_controlUnit_init initial
@@ -151,6 +155,9 @@ BehaviorOf controlUnit {
 		// get sensors data
 		onMessage? sensorsData goToState st_controlUnit_receivedSensorsData
 		
+		// handle notify
+		onMessage? notify goToState st_controlUnit_receivedNotify
+		
 		// check if end mission
 		set tmpCheck = exec checkEndMission()
 		if { tmpCheck == true } {
@@ -171,6 +178,19 @@ BehaviorOf controlUnit {
 		set picturePackageReceived = code.curInputMsgContent
 		call storePicturePackage(picturePackageReceived)
 		goToState st_controlUnit_onMission
+	endstate
+	
+	state st_controlUnit_receivedNotify
+		doPerceive controlUnitReceiveNotify()
+		set notifyReceived = code.curInputMsgContent
+		call storeNotify(notifyReceived)
+		set tmpCheck = exec checkEndNotify(notifyReceived)
+		if {tmpCheck == false} {
+			goToState st_controlUnit_onMission	
+		}
+		if {tmpCheck == true} {
+			goToState st_controlUnit_endMission
+		}
 	endstate
 	
 	state st_controlUnit_endMission
