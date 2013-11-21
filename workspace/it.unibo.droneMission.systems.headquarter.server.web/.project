@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>it.unibo.droneMission.systems.headquarter.webclient</name>
+	<name>it.unibo.droneMission.systems.headquarter.server.web</name>
 	<comment></comment>
 	<projects>
 		<project>it.unibo.droneMission.interfaces</project>
