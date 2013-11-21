@@ -1,6 +1,0 @@
-package it.unibo.contact.HeadQuarter;
-//package it.unibo.contact.DroneMissionSystem;
-//
-//public class SubSystemSmartDevice extends SubSystemSmartDeviceMain {
-//
-//}

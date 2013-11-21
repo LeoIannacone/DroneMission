@@ -48,6 +48,10 @@ public class Server extends ServerSupport {
 		ICommand c = Factory.createCommand(commandJSON);
 		return forwardCommand(c);
 	}
+	
+	public IStorage getStorage() {
+		return storage;
+	}
 /*
 	@Override
 	protected String showReplyToCommand(String reply) throws Exception {
