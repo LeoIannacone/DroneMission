@@ -118,7 +118,7 @@ public class Drone extends DroneSupport {
 		String filePath = "/media/dronemission/pictures";
 		String filename = String.format("%s/%s.%s", filePath, imageCounter, FILE_EXT);
 		File f = new File(filename);
-		PicturePackage p = new PicturePackage(_getSensorsData(), f);
+		IPicturePackage p = new PicturePackage(_getSensorsData(), f);
 		
 		// update image counter
 		imageCounter++;
