@@ -17,6 +17,6 @@ Edit file runserver.sh and set right path to virtualenv.
 You can now execute the script:
   $ bash runserver.sh
 
-And browse the webclient to http://localhost:8000
+And browse the serverweb to http://localhost:8000
 
 Enjoy.

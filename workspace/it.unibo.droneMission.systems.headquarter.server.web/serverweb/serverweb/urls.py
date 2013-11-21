@@ -8,7 +8,7 @@ import settings
 
 urlpatterns = patterns('',
     # Example:
-    # (r'^webclient/', include('webclient.foo.urls')),
+    # (r'^serverweb/', include('serverweb.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     #(r'^admin/doc/', include('django.contrib.admindocs.urls')),
