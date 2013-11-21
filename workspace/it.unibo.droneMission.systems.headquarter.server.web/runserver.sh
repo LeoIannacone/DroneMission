@@ -4,6 +4,8 @@
 export CLASSPATH="$CLASSPATH\
 :`pwd`/../../libs/jars/mysql-connector-java-5.1.16.jar\
 :`pwd`/../../libs/jars/gson-2.2.4.jar\
+:`pwd`/../../libs/jars/it.unibo.interfaces_1.6.12.jar\
+:`pwd`/../../libs/jars/it.unibo.tuprolog_1.0.1.jar\
 :`pwd`/../it.unibo.tmp.jar"
 
 export JYTHONPATH="$JYTHONPATH:`pwd`/serverweb"
