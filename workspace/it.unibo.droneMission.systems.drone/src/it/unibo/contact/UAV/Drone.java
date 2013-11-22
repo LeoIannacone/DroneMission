@@ -44,6 +44,15 @@ public class Drone extends DroneSupport {
 		// image workaround
 		imageCounter = 0;
 	}
+	
+	protected void sleep() {
+		try {
+			Thread.sleep(300);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	protected void startMission() throws Exception {
@@ -85,7 +94,7 @@ public class Drone extends DroneSupport {
 
 	@Override
 	protected boolean checkEndMission() throws Exception {
-		if (fuelometer.getVal().valAsDouble() <= 0.5)
+		if (fuelometer.getVal().valAsDouble() < fuelometer.MIN)
 		{
 			env.println("FUEL is going to end");
 			return true;
@@ -175,7 +184,7 @@ public class Drone extends DroneSupport {
 					loctracker.update(newLat, loctracker.getLon());
 					
 					// sleep
-					Thread.sleep(1000);
+					Thread.sleep(300);
 								
 				} catch (Exception e) {
 					e.printStackTrace();

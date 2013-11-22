@@ -95,6 +95,8 @@ BehaviorOf drone {
 
 	action String getNotifyStart()
 	action String getNotifyEnd()
+	
+	action void sleep()
 
 	state st_Drone_init initial
 		println ("----- Drone Initialized -----")
@@ -152,6 +154,8 @@ BehaviorOf drone {
 
 		// received a command setSpeed or stop?
 		onMessage? command goToState st_Drone_handleCommand
+		
+		exec sleep()
 	endstate
 
 	state st_Drone_endMission
