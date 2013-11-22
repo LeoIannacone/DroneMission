@@ -40,7 +40,6 @@ receiveDatapicturePackage: controlUnit serve picturePackage support=TCP [host="l
 //Drone sends data of sensors
 sendsensorsDatas: drone emit sensorsData;
 //Headquarter and smartdevice receive data of sensors
-controlUnitReceiveSensorsDatas: controlUnit sense sensorsData;
 smartdeviceReceivesensorsDatas: smartdevice sense sensorsData;
 
 //Drone notifies start/end mission
