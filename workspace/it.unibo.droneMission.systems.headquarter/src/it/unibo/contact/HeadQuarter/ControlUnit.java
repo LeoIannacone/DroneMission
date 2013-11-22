@@ -1,13 +1,15 @@
 package it.unibo.contact.HeadQuarter;
 
+import java.util.List;
+
+import it.unibo.droneMission.gauge.Fuelometer;
+import it.unibo.droneMission.interfaces.gauges.IGauge;
 import it.unibo.droneMission.interfaces.headquarter.IStorage;
 import it.unibo.droneMission.interfaces.messages.ICommand;
-import it.unibo.droneMission.interfaces.messages.INotify;
 import it.unibo.droneMission.interfaces.messages.IPicturePackage;
 import it.unibo.droneMission.interfaces.messages.IReply;
 import it.unibo.droneMission.interfaces.messages.ISensorsData;
 import it.unibo.droneMission.interfaces.messages.TypesCommand;
-import it.unibo.droneMission.interfaces.messages.TypesNotify;
 import it.unibo.droneMission.interfaces.messages.TypesReply;
 import it.unibo.droneMission.messages.Factory;
 import it.unibo.droneMission.messages.Reply;
@@ -17,18 +19,31 @@ import it.unibo.droneMission.systems.headquarter.FactoryStorage;
 public class ControlUnit extends ControlUnitSupport {
 
 	private IStorage storage;
+	private double fuelLevel;
 	
 	public ControlUnit(String name) throws Exception {
 		super(name);
+		fuelLevel = Fuelometer.MAX;
 		storage = FactoryStorage.getInstance(FactoryStorage.MYSQL);
 		//storage.setDebug(3);
 	}
 
+	private void setFuelLevelFromGauges(ISensorsData s) {
+		List<IGauge> gauges = s.getGauges();
+		for (IGauge g : gauges) {
+			if (g.getClass() == Fuelometer.class) {
+				fuelLevel = g.getVal().valAsDouble();
+				break;
+			}
+		}
+	}
+	
 	@Override
 	protected void storeDataSensors(String sensorsDatasReceived)
 			throws Exception {
 		sensorsDatasReceived = Utils.cleanJSONFromContact(sensorsDatasReceived);
 		ISensorsData s = Factory.createSensorsData(sensorsDatasReceived);
+		setFuelLevelFromGauges(s);
 		storage.storeSensorsData(s);		
 	}
 
@@ -65,8 +80,7 @@ public class ControlUnit extends ControlUnitSupport {
 
 	@Override
 	protected boolean checkEndMission() throws Exception {
-		// TODO: Implementare - vedere specifiche
-		return false;
+		return fuelLevel <= 0.5;
 	}
 
 	@Override
@@ -78,17 +92,5 @@ public class ControlUnit extends ControlUnitSupport {
 	@Override
 	protected void storeMissionStarted() throws Exception {
 		storage.startMission();
-	}
-
-	@Override
-	protected void storeNotify(String notifyReceived) throws Exception {
-		INotify n = Factory.createNotify(Utils.cleanJSONFromContact(notifyReceived));
-		storage.storeNotify(n);
-	}
-
-	@Override
-	protected boolean checkEndNotify(String notify) throws Exception {
-		INotify n = Factory.createNotify(Utils.cleanJSONFromContact(notifyReceived));
-		return n.getType() == TypesNotify.END_MISSION;
 	}
 }
