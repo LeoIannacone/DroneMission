@@ -92,7 +92,6 @@ BehaviorOf controlUnit {
 	// store info from drone
 	action void storeDataSensors(String sensorsDatasReceived)
 	action void storePicturePackage(String picturePackageReceived)
-	action void storeNotify(String notifyReceived)
 	
 	// check commands to send
 	action boolean checkCommandStart(String command)
@@ -101,7 +100,6 @@ BehaviorOf controlUnit {
 	
 	// shutdown
 	action boolean checkEndMission()
-	action boolean checkEndNotify(String notify)
 	action void shutdown()
 	
 	state st_controlUnit_init initial
