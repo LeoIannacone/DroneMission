@@ -65,11 +65,7 @@ def latest_sensors(request):
     
     return render_to_response('ajax/sensors_latest.html', f_s)
 
-def get_notifies(request, limit):
-
-    limit = int(limit)
-    if limit <= 0: limit = 5
-    notifies = storage.getLatestNotifies(limit)
-    print notifies
-    notifies = format_notifies(notifies)
-    return render_to_response('ajax/notifies.html', {'notifies': notifies}) 
+def get_mission(request, id):
+    mission = storage.getMission(int(id))
+    f_s = format_sensors(mission.getSensorsDatas()[0])
+    return render_to_response('mission.html',f_s)

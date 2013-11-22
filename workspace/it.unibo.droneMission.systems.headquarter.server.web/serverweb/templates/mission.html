@@ -1,0 +1,16 @@
+<div class="time label">{{ time }}</div>
+<table class="table table-striped" >
+<thead>
+	<tr>
+		<th>Name</th>
+		<th>Value</th>
+	</tr>
+</thead>
+{% for g in gauges %}
+    <tr>
+       <td class="name">{{ g.name }}</td>
+       <td class="value">{{ g.value }}</td>
+    </tr>
+{% endfor %}
+</table>
+<script>updateMap({{ latitude }}, {{ longitude }});</script>
