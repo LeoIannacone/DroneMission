@@ -48,7 +48,6 @@ smartdeviceReceivesensorsDatas: smartdevice sense sensorsData;
 sendnotify: drone emit notify;
 //smartdevice receives notifications about mission
 smartdeviceReceiveNotify: smartdevice sense notify;
-controlUnitReceiveNotify: controlUnit sense notify;
 
 //HeadQuarter sends command
 sendCommand: controlUnit demand command to drone;
@@ -145,9 +144,7 @@ BehaviorOf controlUnit {
 	endstate
 	
 	state st_controlUnit_onMission
-		// handle notify
-		onMessage? notify goToState st_controlUnit_receivedNotify
-				
+		
 		// check if there are commands to send
 		onMessage? forwardCommand goToState st_controlUnit_sendCommand
 				
@@ -177,19 +174,6 @@ BehaviorOf controlUnit {
 		set picturePackageReceived = code.curInputMsgContent
 		call storePicturePackage(picturePackageReceived)
 		goToState st_controlUnit_onMission
-	endstate
-	
-	state st_controlUnit_receivedNotify
-		doPerceive controlUnitReceiveNotify()
-		set notifyReceived = code.curInputMsgContent
-		call storeNotify(notifyReceived)
-		set tmpCheck = exec checkEndNotify(notifyReceived)
-		if {tmpCheck == false} {
-			goToState st_controlUnit_onMission	
-		}
-		if {tmpCheck == true} {
-			goToState st_controlUnit_endMission
-		}
 	endstate
 	
 	state st_controlUnit_endMission
