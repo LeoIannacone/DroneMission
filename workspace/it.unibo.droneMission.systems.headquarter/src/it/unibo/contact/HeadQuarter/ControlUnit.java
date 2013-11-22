@@ -80,7 +80,7 @@ public class ControlUnit extends ControlUnitSupport {
 
 	@Override
 	protected boolean checkEndMission() throws Exception {
-		return fuelLevel <= 0.5;
+		return fuelLevel <= Fuelometer.MIN;
 	}
 
 	@Override
