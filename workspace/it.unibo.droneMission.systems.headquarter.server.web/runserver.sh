@@ -6,7 +6,7 @@ export CLASSPATH="$CLASSPATH\
 :`pwd`/../../libs/jars/gson-2.2.4.jar\
 :`pwd`/../../libs/jars/it.unibo.interfaces_1.6.12.jar\
 :`pwd`/../../libs/jars/it.unibo.tuprolog_1.0.1.jar\
-:`pwd`/../it.unibo.tmp.jar"
+:`pwd`/../../libs/it.unibo.dronemission.headquarter.jar"
 
 export JYTHONPATH="$JYTHONPATH:`pwd`/serverweb"
 export DJANGO_SETTINGS_MODULE="serverweb.settings"

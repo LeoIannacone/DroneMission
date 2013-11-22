@@ -2,7 +2,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 
-from headquarter.models import storage
+from headquarter.models import server, storage
 from it.unibo.droneMission.messages import Utils
 from it.unibo.droneMission.interfaces.messages import TypesSensor, TypesNotify
 from datetime import datetime
@@ -70,5 +70,6 @@ def get_notifies(request, limit):
     limit = int(limit)
     if limit <= 0: limit = 5
     notifies = storage.getLatestNotifies(limit)
+    print notifies
     notifies = format_notifies(notifies)
     return render_to_response('ajax/notifies.html', {'notifies': notifies}) 

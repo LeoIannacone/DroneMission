@@ -22,6 +22,12 @@ urlpatterns = patterns('',
     # ajax
     (r'^ajax/sensors/latest$', 'headquarter.views.latest_sensors'),
     (r'^ajax/notifies/latest/(?P<limit>\d+)$', 'headquarter.views.get_notifies'),
+    (r'^ajax/pictures/latest$', 'headquarter.views.get_pictures'),
     
+    # mission
+    (r'^missions/(^P<id>\d+)$', 'headquarter.views.get_mission'),
+    (r'^missions/new$', 'headquarter.views.new_mission'),
+    
+    # index
     (r'^$', 'headquarter.views.index'),
 )
