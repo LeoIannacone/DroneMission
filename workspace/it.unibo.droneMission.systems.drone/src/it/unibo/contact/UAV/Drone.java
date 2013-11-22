@@ -65,6 +65,7 @@ public class Drone extends DroneSupport {
 		IReply reply = new Reply(TypesReply.REPLY_OK);
 		ICommand command = Factory.createCommand(Utils.cleanJSONFromContact(commandJSON));
 		if (command.getType() == TypesCommand.SPEED_SET) {
+			setSpeed(command.getValue());
 			reply.setValue("Speed set correctly");
 		}
 		
