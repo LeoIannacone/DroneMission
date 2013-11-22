@@ -12,5 +12,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/it.unibo.droneMission.interfaces"/>
 	<classpathentry kind="var" path="ISS_LIBRARIES/jars/mysql-connector-java-5.1.16.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/it.unibo.droneMission.messages"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/it.unibo.droneMission.gauge"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
