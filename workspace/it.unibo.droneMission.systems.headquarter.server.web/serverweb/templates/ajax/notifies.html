@@ -1,0 +1,16 @@
+<table class="table table-bordered" >
+<thead>
+	<tr>
+		<th>Status</th>
+		<th>Message</th>
+		<th>Time</th>
+	</tr>
+</thead>
+{% for n in notifies %}
+    <tr class="{{ n.class }}">
+       <td class="name">{{ n.name }}</td>
+       <td class="value">{{ n.value }}</td>
+       <td class="time">{{ n.time }}</td>
+    </tr>
+{% endfor %}
+</table>

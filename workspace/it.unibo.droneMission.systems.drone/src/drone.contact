@@ -1,0 +1,168 @@
+ContactSystem UAV -awt -o spaceUpdater [host="localhost" port=8070];
+
+Context subSystemDrone -w;
+Context subSystemHeadQuarter -w;
+Context subSystemSmartDevice -w;
+
+//		Subsystems -w (window)
+Subject smartdevice context subSystemSmartDevice external;
+Subject drone context subSystemDrone ; //external;
+//Subject headQuarter context subSystemHeadQuarter;
+
+Subject server context subSystemHeadQuarter external;
+Subject uiLog context subSystemHeadQuarter external;
+Subject uiCommand context subSystemHeadQuarter external;
+Subject controlUnit context subSystemHeadQuarter external; 
+
+//		Messages
+Dispatch picturePackage; 
+Request command;
+Signal sensorsData;
+Signal notify;
+
+// User log messages
+Request showMeMission;
+Request showMeSensorsData;
+Request showMePicturePackage;
+
+// User command
+Request newCommand;
+
+// Server forward command to drone through controlUnit
+Request forwardCommand;
+
+//		Highlevel communications
+//Drone sends picturePackage
+sendDatapicturePackage: drone forward picturePackage to controlUnit;  
+//Headquarter receives picturePackage
+receiveDatapicturePackage: controlUnit serve picturePackage support=TCP [host="localhost" port=4060];
+
+//Drone sends data of sensors
+sendsensorsDatas: drone emit sensorsData;
+//Headquarter and smartdevice receive data of sensors
+smartdeviceReceivesensorsDatas: smartdevice sense sensorsData;
+
+//Drone notifies start/end mission
+sendnotify: drone emit notify;
+//smartdevice receives notifications about mission
+smartdeviceReceiveNotify: smartdevice sense notify;
+
+//HeadQuarter sends command
+sendCommand: controlUnit demand command to drone;
+//Drone receives command
+receiveCommand: drone grant command support=TCP [host="localhost" port=4050];
+
+// User communication
+// show me something
+sendShowMeMission: uiLog demand showMeMission to server;
+receiveShowMeMission: server grant showMeMission;
+
+sendShowMeSensorsData: uiLog demand showMeSensorsData to server;
+receiveShowMeSensorsData: server grant showMeSensorsData;
+
+sendShowMePackagepicturePackage: uiLog demand showMePicturePackage to server;
+receiveShowMePackagepicturePackage: server grant showMePicturePackage;
+
+// UI send command
+sendUINewCommand: uiCommand demand newCommand to server;
+receiveUINewCommand: server grant newCommand;
+
+// server sends command to drone handler
+sendForwardCommand: server demand forwardCommand to controlUnit;
+receiveForwardCommand: controlUnit grant forwardCommand;
+
+//Behavior of Drone
+BehaviorOf drone {
+
+	var boolean startMission
+	var boolean endMission
+	
+	var String sensorsData
+	var String picturePackage
+	var String reply
+	var String notify
+
+	action void startMission()
+	action void endMission()
+	action String handleCommand(String command)
+	action String getWrongCommandStartReply()
+	
+	action boolean checkStartMission(String command)
+	action boolean checkEndMission()
+		
+	action String getSensorsData()
+	action String getPicturePackage()
+
+	action String getNotifyStart()
+	action String getNotifyEnd()
+	
+	action void sleep()
+
+	state st_Drone_init initial
+		println ("----- Drone Initialized -----")
+		goToState st_Drone_ready
+	endstate
+	
+	state st_Drone_ready
+		println ("----- Waiting setSpeed -----")
+		doInOut receiveCommand()
+		set startMission = call checkStartMission(code.curInputMsgContent) 
+		if{ startMission } {	
+			goToState st_Drone_startMission
+		}
+		if { ! startMission } {
+			goToState st_Drone_wrongStartCommand
+		}
+	endstate
+	
+	state st_Drone_wrongStartCommand
+		set reply = call getWrongCommandStartReply()
+		replyToRequest command(reply)
+		println ("ERROR: expected 'setspeed' command to start. Received: " + code.curInputMsgContent)
+		goToState st_Drone_ready
+	endstate
+	
+	state st_Drone_startMission
+		set reply = call handleCommand(code.curInputMsgContent)
+		replyToRequest command(reply);
+		exec startMission()
+		set notify = call getNotifyStart()
+		showMsg("Notify START mission")
+		doOut sendnotify(notify)
+		goToState st_Drone_onMission
+	endstate
+	
+	state st_Drone_handleCommand
+		set reply = call handleCommand(code.curInputMsgContent)
+		replyToRequest command(reply);
+		goToState st_Drone_onMission
+	endstate 
+	
+	state st_Drone_onMission
+		// send data sensors
+		set sensorsData = exec getSensorsData()
+		doOut sendsensorsDatas(sensorsData)
+
+		// send picturePackages
+		set picturePackage = exec getPicturePackage()
+		doOut sendDatapicturePackage(picturePackage) // every x secondi?
+
+		set endMission = call checkEndMission()
+		if { endMission } {
+			goToState st_Drone_endMission
+		}
+
+		// received a command setSpeed or stop?
+		onMessage? command goToState st_Drone_handleCommand
+		
+		exec sleep()
+	endstate
+
+	state st_Drone_endMission
+		set notify = exec getNotifyEnd()
+		showMsg("Notify END mission")
+		doOut sendnotify(notify)
+		exec endMission() // empty method - maybe can be used in future?
+		transitToEnd
+	endstate
+}

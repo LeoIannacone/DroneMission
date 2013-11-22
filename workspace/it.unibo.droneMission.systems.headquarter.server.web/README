@@ -1,0 +1,22 @@
+Download and install:
+  jython 2.5.3 [http://search.maven.org/remotecontent?filepath=org/python/jython-installer/2.5.3/jython-installer-2.5.3.jar]
+  virtualenv 1.8.2 [https://pypi.python.org/packages/source/v/virtualenv/virtualenv-1.8.2.tar.gz]
+
+After that create your virtual enviroment:
+  $ virtualenv -p /path/to/jython venv
+
+Start using new enviroment, type:
+  $ source venv/bin/activate
+
+Install django and django-jython:
+  (venv) $ pip install https://www.djangoproject.com/download/1.2.7/tarball/
+  (venv) $ pip install django-jython
+
+Edit file runserver.sh and set right path to virtualenv.
+
+You can now execute the script:
+  $ bash runserver.sh
+
+And browse the serverweb to http://localhost:8000
+
+Enjoy.
