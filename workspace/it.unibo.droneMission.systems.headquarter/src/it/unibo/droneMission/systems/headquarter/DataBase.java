@@ -495,9 +495,6 @@ public abstract class DataBase extends Storage implements IDataBase {
 		if (mission_id <= 0)
 			mission_id = getCurrentMissionID();
 		
-		File file = new File(); 
-		SensorsData sensors = new SensorsData();
-		
 		int sensors_id = -1;
 		
 		this.from(DataBaseTables.PICTURES_TABLENAME);
@@ -515,12 +512,13 @@ public abstract class DataBase extends Storage implements IDataBase {
 			return null;
 		
 		try {
-			while (set.next()) {	
-				try {
+			while (set.next()) {
+				File file = new File(); 
+				SensorsData sensors = new SensorsData();
 				
+				try {
 					String filename = set.getString(DataBaseTables.PICTURES_COLUMN_FILE_NAME);
 					long time = set.getLong(DataBaseTables.PICTURES_COLUMN_FILE_TIME);
-					
 					sensors_id = set.getInt(DataBaseTables.PICTURES_COLUMN_SENSORS);
 					
 					file.setName(filename);
