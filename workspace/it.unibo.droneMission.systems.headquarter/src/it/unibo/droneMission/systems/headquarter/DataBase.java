@@ -462,12 +462,14 @@ public abstract class DataBase extends Storage implements IDataBase {
 				
 		IFile picture = pack.getFile();
 		
+		storeFile(picture);
+		
 		Hashtable<String, String> set = new Hashtable<>();
 		set.put(DataBaseTables.PICTURES_COLUMN_FILE_TIME, "" + picture.getCreationTime());
 		set.put(DataBaseTables.PICTURES_COLUMN_FILE_NAME, "" + picture.getName());
-		set.put(DataBaseTables.PICTURES_COLUMN_FILE_DATA, "" + picture.getDataAsBase64());
 		set.put(DataBaseTables.PICTURES_COLUMN_SENSORS, "" + sensorsID);
 		set.put(DataBaseTables.PICTURES_COLUMN_MISSION, "" + getCurrentMissionID());
+		
 		
 		this.from(DataBaseTables.PICTURES_TABLENAME);
 		this.insert(set);
@@ -517,12 +519,10 @@ public abstract class DataBase extends Storage implements IDataBase {
 				try {
 				
 					String filename = set.getString(DataBaseTables.PICTURES_COLUMN_FILE_NAME);
-					String data = set.getString(DataBaseTables.PICTURES_COLUMN_FILE_DATA);
 					long time = set.getLong(DataBaseTables.PICTURES_COLUMN_FILE_TIME);
 					
 					sensors_id = set.getInt(DataBaseTables.PICTURES_COLUMN_SENSORS);
 					
-					file.setData(data);
 					file.setName(filename);
 					file.setCreationTime(time);
 				
@@ -558,12 +558,6 @@ public abstract class DataBase extends Storage implements IDataBase {
 			e.printStackTrace();
 		}
 		return list;
-	}
-
-	@Override
-	public void storeFile(IFile file) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
