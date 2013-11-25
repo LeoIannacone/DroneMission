@@ -48,7 +48,6 @@ public class DataBaseTables {
 	public static final String PICTURES_COLUMN_MISSION = "mission_id";
 	public static final String PICTURES_COLUMN_SENSORS = "sensors_id";
 	public static final String PICTURES_COLUMN_FILE_NAME = "name";
-	public static final String PICTURES_COLUMN_FILE_DATA = "data_base64";
 	public static final String PICTURES_COLUMN_FILE_TIME = "time_creation";
 	
 }

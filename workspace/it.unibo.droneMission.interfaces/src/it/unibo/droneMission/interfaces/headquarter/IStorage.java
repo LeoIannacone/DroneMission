@@ -46,7 +46,7 @@ public interface IStorage {
 	public List<IPicturePackage> getPicturePackagesByMission(int missionID);
 	
 	// general file
-	public void storeFile(IFile file);
+	public String storeFile(IFile file);
 	public IFile getFile(String filename);
 	public IFile getFile(long time);
 	public List<IFile> getLatestFiles(int n);
