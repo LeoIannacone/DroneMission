@@ -1,16 +1,95 @@
-<div class="time label">{{ time }}</div>
-<table class="table table-striped" >
-<thead>
-	<tr>
-		<th>Name</th>
-		<th>Value</th>
-	</tr>
-</thead>
-{% for g in gauges %}
-    <tr>
-       <td class="name">{{ g.name }}</td>
-       <td class="value">{{ g.value }}</td>
-    </tr>
-{% endfor %}
-</table>
-<script>updateMap({{ latitude }}, {{ longitude }});</script>
+{% include "header.html" %}
+
+<div id="body" class="mission">
+
+<div class="row">
+    <div class="span3" id="navWrapper">
+    <ul class="nav nav-tabs nav-stacked affix" data-spy="affix" data-offset-top="50">
+        <li><a class="active" href="#missioninfo">Mission info</a></li>
+        <li><a href="#commands">Commands</a></li>
+        <li><a href="#sensorsdata">Sensors data</a></li>
+        <li><a href="#picturepackage">Picture packages</a></li>
+    </ul>
+    </div>
+    <div class="span8">
+        <div class="misisoninfo">
+            <h2 id="missioninfo">Mission #{{ id }}</h2>
+            <div>Mission started at <span class="label">{{ time.start }}</span></div>
+            <div>Mission finished at <span class="label">{{ time.end }}</span></div>
+        </div> 
+        <div class="commands">
+        <h2 id="commands">Commands</h2>
+            <table class="table table-striped" >
+                <thead>
+	                <tr>
+		                <th>CMD Name</th>
+		                <th>CMD Value</th>
+		                <th>RPL Name</th>
+		                <th>RPL Value</th>
+		                <th>Time</th>
+	                </tr>
+                </thead>
+                {% for c in commands %}
+                    <tr>
+                       <td class="name">{{ c.command.name }}</td>
+                       <td class="value">{{ c.command.value }}</td>
+                       <td class="name">{{ c.reply.name }}</td>
+                       <td class="value">{{ c.reply.value }}</td>
+                       <td class="time">{{ c.time }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        <div>
+        <h2 id="sensorsdata">Sensors Data</h2>
+        {% for s in sensors %}
+            <div class="sensors-data">
+                <div class="time label">{{ s.time }}</div>
+                <table class="table table-striped" >
+                <thead>
+	                <tr>
+		                <th>Name</th>
+		                <th>Value</th>
+	                </tr>
+                </thead>
+                {% for g in s.gauges %}
+                    <tr>
+                       <td class="name">{{ g.name }}</td>
+                       <td class="value">{{ g.value }}</td>
+                    </tr>
+                {% endfor %}
+                </table>
+           </div>
+        {% endfor %}
+        </div>
+
+        <div>
+        <h2 id="picturepackage">Picture Package</h2>
+        {% for p in pictures %}
+            <div class="picture-package">
+                <img class="image" src="{{ p.image_url }}" />
+                <div class="sensors-data">
+                    <div class="time label">{{ p.sensors.time }}</div>
+                    <table class="table table-striped" >
+                    <thead>
+	                    <tr>
+		                    <th>Name</th>
+		                    <th>Value</th>
+	                    </tr>
+                    </thead>
+                    {% for g in p.sensors.gauges %}
+                        <tr>
+                           <td class="name">{{ g.name }}</td>
+                           <td class="value">{{ g.value }}</td>
+                        </tr>
+                    {% endfor %}
+                    </table>
+               </div>
+           </div>
+        {% endfor %}
+        </div>
+
+        </div>
+    </div>
+</div>

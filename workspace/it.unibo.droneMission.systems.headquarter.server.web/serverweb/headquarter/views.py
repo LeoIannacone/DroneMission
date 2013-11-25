@@ -7,6 +7,9 @@ from it.unibo.droneMission.messages import Utils
 from it.unibo.droneMission.interfaces.messages import TypesSensor, TypesNotify
 from datetime import datetime
 
+# time / 1000.0:
+#     java takes in account milliseconds, python uses
+#     float for them
 def get_time(java_time):
     return datetime.fromtimestamp(java_time / 1000.0) 
 
@@ -28,44 +31,66 @@ def format_sensors(sensors):
     result["gauges"] = formatted_gauges
     result["latitude"] = lat
     result["longitude"] = lon
-    # time / 1000.0:
-    #     java takes in account milliseconds, python uses
-    #     float for them
     result["time"] = get_time(sensors.getTime())
     
     return result
 
-def format_notifies(notifies):
-    formatted_notifies = []
-#     if not isinstance(notifies, list):
-#         notifies = [notifies]
+def format_picture(picture, mission_id):
+    formatted_picture = {}
+    formatted_picture["sensors"] = format_sensors(picture.getSensorsData())
+    #formatted_picture["image"] = picture.getFile().getDataAsBase64()
+    formatted_picture["image_url"] = "/pictures/%s/%s" % (mission_id, picture.getFile().getName())
+    formatted_picture["name"] = picture.getFile().getName()
+    return formatted_picture
+
+def format_command(command, reply):
+    formatted = {}
     
-    for notify in notifies:
-        n = {}
-        n['name'] = ''
-        if notify.getType() == TypesNotify.START_MISSION: 
-            n['name'] = 'Start'
-            n['class'] = 'start'
-        elif notify.getType() == TypesNotify.END_MISSION: 
-            n['name'] = 'End'
-            n['class'] = 'end'
-        n['value'] = notify.getValue()
-        n['time'] = get_time(notify.getTime())
-        formatted_notifies.append(n)
-    return formatted_notifies 
+    formatted["command"] = {}
+    formatted["command"]["name"] = Utils.getCommandName(command)
+    formatted["command"]["type"] = command.getType()
+    formatted["command"]["value"] = command.getValue()
+    
+    formatted["reply"] = {}
+    formatted["reply"]["name"] = Utils.getReplyName(reply)
+    formatted["reply"]["type"] = reply.getType()
+    formatted["reply"]["value"] = reply.getValue()
+    
+    formatted["time"] = get_time(command.getTime())
+    
+    return formatted
 
 def index(request):
        
     return render_to_response('index.html')
 
 def latest_sensors(request):
-    
     sensors = storage.getLatestSensorsData()
     f_s = format_sensors(sensors)
-    
     return render_to_response('ajax/sensors_latest.html', f_s)
 
 def get_mission(request, id):
+    
     mission = storage.getMission(int(id))
-    f_s = format_sensors(mission.getSensorsDatas()[0])
-    return render_to_response('mission.html',f_s)
+    info = {}
+    
+    info["id"] = id
+    
+    info["time"] = {}
+    info["time"]["start"] = get_time(mission.getStartTime())
+    info["time"]["end"] = get_time(mission.getEndTime())
+    
+    info["sensors"] = []
+    for g in mission.getSensorsDatas():
+        info["sensors"].insert(0, format_sensors(g))
+    
+    info["pictures"] = []
+    for p in mission.getPicturePackages():
+        info["pictures"].insert(0, format_picture(p, id))
+
+    info["commands"] = []
+    commands = mission.getCommands()
+    for c in commands:
+        info["commands"].insert(0, format_command(c, commands.get(c)))
+    
+    return render_to_response('mission.html',info)

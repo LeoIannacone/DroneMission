@@ -63,7 +63,9 @@ function initMap() {
 $(document).ready(function(){
 
     // init map
+    /*
     initMap();
     setInterval(function(){updateSensors();}, CHECKTIME);
     setInterval(function(){updateNotifies();}, CHECKTIME);
+    */
 })
