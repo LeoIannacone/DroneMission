@@ -14,7 +14,11 @@ import it.unibo.droneMission.gauge.LocTracker;
 import it.unibo.droneMission.gauge.Odometer;
 import it.unibo.droneMission.gauge.Speedometer;
 import it.unibo.droneMission.interfaces.gauges.IGauge;
+import it.unibo.droneMission.interfaces.messages.ICommand;
+import it.unibo.droneMission.interfaces.messages.IReply;
 import it.unibo.droneMission.interfaces.messages.ISensor;
+import it.unibo.droneMission.interfaces.messages.TypesCommand;
+import it.unibo.droneMission.interfaces.messages.TypesReply;
 import it.unibo.droneMission.interfaces.messages.TypesSensor;
 
 
@@ -145,6 +149,24 @@ public class Utils {
 			return TypesSensor.SPEEDOMETER;
 				
 		return -1;
+	}
+	
+	public static String getCommandName(ICommand command) {
+		int type = command.getType();
+		if (type == TypesCommand.SPEED_SET)
+			return "Set speed";
+		return "";
+	}
+
+	public static String getReplyName(IReply reply) {
+		int type = reply.getType();
+		if (type == TypesReply.REPLY_FAIL)
+			return "Fail";
+		if (type == TypesReply.REPLY_NO)
+			return "No";
+		if (type == TypesReply.REPLY_OK)
+			return "Ok";
+		return "";
 	}
 	
 	private static String replaceQuotesInContact = "@@@";
