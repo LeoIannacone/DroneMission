@@ -12,10 +12,9 @@
     </ul>
     </div>
     <div class="span8">
+        <h1 id="missioninfo">Mission #{{ id }}</h2>
         <div class="misisoninfo">
-            <h2 id="missioninfo">Mission #{{ id }}</h2>
-            <div>Mission started at <span class="label">{{ time.start }}</span></div>
-            <div>Mission finished at <span class="label">{{ time.end }}</span></div>
+            <div class="alert alert-info">Started at: <span class="label label-info">{{ time.start }}</span><div class="pull-right">Ended at: <span class="label label-info">{{ time.end }}</span></div></div>
         </div> 
         <div class="commands">
         <h2 id="commands">Commands</h2>
@@ -33,7 +32,7 @@
                     <tr>
                        <td class="name">{{ c.command.name }}</td>
                        <td class="value">{{ c.command.value }}</td>
-                       <td class="name">{{ c.reply.name }}</td>
+                       <td class="name {{ c.reply.class }}">{{ c.reply.name }}</td>
                        <td class="value">{{ c.reply.value }}</td>
                        <td class="time">{{ c.time }}</td>
                     </tr>
@@ -45,7 +44,7 @@
         <h2 id="sensorsdata">Sensors Data</h2>
         {% for s in sensors %}
             <div class="sensors-data">
-                <div class="time label">{{ s.time }}</div>
+                <div class="time label pull-right">{{ s.time }}</div>
                 <table class="table table-striped" >
                 <thead>
 	                <tr>
@@ -67,9 +66,11 @@
         <div>
         <h2 id="picturepackage">Picture Package</h2>
         {% for p in pictures %}
-            <div class="picture-package">
-                <img class="image" src="{{ p.image_url }}" />
-                <div class="sensors-data">
+            <div class="picture-package row">
+                <div class="span5">
+                    <img class="image" src="{{ p.image_url }}" />
+                </div>
+                <div class="sensors-data span3">
                     <div class="time label">{{ p.sensors.time }}</div>
                     <table class="table table-striped" >
                     <thead>

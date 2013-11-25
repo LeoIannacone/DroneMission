@@ -1,0 +1,52 @@
+{% include "header.html" %}
+
+<div id="body">
+
+<div id="controls" class="row">
+
+	<div class="span6">
+		<div class="inner">
+			<div id="commands">
+				<h3>Commands</h3>
+				<div id="" class="btn-group">
+    				<a id="start" class="btn btn-success btn-large">Start</a>
+    				<a id="stop" class="btn btn-danger btn-large disabled">Stop</a>
+    			</div>
+    			
+    			<div id="speed">
+    			    <div class="btn-group btn-group-vertical">
+            			    <a id="increase" class="btn btn-mini"><i class="icon-chevron-up"></i></a>
+            			    <a id="decrease" class="btn btn-mini"><i class="icon-chevron-down"></i></a>
+            			</div>
+    			    <div class="input-append">
+            		    <input class="set" type="text">
+            		    <span class="add-on">Km/h</span>
+            		</div>
+        		</div>
+    			
+			</div> <!-- #commands -->
+			
+			<div id="notifies">
+				<h3>Notifies</h3>
+			    <div class="content"></div>
+			</div>
+		</div>
+	</div> <!-- left sidebar -->
+	
+	<div id="sensors" class="span6">
+		<div class="inner">
+			<div class="gauges">
+				<h3>Drone Sensors</h3>
+				<div class="content"></div>
+			</div>
+			
+			<div class="position">
+				<h3>Current Position</h3>
+				<div id="map"></map>
+			</div>
+		</div>
+	</div> <!-- #sensors - right sidebar -->
+
+</div> <!-- #controls -->
+
+</div> <!-- #body -->

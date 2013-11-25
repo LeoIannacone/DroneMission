@@ -166,6 +166,6 @@ header h1.brand small {
     top: 8px
 }
 
-.picture-package img {
-    max-width:400px;
+.mission .picture-package {
+    margin-bottom: 20px;
 }
