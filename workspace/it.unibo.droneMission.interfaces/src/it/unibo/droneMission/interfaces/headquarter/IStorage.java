@@ -21,6 +21,7 @@ public interface IStorage {
 	public boolean isOnMission();
 	public int getCurrentMissionID();
 	public IMission getMission(int id);
+	public List<IMission> getPastMissions();
 	
 	// commands
 	public void storeCommandAndReply(ICommand command, IReply reply);
