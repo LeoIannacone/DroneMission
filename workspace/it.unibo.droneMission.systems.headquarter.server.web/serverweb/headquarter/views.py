@@ -3,9 +3,11 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response
 
 from headquarter.models import server, storage
-from it.unibo.droneMission.messages import Utils
-from it.unibo.droneMission.interfaces.messages import TypesSensor, TypesNotify
+from it.unibo.droneMission.messages import Utils, Command, Reply
+from it.unibo.droneMission.interfaces.messages import TypesSensor, TypesNotify,\
+    TypesReply
 from datetime import datetime
+from it.unibo.contact.HeadQuarter import Server
 
 # time / 1000.0:
 #     java takes in account milliseconds, python uses
@@ -56,18 +58,34 @@ def format_command(command, reply):
     formatted["reply"]["type"] = reply.getType()
     formatted["reply"]["value"] = reply.getValue()
     
+    if reply.getType() == TypesReply.REPLY_OK:
+        formatted["reply"]["class"] = "alert-success"
+    if reply.getType() == TypesReply.REPLY_NO:
+        formatted["reply"]["class"] = "alert-alert"
+    if reply.getType() == TypesReply.REPLY_FAIL:
+        formatted["reply"]["class"] = "alert-warning"
+    
     formatted["time"] = get_time(command.getTime())
     
     return formatted
-
-def index(request):
-       
-    return render_to_response('index.html')
 
 def latest_sensors(request):
     sensors = storage.getLatestSensorsData()
     f_s = format_sensors(sensors)
     return render_to_response('ajax/sensors_latest.html', f_s)
+
+def index(request):
+    missions = storage.getPastMissions()
+    print missions
+    info = {}
+    info["missions"] = []
+    for m in missions:
+        formatted = {}
+        formatted["start"] = get_time(m.getStartTime())
+        formatted["end"] = get_time(m.getEndTime())
+        formatted["id"] = m.getId()
+        info["missions"].insert(0, formatted)
+    return render_to_response('index.html', info)
 
 def get_mission(request, id):
     
@@ -94,3 +112,20 @@ def get_mission(request, id):
         info["commands"].insert(0, format_command(c, commands.get(c)))
     
     return render_to_response('mission.html',info)
+
+def new_mission(request):
+    return render_to_response('new-mission.html')
+
+def send_command(request, type, value):
+    
+    c = Command(int(type))
+    c.setValue(int(value))
+    
+    server = Server("ciao")
+    r = server.forwardCommand(c)
+    
+    info = {}
+    info["type"] = r.getType()
+    info["value"] = r.getValue()
+        
+    return render_to_response('ajax/send-command.html', info)
