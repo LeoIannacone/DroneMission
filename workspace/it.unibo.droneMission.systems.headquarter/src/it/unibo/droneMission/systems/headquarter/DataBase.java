@@ -246,6 +246,28 @@ public abstract class DataBase extends Storage implements IDataBase {
 	}
 	
 	@Override
+	public List<IMission> getPastMissions() {
+		ArrayList<IMission> list = new ArrayList<>();
+		this.from(DataBaseTables.MISSIONS_TABLENAME);
+		ResultSet set = this.get();
+		try {
+			while(set.next()) {
+				long start = set.getLong(DataBaseTables.MISSIONS_COLUMN_START);
+				long end = set.getLong(DataBaseTables.MISSIONS_COLUMN_END);
+				long id = set.getLong(DataBaseTables.MISSIONS_COLUMN_ID);
+				Mission m = new Mission(id);
+				m.setStartTime(start);
+				m.setEndTime(end);
+				list.add(m);
+			}
+		} catch (SQLException e) {
+			System.err.println("Error catching all missions - getPastMissions()");
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	@Override
 	public void storeCommandAndReply(ICommand command, IReply reply) {
 		Hashtable<String, String> set = new Hashtable<>();
 		set.put(DataBaseTables.COMMANDS_COLUMN_TYPE, "" + command.getType());
