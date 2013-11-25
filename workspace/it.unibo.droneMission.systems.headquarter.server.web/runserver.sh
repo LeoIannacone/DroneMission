@@ -9,6 +9,7 @@ export CLASSPATH="$CLASSPATH\
 :`pwd`/../../libs/it.unibo.dronemission.headquarter.jar"
 
 export JYTHONPATH="$JYTHONPATH:`pwd`/serverweb"
+export JAVA_MEM="-Xmx2000m $JAVA_MEM"
 export DJANGO_SETTINGS_MODULE="serverweb.settings"
 source venv/bin/activate
 
