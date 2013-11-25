@@ -29,6 +29,7 @@ public class Drone extends DroneSupport {
 	protected DroneThread thread;
 	
 	private int imageCounter;
+	private String PICTURES_FILEPATH = "/media/dronemission/pictures/drone"; 
 	
 	public Drone(String name) throws Exception {
 		super(name);
@@ -125,8 +126,7 @@ public class Drone extends DroneSupport {
 		if (imageCounter == MAX_FILE)
 			imageCounter = 0;
 		env.println("Sending picture: " + imageCounter);
-		String filePath = "/media/dronemission/pictures";
-		String filename = String.format("%s/%s.%s", filePath, imageCounter, FILE_EXT);
+		String filename = String.format("%s/%s.%s", PICTURES_FILEPATH, imageCounter, FILE_EXT);
 		File f = new File(filename);
 		IPicturePackage p = new PicturePackage(_getSensorsData(), f);
 		
