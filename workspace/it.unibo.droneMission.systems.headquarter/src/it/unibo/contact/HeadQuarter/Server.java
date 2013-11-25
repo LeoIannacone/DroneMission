@@ -20,7 +20,7 @@ public class Server extends ServerSupport {
 	
 	@Override
 	public void doJob() throws Exception {
-		testStartMission();	
+		//testStartMission();	
 	}
 	
 	private void testStartMission() {
