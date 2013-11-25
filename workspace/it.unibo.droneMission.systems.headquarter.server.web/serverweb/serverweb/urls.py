@@ -21,6 +21,7 @@ urlpatterns = patterns('',
     (r'^libs/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
     
     # ajax
+    (r'ajax/commands/send/type/(?P<type>\d+)/value/(?P<value>\d+)$', 'headquarter.views.send_command'),
     (r'^ajax/sensors/latest$', 'headquarter.views.latest_sensors'),
     (r'^ajax/pictures/latest$', 'headquarter.views.get_pictures'),
     
