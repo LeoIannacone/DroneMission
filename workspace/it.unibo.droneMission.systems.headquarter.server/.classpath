@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="src-gen"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/it.unibo.droneMission.interfaces"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/it.unibo.droneMission.messages"/>
+	<classpathentry kind="var" path="ISS_LIBRARIES/jars/it.unibo.allsupports.jar"/>
+	<classpathentry kind="var" path="ISS_LIBRARIES/jars/it.unibo.envBaseAwt_1.6.6.jar"/>
+	<classpathentry kind="var" path="ISS_LIBRARIES/jars/it.unibo.interfaces_1.6.12.jar"/>
+	<classpathentry kind="var" path="ISS_LIBRARIES/jars/it.unibo.tuprolog_1.0.1.jar"/>
+	<classpathentry kind="var" path="ISS_LIBRARIES/jars/org.eclipse.xtext.xbase.lib_2.2.1.v201112130541.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
