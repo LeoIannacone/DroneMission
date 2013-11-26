@@ -14,7 +14,7 @@ import it.unibo.droneMission.interfaces.messages.TypesReply;
 import it.unibo.droneMission.messages.Factory;
 import it.unibo.droneMission.messages.Reply;
 import it.unibo.droneMission.messages.Utils;
-import it.unibo.droneMission.systems.headquarter.FactoryStorage;
+import it.unibo.droneMission.systems.headquarter.storage.FactoryStorage;
 
 public class ControlUnit extends ControlUnitSupport {
 
