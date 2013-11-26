@@ -1,4 +1,4 @@
-package it.unibo.contact.HeadQuarter;
+package it.unibo.contact.headquarter_controlunit;
 
 import java.util.List;
 

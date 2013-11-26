@@ -1,4 +1,4 @@
-ContactSystem HeadQuarter -awt -o spaceUpdater [host="localhost" port=8070];
+ContactSystem headquarter_controlunit -awt -o spaceUpdater [host="localhost" port=8070];
 
 Context subSystemDrone -w;
 Context subSystemHeadQuarter -w;
@@ -9,7 +9,7 @@ Subject smartdevice context subSystemSmartDevice external;
 Subject drone context subSystemDrone external;
 //Subject headQuarter context subSystemHeadQuarter;
 
-Subject server; //context subSystemHeadQuarter;
+Subject server context subSystemHeadQuarter external; 
 Subject uiLog context subSystemHeadQuarter external;
 Subject uiCommand context subSystemHeadQuarter external;
 Subject controlUnit context subSystemHeadQuarter; 
