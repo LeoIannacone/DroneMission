@@ -1,4 +1,4 @@
-package it.unibo.droneMission.systems.headquarter;
+package it.unibo.droneMission.systems.headquarter.storage;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;

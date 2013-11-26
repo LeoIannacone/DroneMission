@@ -9,7 +9,7 @@ Subject smartdevice context subSystemSmartDevice external;
 Subject drone context subSystemDrone external;
 //Subject headQuarter context subSystemHeadQuarter;
 
-Subject server context subSystemHeadQuarter;
+Subject server; //context subSystemHeadQuarter;
 Subject uiLog context subSystemHeadQuarter external;
 Subject uiCommand context subSystemHeadQuarter external;
 Subject controlUnit context subSystemHeadQuarter; 
@@ -65,16 +65,13 @@ receiveShowMeSensorsData: server grant showMeSensorsData;
 sendShowMePackagepicturePackage: uiLog demand showMePicturePackage to server;
 receiveShowMePackagepicturePackage: server grant showMePicturePackage;
 
-sendShowMeNotifies: uiLog demand showMeNotifies to server;
-receiveShowMeNotifies: server grant showMeNotifies;
-
 // UI send command
 sendUINewCommand: uiCommand demand newCommand to server;
 receiveUINewCommand: server grant newCommand;
 
 // server sends command to drone handler
 sendForwardCommand: server demand forwardCommand to controlUnit;
-receiveForwardCommand: controlUnit grant forwardCommand;
+receiveForwardCommand: controlUnit grant forwardCommand support=TCP [host="localhost" port=4060];
 
 BehaviorOf controlUnit {
 	

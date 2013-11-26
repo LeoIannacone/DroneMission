@@ -1,4 +1,4 @@
-package it.unibo.droneMission.systems.headquarter;
+package it.unibo.droneMission.systems.headquarter.storage;
 
 import it.unibo.droneMission.interfaces.headquarter.IStorage;
 

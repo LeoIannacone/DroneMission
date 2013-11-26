@@ -7,7 +7,7 @@ import it.unibo.droneMission.interfaces.messages.TypesCommand;
 import it.unibo.droneMission.messages.Command;
 import it.unibo.droneMission.messages.Factory;
 import it.unibo.droneMission.messages.Utils;
-import it.unibo.droneMission.systems.headquarter.FactoryStorage;
+import it.unibo.droneMission.systems.headquarter.storage.FactoryStorage;
 
 public class Server extends ServerSupport {
 
