@@ -43,6 +43,10 @@ public class ControlUnit extends ControlUnitSupport {
 			throws Exception {
 		sensorsDatasReceived = Utils.cleanJSONFromContact(sensorsDatasReceived);
 		ISensorsData s = Factory.createSensorsData(sensorsDatasReceived);
+		String val = "";
+		for (IGauge g : s.getGauges())
+			val += " " + g.getCurValRepDisplayed();  
+		env.println("Received Sensors:" + val);
 		setFuelLevelFromGauges(s);
 		storage.storeSensorsData(s);		
 	}
@@ -52,6 +56,7 @@ public class ControlUnit extends ControlUnitSupport {
 			throws Exception {
 		picturePackageReceived = Utils.cleanJSONFromContact(picturePackageReceived);
 		IPicturePackage p = Factory.createPicturePackage(picturePackageReceived);
+		env.println("Received picture: " + p.getFile().getName());
 		storage.storePicturePackage(p);
 	}
 
