@@ -1,4 +1,4 @@
-ContactSystem UAV -awt -o spaceUpdater [host="localhost" port=8070];
+ContactSystem UAV -awt spaceUpdater [host="localhost" port=8070];
 
 Context subSystemDrone -w;
 Context subSystemHeadQuarter -w;
@@ -82,6 +82,8 @@ BehaviorOf drone {
 	var String reply
 	var String notify
 
+	action void init()
+
 	action void startMission()
 	action void endMission()
 	action String handleCommand(String command)
@@ -104,6 +106,7 @@ BehaviorOf drone {
 	endstate
 	
 	state st_Drone_ready
+		exec init()
 		println ("----- Waiting setSpeed -----")
 		doInOut receiveCommand()
 		set startMission = call checkStartMission(code.curInputMsgContent) 
@@ -142,6 +145,7 @@ BehaviorOf drone {
 		// send data sensors
 		set sensorsData = exec getSensorsData()
 		doOut sendsensorsDatas(sensorsData)
+		doOut sendsensorsDatas(sensorsData)
 
 		// send picturePackages
 		set picturePackage = exec getPicturePackage()
@@ -159,10 +163,17 @@ BehaviorOf drone {
 	endstate
 
 	state st_Drone_endMission
+	
+		// send last sensors data
+		set sensorsData = exec getSensorsData()
+		doOut sendsensorsDatas(sensorsData)
+		doOut sendsensorsDatas(sensorsData)
+	
 		set notify = exec getNotifyEnd()
 		showMsg("Notify END mission")
 		doOut sendnotify(notify)
 		exec endMission() // empty method - maybe can be used in future?
-		transitToEnd
+		//goToState st_Drone_ready
+		transitToEnd		
 	endstate
 }

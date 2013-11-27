@@ -33,6 +33,10 @@ public class Drone extends DroneSupport {
 	
 	public Drone(String name) throws Exception {
 		super(name);
+		init();
+	}
+	
+	public void init() {
 		// init gauges
 		speedometer = new Speedometer();
 		odometer = new Odometer();
@@ -95,7 +99,7 @@ public class Drone extends DroneSupport {
 
 	@Override
 	protected boolean checkEndMission() throws Exception {
-		if (fuelometer.getVal().valAsDouble() < fuelometer.MIN)
+		if (fuelometer.getVal().valAsDouble() <= fuelometer.MIN)
 		{
 			env.println("FUEL is going to end");
 			return true;
