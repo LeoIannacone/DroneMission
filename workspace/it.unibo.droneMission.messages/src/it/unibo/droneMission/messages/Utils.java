@@ -3,6 +3,10 @@ package it.unibo.droneMission.messages;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Hashtable;
+import java.util.Iterator;
+
+import com.sun.org.apache.xml.internal.security.keys.content.KeyValue;
 
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
@@ -169,10 +173,40 @@ public class Utils {
 		return "";
 	}
 	
-	private static String replaceQuotesInContact = "@@@";
+	
+	private static String formatReplaceString(String s) {
+		String simbol = "";
+		String pre = simbol + "rpl";
+		String post = simbol;
+		return String.format("%s%s%s", pre, s, post);
+	}
+	
+	private static Hashtable<String, String> getReplaceDict() {
+		
+		Hashtable<String, String> dict = new Hashtable<>();
+		dict.put("\"", "@@@");
+//		dict.put(".", formatReplaceString("Dot"));
+//		dict.put(",", formatReplaceString("Comma"));
+//		dict.put(":", formatReplaceString("Colon"));
+//		dict.put(";", formatReplaceString("SemiColon"));
+//		dict.put("\"", formatReplaceString("Quotes"));
+//		dict.put("[", formatReplaceString("SquareBracketsLEFT"));
+//		dict.put("]", formatReplaceString("SquareBracketsRIGHT"));
+//		dict.put("{", formatReplaceString("BracketsLEFT"));
+//		dict.put("}", formatReplaceString("BracketsRIGHT"));
+		
+		return dict;
+	}
+	
+
+	
 	
 	public static String adaptJSONToContact(String json) {
-		return json.replace("\"", replaceQuotesInContact);
+		Hashtable<String, String> dict = getReplaceDict();
+		for (String key : dict.keySet()) {
+			json = json.replace(key, dict.get(key));
+		}
+		return json.trim();
 	}
 	
 	public static String cleanJSONFromContact(String message) {
@@ -184,7 +218,10 @@ public class Utils {
 		if(json.endsWith("\'") || json.endsWith("\""))
 			json=json.substring(0, json.length()-2);
 		
-		return json.replace(replaceQuotesInContact, "\"").trim();
-		
+		Hashtable<String, String> dict = getReplaceDict();
+		for (String key : dict.keySet()) {
+			json = json.replace(dict.get(key), key);
+		}
+		return json.trim();
 	}
 }
