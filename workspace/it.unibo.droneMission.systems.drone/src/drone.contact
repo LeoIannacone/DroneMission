@@ -136,12 +136,17 @@ BehaviorOf drone {
 	endstate
 	
 	state st_Drone_handleCommand
+		doInOut receiveCommand()
 		set reply = call handleCommand(code.curInputMsgContent)
 		replyToRequest command(reply);
 		goToState st_Drone_onMission
 	endstate 
 	
 	state st_Drone_onMission
+	
+		// received a command setSpeed or stop?
+		onMessage? command goToState st_Drone_handleCommand
+		
 		// send data sensors
 		set sensorsData = exec getSensorsData()
 		doOut sendsensorsDatas(sensorsData)
@@ -155,9 +160,6 @@ BehaviorOf drone {
 		if { endMission } {
 			goToState st_Drone_endMission
 		}
-
-		// received a command setSpeed or stop?
-		onMessage? command goToState st_Drone_handleCommand
 		
 		exec sleep()
 	endstate

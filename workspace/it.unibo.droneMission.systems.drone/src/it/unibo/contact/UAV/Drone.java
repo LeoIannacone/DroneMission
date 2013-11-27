@@ -87,7 +87,7 @@ public class Drone extends DroneSupport {
 			reply.setType(TypesReply.REPLY_FAIL);
 			reply.setValue("No command recognized");
 		}
-		
+		env.println(command.toString() + " " + reply.toString());
 		return Utils.adaptJSONToContact(reply.toJSON());
 	}
 
