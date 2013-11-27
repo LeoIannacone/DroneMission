@@ -3,13 +3,14 @@ ContactSystem HeadQuarter -awt -o spaceUpdater [host="localhost" port=8070];
 Context subSystemDrone -w;
 Context subSystemHeadQuarter -w;
 Context subSystemSmartDevice -w;
+Context subSubSystemHeadQuarterServer -w;
 
 //		Subsystems -w (window)
 Subject smartdevice context subSystemSmartDevice external;
 Subject drone context subSystemDrone external;
 //Subject headQuarter context subSystemHeadQuarter;
 
-Subject server context subSystemHeadQuarter;
+Subject server context subSubSystemHeadQuarterServer;
 Subject uiLog context subSystemHeadQuarter external;
 Subject uiCommand context subSystemHeadQuarter external;
 Subject controlUnit context subSystemHeadQuarter; 
@@ -74,7 +75,7 @@ receiveUINewCommand: server grant newCommand;
 
 // server sends command to drone handler
 sendForwardCommand: server demand forwardCommand to controlUnit;
-receiveForwardCommand: controlUnit grant forwardCommand;
+receiveForwardCommand: controlUnit grant forwardCommand support=TCP [host="localhost" port=4060];
 
 BehaviorOf controlUnit {
 	
@@ -118,8 +119,14 @@ BehaviorOf controlUnit {
 	endstate
 	
 	state st_controlUnit_startMission
+		set cmd = code.curInputMsgContent
+		doOutIn sendCommand(cmd)
+		acquireAnswerFor command
+		set rpl = code.curReplyContent
+		replyToRequest forwardCommand(rpl)
 		call storeMissionStarted()
-		goToState st_controlUnit_sendCommand
+		call storeCommandAndReply(cmd, rpl)
+		goToState st_controlUnit_onMission
 	endstate
 	
 	// in case of wrong start command received
@@ -131,6 +138,7 @@ BehaviorOf controlUnit {
 	endstate
 	
 	state st_controlUnit_sendCommand
+		doInOut receiveForwardCommand()
 		set cmd = code.curInputMsgContent
 		doOutIn sendCommand(cmd)
 		acquireAnswerFor command

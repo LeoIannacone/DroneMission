@@ -20,13 +20,18 @@ public class Server extends ServerSupport {
 	
 	@Override
 	public void doJob() throws Exception {
-		testStartMission();	
+		env.println("Send first start");
+		testStartMission(60);	
+		Thread.sleep(3000);
+		env.println("Send second command");
+		testStartMission(100);	
+		Thread.sleep(10000);
 	}
 	
-	private void testStartMission() {
+	private void testStartMission(int value) {
 		ICommand c = new Command(TypesCommand.SPEED_SET);
-		c.setValue(60);
-		forwardCommand(c);
+		c.setValue(value);
+		env.println(forwardCommand(c).toJSON());
 	}
 	
 	public IReply forwardCommand(ICommand command) {

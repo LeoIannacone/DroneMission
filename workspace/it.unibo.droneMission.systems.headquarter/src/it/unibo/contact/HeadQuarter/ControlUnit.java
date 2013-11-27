@@ -80,6 +80,7 @@ public class ControlUnit extends ControlUnitSupport {
 		r = Utils.cleanJSONFromContact(r);
 		ICommand command = Factory.createCommand(c);
 		IReply reply = Factory.createReply(r);
+		env.println("Forwarding: " + command.toString() + " " + reply.toString());
 		storage.storeCommandAndReply(command, reply);
 	}
 
