@@ -82,7 +82,6 @@ BehaviorOf controlUnit {
 	var String rpl
 	var String sensorsDatasReceived
 	var String picturePackageReceived
-	var String notifyReceived
 	
 	var boolean tmpCheck
 	
@@ -142,16 +141,15 @@ BehaviorOf controlUnit {
 	endstate
 	
 	state st_controlUnit_onMission
-		
 		// check if there are commands to send
 		onMessage? forwardCommand goToState st_controlUnit_sendCommand
 				
+		// get sensors data
+		onMessage? sensorsData goToState st_controlUnit_receivedSensorsData
+		
 		// get picturePackages
 		onMessage? picturePackage goToState st_controlUnit_receivedpicturePackage
 		
-		// get sensors data
-		onMessage? sensorsData goToState st_controlUnit_receivedSensorsData
-	
 		// check if end mission
 		set tmpCheck = exec checkEndMission()
 		if { tmpCheck == true } {
