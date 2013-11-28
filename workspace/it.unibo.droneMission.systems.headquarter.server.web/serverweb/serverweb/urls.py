@@ -23,7 +23,7 @@ urlpatterns = patterns('',
     # ajax
     (r'ajax/commands/send/type/(?P<type>\d+)/value/(?P<value>\d+)$', 'headquarter.views.send_command'),
     (r'^ajax/sensors/latest$', 'headquarter.views.latest_sensors'),
-    (r'^ajax/pictures/latest$', 'headquarter.views.get_pictures'),
+    (r'^ajax/pictures/latest$', 'headquarter.views.latest_picture'),
     
     # mission
     (r'^missions/(?P<id>\d+)/$', 'headquarter.views.get_mission'),
