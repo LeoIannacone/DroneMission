@@ -22,6 +22,19 @@ function updateSensors() {
     });
 }
 
+function updatePicture() {
+    var URL = "/ajax/pictures/latest";
+    $.ajax({ 
+        type: 'GET', 
+        url: URL, 
+        dataType: 'html',
+        success: function (data) {
+            if ($("#pictures .content").html() != $(data))
+                $("#pictures .content").html(data);
+        }
+    });
+}
+
 function updateOnMission(fuel) {
     if (parseFloat(fuel) > 0.5) {
         $("#start").html("On Mission");
@@ -92,7 +105,13 @@ $(document).ready(function(){
     
     if (document.location.pathname == '/missions/new') {
         initMap();
-        UPDATER = setInterval(function(){updateSensors();}, CHECKTIME);    
+        UPDATER = setInterval(
+            function(){
+                updateSensors();
+                updatePicture();
+            }, 
+            CHECKTIME
+            );    
         $("#start").click( function() {
             var URL = "/ajax/commands/send/type/3/value/60";
             $.ajax({ 
