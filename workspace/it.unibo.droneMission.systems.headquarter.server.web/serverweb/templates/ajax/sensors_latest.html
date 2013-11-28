@@ -14,5 +14,9 @@
     </tr>
 {% endfor %}
 </table>
-<script>updateMap({{ latitude }}, {{ longitude }});</script>
+<script>
+    updateMap({{ latitude }}, {{ longitude }});
+    updateOnMission( {{ fuel }} );
+    updateSpeed( {{ speed }} );
+</script>
 {% endif %}
