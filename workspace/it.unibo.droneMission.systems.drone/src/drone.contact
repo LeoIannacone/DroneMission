@@ -102,11 +102,11 @@ BehaviorOf drone {
 
 	state st_Drone_init initial
 		println ("----- Drone Initialized -----")
+		exec init()
 		goToState st_Drone_ready
 	endstate
 	
 	state st_Drone_ready
-		exec init()
 		println ("----- Waiting setSpeed -----")
 		doInOut receiveCommand()
 		set startMission = call checkStartMission(code.curInputMsgContent) 
@@ -175,7 +175,7 @@ BehaviorOf drone {
 		showMsg("Notify END mission")
 		doOut sendnotify(notify)
 		exec endMission() // empty method - maybe can be used in future?
-		//goToState st_Drone_ready
-		transitToEnd		
+		goToState st_Drone_init
+		//transitToEnd		
 	endstate
 }

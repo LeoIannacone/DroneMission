@@ -1,15 +1,15 @@
-ContactSystem headquarter_controlunit -awt -o spaceUpdater [host="localhost" port=8070];
-
+ContactSystem headquarter_controlunit -awt spaceUpdater [host="localhost" port=8070];
 Context subSystemDrone -w;
 Context subSystemHeadQuarter -w;
 Context subSystemSmartDevice -w;
+Context subSubSystemHeadQuarterServer -w;
 
 //		Subsystems -w (window)
 Subject smartdevice context subSystemSmartDevice external;
 Subject drone context subSystemDrone external;
 //Subject headQuarter context subSystemHeadQuarter;
 
-Subject server context subSystemHeadQuarter external; 
+Subject server context subSubSystemHeadQuarterServer external;
 Subject uiLog context subSystemHeadQuarter external;
 Subject uiCommand context subSystemHeadQuarter external;
 Subject controlUnit context subSystemHeadQuarter; 
@@ -65,6 +65,9 @@ receiveShowMeSensorsData: server grant showMeSensorsData;
 sendShowMePackagepicturePackage: uiLog demand showMePicturePackage to server;
 receiveShowMePackagepicturePackage: server grant showMePicturePackage;
 
+sendShowMeNotifies: uiLog demand showMeNotifies to server;
+receiveShowMeNotifies: server grant showMeNotifies;
+
 // UI send command
 sendUINewCommand: uiCommand demand newCommand to server;
 receiveUINewCommand: server grant newCommand;
@@ -79,9 +82,11 @@ BehaviorOf controlUnit {
 	var String rpl
 	var String sensorsDatasReceived
 	var String picturePackageReceived
-	var String notifyReceived
 	
 	var boolean tmpCheck
+	
+	// init
+	action void init()
 	
 	// store mission starts
 	action void storeMissionStarted()
@@ -101,6 +106,7 @@ BehaviorOf controlUnit {
 	
 	state st_controlUnit_init initial
 		showMsg("Control Unit - initial")
+		exec init()
 		goToState st_controlUnit_ready
 	endstate
 	
@@ -116,8 +122,14 @@ BehaviorOf controlUnit {
 	endstate
 	
 	state st_controlUnit_startMission
+		set cmd = code.curInputMsgContent
+		doOutIn sendCommand(cmd)
+		acquireAnswerFor command
+		set rpl = code.curReplyContent
+		replyToRequest forwardCommand(rpl)
 		call storeMissionStarted()
-		goToState st_controlUnit_sendCommand
+		call storeCommandAndReply(cmd, rpl)
+		goToState st_controlUnit_onMission
 	endstate
 	
 	// in case of wrong start command received
@@ -129,6 +141,7 @@ BehaviorOf controlUnit {
 	endstate
 	
 	state st_controlUnit_sendCommand
+		doInOut receiveForwardCommand()
 		set cmd = code.curInputMsgContent
 		doOutIn sendCommand(cmd)
 		acquireAnswerFor command
@@ -139,16 +152,15 @@ BehaviorOf controlUnit {
 	endstate
 	
 	state st_controlUnit_onMission
-		
 		// check if there are commands to send
 		onMessage? forwardCommand goToState st_controlUnit_sendCommand
 				
+		// get sensors data
+		onMessage? sensorsData goToState st_controlUnit_receivedSensorsData
+		
 		// get picturePackages
 		onMessage? picturePackage goToState st_controlUnit_receivedpicturePackage
 		
-		// get sensors data
-		onMessage? sensorsData goToState st_controlUnit_receivedSensorsData
-	
 		// check if end mission
 		set tmpCheck = exec checkEndMission()
 		if { tmpCheck == true } {
@@ -173,66 +185,7 @@ BehaviorOf controlUnit {
 	
 	state st_controlUnit_endMission
 		call shutdown()
-		transitToEnd
+		goToState st_controlUnit_init
+		//transitToEnd
 	endstate
 }
-
-/*
-BehaviorOf server {
-	
-	var String command
-	var String reply
-	var String sensorsData
-	var String picturePackage
-	var String mission
-
-	action String showReplyToCommand(String reply)
-	action String getSensorsData(String mission_id)
-	action String getPicturePackage(String  mission_id)
-	action String getNotifies(String mission_id)
-	action String getMission(String mission_id)
-	
-	state st_Server_init initial 
-		showMsg("Server - initial")
-		goToState st_Server_Handler
-	endstate
-	
-	state st_Server_Handler
-		onMessage? newCommand goToState st_Server_forwardCommand
-		onMessage? showMeMission goToState st_Server_showMission
-		onMessage? showMePicturePackage goToState st_Server_showPicturePackage
-		onMessage? showMeSensorsData goToState st_Server_showSensorsData
-	endstate
-	
-	state st_Server_showMission
-		doInOut receiveShowMeMission()
-		set mission = exec getMission(code.curInputMsgContent)
-		replyToRequest showMeMission(mission)
-		goToState st_Server_Handler
-	endstate
-	
-	state st_Server_showPicturePackage
-		doInOut receiveShowMePackagepicturePackage()
-		set picturePackage = exec getPicturePackage(code.curInputMsgContent)
-		replyToRequest showMePicturePackage(picturePackage)
-		goToState st_Server_Handler
-	endstate
-	
-	state st_Server_showSensorsData
-		doInOut receiveShowMeSensorsData()
-		set sensorsData = exec getSensorsData(code.curInputMsgContent)
-		replyToRequest showMeMission(sensorsData)
-		goToState st_Server_Handler
-	endstate
-	
-	state st_Server_forwardCommand
-		doInOut receiveUINewCommand()
-		set command = code.curInputMsgContent
-		doOutIn sendForwardCommand(command)
-		acquireAnswerFor forwardCommand
-		set reply = code.curInputMsgContent
-		exec showReplyToCommand(reply)
-		goToState st_Server_Handler
-	endstate
-		
-}*/
