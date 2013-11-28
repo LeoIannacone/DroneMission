@@ -7,7 +7,6 @@ from it.unibo.droneMission.messages import Utils, Command, Reply
 from it.unibo.droneMission.interfaces.messages import TypesSensor, TypesNotify,\
     TypesReply
 from datetime import datetime
-from it.unibo.contact.HeadQuarter import Server
 
 # time / 1000.0:
 #     java takes in account milliseconds, python uses
@@ -71,7 +70,9 @@ def format_command(command, reply):
 
 def latest_sensors(request):
     sensors = storage.getLatestSensorsData()
-    f_s = format_sensors(sensors)
+    f_s = {}
+    if sensors is not None:
+        f_s = format_sensors(sensors)
     return render_to_response('ajax/sensors_latest.html', f_s)
 
 def index(request):
@@ -121,7 +122,6 @@ def send_command(request, type, value):
     c = Command(int(type))
     c.setValue(int(value))
     
-    server = Server("ciao")
     r = server.forwardCommand(c)
     
     info = {}
