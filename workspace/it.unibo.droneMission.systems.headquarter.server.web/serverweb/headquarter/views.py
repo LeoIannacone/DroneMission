@@ -74,6 +74,13 @@ def format_command(command, reply):
     
     return formatted
 
+def latest_picture(request):
+    picture = storage.getLatestPicturePackage()
+    f_p = {}
+    if picture is not None:
+        f_p = format_picture(picture, storage.getCurrentMissionID())
+    return render_to_response('ajax/picture_latest.html', f_p)
+
 def latest_sensors(request):
     sensors = storage.getLatestSensorsData()
     f_s = {}
