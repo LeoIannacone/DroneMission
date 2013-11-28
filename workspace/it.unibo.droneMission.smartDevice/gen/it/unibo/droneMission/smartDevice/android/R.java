@@ -30,32 +30,34 @@ public final class R {
     }
     public static final class id {
         public static final int bool=0x7f080003;
-        public static final int endmission=0x7f080012;
+        public static final int endmission=0x7f080013;
         public static final int idleTextView=0x7f080001;
-        public static final int layoutData=0x7f080005;
+        public static final int layoutData=0x7f080006;
         public static final int layoutidle=0x7f080000;
-        public static final int lblFuel=0x7f08000a;
-        public static final int lblLat=0x7f08000d;
-        public static final int lblLong=0x7f08000f;
-        public static final int lblOdo=0x7f080008;
-        public static final int lblSpeed=0x7f080006;
-        public static final int output=0x7f080013;
-        public static final int pbFuel=0x7f08000c;
+        public static final int lblFuel=0x7f08000b;
+        public static final int lblLat=0x7f08000e;
+        public static final int lblLong=0x7f080010;
+        public static final int lblOdo=0x7f080009;
+        public static final int lblSpeed=0x7f080007;
+        public static final int output=0x7f080014;
+        public static final int pbFuel=0x7f08000d;
         public static final int startReceivingData=0x7f080002;
         public static final int test=0x7f080004;
-        public static final int update=0x7f080011;
-        public static final int valFuel=0x7f08000b;
-        public static final int valLat=0x7f08000e;
-        public static final int valLong=0x7f080010;
-        public static final int valOdo=0x7f080009;
-        public static final int valSpeed=0x7f080007;
+        public static final int test2=0x7f080005;
+        public static final int update=0x7f080012;
+        public static final int valFuel=0x7f08000c;
+        public static final int valLat=0x7f08000f;
+        public static final int valLong=0x7f080011;
+        public static final int valOdo=0x7f08000a;
+        public static final int valSpeed=0x7f080008;
     }
     public static final class integer {
         public static final int maxVal=0x7f050000;
         public static final int minVal=0x7f050001;
     }
     public static final class layout {
-        public static final int layout=0x7f030000;
+        public static final int finallayoutwithtest=0x7f030000;
+        public static final int layout=0x7f030001;
     }
     public static final class string {
         public static final int app_name=0x7f060000;

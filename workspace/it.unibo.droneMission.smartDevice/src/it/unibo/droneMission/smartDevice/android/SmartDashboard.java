@@ -1,20 +1,20 @@
 package it.unibo.droneMission.smartDevice.android;
 
-import it.unibo.contact.DroneSmartDashboard.Smartdevice;
+import it.unibo.contact.DroneSmartDashboard.DroneSmartDashboard;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
+//import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class SmartDashboard extends SmartDashboardSupport {
 	
 	protected Button startMissionButton;
 	protected TextView idleTextView;
-	protected Smartdevice contactSystem;
+	protected DroneSmartDashboard contactSystem;
 
 	@Override
 	protected void startMission(String inputValue, Bundle b) throws Exception {
@@ -32,21 +32,21 @@ public class SmartDashboard extends SmartDashboardSupport {
 	@Override
 	protected void notifyReceived(String inputValue, Bundle b)
 			throws Exception {
-		//showMsg("onNotifystart");
-		Button btn = (Button)findViewById(R.id.test);
-		//if (inputValue.equals("start mission")){
-		if (btn.getText().toString().equals("start mission")){
+		if (inputValue.equals("startmission")){
 			showMsg("Received \"Mission Started\" from Drone");
-			idleTextView.setText("Drone on mission");
-			idleTextView.setTextColor(Color.GREEN);
-			startMissionButton.setEnabled(true);
+//			idleTextView.setText("Drone On Mission");
+//			idleTextView.setTextColor(Color.GREEN);
+//			startMissionButton.setEnabled(true);
 		}
 		else{
-			showMsg("Received \"End Mission\" from Drone");
-			endMission("", b);
-			idleTextView.setText("Waiting for Mission");
-			idleTextView.setTextColor(Color.RED);
-			startMissionButton.setEnabled(false);
+			endMission("", myBundle);
+			showMsg("Received \"Mission Ended\" from Drone");
+			wait(3000);
+			output.setText("");
+//			showMsg("Received \"End Mission\" from Drone");
+//			idleTextView.setText("Waiting for Mission");
+//			idleTextView.setTextColor(Color.RED);
+//			startMissionButton.setEnabled(false);
 		}
 		
 	}
@@ -55,28 +55,33 @@ public class SmartDashboard extends SmartDashboardSupport {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		startMissionButton = (Button) findViewById(R.id.startReceivingData);
-		startMissionButton.setEnabled(false);
-		idleTextView = (TextView) findViewById(R.id.idleTextView);
-		idleTextView.setTextColor(Color.RED);
-		View lay = (View)findViewById(R.id.layoutData);
-		lay.setVisibility(View.VISIBLE);
-		showMsg (startMissionButton.getText().toString());
-		showMsg (idleTextView.getText().toString());
-		showMsg("onCreate");
+//		startMissionButton = (Button) findViewById(R.id.startReceivingData);
+//		startMissionButton.setEnabled(false);
+//		idleTextView = (TextView) findViewById(R.id.idleTextView);
+//		idleTextView.setTextColor(Color.RED);
+//		View lay = (View)findViewById(R.id.layoutData);
+//		lay.setVisibility(View.VISIBLE);
+		
+		try {
+			contactSystem = new DroneSmartDashboard(this);
+			contactSystem.doJob();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	//just for test
-	@Override
-	protected void bool_OnChanged(boolean checked) {
-		// TODO Auto-generated method stub
-		Button btn = (Button) findViewById(R.id.test);
-		if(checked)
-			btn.setText("start mission");
-		else
-			btn.setText("stop mission");
-		showMsg("onChangeChk");
-	}
+//	@Override
+//	protected void bool_OnChanged(boolean checked) {
+//		// TODO Auto-generated method stub
+//		Button btn = (Button) findViewById(R.id.test);
+//		if(checked)
+//			btn.setText("start mission");
+//		else
+//			btn.setText("stop mission");
+//		showMsg("onChangeChk");
+//	}
 
 	@Override
 	protected void endMission(String inputValue, Bundle b) throws Exception {
@@ -126,29 +131,16 @@ public class SmartDashboard extends SmartDashboardSupport {
 //			tv = (TextView)findViewById(R.id.valLong);
 //			tv.setText(coords[1]);
 //		}
-		TextView tv;
-		tv = (TextView)findViewById(R.id.valFuel);
-		tv.setText("UPDATED");
-		tv = (TextView)findViewById(R.id.valLat);
-		tv.setText("UPDATED");
-		tv = (TextView)findViewById(R.id.valLong);
-		tv.setText("UPDATED");
-		tv = (TextView)findViewById(R.id.valOdo);
-		tv.setText("UPDATED");
-		tv = (TextView)findViewById(R.id.valSpeed);
-		tv.setText("UPDATED");
-		ProgressBar pb = (ProgressBar)findViewById(R.id.pbFuel);
-		pb.setProgress(15);
+		
 	}
 	
 	//for contact interactions
-	
-	public void callNotifyReceived(String s) throws Exception{
-		notifyReceived(s, myBundle); 
-	}
 	
 	public void callUpdateValues(String s) throws Exception{
 		updateValues(s, myBundle); 
 	}
 	
+	public void callNotify(String s) throws Exception{
+		notifyReceived(s, myBundle); 
+	}
 }
