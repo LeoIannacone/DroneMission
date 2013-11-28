@@ -169,7 +169,13 @@ public abstract class DataBase extends Storage implements IDataBase {
 	
 	@Override
 	public boolean isOnMission() {
-		return this.isonmission;
+		return getCurrentMissionID() > 0;
+	}
+
+	
+	@Override
+	public void resetCurrentMissionID() {
+		this.mission = -1;
 	}
 	
 	@Override

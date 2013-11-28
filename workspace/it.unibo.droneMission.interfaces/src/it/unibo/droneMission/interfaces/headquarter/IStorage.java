@@ -20,6 +20,7 @@ public interface IStorage {
 	public void endMission();
 	public boolean isOnMission();
 	public int getCurrentMissionID();
+	public void resetCurrentMissionID();
 	public IMission getMission(int id);
 	public List<IMission> getPastMissions();
 	
