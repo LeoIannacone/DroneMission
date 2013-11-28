@@ -48,6 +48,9 @@ public class Drone extends DroneSupport {
 	
 		// image workaround
 		imageCounter = 0;
+		
+		// set bologna as start place
+		loctracker.update(new GaugeValueDouble(44.435505), new GaugeValueDouble(10.976787));
 	}
 	
 	protected void sleep() {
