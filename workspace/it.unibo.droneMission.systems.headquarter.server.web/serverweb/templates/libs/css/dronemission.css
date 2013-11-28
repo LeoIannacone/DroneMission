@@ -169,3 +169,7 @@ header h1.brand small {
 .mission .picture-package {
     margin-bottom: 20px;
 }
+
+#sensors, #controls {
+    min-height: 250px
+}
