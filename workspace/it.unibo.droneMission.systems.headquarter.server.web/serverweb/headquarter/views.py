@@ -26,12 +26,18 @@ def format_sensors(sensors):
         if type == TypesSensor.LOCTRACKER:
             lat = gauge.getLat().valAsDouble()
             lon = gauge.getLon().valAsDouble()
+        if type == TypesSensor.FUELOMETER:
+            fuel = gauge.getVal().valAsDouble()
+        if type == TypesSensor.SPEEDOMETER:
+            speed = gauge.getVal().valAsDouble()
         formatted_gauges.append(g)
     
     result = {}
     result["gauges"] = formatted_gauges
     result["latitude"] = lat
     result["longitude"] = lon
+    result["fuel"] = fuel
+    result["speed"] = speed
     result["time"] = get_time(sensors.getTime())
     
     return result
