@@ -7,8 +7,8 @@ public class ControlUnitStandAlone extends SubSystemHeadQuarterMain {
 	
 	public static void main(String args[]) throws Exception {
 		SubSystemHeadQuarterMain system = new ControlUnitStandAlone( );
-		System.setProperty("inputTimeOut", "600000");
 		system.doJob();
+		System.setProperty("inputTimeOut", "600000");
 	}
 	protected void initGui(){
 		 env = new EnvFrame( "ControlUnitStandAlone", this );
