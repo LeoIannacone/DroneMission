@@ -1,5 +1,5 @@
 var CHECKTIME = 300; // check new data every x millisec
-
+var UPDATER;
 var map;
 var droneIcon;
 
@@ -35,6 +35,7 @@ function updateOnMission(fuel) {
         $("#start").removeClass("btn-success");
         $("#start").removeClass("btn-warning");
         $("#commands *").addClass("disabled");
+        window.clearInterval(UPDATER);
     }
   
 }
@@ -91,7 +92,7 @@ $(document).ready(function(){
     
     if (document.location.pathname == '/missions/new') {
         initMap();
-        setInterval(function(){updateSensors();}, CHECKTIME);    
+        UPDATER = setInterval(function(){updateSensors();}, CHECKTIME);    
         $("#start").click( function() {
             var URL = "/ajax/commands/send/type/3/value/60";
             $.ajax({ 
