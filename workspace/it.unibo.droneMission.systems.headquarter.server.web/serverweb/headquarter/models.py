@@ -1,9 +1,10 @@
 #from django.db import models
-from it.unibo.contact.HeadQuarter import Server
+from it.unibo.droneMission.systems.headquarter.storage import FactoryStorage
+from it.unibo.contact.headquarter_server import ServerStandAlone
 
-server = Server("django serverweb")
-storage = server.getStorage()
-#storage.setDebug(3)
+server = ServerStandAlone()
+storage = FactoryStorage.getInstance(FactoryStorage.MYSQL)
+storage.setDebug(3)
 
 # class Commands(models.Model):
 #     id = models.IntegerField(primary_key=True)
