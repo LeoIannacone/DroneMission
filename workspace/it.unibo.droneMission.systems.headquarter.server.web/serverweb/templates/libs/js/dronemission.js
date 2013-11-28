@@ -22,6 +22,28 @@ function updateSensors() {
     });
 }
 
+function updateOnMission(fuel) {
+    if (parseFloat(fuel) > 0.5) {
+        $("#start").html("On Mission");
+        $("#start").removeClass("btn-danger");
+        $("#start").removeClass("btn-success");
+        $("#start").addClass("btn-warning");
+    }
+    else {
+        $("#start").html("Mission ended");
+        $("#start").addClass("btn-danger");
+        $("#start").removeClass("btn-success");
+        $("#start").removeClass("btn-warning");
+        $("#commands *").addClass("disabled");
+    }
+  
+}
+
+function updateSpeed(speed) {
+   $("#commands .set").val(parseFloat(speed));
+}
+
+
 function updateNotifies() {
     var URL = "/ajax/notifies/latest/4";
     $.ajax({ 
