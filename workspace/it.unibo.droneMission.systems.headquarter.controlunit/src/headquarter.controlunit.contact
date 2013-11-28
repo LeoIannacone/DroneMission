@@ -96,6 +96,7 @@ BehaviorOf controlUnit {
 	
 	// check commands to send
 	action boolean checkCommandStart(String command)
+	action boolean checkReplyCommandStart(String reply)
 	action String getWrongStartCommandReply()
 	action void storeCommandAndReply(String c, String r)
 	
@@ -126,6 +127,10 @@ BehaviorOf controlUnit {
 		acquireAnswerFor command
 		set rpl = code.curReplyContent
 		replyToRequest forwardCommand(rpl)
+		set tmpCheck = exec checkReplyCommandStart(rpl)
+		if { tmpCheck == false } {
+			goToState st_controlUnit_ready	
+		}
 		call storeMissionStarted()
 		call storeCommandAndReply(cmd, rpl)
 		goToState st_controlUnit_onMission

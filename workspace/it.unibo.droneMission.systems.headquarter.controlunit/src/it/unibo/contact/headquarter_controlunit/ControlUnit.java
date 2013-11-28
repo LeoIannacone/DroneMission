@@ -69,6 +69,13 @@ public class ControlUnit extends ControlUnitSupport {
 		ICommand c = Factory.createCommand(command);
 		return c.getType() == TypesCommand.START_MISSION || c.getType() == TypesCommand.SPEED_SET;
 	}
+	
+	@Override
+	protected boolean checkReplyCommandStart(String reply) throws Exception {
+		reply = Utils.cleanJSONFromContact(reply);
+		IReply r = Factory.createReply(reply);
+		return r.getType() == TypesReply.REPLY_OK;
+	};
 
 	@Override
 	protected String getWrongStartCommandReply() throws Exception {
