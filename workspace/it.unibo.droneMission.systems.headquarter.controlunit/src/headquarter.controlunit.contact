@@ -2,14 +2,13 @@ ContactSystem headquarter_controlunit -awt spaceUpdater [host="localhost" port=8
 Context subSystemDrone -w;
 Context subSystemHeadQuarter -w;
 Context subSystemSmartDevice -w;
-Context subSubSystemHeadQuarterServer -w;
 
 //		Subsystems -w (window)
 Subject smartdevice context subSystemSmartDevice external;
 Subject drone context subSystemDrone external;
 //Subject headQuarter context subSystemHeadQuarter;
 
-Subject server context subSubSystemHeadQuarterServer external;
+Subject server context subSystemHeadQuarter external;
 Subject uiLog context subSystemHeadQuarter external;
 Subject uiCommand context subSystemHeadQuarter external;
 Subject controlUnit context subSystemHeadQuarter; 
