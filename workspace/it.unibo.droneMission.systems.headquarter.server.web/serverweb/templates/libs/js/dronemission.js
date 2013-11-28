@@ -62,7 +62,7 @@ function initMap() {
     function initialize() {
       var mapOptions = {
         zoom: 8,
-        center: new google.maps.LatLng(0,0),
+        center: new google.maps.LatLng(44.435505,10.976787),
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         streetViewControl: false,
         draggable: false,
@@ -85,9 +85,27 @@ function initMap() {
 $(document).ready(function(){
 
     // init map
-    initMap();
+    //initMap();
     
-    setInterval(function(){updateSensors();}, CHECKTIME);
+    
+    
+    if (document.location.pathname == '/missions/new') {
+        initMap();
+        setInterval(function(){updateSensors();}, CHECKTIME);    
+        $("#start").click( function() {
+            var URL = "/ajax/commands/send/type/3/value/60";
+            $.ajax({ 
+                type: 'GET', 
+                url: URL, 
+                dataType: 'html',
+                success: function (data) {
+                    $("#commands *").removeClass("disabled");
+                    $("#start").addClass("disabled");
+                    $("#start").unbind( "click" );
+                }
+            });
+        });
+    }
 
 
 })
