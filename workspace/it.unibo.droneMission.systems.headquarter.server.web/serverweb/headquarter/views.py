@@ -115,6 +115,7 @@ def get_mission(request, id):
     return render_to_response('mission.html',info)
 
 def new_mission(request):
+    storage.resetCurrentMissionID()
     return render_to_response('new-mission.html')
 
 def send_command(request, type, value):
