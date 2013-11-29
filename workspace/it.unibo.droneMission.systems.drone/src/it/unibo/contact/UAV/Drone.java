@@ -100,6 +100,11 @@ public class Drone extends DroneSupport {
 			reply.setValue("Speed decreased correctly");
 		}
 		
+		else if (command.getType() == TypesCommand.START_MISSION) {
+			setSpeed(60);
+			reply.setValue("Mission started correctly");
+		}
+		
 		else {
 			reply.setType(TypesReply.REPLY_FAIL);
 			reply.setValue("No command recognized");
