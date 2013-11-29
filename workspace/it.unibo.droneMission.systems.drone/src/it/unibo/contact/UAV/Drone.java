@@ -29,9 +29,14 @@ public class Drone extends DroneSupport {
 	protected DroneThread thread;
 	
 	private int imageCounter;
+	private String PICTURES_FILEPATH = "/media/dronemission/pictures/drone"; 
 	
 	public Drone(String name) throws Exception {
 		super(name);
+		init();
+	}
+	
+	public void init() {
 		// init gauges
 		speedometer = new Speedometer();
 		odometer = new Odometer();
@@ -43,6 +48,9 @@ public class Drone extends DroneSupport {
 	
 		// image workaround
 		imageCounter = 0;
+		
+		// set bologna as start place
+		loctracker.update(new GaugeValueDouble(44.435505), new GaugeValueDouble(10.976787));
 	}
 	
 	protected void sleep() {
@@ -71,30 +79,49 @@ public class Drone extends DroneSupport {
 	
 	@Override
 	protected String handleCommand(String commandJSON) throws Exception {
-		IReply reply = new Reply(TypesReply.REPLY_OK);
+		
 		ICommand command = Factory.createCommand(Utils.cleanJSONFromContact(commandJSON));
+		IReply reply = new Reply(TypesReply.REPLY_OK);
+				
 		if (command.getType() == TypesCommand.SPEED_SET) {
 			setSpeed(command.getValue());
 			reply.setValue("Speed set correctly");
+		}
+		
+		else if (command.getType() == TypesCommand.SPEED_INCREASE) {
+			double speed = speedometer.getVal().valAsDouble();
+			setSpeed(speed + Speedometer.DS);
+			reply.setValue("Speed increased correctly");
+		}
+		
+		else if (command.getType() == TypesCommand.SPEED_DECREASE) {
+			double speed = speedometer.getVal().valAsDouble();
+			setSpeed(speed - Speedometer.DS);
+			reply.setValue("Speed decreased correctly");
+		}
+		
+		else if (command.getType() == TypesCommand.START_MISSION) {
+			setSpeed(60);
+			reply.setValue("Mission started correctly");
 		}
 		
 		else {
 			reply.setType(TypesReply.REPLY_FAIL);
 			reply.setValue("No command recognized");
 		}
-		
+		env.println(command.toString() + " " + reply.toString());
 		return Utils.adaptJSONToContact(reply.toJSON());
 	}
 
 	@Override
 	protected boolean checkStartMission(String commandJSON) throws Exception {
 		ICommand command = Factory.createCommand(Utils.cleanJSONFromContact(commandJSON));
-		return command.getType() == TypesCommand.SPEED_SET;
+		return command.getType() == TypesCommand.SPEED_SET || command.getType() == TypesCommand.START_MISSION;
 	}
 
 	@Override
 	protected boolean checkEndMission() throws Exception {
-		if (fuelometer.getVal().valAsDouble() < fuelometer.MIN)
+		if (fuelometer.getVal().valAsDouble() <= fuelometer.MIN)
 		{
 			env.println("FUEL is going to end");
 			return true;
@@ -125,8 +152,7 @@ public class Drone extends DroneSupport {
 		if (imageCounter == MAX_FILE)
 			imageCounter = 0;
 		env.println("Sending picture: " + imageCounter);
-		String filePath = "/media/dronemission/pictures";
-		String filename = String.format("%s/%s.%s", filePath, imageCounter, FILE_EXT);
+		String filename = String.format("%s/%s.%s", PICTURES_FILEPATH, imageCounter, FILE_EXT);
 		File f = new File(filename);
 		IPicturePackage p = new PicturePackage(_getSensorsData(), f);
 		

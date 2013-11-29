@@ -82,6 +82,26 @@ header h1.brand small {
     font-size: 22px;
 }
 
+
+#navWrapper .nav {
+    margin-top: 80px;
+}
+
+.affix {
+  width: inherit; //helped keep the content the same size on fluid layouts
+  position: fixed;
+  top: 50px;  //height of the nav
+}
+.affix-bottom {
+  width: inherit;
+  position: absolute;
+  top: auto;
+  bottom: 200px;  //height of the footer
+}
+.affix-top {
+  //i didn't need this style but you might
+}
+
 #main {
 	background: #F2F2F2;
 	border-radius: 4px;
@@ -146,3 +166,14 @@ header h1.brand small {
     top: 8px
 }
 
+.mission .picture-package {
+    margin-bottom: 20px;
+}
+
+#sensors, #controls {
+    min-height: 250px
+}
+
+#reply {
+    margin-top: 14px;
+}

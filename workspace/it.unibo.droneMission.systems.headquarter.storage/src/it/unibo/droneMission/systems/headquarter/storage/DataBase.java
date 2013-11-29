@@ -1,4 +1,4 @@
-package it.unibo.droneMission.systems.headquarter;
+package it.unibo.droneMission.systems.headquarter.storage;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -169,7 +169,13 @@ public abstract class DataBase extends Storage implements IDataBase {
 	
 	@Override
 	public boolean isOnMission() {
-		return this.isonmission;
+		return getCurrentMissionID() > 0;
+	}
+
+	
+	@Override
+	public void resetCurrentMissionID() {
+		this.mission = -1;
 	}
 	
 	@Override
@@ -243,6 +249,28 @@ public abstract class DataBase extends Storage implements IDataBase {
 		
 		return mission;
 
+	}
+	
+	@Override
+	public List<IMission> getPastMissions() {
+		ArrayList<IMission> list = new ArrayList<>();
+		this.from(DataBaseTables.MISSIONS_TABLENAME);
+		ResultSet set = this.get();
+		try {
+			while(set.next()) {
+				long start = set.getLong(DataBaseTables.MISSIONS_COLUMN_START);
+				long end = set.getLong(DataBaseTables.MISSIONS_COLUMN_END);
+				long id = set.getLong(DataBaseTables.MISSIONS_COLUMN_ID);
+				Mission m = new Mission(id);
+				m.setStartTime(start);
+				m.setEndTime(end);
+				list.add(m);
+			}
+		} catch (SQLException e) {
+			System.err.println("Error catching all missions - getPastMissions()");
+			e.printStackTrace();
+		}
+		return list;
 	}
 	
 	@Override
@@ -397,14 +425,15 @@ public abstract class DataBase extends Storage implements IDataBase {
 
 	@Override
 	public void storeSensorsData(ISensorsData data) {
-		_storeSensorsData(data);
+		_storeSensorsData(data, false);
 	}
 
-	private int _storeSensorsData(ISensorsData data) {
+	private int _storeSensorsData(ISensorsData data, boolean has_picture) {
 		Hashtable<String, String> set = new Hashtable<>();
 		set.put(DataBaseTables.SENSORS_COLUMN_DATA, "" + data.toJSON());
 		set.put(DataBaseTables.SENSORS_COLUMN_MISSION, "" + getCurrentMissionID());
 		set.put(DataBaseTables.SENSORS_COLUMN_TIME, "" + data.getTime());
+		set.put(DataBaseTables.SENSORS_COLUMN_HASPICTURE, has_picture ? "1" : "0");
 		
 		this.from(DataBaseTables.SENSORS_TABLENAME);
 		
@@ -431,6 +460,7 @@ public abstract class DataBase extends Storage implements IDataBase {
 		
 		this.from(DataBaseTables.SENSORS_TABLENAME);
 		this.where(DataBaseTables.SENSORS_COLUMN_MISSION, "" + mission_id);
+		this.where(DataBaseTables.SENSORS_COLUMN_HASPICTURE, "0");
 		this.orderBy(DataBaseTables.SENSORS_COLUMN_ID, this.DESC);
 		
 		if (limit > 0)
@@ -458,22 +488,24 @@ public abstract class DataBase extends Storage implements IDataBase {
 	@Override
 	public void storePicturePackage(IPicturePackage pack) {
 		
-		int sensorsID = _storeSensorsData(pack.getSensorsData());
+		int sensorsID = _storeSensorsData(pack.getSensorsData(), true);
 				
 		IFile picture = pack.getFile();
+		
+		storeFile(picture);
 		
 		Hashtable<String, String> set = new Hashtable<>();
 		set.put(DataBaseTables.PICTURES_COLUMN_FILE_TIME, "" + picture.getCreationTime());
 		set.put(DataBaseTables.PICTURES_COLUMN_FILE_NAME, "" + picture.getName());
-		set.put(DataBaseTables.PICTURES_COLUMN_FILE_DATA, "" + picture.getDataAsBase64());
 		set.put(DataBaseTables.PICTURES_COLUMN_SENSORS, "" + sensorsID);
 		set.put(DataBaseTables.PICTURES_COLUMN_MISSION, "" + getCurrentMissionID());
+		
 		
 		this.from(DataBaseTables.PICTURES_TABLENAME);
 		this.insert(set);
 
 	}
-
+	
 	@Override
 	public List<IPicturePackage> getPicturePackagesByMission(int missionID) {
 		return _getPicturePackagesWithLimitAndMissiondID(-1, missionID);
@@ -493,9 +525,6 @@ public abstract class DataBase extends Storage implements IDataBase {
 		if (mission_id <= 0)
 			mission_id = getCurrentMissionID();
 		
-		File file = new File(); 
-		SensorsData sensors = new SensorsData();
-		
 		int sensors_id = -1;
 		
 		this.from(DataBaseTables.PICTURES_TABLENAME);
@@ -513,16 +542,15 @@ public abstract class DataBase extends Storage implements IDataBase {
 			return null;
 		
 		try {
-			while (set.next()) {	
-				try {
+			while (set.next()) {
+				File file = new File(); 
+				SensorsData sensors = new SensorsData();
 				
+				try {
 					String filename = set.getString(DataBaseTables.PICTURES_COLUMN_FILE_NAME);
-					String data = set.getString(DataBaseTables.PICTURES_COLUMN_FILE_DATA);
 					long time = set.getLong(DataBaseTables.PICTURES_COLUMN_FILE_TIME);
-					
 					sensors_id = set.getInt(DataBaseTables.PICTURES_COLUMN_SENSORS);
 					
-					file.setData(data);
 					file.setName(filename);
 					file.setCreationTime(time);
 				
@@ -558,12 +586,6 @@ public abstract class DataBase extends Storage implements IDataBase {
 			e.printStackTrace();
 		}
 		return list;
-	}
-
-	@Override
-	public void storeFile(IFile file) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

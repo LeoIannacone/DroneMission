@@ -1,0 +1,77 @@
+ContactSystem headquarter_server ;
+
+Context subSystemDrone -w;
+Context subSystemHeadQuarter;
+Context subSystemSmartDevice -w;
+
+//		Subsystems -w (window)
+Subject smartdevice context subSystemSmartDevice external;
+Subject drone context subSystemDrone external;
+//Subject headQuarter context subSystemHeadQuarter;
+
+Subject server context subSystemHeadQuarter;
+Subject uiLog context subSystemHeadQuarter external;
+Subject uiCommand context subSystemHeadQuarter external;
+Subject controlUnit context subSystemHeadQuarter external; 
+
+//		Messages
+Dispatch picturePackage; 
+Request command;
+Signal sensorsData;
+Signal notify;
+
+// User log messages
+Request showMeMission;
+Request showMeSensorsData;
+Request showMePicturePackage;
+Request showMeNotifies;
+
+// User command
+Request newCommand;
+
+// Server forward command to drone through controlUnit
+Request forwardCommand;
+
+//		Highlevel communications
+//Drone sends picturePackage
+sendDatapicturePackage: drone forward picturePackage to controlUnit;  
+//Headquarter receives picturePackage
+receiveDatapicturePackage: controlUnit serve picturePackage support=TCP [host="localhost" port=4060];
+
+//Drone sends data of sensors
+sendSensorsDatas: drone emit sensorsData;
+//Headquarter and smartdevice receive data of sensors
+controlUnitReceiveSensorsDatas: controlUnit sense sensorsData;
+smartdeviceReceivesensorsDatas: smartdevice sense sensorsData;
+
+//Drone notifies start/end mission
+sendnotify: drone emit notify;
+//smartdevice receives notifications about mission
+smartdeviceReceiveNotify: smartdevice sense notify;
+
+//HeadQuarter sends command
+sendCommand: controlUnit demand command to drone;
+//Drone receives command
+receiveCommand: drone grant command support=TCP [host="localhost" port=4050];
+
+// User communication
+// show me something
+sendShowMeMission: uiLog demand showMeMission to server;
+receiveShowMeMission: server grant showMeMission;
+
+sendShowMeSensorsData: uiLog demand showMeSensorsData to server;
+receiveShowMeSensorsData: server grant showMeSensorsData;
+
+sendShowMePackagepicturePackage: uiLog demand showMePicturePackage to server;
+receiveShowMePackagepicturePackage: server grant showMePicturePackage;
+
+sendShowMeNotifies: uiLog demand showMeNotifies to server;
+receiveShowMeNotifies: server grant showMeNotifies;
+
+// UI send command
+sendUINewCommand: uiCommand demand newCommand to server;
+receiveUINewCommand: server grant newCommand;
+
+// server sends command to drone handler
+sendForwardCommand: server demand forwardCommand to controlUnit;
+receiveForwardCommand: controlUnit grant forwardCommand support=TCP [host="localhost" port=4060];

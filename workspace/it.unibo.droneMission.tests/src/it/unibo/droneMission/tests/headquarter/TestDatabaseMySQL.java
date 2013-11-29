@@ -18,7 +18,7 @@ import it.unibo.droneMission.messages.Notify;
 import it.unibo.droneMission.messages.PicturePackage;
 import it.unibo.droneMission.messages.Reply;
 import it.unibo.droneMission.messages.SensorsData;
-import it.unibo.droneMission.systems.headquarter.FactoryStorage;
+import it.unibo.droneMission.systems.headquarter.storage.FactoryStorage;
 
 public class TestDatabaseMySQL {
 

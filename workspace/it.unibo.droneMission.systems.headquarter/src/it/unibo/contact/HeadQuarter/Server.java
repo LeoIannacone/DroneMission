@@ -7,7 +7,7 @@ import it.unibo.droneMission.interfaces.messages.TypesCommand;
 import it.unibo.droneMission.messages.Command;
 import it.unibo.droneMission.messages.Factory;
 import it.unibo.droneMission.messages.Utils;
-import it.unibo.droneMission.systems.headquarter.FactoryStorage;
+import it.unibo.droneMission.systems.headquarter.storage.FactoryStorage;
 
 public class Server extends ServerSupport {
 
@@ -20,13 +20,18 @@ public class Server extends ServerSupport {
 	
 	@Override
 	public void doJob() throws Exception {
-		testStartMission();	
+		env.println("Send first start");
+		testStartMission(60);	
+		Thread.sleep(3000);
+		env.println("Send second command");
+		testStartMission(100);	
+		Thread.sleep(10000);
 	}
 	
-	private void testStartMission() {
+	private void testStartMission(int value) {
 		ICommand c = new Command(TypesCommand.SPEED_SET);
-		c.setValue(60);
-		forwardCommand(c);
+		c.setValue(value);
+		env.println(forwardCommand(c).toJSON());
 	}
 	
 	public IReply forwardCommand(ICommand command) {

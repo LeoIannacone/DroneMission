@@ -3,6 +3,10 @@ package it.unibo.droneMission.messages;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Hashtable;
+import java.util.Iterator;
+
+import com.sun.org.apache.xml.internal.security.keys.content.KeyValue;
 
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
@@ -14,7 +18,11 @@ import it.unibo.droneMission.gauge.LocTracker;
 import it.unibo.droneMission.gauge.Odometer;
 import it.unibo.droneMission.gauge.Speedometer;
 import it.unibo.droneMission.interfaces.gauges.IGauge;
+import it.unibo.droneMission.interfaces.messages.ICommand;
+import it.unibo.droneMission.interfaces.messages.IReply;
 import it.unibo.droneMission.interfaces.messages.ISensor;
+import it.unibo.droneMission.interfaces.messages.TypesCommand;
+import it.unibo.droneMission.interfaces.messages.TypesReply;
 import it.unibo.droneMission.interfaces.messages.TypesSensor;
 
 
@@ -147,10 +155,65 @@ public class Utils {
 		return -1;
 	}
 	
-	private static String replaceQuotesInContact = "@@@";
+	public static String getCommandName(ICommand command) {
+		int type = command.getType();
+		if (type == TypesCommand.SPEED_SET)
+			return "Set speed";
+		if (type == TypesCommand.SPEED_INCREASE)
+			return "Speed increase";
+		if (type == TypesCommand.SPEED_DECREASE)
+			return "Speed decrease";
+		if (type == TypesCommand.START_MISSION)
+			return "Start Mission";
+		
+		return "";
+	}
+
+	public static String getReplyName(IReply reply) {
+		int type = reply.getType();
+		if (type == TypesReply.REPLY_FAIL)
+			return "Fail";
+		if (type == TypesReply.REPLY_NO)
+			return "No";
+		if (type == TypesReply.REPLY_OK)
+			return "Ok";
+		return "";
+	}
+	
+	
+	private static String formatReplaceString(String s) {
+		String simbol = "";
+		String pre = simbol + "rpl";
+		String post = simbol;
+		return String.format("%s%s%s", pre, s, post);
+	}
+	
+	private static Hashtable<String, String> getReplaceDict() {
+		
+		Hashtable<String, String> dict = new Hashtable<>();
+		dict.put("\"", "@@@");
+//		dict.put(".", formatReplaceString("Dot"));
+//		dict.put(",", formatReplaceString("Comma"));
+//		dict.put(":", formatReplaceString("Colon"));
+//		dict.put(";", formatReplaceString("SemiColon"));
+//		dict.put("\"", formatReplaceString("Quotes"));
+//		dict.put("[", formatReplaceString("SquareBracketsLEFT"));
+//		dict.put("]", formatReplaceString("SquareBracketsRIGHT"));
+//		dict.put("{", formatReplaceString("BracketsLEFT"));
+//		dict.put("}", formatReplaceString("BracketsRIGHT"));
+		
+		return dict;
+	}
+	
+
+	
 	
 	public static String adaptJSONToContact(String json) {
-		return json.replace("\"", replaceQuotesInContact);
+		Hashtable<String, String> dict = getReplaceDict();
+		for (String key : dict.keySet()) {
+			json = json.replace(key, dict.get(key));
+		}
+		return json.trim();
 	}
 	
 	public static String cleanJSONFromContact(String message) {
@@ -162,7 +225,10 @@ public class Utils {
 		if(json.endsWith("\'") || json.endsWith("\""))
 			json=json.substring(0, json.length()-2);
 		
-		return json.replace(replaceQuotesInContact, "\"").trim();
-		
+		Hashtable<String, String> dict = getReplaceDict();
+		for (String key : dict.keySet()) {
+			json = json.replace(dict.get(key), key);
+		}
+		return json.trim();
 	}
 }

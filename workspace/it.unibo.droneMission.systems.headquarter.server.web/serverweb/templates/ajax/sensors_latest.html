@@ -1,3 +1,4 @@
+{% if time %}
 <div class="time label">{{ time }}</div>
 <table class="table table-striped" >
 <thead>
@@ -13,4 +14,9 @@
     </tr>
 {% endfor %}
 </table>
-<script>updateMap({{ latitude }}, {{ longitude }});</script>
+<script>
+    updateMap({{ latitude }}, {{ longitude }});
+    updateOnMission( {{ fuel }} );
+    updateSpeed( {{ speed }} );
+</script>
+{% endif %}

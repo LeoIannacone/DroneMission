@@ -1,4 +1,4 @@
-package it.unibo.contact.HeadQuarter;
+package it.unibo.contact.headquarter_controlunit;
 
 import java.util.List;
 
@@ -23,9 +23,12 @@ public class ControlUnit extends ControlUnitSupport {
 	
 	public ControlUnit(String name) throws Exception {
 		super(name);
-		fuelLevel = Fuelometer.MAX;
 		storage = FactoryStorage.getInstance(FactoryStorage.MYSQL);
 		//storage.setDebug(3);
+	}
+	
+	protected void init() {
+		fuelLevel = Fuelometer.MAX;
 	}
 
 	private void setFuelLevelFromGauges(ISensorsData s) {
@@ -66,6 +69,13 @@ public class ControlUnit extends ControlUnitSupport {
 		ICommand c = Factory.createCommand(command);
 		return c.getType() == TypesCommand.START_MISSION || c.getType() == TypesCommand.SPEED_SET;
 	}
+	
+	@Override
+	protected boolean checkReplyCommandStart(String reply) throws Exception {
+		reply = Utils.cleanJSONFromContact(reply);
+		IReply r = Factory.createReply(reply);
+		return r.getType() == TypesReply.REPLY_OK;
+	};
 
 	@Override
 	protected String getWrongStartCommandReply() throws Exception {
@@ -91,12 +101,15 @@ public class ControlUnit extends ControlUnitSupport {
 
 	@Override
 	protected void shutdown() throws Exception {
-		if (storage.isOnMission())
+		if (storage.isOnMission()) {
+			env.println("MISSION END");
 			storage.endMission();
+		}
 	}
 
 	@Override
 	protected void storeMissionStarted() throws Exception {
+		env.println("MISSION START");
 		storage.startMission();
 	}
 }

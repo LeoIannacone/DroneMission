@@ -1,5 +1,5 @@
 var CHECKTIME = 300; // check new data every x millisec
-
+var UPDATER;
 var map;
 var droneIcon;
 
@@ -22,6 +22,45 @@ function updateSensors() {
     });
 }
 
+function updatePicture() {
+    var URL = "/ajax/pictures/latest";
+    $.ajax({ 
+        type: 'GET', 
+        url: URL, 
+        dataType: 'html',
+        success: function (data) {
+            current = $("#pictures .content img").attr("src");
+            new_image = $($(data)[2]).attr("src");
+            if (new_image != current)
+                $("#pictures .content").html(data);
+        }
+    });
+}
+
+function updateOnMission(fuel) {
+    if (parseFloat(fuel) > 0.5) {
+        $("#start").html("On Mission");
+        $("#start").removeClass("btn-danger");
+        $("#start").removeClass("btn-success");
+        $("#start").addClass("btn-warning");
+    }
+    else {
+        $("#start").html("Mission ended");
+        $("#start").addClass("btn-danger");
+        $("#start").removeClass("btn-success");
+        $("#start").removeClass("btn-warning");
+        $("#commands *").addClass("disabled");
+        $("#commands *").unbind("click");
+        window.clearInterval(UPDATER);
+    }
+  
+}
+
+function updateSpeed(speed) {
+   $("#current-speed").html(speed);
+}
+
+
 function updateNotifies() {
     var URL = "/ajax/notifies/latest/4";
     $.ajax({ 
@@ -40,7 +79,7 @@ function initMap() {
     function initialize() {
       var mapOptions = {
         zoom: 8,
-        center: new google.maps.LatLng(0,0),
+        center: new google.maps.LatLng(44.435505,10.976787),
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         streetViewControl: false,
         draggable: false,
@@ -60,10 +99,81 @@ function initMap() {
 
 }
 
+function updateReply(data) {
+    $("#reply").html(data);
+}
+
 $(document).ready(function(){
 
     // init map
-    initMap();
-    setInterval(function(){updateSensors();}, CHECKTIME);
-    setInterval(function(){updateNotifies();}, CHECKTIME);
+    //initMap();
+    
+    
+    
+    if (document.location.pathname == '/missions/new') {
+        initMap();
+        UPDATER = setInterval(
+            function(){
+                updateSensors();
+                updatePicture();
+            }, 
+            CHECKTIME
+            );    
+        $("#start").click( function() {
+            var URL = "/ajax/commands/send/type/1/value/0";
+            $.ajax({ 
+                type: 'GET', 
+                url: URL, 
+                dataType: 'html',
+                success: function (data) {
+                    $("#commands *").removeClass("disabled");
+                    $("#start").addClass("disabled");
+                                       
+                    $("#decrease").click( function() {
+                        var URL = "/ajax/commands/send/type/5/value/0";
+                        $.ajax({ 
+                            type: 'GET', 
+                            url: URL,
+                            dataType: 'html',
+                            success: function (data) {
+                                updateReply(data);
+                            }
+                        });
+                    });
+                    
+                    $("#increase").click( function() {
+                        var URL = "/ajax/commands/send/type/4/value/0";
+                        $.ajax({ 
+                            type: 'GET', 
+                            url: URL, 
+                            dataType: 'html',
+                            success: function (data) {
+                                updateReply(data);
+                            }
+                        });
+                    });
+                    
+                    $("#send").click( function() {
+                        var val = $("#controls .set").val()
+                        var URL = "/ajax/commands/send/type/3/value/" + val;
+                        $.ajax({ 
+                            type: 'GET', 
+                            url: URL, 
+                            dataType: 'html',
+                            success: function (data) {
+                                updateReply(data);
+                            }
+                        });
+                    });
+                    updateReply(data);
+                    $("#start").unbind( "click" );
+                }
+            });
+        });
+        
+        
+        
+    }
+
+
 })

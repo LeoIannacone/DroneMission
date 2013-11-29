@@ -3,9 +3,11 @@
 	<name>it.unibo.droneMission.systems.headquarter.server.web</name>
 	<comment></comment>
 	<projects>
+		<project>it.unibo.droneMission.gauge</project>
 		<project>it.unibo.droneMission.interfaces</project>
-		<project>it.unibo.droneMission.prototypes</project>
-		<project>it.unibo.droneMission.systems.headquarter</project>
+		<project>it.unibo.droneMission.messages</project>
+		<project>it.unibo.droneMission.systems.headquarter.server</project>
+		<project>it.unibo.droneMission.systems.headquarter.storage</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

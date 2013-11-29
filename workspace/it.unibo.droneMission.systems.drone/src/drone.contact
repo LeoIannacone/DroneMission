@@ -1,4 +1,4 @@
-ContactSystem UAV -awt -o spaceUpdater [host="localhost" port=8070];
+ContactSystem UAV -awt spaceUpdater [host="localhost" port=8070];
 
 Context subSystemDrone -w;
 Context subSystemHeadQuarter -w;
@@ -82,6 +82,8 @@ BehaviorOf drone {
 	var String reply
 	var String notify
 
+	action void init()
+
 	action void startMission()
 	action void endMission()
 	action String handleCommand(String command)
@@ -100,6 +102,7 @@ BehaviorOf drone {
 
 	state st_Drone_init initial
 		println ("----- Drone Initialized -----")
+		exec init()
 		goToState st_Drone_ready
 	endstate
 	
@@ -133,14 +136,20 @@ BehaviorOf drone {
 	endstate
 	
 	state st_Drone_handleCommand
+		doInOut receiveCommand()
 		set reply = call handleCommand(code.curInputMsgContent)
 		replyToRequest command(reply);
 		goToState st_Drone_onMission
 	endstate 
 	
 	state st_Drone_onMission
+	
+		// received a command setSpeed or stop?
+		onMessage? command goToState st_Drone_handleCommand
+		
 		// send data sensors
 		set sensorsData = exec getSensorsData()
+		doOut sendsensorsDatas(sensorsData)
 		doOut sendsensorsDatas(sensorsData)
 
 		// send picturePackages
@@ -151,18 +160,22 @@ BehaviorOf drone {
 		if { endMission } {
 			goToState st_Drone_endMission
 		}
-
-		// received a command setSpeed or stop?
-		onMessage? command goToState st_Drone_handleCommand
 		
 		exec sleep()
 	endstate
 
 	state st_Drone_endMission
+	
+		// send last sensors data
+		set sensorsData = exec getSensorsData()
+		doOut sendsensorsDatas(sensorsData)
+		doOut sendsensorsDatas(sensorsData)
+	
 		set notify = exec getNotifyEnd()
 		showMsg("Notify END mission")
 		doOut sendnotify(notify)
 		exec endMission() // empty method - maybe can be used in future?
-		transitToEnd
+		goToState st_Drone_init
+		//transitToEnd		
 	endstate
 }
