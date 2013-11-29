@@ -29,7 +29,9 @@ function updatePicture() {
         url: URL, 
         dataType: 'html',
         success: function (data) {
-            if ($("#pictures .content").html() != $(data))
+            current = $("#pictures .content img").attr("src");
+            new_image = $($(data)[2]).attr("src");
+            if (new_image != current)
                 $("#pictures .content").html(data);
         }
     });
