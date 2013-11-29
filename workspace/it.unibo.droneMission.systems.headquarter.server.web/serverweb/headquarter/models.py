@@ -4,7 +4,7 @@ from it.unibo.contact.headquarter_server import ServerStandAlone
 
 server = ServerStandAlone()
 storage = FactoryStorage.getInstance(FactoryStorage.MYSQL)
-storage.setDebug(3)
+#storage.setDebug(3)
 
 # class Commands(models.Model):
 #     id = models.IntegerField(primary_key=True)
