@@ -125,6 +125,22 @@ $(document).ready(function(){
                 }
             });
         });
+        
+        $("#decrease").click( function() {
+            var URL = "/ajax/commands/send/type/5/value/0";
+            $.ajax({ 
+                type: 'GET', 
+                url: URL, 
+            });
+        });
+        
+        $("#increase").click( function() {
+            var URL = "/ajax/commands/send/type/4/value/0";
+            $.ajax({ 
+                type: 'GET', 
+                url: URL, 
+            });
+        });
     }
 
 
