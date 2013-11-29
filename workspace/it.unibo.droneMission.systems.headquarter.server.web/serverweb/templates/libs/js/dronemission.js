@@ -50,6 +50,7 @@ function updateOnMission(fuel) {
         $("#start").removeClass("btn-success");
         $("#start").removeClass("btn-warning");
         $("#commands *").addClass("disabled");
+        $("#commands *").unbind("click");
         window.clearInterval(UPDATER);
     }
   
@@ -98,6 +99,9 @@ function initMap() {
 
 }
 
+function sendSpeed() {
+}
+
 $(document).ready(function(){
 
     // init map
@@ -123,26 +127,39 @@ $(document).ready(function(){
                 success: function (data) {
                     $("#commands *").removeClass("disabled");
                     $("#start").addClass("disabled");
+                    
                     $("#start").unbind( "click" );
+                    
+                    $("#decrease").click( function() {
+                        var URL = "/ajax/commands/send/type/5/value/0";
+                        $.ajax({ 
+                            type: 'GET', 
+                            url: URL, 
+                        });
+                    });
+                    
+                    $("#increase").click( function() {
+                        var URL = "/ajax/commands/send/type/4/value/0";
+                        $.ajax({ 
+                            type: 'GET', 
+                            url: URL, 
+                        });
+                    });
+                    
+                    $("#send").click( function() {
+                        var val = $("#controls .set").val()
+                        var URL = "/ajax/commands/send/type/3/value/" + val;
+                        $.ajax({ 
+                            type: 'GET', 
+                            url: URL, 
+                        });
+                    });
                 }
             });
         });
         
-        $("#decrease").click( function() {
-            var URL = "/ajax/commands/send/type/5/value/0";
-            $.ajax({ 
-                type: 'GET', 
-                url: URL, 
-            });
-        });
         
-        $("#increase").click( function() {
-            var URL = "/ajax/commands/send/type/4/value/0";
-            $.ajax({ 
-                type: 'GET', 
-                url: URL, 
-            });
-        });
+        
     }
 
 
