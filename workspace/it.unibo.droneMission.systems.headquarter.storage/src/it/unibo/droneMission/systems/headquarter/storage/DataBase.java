@@ -425,14 +425,15 @@ public abstract class DataBase extends Storage implements IDataBase {
 
 	@Override
 	public void storeSensorsData(ISensorsData data) {
-		_storeSensorsData(data);
+		_storeSensorsData(data, false);
 	}
 
-	private int _storeSensorsData(ISensorsData data) {
+	private int _storeSensorsData(ISensorsData data, boolean has_picture) {
 		Hashtable<String, String> set = new Hashtable<>();
 		set.put(DataBaseTables.SENSORS_COLUMN_DATA, "" + data.toJSON());
 		set.put(DataBaseTables.SENSORS_COLUMN_MISSION, "" + getCurrentMissionID());
 		set.put(DataBaseTables.SENSORS_COLUMN_TIME, "" + data.getTime());
+		set.put(DataBaseTables.SENSORS_COLUMN_HASPICTURE, has_picture ? "1" : "0");
 		
 		this.from(DataBaseTables.SENSORS_TABLENAME);
 		
@@ -459,6 +460,7 @@ public abstract class DataBase extends Storage implements IDataBase {
 		
 		this.from(DataBaseTables.SENSORS_TABLENAME);
 		this.where(DataBaseTables.SENSORS_COLUMN_MISSION, "" + mission_id);
+		this.where(DataBaseTables.SENSORS_COLUMN_HASPICTURE, "0");
 		this.orderBy(DataBaseTables.SENSORS_COLUMN_ID, this.DESC);
 		
 		if (limit > 0)
@@ -486,7 +488,7 @@ public abstract class DataBase extends Storage implements IDataBase {
 	@Override
 	public void storePicturePackage(IPicturePackage pack) {
 		
-		int sensorsID = _storeSensorsData(pack.getSensorsData());
+		int sensorsID = _storeSensorsData(pack.getSensorsData(), true);
 				
 		IFile picture = pack.getFile();
 		
@@ -503,7 +505,7 @@ public abstract class DataBase extends Storage implements IDataBase {
 		this.insert(set);
 
 	}
-
+	
 	@Override
 	public List<IPicturePackage> getPicturePackagesByMission(int missionID) {
 		return _getPicturePackagesWithLimitAndMissiondID(-1, missionID);

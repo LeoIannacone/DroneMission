@@ -39,6 +39,7 @@ CREATE TABLE IF NOT EXISTS sensors (
     id INT UNSIGNED AUTO_INCREMENT NOT NULL,
     mission_id INT UNSIGNED NOT NULL,
     data VARCHAR(4096),
+    has_picture TINYINT(1),
     time LONG,
         PRIMARY KEY (id),
         FOREIGN KEY (mission_id) REFERENCES missions(id)
