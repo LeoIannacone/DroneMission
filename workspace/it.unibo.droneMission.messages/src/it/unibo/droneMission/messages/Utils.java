@@ -159,6 +159,13 @@ public class Utils {
 		int type = command.getType();
 		if (type == TypesCommand.SPEED_SET)
 			return "Set speed";
+		if (type == TypesCommand.SPEED_INCREASE)
+			return "Speed increase";
+		if (type == TypesCommand.SPEED_DECREASE)
+			return "Speed decrease";
+		if (type == TypesCommand.START_MISSION)
+			return "Start Mission";
+		
 		return "";
 	}
 
