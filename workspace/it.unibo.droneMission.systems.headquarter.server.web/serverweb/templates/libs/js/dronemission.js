@@ -120,7 +120,7 @@ $(document).ready(function(){
             CHECKTIME
             );    
         $("#start").click( function() {
-            var URL = "/ajax/commands/send/type/3/value/60";
+            var URL = "/ajax/commands/send/type/1/value/0";
             $.ajax({ 
                 type: 'GET', 
                 url: URL, 
