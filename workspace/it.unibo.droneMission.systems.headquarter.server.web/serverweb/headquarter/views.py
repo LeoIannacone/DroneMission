@@ -1,18 +1,19 @@
 # Create your views here.
-from django.http import HttpResponse
 from django.shortcuts import render_to_response
 
 from headquarter.models import server, storage
 from it.unibo.droneMission.messages import Utils, Command, Reply
 from it.unibo.droneMission.interfaces.messages import TypesSensor, TypesNotify,\
-    TypesReply
-from datetime import datetime
+    TypesReply, TypesCommand
+import time
 
 # time / 1000.0:
 #     java takes in account milliseconds, python uses
 #     float for them
 def get_time(java_time):
-    return datetime.fromtimestamp(java_time / 1000.0) 
+    date = java_time / 1000.0
+    #return time.strftime("%a, %d %b %Y %H:%M:%S", time.gmtime(date))
+    return time.strftime("%d %b %Y %H:%M:%S", time.gmtime(date))    
 
 def format_sensors(sensors):
     formatted_gauges = []
@@ -90,7 +91,6 @@ def latest_sensors(request):
 
 def index(request):
     missions = storage.getPastMissions()
-    print missions
     info = {}
     info["missions"] = []
     for m in missions:
@@ -128,8 +128,29 @@ def get_mission(request, id):
     return render_to_response('mission.html',info)
 
 def new_mission(request):
+    info = {}
+    
+    info["commands"] = {}
+    
+    info["commands"]["start"] = {}
+    info["commands"]["start"]["type"] = TypesCommand.START_MISSION
+    info["commands"]["start"]["value"] = 0
+    
+    info["commands"]["speed_set"] = {}
+    info["commands"]["speed_set"]["type"] = TypesCommand.SPEED_SET
+    info["commands"]["speed_set"]["value"] = 0
+    
+    info["commands"]["speed_increase"] = {}
+    info["commands"]["speed_increase"]["type"] = TypesCommand.SPEED_INCREASE
+    info["commands"]["speed_increase"]["value"] = 0
+    
+    info["commands"]["speed_decrease"] = {}
+    info["commands"]["speed_decrease"]["type"] = TypesCommand.SPEED_DECREASE
+    info["commands"]["speed_decrease"]["value"] = 0
+    
     storage.resetCurrentMissionID()
-    return render_to_response('new-mission.html')
+    
+    return render_to_response('new-mission.html', info)
 
 def send_command(request, type, value):
     
