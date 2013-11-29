@@ -173,3 +173,7 @@ header h1.brand small {
 #sensors, #controls {
     min-height: 250px
 }
+
+#reply {
+    margin-top: 14px;
+}

@@ -99,7 +99,8 @@ function initMap() {
 
 }
 
-function sendSpeed() {
+function updateReply(data) {
+    $("#reply").html(data);
 }
 
 $(document).ready(function(){
@@ -127,14 +128,16 @@ $(document).ready(function(){
                 success: function (data) {
                     $("#commands *").removeClass("disabled");
                     $("#start").addClass("disabled");
-                    
-                    $("#start").unbind( "click" );
-                    
+                                       
                     $("#decrease").click( function() {
                         var URL = "/ajax/commands/send/type/5/value/0";
                         $.ajax({ 
                             type: 'GET', 
-                            url: URL, 
+                            url: URL,
+                            dataType: 'html',
+                            success: function (data) {
+                                updateReply(data);
+                            }
                         });
                     });
                     
@@ -143,6 +146,10 @@ $(document).ready(function(){
                         $.ajax({ 
                             type: 'GET', 
                             url: URL, 
+                            dataType: 'html',
+                            success: function (data) {
+                                updateReply(data);
+                            }
                         });
                     });
                     
@@ -152,8 +159,14 @@ $(document).ready(function(){
                         $.ajax({ 
                             type: 'GET', 
                             url: URL, 
+                            dataType: 'html',
+                            success: function (data) {
+                                updateReply(data);
+                            }
                         });
                     });
+                    updateReply(data);
+                    $("#start").unbind( "click" );
                 }
             });
         });

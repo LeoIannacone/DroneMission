@@ -51,6 +51,21 @@ def format_picture(picture, mission_id):
     formatted_picture["name"] = picture.getFile().getName()
     return formatted_picture
 
+def format_reply(reply):
+    formatted = {}
+    formatted["name"] = Utils.getReplyName(reply)
+    formatted["type"] = reply.getType()
+    formatted["value"] = reply.getValue()
+    
+    if reply.getType() == TypesReply.REPLY_OK:
+        formatted["class"] = "alert-success"
+    if reply.getType() == TypesReply.REPLY_NO:
+        formatted["class"] = "alert-alert"
+    if reply.getType() == TypesReply.REPLY_FAIL:
+        formatted["class"] = "alert-warning"
+    
+    return formatted
+
 def format_command(command, reply):
     formatted = {}
     
@@ -59,17 +74,7 @@ def format_command(command, reply):
     formatted["command"]["type"] = command.getType()
     formatted["command"]["value"] = command.getValue()
     
-    formatted["reply"] = {}
-    formatted["reply"]["name"] = Utils.getReplyName(reply)
-    formatted["reply"]["type"] = reply.getType()
-    formatted["reply"]["value"] = reply.getValue()
-    
-    if reply.getType() == TypesReply.REPLY_OK:
-        formatted["reply"]["class"] = "alert-success"
-    if reply.getType() == TypesReply.REPLY_NO:
-        formatted["reply"]["class"] = "alert-alert"
-    if reply.getType() == TypesReply.REPLY_FAIL:
-        formatted["reply"]["class"] = "alert-warning"
+    formatted["reply"] = format_reply(reply)
     
     formatted["time"] = get_time(command.getTime())
     
@@ -157,10 +162,8 @@ def send_command(request, type, value):
     c = Command(int(type))
     c.setValue(int(value))
     
-    r = server.forwardCommand(c)
+    reply = server.forwardCommand(c)
     
-    info = {}
-    info["type"] = r.getType()
-    info["value"] = r.getValue()
-        
+    info = format_reply(reply)
+    
     return render_to_response('ajax/send-command.html', info)
