@@ -56,7 +56,7 @@ function updateOnMission(fuel) {
 }
 
 function updateSpeed(speed) {
-   $("#commands .set").val(parseFloat(speed));
+   $("#current-speed").html(speed);
 }
 
 
