@@ -79,11 +79,25 @@ public class Drone extends DroneSupport {
 	
 	@Override
 	protected String handleCommand(String commandJSON) throws Exception {
-		IReply reply = new Reply(TypesReply.REPLY_OK);
+		
 		ICommand command = Factory.createCommand(Utils.cleanJSONFromContact(commandJSON));
+		IReply reply = new Reply(TypesReply.REPLY_OK);
+				
 		if (command.getType() == TypesCommand.SPEED_SET) {
 			setSpeed(command.getValue());
 			reply.setValue("Speed set correctly");
+		}
+		
+		else if (command.getType() == TypesCommand.SPEED_INCREASE) {
+			double speed = speedometer.getVal().valAsDouble();
+			setSpeed(speed + Speedometer.DS);
+			reply.setValue("Speed increased correctly");
+		}
+		
+		else if (command.getType() == TypesCommand.SPEED_DECREASE) {
+			double speed = speedometer.getVal().valAsDouble();
+			setSpeed(speed - Speedometer.DS);
+			reply.setValue("Speed decreased correctly");
 		}
 		
 		else {
@@ -97,7 +111,7 @@ public class Drone extends DroneSupport {
 	@Override
 	protected boolean checkStartMission(String commandJSON) throws Exception {
 		ICommand command = Factory.createCommand(Utils.cleanJSONFromContact(commandJSON));
-		return command.getType() == TypesCommand.SPEED_SET;
+		return command.getType() == TypesCommand.SPEED_SET || command.getType() == TypesCommand.START_MISSION;
 	}
 
 	@Override
