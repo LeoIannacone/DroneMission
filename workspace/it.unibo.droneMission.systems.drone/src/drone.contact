@@ -127,7 +127,7 @@ BehaviorOf drone {
 	
 	state st_Drone_startMission
 		set reply = call handleCommand(code.curInputMsgContent)
-		replyToRequest command(reply);
+		replyToRequest command(reply)
 		exec startMission()
 		set notify = call getNotifyStart()
 		showMsg("Notify START mission")
