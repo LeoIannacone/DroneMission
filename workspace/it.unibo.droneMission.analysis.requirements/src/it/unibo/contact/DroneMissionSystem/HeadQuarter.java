@@ -3,12 +3,14 @@ package it.unibo.contact.DroneMissionSystem;
 public class HeadQuarter extends HeadQuarterSupport {
 		// Just for testing purpose
 		private int commandCounter;
-		private int MAX_CMD = 10;
+		private String sensors_received; 
+		private int MAX_CMD = 3;
 		
 		public HeadQuarter(String s) throws Exception{
 			
 			super(s);
 			commandCounter = 0;
+			sensors_received = "";
 		}
 
 		@Override
@@ -38,5 +40,33 @@ public class HeadQuarter extends HeadQuarterSupport {
 		@Override
 		protected void shutdown() throws Exception {
 			env.println("MISSION END - SHUTDOWN.");			
+		}
+
+		@Override
+		protected String getCommandStart() throws Exception {
+			return Messages.COMMAND_START;
+		}
+
+		@Override
+		protected boolean replyIsOk(String reply) throws Exception {
+			return reply.equalsIgnoreCase(Messages.REPLY_OK);
+		}
+
+		@Override
+		protected void storeSensorsData(String sensorsDatasReceived)
+				throws Exception {
+			sensors_received = sensorsDatasReceived;
+		}
+
+		@Override
+		protected void showPicturePackage(String photoReceived)
+				throws Exception {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		protected boolean missionIsGoingToEnd() throws Exception {
+			return sensors_received.equalsIgnoreCase(Messages.SENSORS_LAST);
 		}
 }
