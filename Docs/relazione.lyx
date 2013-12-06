@@ -3809,6 +3809,787 @@ endstate
 Test plan
 \end_layout
 
+\begin_layout Standard
+È possibile sfruttare il codice autogenerato da contact per avere un primo
+ test preliminare.
+ È sufficiente definire i metodi e le classi mancanti per dare al sistema
+ un minimo di logica.
+ Verrà utilizzata anche una classe statica Messages che dichiara i tipo
+ di messaggi scambiati fra le varie entità del sistema.
+ Tale classe verrà poi ampliata successivamente in un package a parte per
+ descrivere in maniera completa ed esaustiva la struttura dei dati.
+\end_layout
+
+\begin_layout Standard
+I Gauge sono invece già forniti nel pacchetto it.unibo.droneMission.gauge,
+ ampliamente analizzati e sviluppati già in altri progetti (leggi lezione).
+\end_layout
+
+\begin_layout LyX-Code
+public class Messages {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+public static String NOTIFY_START = "start";
+\end_layout
+
+\begin_layout LyX-Code
+public static String NOTIFY_END = "end";
+\end_layout
+
+\begin_layout LyX-Code
+public static String REPLY_OK = "ok";
+\end_layout
+
+\begin_layout LyX-Code
+public static String REPLY_NO = "no";
+\end_layout
+
+\begin_layout LyX-Code
+public static String COMMAND_SETSPEED = "setspeed";
+\end_layout
+
+\begin_layout LyX-Code
+public static String COMMAND_START = "start";
+\end_layout
+
+\begin_layout LyX-Code
+public static String COMMAND_STOP = "stop";
+\end_layout
+
+\begin_layout LyX-Code
+public static String SENSORS_LAST = "0";
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+Mentre ecco un primo prototipo del simulatore del drone Drone:
+\end_layout
+
+\begin_layout LyX-Code
+public class Drone extends DroneSupport {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+private int num_sensors_sent;
+\end_layout
+
+\begin_layout LyX-Code
+private int MAX_SENSORS_SENT = 20;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public Drone(String s) throws Exception{
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+super(s);
+\end_layout
+
+\begin_layout LyX-Code
+num_sensors_sent = 0;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+// contact clean message
+\end_layout
+
+\begin_layout LyX-Code
+private static String cleanMessage(String msgString) {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+return msgString.replace("
+\backslash
+"","").replace("'","");
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+protected void startMission() throws Exception {
+\end_layout
+
+\begin_layout LyX-Code
+env.println("START MISSION");
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected void endMission() throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+env.println("STOP MISSION");
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected String getDataFromSensors() throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+String result = "";
+\end_layout
+
+\begin_layout LyX-Code
+if (num_sensors_sent < MAX_SENSORS_SENT) {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+int odomenter = (int)(Math.random() * 100);
+\end_layout
+
+\begin_layout LyX-Code
+int speedometer = (int)(Math.random() * 100);
+\end_layout
+
+\begin_layout LyX-Code
+int fuel = (int)(Math.random() * 100);
+\end_layout
+
+\begin_layout LyX-Code
+result = String.format("odomoter:%s;speedometer:%s;fuel:%s", odomenter, speedomet
+er, fuel);
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+else
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+result = Messages.SENSORS_LAST;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+num_sensors_sent++;
+\end_layout
+
+\begin_layout LyX-Code
+env.println("Sending sensor: " + result);
+\end_layout
+
+\begin_layout LyX-Code
+return result;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected String getDataPhoto() throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+String photo = "photoX;dataY;timeZ";
+\end_layout
+
+\begin_layout LyX-Code
+env.println("Sending photo: " + photo);
+\end_layout
+
+\begin_layout LyX-Code
+return photo;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected String handleCommand(String cmd) throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+cmd = cleanCommand(cmd);
+\end_layout
+
+\begin_layout LyX-Code
+if(cmd.startsWith(Messages.COMMAND_SETSPEED) || cmd.startsWith(Messages.COMMAND_STAR
+T)) {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+env.println("COMMAND handler OK: " + cmd);
+\end_layout
+
+\begin_layout LyX-Code
+return Messages.REPLY_OK;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+else {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+env.println("COMMAND handler FAIL: " + cmd);
+\end_layout
+
+\begin_layout LyX-Code
+return Messages.REPLY_NO;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected boolean isCommandStart(String cmd) throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+env.println(cmd + " " + Messages.COMMAND_START);
+\end_layout
+
+\begin_layout LyX-Code
+return cleanMessage(cmd).equalsIgnoreCase(Messages.COMMAND_START);
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected String getFailReplyToCommand() throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+return Messages.REPLY_NO;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected String getOkReplyToCommand() throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+return Messages.REPLY_OK;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected String getNotifyStart() throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+return Messages.NOTIFY_START;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected String getNotifyEnd() throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+return Messages.NOTIFY_END;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected boolean isMissionEnding() throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+return num_sensors_sent >= MAX_SENSORS_SENT;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+Ecco il prototipo dell'HeadQuarter, la centrale operativa:
+\end_layout
+
+\begin_layout LyX-Code
+public class HeadQuarter extends HeadQuarterSupport {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+// Just for testing purpose
+\end_layout
+
+\begin_layout LyX-Code
+private int commandCounter;
+\end_layout
+
+\begin_layout LyX-Code
+private String sensors_received; 
+\end_layout
+
+\begin_layout LyX-Code
+private int MAX_CMD = 3;
+\end_layout
+
+\begin_layout LyX-Code
+public HeadQuarter(String s) throws Exception{
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+super(s);
+\end_layout
+
+\begin_layout LyX-Code
+commandCounter = 0;
+\end_layout
+
+\begin_layout LyX-Code
+sensors_received = "";
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected String getCommandToSend() throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+String cmd;
+\end_layout
+
+\begin_layout LyX-Code
+if (commandCounter >= MAX_CMD) {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+cmd = Messages.COMMAND_STOP;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+else {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+commandCounter += 1;
+\end_layout
+
+\begin_layout LyX-Code
+cmd = Messages.COMMAND_SETSPEED + " " + ((int) (Math.round(Math.random() *
+ 100)) % 60 + 60); 
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+return cmd;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected void updateDashboard(String dataSensorsReceived)
+\end_layout
+
+\begin_layout LyX-Code
+throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+env.println("DATA RECEIVED: " +dataSensorsReceived);
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected void storePhotoData(String photoReceived) throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+env.println("PHOTO RECEIVED: " +photoReceived);
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected void shutdown() throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+env.println("MISSION END - SHUTDOWN."); 
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected String getCommandStart() throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+return Messages.COMMAND_START;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected boolean replyIsOk(String reply) throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+return reply.equalsIgnoreCase(Messages.REPLY_OK);
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected void storeSensorsData(String sensorsDatasReceived)
+\end_layout
+
+\begin_layout LyX-Code
+throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+sensors_received = sensorsDatasReceived;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected void showPicturePackage(String photoReceived)
+\end_layout
+
+\begin_layout LyX-Code
+throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+env.println("PHOTO RECEIVED: " +photoReceived);
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected boolean missionIsGoingToEnd() throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+return sensors_received.equalsIgnoreCase(Messages.SENSORS_LAST);
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+Ecco invece il prototipo de lo Smartdevice:
+\end_layout
+
+\begin_layout LyX-Code
+public class Smartdevice extends SmartdeviceSupport {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+public Smartdevice(String s) throws Exception{
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+super(s);
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected void notifyUserMissionStarted() throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+env.println("MISSION_STARTED");
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected void missionFinished() throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+env.println("MISSION END"); 
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected void updateGauges(String data) throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+env.println("DATA DRONE: " + data);
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected boolean isNotifyStart(String notify) throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+return notify == Messages.NOTIFY_START;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
 \begin_layout Chapter
 Analisi del problema
 \end_layout
@@ -3819,7 +4600,7 @@ Logic architecture
 
 \begin_layout Standard
 Il sistema tutto viene suddiviso in tre sottisistemi Drone - HeadQuarter
- - SmarDevice che verranno poi analizzati uno ad uno:
+ - SmartDevice che verranno poi analizzati uno ad uno:
 \end_layout
 
 \begin_layout LyX-Code
@@ -3992,33 +4773,11 @@ La centrale operativa avrà dunque il compito di controllare il drone e di
 \end_layout
 
 \begin_layout Subsubsection
-Casi d'uso
-\end_layout
-
-\begin_layout Standard
-Al fine di analizzare la centrale operativa vengono proposti i seguenti
- casi di uso secondo le specifiche:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Graphics
-	filename Img/Conrol Unit - Use Case.png
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-#FIX_ME: aggiungere descrizione casi d'uso
-\end_layout
-
-\begin_layout Subsubsection
 Struttura
 \end_layout
 
 \begin_layout Standard
-Analizzando la centrale di controllo, si decide suddividere il Subject headquart
+Analizzando la centrale operativa, si decide di suddividere il Subject headquart
 er in quattro nuove entità:
 \end_layout
 
