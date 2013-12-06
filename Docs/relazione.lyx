@@ -2687,8 +2687,7 @@ status open
 
 \begin_layout Plain Layout
 
-ContactSystem DroneMissionSystem -awt -o spaceUpdater [host="localhost"
- port=4010];
+ContactSystem DroneMissionSystem -awt spaceUpdater [host="localhost" port=4010];
 \end_layout
 
 \begin_layout Plain Layout
@@ -2903,10 +2902,6 @@ A questo punto è possibile specificare il comportamento di ogni singolo
  Nel primo si provvederà ad aggiornare la velocità di crociera, mentre nel
  secondo si notificherà agli smarphone il termine della missione e si provvederà
  a dar atterrare il drone.
-\end_layout
-
-\begin_layout LyX-Code
-//Behavior of Drone 
 \end_layout
 
 \begin_layout LyX-Code
@@ -3267,43 +3262,35 @@ Per quanto concerne invece HeadQuarter, anch'esso dopo l'inizializzazione
 \end_layout
 
 \begin_layout LyX-Code
-
 BehaviorOf headQuarter
 \end_layout
 
 \begin_layout LyX-Code
-
 {
 \end_layout
 
 \begin_deeper
 \begin_layout LyX-Code
-
 var String command
 \end_layout
 
 \begin_layout LyX-Code
-
 var String sensorsDatasReceived
 \end_layout
 
 \begin_layout LyX-Code
-
 var String photoReceived
 \end_layout
 
 \begin_layout LyX-Code
-
 var String commandAnswer
 \end_layout
 
 \begin_layout LyX-Code
-
 var boolean tmpCheck
 \end_layout
 
 \begin_layout LyX-Code
-
 var boolean missionEnd
 \end_layout
 
@@ -3312,17 +3299,14 @@ var boolean missionEnd
 \end_layout
 
 \begin_layout LyX-Code
-
 action String getCommandStart()
 \end_layout
 
 \begin_layout LyX-Code
-
 action String getCommandToSend()
 \end_layout
 
 \begin_layout LyX-Code
-
 action boolean replyIsOk(String reply)
 \end_layout
 
@@ -3331,22 +3315,18 @@ action boolean replyIsOk(String reply)
 \end_layout
 
 \begin_layout LyX-Code
-
 action void updateDashboard(String sensorsDatasReceived)
 \end_layout
 
 \begin_layout LyX-Code
-
 action void storeSensorsData(String sensorsDatasReceived)
 \end_layout
 
 \begin_layout LyX-Code
-
 action void storePhotoData(String photoReceived)
 \end_layout
 
 \begin_layout LyX-Code
-
 action void showPicturePackage(String photoReceived)
 \end_layout
 
@@ -3355,12 +3335,10 @@ action void showPicturePackage(String photoReceived)
 \end_layout
 
 \begin_layout LyX-Code
-
 action boolean missionIsGoingToEnd()
 \end_layout
 
 \begin_layout LyX-Code
-
 action void shutdown()
 \end_layout
 
@@ -3369,71 +3347,58 @@ action void shutdown()
 \end_layout
 
 \begin_layout LyX-Code
-
 state st_HeadQuarter_init initial
 \end_layout
 
 \begin_deeper
 \begin_layout LyX-Code
-
 println ("----- HeadQuarter Initialized -----") 
 \end_layout
 
 \begin_layout LyX-Code
-
 goToState st_HeadQuarter_ready
 \end_layout
 
 \end_deeper
 \begin_layout LyX-Code
-
 endstate
 \end_layout
 
 \begin_layout LyX-Code
-
 state st_HeadQuarter_ready
 \end_layout
 
 \begin_deeper
 \begin_layout LyX-Code
-
 println ("----- Ready to send command -----")
 \end_layout
 
 \begin_layout LyX-Code
-
 doOutIn sendCommand(exec getCommandStart())
 \end_layout
 
 \begin_layout LyX-Code
-
 acquireAnswerFor command
 \end_layout
 
 \begin_layout LyX-Code
-
 set commandAnswer = code.curReplyContent
 \end_layout
 
 \begin_layout LyX-Code
-
 println("DRONE REPLY: " + commandAnswer)
 \end_layout
 
 \begin_layout LyX-Code
-
 set tmpCheck = exec replyIsOk(commandAnswer)
 \end_layout
 
 \begin_layout LyX-Code
-
 if { tmpCheck == true } { goToState st_HeadQuarter_onMission }
 \end_layout
 
 \end_deeper
 \begin_layout LyX-Code
-
 endstate
 \end_layout
 
@@ -3442,92 +3407,75 @@ endstate
 \end_layout
 
 \begin_layout LyX-Code
-
 state st_HeadQuarter_onMission
 \end_layout
 
 \begin_deeper
 \begin_layout LyX-Code
-
 set missionEnd = exec missionIsGoingToEnd()
 \end_layout
 
 \begin_layout LyX-Code
-
 if { missionEnd == true } { 
 \end_layout
 
 \begin_deeper
 \begin_layout LyX-Code
-
 goToState st_HeadQuarter_endMission
 \end_layout
 
 \end_deeper
 \begin_layout LyX-Code
-
 }
 \end_layout
 
 \begin_layout LyX-Code
-
 // get sensors data
 \end_layout
 
 \begin_layout LyX-Code
-
 onMessage? sensorsData goToState st_HeadQuarter_receivedSensorsData
 \end_layout
 
 \begin_layout LyX-Code
-
 // get photos
 \end_layout
 
 \begin_layout LyX-Code
-
 onMessage? photo goToState st_HeadQuarter_receivedPhoto
 \end_layout
 
 \begin_layout LyX-Code
-
 // check if command is clicked in Dashboard and send it
 \end_layout
 
 \begin_layout LyX-Code
-
 set command = exec getCommandToSend()
 \end_layout
 
 \begin_layout LyX-Code
-
 doOutIn sendCommand(command)
 \end_layout
 
 \begin_layout LyX-Code
-
 acquireAnswerFor command
 \end_layout
 
 \begin_layout LyX-Code
-
 set commandAnswer = code.curReplyContent
 \end_layout
 
 \begin_layout LyX-Code
-
 set tmpCheck = exec replyIsOk(commandAnswer)
 \end_layout
 
 \begin_layout LyX-Code
-
 if { tmpCheck == false } { println("DRONE CMD FAILED: " + commandAnswer)
  }
 \end_layout
 
 \end_deeper
 \begin_layout LyX-Code
-
 endstate
 \end_layout
 
@@ -3536,49 +3484,40 @@ endstate
 \end_layout
 
 \begin_layout LyX-Code
-
 state st_HeadQuarter_receivedSensorsData
 \end_layout
 
 \begin_deeper
 \begin_layout LyX-Code
-
 // get sensors data
 \end_layout
 
 \begin_layout LyX-Code
-
 doPerceive headquarterReceivesensorsDatas()
 \end_layout
 
 \begin_layout LyX-Code
-
 set sensorsDatasReceived = code.curInputMsgContent
 \end_layout
 
 \begin_layout LyX-Code
-
 // update Dashboard
 \end_layout
 
 \begin_layout LyX-Code
-
 exec updateDashboard(sensorsDatasReceived)
 \end_layout
 
 \begin_layout LyX-Code
-
 exec storeSensorsData(sensorsDatasReceived)
 \end_layout
 
 \begin_layout LyX-Code
-
 goToState st_HeadQuarter_onMission
 \end_layout
 
 \end_deeper
 \begin_layout LyX-Code
-
 endstate
 \end_layout
 
@@ -3587,49 +3526,40 @@ endstate
 \end_layout
 
 \begin_layout LyX-Code
-
 state st_HeadQuarter_receivedPhoto
 \end_layout
 
 \begin_deeper
 \begin_layout LyX-Code
-
 // get photo data
 \end_layout
 
 \begin_layout LyX-Code
-
 doIn receiveDataPhoto()
 \end_layout
 
 \begin_layout LyX-Code
-
 set photoReceived = code.curInputMsgContent
 \end_layout
 
 \begin_layout LyX-Code
-
 // store info
 \end_layout
 
 \begin_layout LyX-Code
-
 call storePhotoData(photoReceived)
 \end_layout
 
 \begin_layout LyX-Code
-
 call showPicturePackage(photoReceived)
 \end_layout
 
 \begin_layout LyX-Code
-
 goToState st_HeadQuarter_onMission
 \end_layout
 
 \end_deeper
 \begin_layout LyX-Code
-
 endstate
 \end_layout
 
@@ -3638,30 +3568,25 @@ endstate
 \end_layout
 
 \begin_layout LyX-Code
-
 state st_HeadQuarter_endMission
 \end_layout
 
 \begin_deeper
 \begin_layout LyX-Code
-
 call shutdown()
 \end_layout
 
 \begin_layout LyX-Code
-
 transitToEnd
 \end_layout
 
 \end_deeper
 \begin_layout LyX-Code
-
 endstate
 \end_layout
 
 \end_deeper
 \begin_layout LyX-Code
-
 }
 \end_layout
 
@@ -3679,28 +3604,23 @@ Lo Smartphone, invece, uscirà dallo stato di init dopo aver ricevuto una
 \end_layout
 
 \begin_layout LyX-Code
-
 BehaviorOf smartdevice 
 \end_layout
 
 \begin_layout LyX-Code
-
 {
 \end_layout
 
 \begin_deeper
 \begin_layout LyX-Code
-
 var String notifyContent
 \end_layout
 
 \begin_layout LyX-Code
-
 var String dataDroneReceived 
 \end_layout
 
 \begin_layout LyX-Code
-
 var boolean tmpNotify
 \end_layout
 
@@ -3709,22 +3629,18 @@ var boolean tmpNotify
 \end_layout
 
 \begin_layout LyX-Code
-
 action void notifyUserMissionStarted()
 \end_layout
 
 \begin_layout LyX-Code
-
 action void updateGauges(String data)
 \end_layout
 
 \begin_layout LyX-Code
-
 action boolean isNotifyStart(String notify)
 \end_layout
 
 \begin_layout LyX-Code
-
 action void missionFinished()
 \end_layout
 
@@ -3733,19 +3649,16 @@ action void missionFinished()
 \end_layout
 
 \begin_layout LyX-Code
-
 state st_Smartdevice_init initial
 \end_layout
 
 \begin_deeper
 \begin_layout LyX-Code
-
 onMessage notify transitTo st_Smartdevice_missionStart
 \end_layout
 
 \end_deeper
 \begin_layout LyX-Code
-
 endstate
 \end_layout
 
@@ -3754,24 +3667,20 @@ endstate
 \end_layout
 
 \begin_layout LyX-Code
-
 state st_Smartdevice_missionStart
 \end_layout
 
 \begin_deeper
 \begin_layout LyX-Code
-
 call notifyUserMissionStarted()
 \end_layout
 
 \begin_layout LyX-Code
-
 goToState st_Smartdevice_waitingForData
 \end_layout
 
 \end_deeper
 \begin_layout LyX-Code
-
 endstate
 \end_layout
 
@@ -3780,24 +3689,20 @@ endstate
 \end_layout
 
 \begin_layout LyX-Code
-
 state st_Smartdevice_waitingForData
 \end_layout
 
 \begin_deeper
 \begin_layout LyX-Code
-
 onMessage? sensorsData goToState st_Smartdevice_receivedData
 \end_layout
 
 \begin_layout LyX-Code
-
 onMessage? notify goToState st_Smartdevice_endMission
 \end_layout
 
 \end_deeper
 \begin_layout LyX-Code
-
 endstate
 \end_layout
 
@@ -3806,39 +3711,32 @@ endstate
 \end_layout
 
 \begin_layout LyX-Code
-
 state st_Smartdevice_receivedData
 \end_layout
 
 \begin_deeper
 \begin_layout LyX-Code
-
 // get data from drone
 \end_layout
 
 \begin_layout LyX-Code
-
 doPerceive smartdeviceReceivesensorsDatas()
 \end_layout
 
 \begin_layout LyX-Code
-
 set dataDroneReceived = code.curInputMsgContent
 \end_layout
 
 \begin_layout LyX-Code
-
 call updateGauges(dataDroneReceived)
 \end_layout
 
 \begin_layout LyX-Code
-
 goToState st_Smartdevice_waitingForData
 \end_layout
 
 \end_deeper
 \begin_layout LyX-Code
-
 endstate
 \end_layout
 
@@ -3847,44 +3745,36 @@ endstate
 \end_layout
 
 \begin_layout LyX-Code
-
 state st_Smartdevice_notifyHandler
 \end_layout
 
 \begin_deeper
 \begin_layout LyX-Code
-
 doPerceive smartdeviceReceiveNotify()
 \end_layout
 
 \begin_layout LyX-Code
-
 set notifyContent = code.curInputMsgContent
 \end_layout
 
 \begin_layout LyX-Code
-
 set tmpNotify = exec isNotifyStart(notifyContent)
 \end_layout
 
 \begin_layout LyX-Code
-
 if { tmpNotify == true } { goToState st_Smartdevice_missionStart }
 \end_layout
 
 \begin_layout LyX-Code
-
 if { tmpNotify == false } { goToState st_Smartdevice_endMission }
 \end_layout
 
 \begin_layout LyX-Code
-
 goToState st_Smartdevice_waitingForData
 \end_layout
 
 \end_deeper
 \begin_layout LyX-Code
-
 endstate
 \end_layout
 
@@ -3893,30 +3783,25 @@ endstate
 \end_layout
 
 \begin_layout LyX-Code
-
 state st_Smartdevice_endMission
 \end_layout
 
 \begin_deeper
 \begin_layout LyX-Code
-
 call missionFinished()
 \end_layout
 
 \begin_layout LyX-Code
-
 transitToEnd
 \end_layout
 
 \end_deeper
 \begin_layout LyX-Code
-
 endstate
 \end_layout
 
 \end_deeper
 \begin_layout LyX-Code
-
 }
 \end_layout
 
