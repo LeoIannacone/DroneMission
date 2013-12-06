@@ -33,17 +33,12 @@ public class SmartDashboard extends SmartDashboardSupport {
 	protected void notifyReceived(String inputValue, Bundle b)
 			throws Exception {
 		if (inputValue.equals("startmission")){
-			showMsg("Received \"Mission Started\" from Drone");
 //			idleTextView.setText("Drone On Mission");
 //			idleTextView.setTextColor(Color.GREEN);
 //			startMissionButton.setEnabled(true);
 		}
 		else{
-			endMission("", myBundle);
-			showMsg("Received \"Mission Ended\" from Drone");
-			wait(3000);
-			output.setText("");
-//			showMsg("Received \"End Mission\" from Drone");
+//			endMission("", myBundle);
 //			idleTextView.setText("Waiting for Mission");
 //			idleTextView.setTextColor(Color.RED);
 //			startMissionButton.setEnabled(false);
