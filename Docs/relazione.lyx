@@ -5062,35 +5062,31 @@ BehaviorOf controlUnit {
 
 \begin_deeper
 \begin_layout LyX-Code
-var String cmd 
+var String cmd
 \end_layout
 
 \begin_layout LyX-Code
-var String rpl 	
+var String rpl
 \end_layout
 
 \begin_layout LyX-Code
-var String sensorsDatasReceived 	
+var String sensorsDatasReceived
 \end_layout
 
 \begin_layout LyX-Code
-var String picturePackageReceived 
+var String picturePackageReceived
 \end_layout
 
 \begin_layout LyX-Code
-var boolean tmpCheck 
+var boolean tmpCheck
 \end_layout
 
 \begin_layout LyX-Code
-
+// init
 \end_layout
 
 \begin_layout LyX-Code
-// store mission starts 	
-\end_layout
-
-\begin_layout LyX-Code
-action void storeMissionStarted() 
+action void init()
 \end_layout
 
 \begin_layout LyX-Code
@@ -5098,15 +5094,11 @@ action void storeMissionStarted()
 \end_layout
 
 \begin_layout LyX-Code
-// store info from drone 	
+// store mission starts
 \end_layout
 
 \begin_layout LyX-Code
-action void storeDataSensors(String sensorsDatasReceived) 	
-\end_layout
-
-\begin_layout LyX-Code
-action void storePicturePackage(String picturePackageReceived) 	
+action void storeMissionStarted()
 \end_layout
 
 \begin_layout LyX-Code
@@ -5114,19 +5106,15 @@ action void storePicturePackage(String picturePackageReceived)
 \end_layout
 
 \begin_layout LyX-Code
-// check commands to send 	
+// store info from drone
 \end_layout
 
 \begin_layout LyX-Code
-action boolean checkCommandStart(String command) 	
+action void storeDataSensors(String sensorsDatasReceived)
 \end_layout
 
 \begin_layout LyX-Code
-action String getWrongStartCommandReply() 	
-\end_layout
-
-\begin_layout LyX-Code
-action void storeCommandAndReply(String c, String r) 
+action void storePicturePackage(String picturePackageReceived)
 \end_layout
 
 \begin_layout LyX-Code
@@ -5134,15 +5122,23 @@ action void storeCommandAndReply(String c, String r)
 \end_layout
 
 \begin_layout LyX-Code
-// shutdown 	
+// check commands to send
 \end_layout
 
 \begin_layout LyX-Code
-action boolean checkEndMission() 	
+action boolean checkCommandStart(String command)
 \end_layout
 
 \begin_layout LyX-Code
-action void shutdown() 
+action boolean checkReplyCommandStart(String reply)
+\end_layout
+
+\begin_layout LyX-Code
+action String getWrongStartCommandReply()
+\end_layout
+
+\begin_layout LyX-Code
+action void storeCommandAndReply(String c, String r)
 \end_layout
 
 \begin_layout LyX-Code
@@ -5150,17 +5146,41 @@ action void shutdown()
 \end_layout
 
 \begin_layout LyX-Code
-state st_controlUnit_init initial 		
+// shutdown
+\end_layout
+
+\begin_layout LyX-Code
+action boolean checkEndMission()
+\end_layout
+
+\begin_layout LyX-Code
+action void shutdown()
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_controlUnit_init initial
 \end_layout
 
 \begin_deeper
 \begin_layout LyX-Code
-goToState st_controlUnit_ready 	
+showMsg("Control Unit - initial")
+\end_layout
+
+\begin_layout LyX-Code
+exec init()
+\end_layout
+
+\begin_layout LyX-Code
+goToState st_controlUnit_ready
 \end_layout
 
 \end_deeper
 \begin_layout LyX-Code
-endstate 
+endstate
 \end_layout
 
 \begin_layout LyX-Code
@@ -5168,105 +5188,49 @@ endstate
 \end_layout
 
 \begin_layout LyX-Code
-state st_controlUnit_ready 		
-\end_layout
-
-\begin_deeper
-\begin_layout LyX-Code
-doInOut receiveForwardCommand() 		
-\end_layout
-
-\begin_layout LyX-Code
-set tmpCheck = exec checkCommandStart(code.curInputMsgContent) 		
-\end_layout
-
-\begin_layout LyX-Code
-if { tmpCheck == true } { 			
+state st_controlUnit_ready
 \end_layout
 
 \begin_deeper
 \begin_layout LyX-Code
-goToState st_controlUnit_startMission 		
+doInOut receiveForwardCommand()
+\end_layout
+
+\begin_layout LyX-Code
+set tmpCheck = exec checkCommandStart(code.curInputMsgContent)
+\end_layout
+
+\begin_layout LyX-Code
+if { tmpCheck == true } {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+goToState st_controlUnit_startMission
 \end_layout
 
 \end_deeper
 \begin_layout LyX-Code
-} 		
+}
 \end_layout
 
 \begin_layout LyX-Code
-if { tmpCheck == false } { 			
-\end_layout
-
-\begin_deeper
-\begin_layout LyX-Code
-goToState st_controlUnit_wrongStartCommand 		
-\end_layout
-
-\end_deeper
-\begin_layout LyX-Code
-} 	
-\end_layout
-
-\end_deeper
-\begin_layout LyX-Code
-endstate 
-\end_layout
-
-\begin_layout LyX-Code
-
-\end_layout
-
-\begin_layout LyX-Code
-state st_controlUnit_startMission 		
+if { tmpCheck == false } {
 \end_layout
 
 \begin_deeper
 \begin_layout LyX-Code
-call storeMissionStarted() 		
-\end_layout
-
-\begin_layout LyX-Code
-goToState st_controlUnit_sendCommand 	
+goToState st_controlUnit_wrongStartCommand
 \end_layout
 
 \end_deeper
 \begin_layout LyX-Code
-endstate 
-\end_layout
-
-\begin_layout LyX-Code
-
-\end_layout
-
-\begin_layout LyX-Code
-// in case of wrong start command received 	
-\end_layout
-
-\begin_layout LyX-Code
-state st_controlUnit_wrongStartCommand 		
-\end_layout
-
-\begin_deeper
-\begin_layout LyX-Code
-set cmd = code.curInputMsgContent 		
-\end_layout
-
-\begin_layout LyX-Code
-set rpl = exec getWrongStartCommandReply() 		
-\end_layout
-
-\begin_layout LyX-Code
-replyToRequest forwardCommand(rpl) 		
-\end_layout
-
-\begin_layout LyX-Code
-goToState st_controlUnit_ready 	
+}
 \end_layout
 
 \end_deeper
 \begin_layout LyX-Code
-endstate 
+endstate
 \end_layout
 
 \begin_layout LyX-Code
@@ -5274,41 +5238,63 @@ endstate
 \end_layout
 
 \begin_layout LyX-Code
-state st_controlUnit_sendCommand 		
+state st_controlUnit_startMission
 \end_layout
 
 \begin_deeper
 \begin_layout LyX-Code
-set cmd = code.curInputMsgContent 		
+set cmd = code.curInputMsgContent
 \end_layout
 
 \begin_layout LyX-Code
-doOutIn sendCommand(cmd) 		
+doOutIn sendCommand(cmd)
 \end_layout
 
 \begin_layout LyX-Code
-acquireAnswerFor command 		
+acquireAnswerFor command
 \end_layout
 
 \begin_layout LyX-Code
-set rpl = code.curInputMsgContent 		
+set rpl = code.curReplyContent
 \end_layout
 
 \begin_layout LyX-Code
-call storeCommandAndReply(cmd, rpl) 		
+replyToRequest forwardCommand(rpl)
 \end_layout
 
 \begin_layout LyX-Code
-replyToRequest forwardCommand(rpl) 		
+set tmpCheck = exec checkReplyCommandStart(rpl)
 \end_layout
 
 \begin_layout LyX-Code
-goToState st_controlUnit_onMission 	
+if { tmpCheck == false } {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+goToState st_controlUnit_ready 
 \end_layout
 
 \end_deeper
 \begin_layout LyX-Code
-endstate 
+}
+\end_layout
+
+\begin_layout LyX-Code
+call storeMissionStarted()
+\end_layout
+
+\begin_layout LyX-Code
+call storeCommandAndReply(cmd, rpl)
+\end_layout
+
+\begin_layout LyX-Code
+goToState st_controlUnit_onMission
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate
 \end_layout
 
 \begin_layout LyX-Code
@@ -5316,120 +5302,191 @@ endstate
 \end_layout
 
 \begin_layout LyX-Code
-state st_controlUnit_onMission 		
+// in case of wrong start command received
+\end_layout
+
+\begin_layout LyX-Code
+state st_controlUnit_wrongStartCommand
 \end_layout
 
 \begin_deeper
 \begin_layout LyX-Code
-// check if there are commands to send 		
+set cmd = code.curInputMsgContent
 \end_layout
 
 \begin_layout LyX-Code
-onMessage? forwardCommand goToState st_controlUnit_sendCommand 			
+set rpl = exec getWrongStartCommandReply()
 \end_layout
 
 \begin_layout LyX-Code
-// get picturePackages 		
+replyToRequest forwardCommand(rpl)
+\end_layout
+
+\begin_layout LyX-Code
+goToState st_controlUnit_ready
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_controlUnit_sendCommand
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+doInOut receiveForwardCommand()
+\end_layout
+
+\begin_layout LyX-Code
+set cmd = code.curInputMsgContent
+\end_layout
+
+\begin_layout LyX-Code
+doOutIn sendCommand(cmd)
+\end_layout
+
+\begin_layout LyX-Code
+acquireAnswerFor command
+\end_layout
+
+\begin_layout LyX-Code
+set rpl = code.curReplyContent
+\end_layout
+
+\begin_layout LyX-Code
+call storeCommandAndReply(cmd, rpl)
+\end_layout
+
+\begin_layout LyX-Code
+replyToRequest forwardCommand(rpl)
+\end_layout
+
+\begin_layout LyX-Code
+goToState st_controlUnit_onMission
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_controlUnit_onMission
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+// check if there are commands to send
+\end_layout
+
+\begin_layout LyX-Code
+onMessage? forwardCommand goToState st_controlUnit_sendCommand
+\end_layout
+
+\begin_layout LyX-Code
+// get sensors data
+\end_layout
+
+\begin_layout LyX-Code
+onMessage? sensorsData goToState st_controlUnit_receivedSensorsData
+\end_layout
+
+\begin_layout LyX-Code
+// get picturePackages
 \end_layout
 
 \begin_layout LyX-Code
 onMessage? picturePackage goToState st_controlUnit_receivedpicturePackage
- 	
 \end_layout
 
 \begin_layout LyX-Code
-// get sensors data 		
+// check if end mission
 \end_layout
 
 \begin_layout LyX-Code
-onMessage? sensorsData goToState st_controlUnit_receivedSensorsData 	
+set tmpCheck = exec checkEndMission()
 \end_layout
 
 \begin_layout LyX-Code
-// check if end mission 		
-\end_layout
-
-\begin_layout LyX-Code
-set tmpCheck = exec checkEndMission() 		
-\end_layout
-
-\begin_layout LyX-Code
-if { tmpCheck == true } { 			
+if { tmpCheck == true } {
 \end_layout
 
 \begin_deeper
 \begin_layout LyX-Code
-goToState st_controlUnit_endMission 		
+goToState st_controlUnit_endMission
 \end_layout
 
 \end_deeper
 \begin_layout LyX-Code
-} 	
+}
 \end_layout
 
 \end_deeper
 \begin_layout LyX-Code
-endstate 
+endstate
 \end_layout
 
 \begin_layout LyX-Code
-
-\end_layout
-
-\begin_layout LyX-Code
-state st_controlUnit_receivedSensorsData 		
+state st_controlUnit_receivedSensorsData
 \end_layout
 
 \begin_deeper
 \begin_layout LyX-Code
-doPerceive controlUnitReceiveSensorsDatas() 		
+doPerceive controlUnitReceiveSensorsDatas()
 \end_layout
 
 \begin_layout LyX-Code
-set sensorsDatasReceived = code.curInputMsgContent 		
+set sensorsDatasReceived = code.curInputMsgContent
 \end_layout
 
 \begin_layout LyX-Code
-call storeDataSensors(sensorsDatasReceived) 		
+call storeDataSensors(sensorsDatasReceived)
 \end_layout
 
 \begin_layout LyX-Code
-goToState st_controlUnit_onMission 	
+goToState st_controlUnit_onMission
 \end_layout
 
 \end_deeper
 \begin_layout LyX-Code
-endstate 
+endstate
 \end_layout
 
 \begin_layout LyX-Code
-
-\end_layout
-
-\begin_layout LyX-Code
-state st_controlUnit_receivedpicturePackage 		
+state st_controlUnit_receivedpicturePackage
 \end_layout
 
 \begin_deeper
 \begin_layout LyX-Code
-doIn receiveDatapicturePackage() 		
+doIn receiveDatapicturePackage()
 \end_layout
 
 \begin_layout LyX-Code
-set picturePackageReceived = code.curInputMsgContent 		
+set picturePackageReceived = code.curInputMsgContent
 \end_layout
 
 \begin_layout LyX-Code
-call storePicturePackage(picturePackageReceived) 		
+call storePicturePackage(picturePackageReceived)
 \end_layout
 
 \begin_layout LyX-Code
-goToState st_controlUnit_onMission 	
+goToState st_controlUnit_onMission
 \end_layout
 
 \end_deeper
 \begin_layout LyX-Code
-endstate 
+endstate
 \end_layout
 
 \begin_layout LyX-Code
@@ -5437,21 +5494,25 @@ endstate
 \end_layout
 
 \begin_layout LyX-Code
-state st_controlUnit_endMission 		
+state st_controlUnit_endMission
 \end_layout
 
 \begin_deeper
 \begin_layout LyX-Code
-call shutdown() 		
+call shutdown()
 \end_layout
 
 \begin_layout LyX-Code
-transitToEnd 	
+//goToState st_controlUnit_init // just for test
+\end_layout
+
+\begin_layout LyX-Code
+transitToEnd
 \end_layout
 
 \end_deeper
 \begin_layout LyX-Code
-endstate 
+endstate
 \end_layout
 
 \end_deeper
@@ -6110,6 +6171,1488 @@ Behavior
 
 \begin_layout Chapter
 Implementazione
+\end_layout
+
+\begin_layout Section
+Head Quarter
+\end_layout
+
+\begin_layout Standard
+Si decide di dividere l'implementazione del Context HeadQuarter in tre diversi
+ progetti:
+\end_layout
+
+\begin_layout Itemize
+systems.headquarter.storage
+\end_layout
+
+\begin_layout Itemize
+systems.headquarter.server
+\end_layout
+
+\begin_layout Itemize
+systems.headquarter.controlunit
+\end_layout
+
+\begin_layout Subsection
+Storage
+\end_layout
+
+\begin_layout Standard
+Lo Storage è l'unità che si occuperà di registrare e di rendere disponibili
+ su richiesta i dati delle missioni.
+ Partendo dall'interfaccia IStorage si decide di estenderla in una nuova
+ interfaccia IDataBase:
+\end_layout
+
+\begin_layout LyX-Code
+package it.unibo.droneMission.interfaces.headquarter;
+\end_layout
+
+\begin_layout LyX-Code
+import java.sql.ResultSet;
+\end_layout
+
+\begin_layout LyX-Code
+import java.util.Hashtable;
+\end_layout
+
+\begin_layout LyX-Code
+public interface IDataBase extends IStorage {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+public void connect();
+\end_layout
+
+\begin_layout LyX-Code
+public void disconnect();
+\end_layout
+
+\begin_layout LyX-Code
+public boolean isConnected();
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public void setUsername(String username);
+\end_layout
+
+\begin_layout LyX-Code
+public String getUsername();
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public void setPassword(String password);
+\end_layout
+
+\begin_layout LyX-Code
+public String getPassword();
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public void setHostname(String hostname);
+\end_layout
+
+\begin_layout LyX-Code
+public String getHostname();
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public void setPort(int port);
+\end_layout
+
+\begin_layout LyX-Code
+public int getPort();
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public void setDatabaseName(String dbname);
+\end_layout
+
+\begin_layout LyX-Code
+public String getDatabaseName();
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// common db interaction
+\end_layout
+
+\begin_layout LyX-Code
+public void select(String column);
+\end_layout
+
+\begin_layout LyX-Code
+public void select(String[] columns);
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public void from(String table);
+\end_layout
+
+\begin_layout LyX-Code
+public void from(String[] tables);
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public void where(String key, String value);
+\end_layout
+
+\begin_layout LyX-Code
+public void where(Hashtable<String, String> set);
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public void orderBy(String column, String direction);
+\end_layout
+
+\begin_layout LyX-Code
+public void limit(int n);
+\end_layout
+
+\begin_layout LyX-Code
+public void offset(int n);
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public int update(Hashtable<String, String> set);
+\end_layout
+
+\begin_layout LyX-Code
+public int insert(Hashtable<String, String> set);
+\end_layout
+
+\begin_layout LyX-Code
+public ResultSet get();
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+L'interfaccia descrive le generiche operazioni di interazione con un database
+ SQL.
+ Nell'implementazione viene scelto MySQL, la gestione della connessione
+ è affidata al connettore già sviluppato e disponibile nel pacchetto mysql-conne
+ctor-java-5.1.16.jar.
+\end_layout
+
+\begin_layout Standard
+L'implementazione dello Storage avviene tramite l'estensione di diverse
+ classi:
+\end_layout
+
+\begin_layout Enumerate
+public abstract class Storage implements IStorage { }
+\end_layout
+
+\begin_layout Enumerate
+public abstract class DataBase extends Storage implements IDataBase { }
+\end_layout
+
+\begin_layout Enumerate
+public class MySQL extends DataBase { } // Singleton
+\end_layout
+
+\begin_layout Standard
+L'instanza finale di un oggetto MySQL verrà fornità attraverso una Factory
+ che, in questo progetto, vede la seguente implementazione:
+\end_layout
+
+\begin_layout LyX-Code
+package it.unibo.droneMission.systems.headquarter.storage;
+\end_layout
+
+\begin_layout LyX-Code
+import it.unibo.droneMission.interfaces.headquarter.IStorage;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public class FactoryStorage {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+public static int MYSQL = 1;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public static IStorage getInstance(int databaseType) throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+if (databaseType == MYSQL)
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+try {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+MySQL db = MySQL.getInstance();
+\end_layout
+
+\begin_layout LyX-Code
+if (!db.isConnected()) {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+db.setDatabaseName("dronemission");
+\end_layout
+
+\begin_layout LyX-Code
+db.setUsername("dronemission");
+\end_layout
+
+\begin_layout LyX-Code
+db.setPassword("estate");
+\end_layout
+
+\begin_layout LyX-Code
+db.setHostname("127.0.0.1");
+\end_layout
+
+\begin_layout LyX-Code
+db.connect();
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+return db;
+\end_layout
+
+\begin_layout LyX-Code
+} catch (Exception e) {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+e.printStackTrace();
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout LyX-Code
+else
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+throw new Exception("Type storage: " + databaseType + " is not valid.");
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+return null;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout Subsection
+Server
+\end_layout
+
+\begin_layout Standard
+Il subject Server è l'unità che si occupa di interagire con l'utente, inoltrando
+ i comandi alla ControlUnit e fornendo i log delle varie missioni (compreso
+ i dati in tempo reale della missione corrente).
+\end_layout
+
+\begin_layout Standard
+Si decide di implementare il Server sfruttando tecnologie web già esistenti.
+ In questo modo i subject UILog e UICommand prenderano la forma di semplici
+ browser web.
+\end_layout
+
+\begin_layout Standard
+Ll server verrà quindi suddiviso in due sottoprogetti:
+\end_layout
+
+\begin_layout Itemize
+systems.headquarter.server: codice autogenerato da contact (no Behaviour,
+ solo comunicazione)
+\end_layout
+
+\begin_layout Itemize
+system.headquarter.server.web: project DJango per definire il contenitore web.
+\end_layout
+
+\begin_layout Subsubsection
+system.headquarter.server
+\end_layout
+
+\begin_layout Standard
+La prima parte del server vede l'implementazione della comunicazione con
+ l'unità di controllo in modo da avere un canale di interazione già pronto.
+ Viene eliminato il Behaviour dalla specifica contact e viene implementato
+ il Server come segue:
+\end_layout
+
+\begin_layout LyX-Code
+package it.unibo.contact.headquarter_server;
+\end_layout
+
+\begin_layout LyX-Code
+public class Server extends ServerSupport {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+public Server(String name) throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+super(name);
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+public void doJob() throws Exception {
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+In pratica, una classe vuota.
+ Il Container SubSystemHeadQuarterMain viene invece esteso in modo da avere
+ un metodo publico capace di inoltrare i comandi attraverso il Subject Server
+ all'unità di controllo:
+\end_layout
+
+\begin_layout LyX-Code
+public class ServerStandAlone extends SubSystemHeadQuarterMain {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public ServerStandAlone() {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+super();
+\end_layout
+
+\begin_layout LyX-Code
+initProperty();
+\end_layout
+
+\begin_layout LyX-Code
+init();
+\end_layout
+
+\begin_layout LyX-Code
+configure();
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public void doJob() {}
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public IReply forwardCommand(ICommand command) {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+String cmd = Utils.adaptJSONToContact(command.toJSON());
+\end_layout
+
+\begin_layout LyX-Code
+try {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+server.curAcquireOneReply = server.hl_server_demand_forwardCommand_controlUnit(cmd
+);
+\end_layout
+
+\begin_layout LyX-Code
+server.curReply = server.curAcquireOneReply.acquireReply();
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+} catch (Exception e) {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+e.printStackTrace();
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+server.curReplyContent = server.curReply.msgContent();
+\end_layout
+
+\begin_layout LyX-Code
+String reply = server.curReplyContent;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+IReply r = Factory.createReply(Utils.cleanJSONFromContact(reply));
+\end_layout
+
+\begin_layout LyX-Code
+return r;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Subsubsection
+systems.headquarter.server.web
+\end_layout
+
+\begin_layout Standard
+Per gestire l'interazione con l'utente si decide di sviluppare il Server
+ come un contenitore web.
+\end_layout
+
+\begin_layout Standard
+Dopo un'attenta e approfondita ricerca si decide di utilizzare tecnologie
+ già esistenti.
+ In particolare si sceglie di implementare il server.web in DJango (un framework
+ web scritto in Python) compatibile con Jython (un'implementazione del linguaggi
+o python scritto in Java, compatibile quindi con l'altra parte del progetto
+ Server).
+\end_layout
+
+\begin_layout Standard
+Vengono definiti gli url come seguono:
+\end_layout
+
+\begin_layout LyX-Code
+urlpatterns = patterns('',
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+(r'^libs/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDI
+A_ROOT}),
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+# ajax
+\end_layout
+
+\begin_layout LyX-Code
+(r'ajax/commands/send/type/(?P<type>
+\backslash
+d+)/value/(?P<value>
+\backslash
+d+)$', 'headquarter.views.send_command'),
+\end_layout
+
+\begin_layout LyX-Code
+(r'^ajax/sensors/latest$', 'headquarter.views.latest_sensors'),
+\end_layout
+
+\begin_layout LyX-Code
+(r'^ajax/pictures/latest$', 'headquarter.views.latest_picture'),
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+# mission
+\end_layout
+
+\begin_layout LyX-Code
+(r'^missions/(?P<id>
+\backslash
+d+)/$', 'headquarter.views.get_mission'),
+\end_layout
+
+\begin_layout LyX-Code
+(r'^missions/new$', 'headquarter.views.new_mission'),
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+# pictures
+\end_layout
+
+\begin_layout LyX-Code
+(r'^pictures/(?P<path>.*)$', 'django.views.static.serve',
+\end_layout
+
+\begin_layout LyX-Code
+{'document_root': storage.FILE_PATH, 'show_indexes': True}),
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+# index
+\end_layout
+
+\begin_layout LyX-Code
+(r'^$', 'headquarter.views.index'),
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+)
+\end_layout
+
+\begin_layout Standard
+Il Server e lo Storage vengono inizializzati nel file models (che in un
+ classico progetto DJango si occuperebbe della descrizione del Database):
+\end_layout
+
+\begin_layout LyX-Code
+from it.unibo.droneMission.systems.headquarter.storage import FactoryStorage
+\end_layout
+
+\begin_layout LyX-Code
+from it.unibo.contact.headquarter_server import ServerStandAlone
+\end_layout
+
+\begin_layout LyX-Code
+server = ServerStandAlone()
+\end_layout
+
+\begin_layout LyX-Code
+storage = FactoryStorage.getInstance(FactoryStorage.MYSQL)
+\end_layout
+
+\begin_layout Standard
+Mentre le view sono così definite:
+\end_layout
+
+\begin_layout LyX-Code
+from django.shortcuts import render_to_response
+\end_layout
+
+\begin_layout LyX-Code
+from headquarter.models import server, storage
+\end_layout
+
+\begin_layout LyX-Code
+import time
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+# time / 1000.0:
+\end_layout
+
+\begin_layout LyX-Code
+# java takes in account milliseconds, python uses
+\end_layout
+
+\begin_layout LyX-Code
+# float for them
+\end_layout
+
+\begin_layout LyX-Code
+def get_time(java_time):
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+date = java_time / 1000.0
+\end_layout
+
+\begin_layout LyX-Code
+return time.strftime("%d %b %Y %H:%M:%S", time.gmtime(date)) 
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+# here format fucntions
+\end_layout
+
+\begin_layout LyX-Code
+# ...
+\end_layout
+
+\begin_layout LyX-Code
+# 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+def latest_sensors(request):
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+sensors = storage.getLatestSensorsData()
+\end_layout
+
+\begin_layout LyX-Code
+f_s = {}
+\end_layout
+
+\begin_layout LyX-Code
+if sensors is not None:
+\end_layout
+
+\begin_layout LyX-Code
+f_s = format_sensors(sensors)
+\end_layout
+
+\begin_layout LyX-Code
+return render_to_response('ajax/sensors_latest.html', f_s)
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+def index(request):
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+missions = storage.getPastMissions()
+\end_layout
+
+\begin_layout LyX-Code
+info = {}
+\end_layout
+
+\begin_layout LyX-Code
+info["missions"] = []
+\end_layout
+
+\begin_layout LyX-Code
+for m in missions:
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+formatted = {}
+\end_layout
+
+\begin_layout LyX-Code
+formatted["id"] = m.getId()
+\end_layout
+
+\begin_layout LyX-Code
+# ....
+ format mission in formatted
+\end_layout
+
+\begin_layout LyX-Code
+info["missions"].insert(0, formatted)
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+return render_to_response('index.html', info)
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+def get_mission(request, id):
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+mission = storage.getMission(int(id))
+\end_layout
+
+\begin_layout LyX-Code
+info = {}
+\end_layout
+
+\begin_layout LyX-Code
+# ....
+ format mission info info
+\end_layout
+
+\begin_layout LyX-Code
+return render_to_response('mission.html',info)
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+def new_mission(request):
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+info = {}
+\end_layout
+
+\begin_layout LyX-Code
+info["commands"] = {}
+\end_layout
+
+\begin_layout LyX-Code
+info["commands"]["start"] = {}
+\end_layout
+
+\begin_layout LyX-Code
+info["commands"]["start"]["type"] = TypesCommand.START_MISSION
+\end_layout
+
+\begin_layout LyX-Code
+info["commands"]["start"]["value"] = 0
+\end_layout
+
+\begin_layout LyX-Code
+info["commands"]["speed_set"] = {}
+\end_layout
+
+\begin_layout LyX-Code
+info["commands"]["speed_set"]["type"] = TypesCommand.SPEED_SET
+\end_layout
+
+\begin_layout LyX-Code
+info["commands"]["speed_set"]["value"] = 0
+\end_layout
+
+\begin_layout LyX-Code
+info["commands"]["speed_increase"] = {}
+\end_layout
+
+\begin_layout LyX-Code
+info["commands"]["speed_increase"]["type"] = TypesCommand.SPEED_INCREASE
+\end_layout
+
+\begin_layout LyX-Code
+info["commands"]["speed_increase"]["value"] = 0
+\end_layout
+
+\begin_layout LyX-Code
+info["commands"]["speed_decrease"] = {}
+\end_layout
+
+\begin_layout LyX-Code
+info["commands"]["speed_decrease"]["type"] = TypesCommand.SPEED_DECREASE
+\end_layout
+
+\begin_layout LyX-Code
+info["commands"]["speed_decrease"]["value"] = 0
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+# reset internall mission ID
+\end_layout
+
+\begin_layout LyX-Code
+storage.resetCurrentMissionID()
+\end_layout
+
+\begin_layout LyX-Code
+return render_to_response('new-mission.html', info)
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+def send_command(request, type, value):
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+c = Command(int(type))
+\end_layout
+
+\begin_layout LyX-Code
+c.setValue(int(value))
+\end_layout
+
+\begin_layout LyX-Code
+reply = server.forwardCommand(c)
+\end_layout
+
+\begin_layout LyX-Code
+info = format_reply(reply)
+\end_layout
+
+\begin_layout LyX-Code
+return render_to_response('ajax/send-command.html', info)
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+In questo modo è possibile avere una pagina mission/new auto-aggiornabile
+ attraverso l'uso di AJAX.
+ A tal fine sono stati sviluppati alcuni metodi javascript in modo da offrire
+ all'utente un interazione real-time con il drone.
+\end_layout
+
+\begin_layout Standard
+Come da specifica, il commitente vuole visualizzare la posizione del drone
+ direttamente sulla pagina web.
+ Per far questo si è scelto di utilizzare, anche questa volta, tecnologie
+ già ampliamente sviluppate.
+ Nell'ambito web si decide di utilizzare Google Maps, che con semplici metodi
+ javascript è in grado di gestire la geolocalizzazione di oggetto date le
+ sue coordinate.
+ Ecco un'implementazione base:
+\end_layout
+
+\begin_layout LyX-Code
+function initMap() {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+google.maps.visualRefresh = true;
+\end_layout
+
+\begin_layout LyX-Code
+function initialize() {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+var mapOptions = {
+\end_layout
+
+\begin_layout LyX-Code
+zoom: 8,
+\end_layout
+
+\begin_layout LyX-Code
+center: new google.maps.LatLng(44.435505,10.976787),
+\end_layout
+
+\begin_layout LyX-Code
+mapTypeId: google.maps.MapTypeId.ROADMAP,
+\end_layout
+
+\begin_layout LyX-Code
+streetViewControl: false,
+\end_layout
+
+\begin_layout LyX-Code
+draggable: false,
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+};
+\end_layout
+
+\begin_layout LyX-Code
+map = new google.maps.Map(document.getElementById('map'),
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+mapOptions);
+\end_layout
+
+\begin_layout LyX-Code
+var image = '/libs/img/drone-icon.png';
+\end_layout
+
+\begin_layout LyX-Code
+var myLatLng = new google.maps.LatLng(0,0);
+\end_layout
+
+\begin_layout LyX-Code
+droneIcon = new google.maps.Marker({
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+position: myLatLng,
+\end_layout
+
+\begin_layout LyX-Code
+map: map,
+\end_layout
+
+\begin_layout LyX-Code
+icon: image
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}); 
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+google.maps.event.addDomListener(window, 'load', initialize);
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+L'aggiornamento automatico della mappa e della posizione del drone verrà
+ assegnato al seguente metodo chiamato ciclicamente attraverso un set_timeout:
+\end_layout
+
+\begin_layout LyX-Code
+function updateMap(latitude, longitude) {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+myLatLng = new google.maps.LatLng(latitude,longitude);
+\end_layout
+
+\begin_layout LyX-Code
+map.setCenter(myLatLng);
+\end_layout
+
+\begin_layout LyX-Code
+droneIcon.setPosition(myLatLng);
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Subsection
+Control Unit
+\end_layout
+
+\begin_layout Standard
+L'unità di controllo, ovvero quell'entità responsabile dell'interazione
+ con l'utente, viene implementata estendo il codice autogenerato da contact.
+ Questa la classe che estente il supporto:
+\end_layout
+
+\begin_layout LyX-Code
+public class ControlUnit extends ControlUnitSupport {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+private IStorage storage;
+\end_layout
+
+\begin_layout LyX-Code
+private double fuelLevel;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public ControlUnit(String name) throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+super(name);
+\end_layout
+
+\begin_layout LyX-Code
+storage = FactoryStorage.getInstance(FactoryStorage.MYSQL);
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+protected void init() {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+fuelLevel = Fuelometer.MAX;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+private void setFuelLevelFromGauges(ISensorsData s) {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+List<IGauge> gauges = s.getGauges();
+\end_layout
+
+\begin_layout LyX-Code
+for (IGauge g : gauges) {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+if (g.getClass() == Fuelometer.class) {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+fuelLevel = g.getVal().valAsDouble();
+\end_layout
+
+\begin_layout LyX-Code
+break;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected void storeDataSensors(String sensorsDatasReceived)
+\end_layout
+
+\begin_layout LyX-Code
+throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+sensorsDatasReceived = Utils.cleanJSONFromContact(sensorsDatasReceived);
+\end_layout
+
+\begin_layout LyX-Code
+ISensorsData s = Factory.createSensorsData(sensorsDatasReceived);
+\end_layout
+
+\begin_layout LyX-Code
+String val = "";
+\end_layout
+
+\begin_layout LyX-Code
+for (IGauge g : s.getGauges())
+\end_layout
+
+\begin_layout LyX-Code
+val += " " + g.getCurValRepDisplayed(); 
+\end_layout
+
+\begin_layout LyX-Code
+env.println("Received Sensors:" + val);
+\end_layout
+
+\begin_layout LyX-Code
+setFuelLevelFromGauges(s);
+\end_layout
+
+\begin_layout LyX-Code
+storage.storeSensorsData(s); 
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected void storePicturePackage(String picturePackageReceived)
+\end_layout
+
+\begin_layout LyX-Code
+throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+picturePackageReceived = Utils.cleanJSONFromContact(picturePackageReceived);
+\end_layout
+
+\begin_layout LyX-Code
+IPicturePackage p = Factory.createPicturePackage(picturePackageReceived);
+\end_layout
+
+\begin_layout LyX-Code
+env.println("Received picture: " + p.getFile().getName());
+\end_layout
+
+\begin_layout LyX-Code
+storage.storePicturePackage(p);
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected boolean checkCommandStart(String command) throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+command = Utils.cleanJSONFromContact(command);
+\end_layout
+
+\begin_layout LyX-Code
+ICommand c = Factory.createCommand(command);
+\end_layout
+
+\begin_layout LyX-Code
+return c.getType() == TypesCommand.START_MISSION || c.getType() == TypesCommand.SPEE
+D_SET;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected boolean checkReplyCommandStart(String reply) throws Exception
+ {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+reply = Utils.cleanJSONFromContact(reply);
+\end_layout
+
+\begin_layout LyX-Code
+IReply r = Factory.createReply(reply);
+\end_layout
+
+\begin_layout LyX-Code
+return r.getType() == TypesReply.REPLY_OK;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+};
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected String getWrongStartCommandReply() throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+Reply r = new Reply(TypesReply.REPLY_FAIL);
+\end_layout
+
+\begin_layout LyX-Code
+r.setValue("Wrong start mission command");
+\end_layout
+
+\begin_layout LyX-Code
+return Utils.adaptJSONToContact(r.toJSON());
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected void storeCommandAndReply(String c, String r) throws Exception
+ {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+c = Utils.cleanJSONFromContact(c);
+\end_layout
+
+\begin_layout LyX-Code
+r = Utils.cleanJSONFromContact(r);
+\end_layout
+
+\begin_layout LyX-Code
+ICommand command = Factory.createCommand(c);
+\end_layout
+
+\begin_layout LyX-Code
+IReply reply = Factory.createReply(r);
+\end_layout
+
+\begin_layout LyX-Code
+env.println("Forwarding: " + command.toString() + " " + reply.toString());
+\end_layout
+
+\begin_layout LyX-Code
+storage.storeCommandAndReply(command, reply);
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected boolean checkEndMission() throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+return fuelLevel <= Fuelometer.MIN;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected void shutdown() throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+if (storage.isOnMission()) {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+env.println("MISSION END");
+\end_layout
+
+\begin_layout LyX-Code
+storage.endMission();
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected void storeMissionStarted() throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+env.println("MISSION START");
+\end_layout
+
+\begin_layout LyX-Code
+storage.startMission();
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
 \end_layout
 
 \begin_layout Chapter
