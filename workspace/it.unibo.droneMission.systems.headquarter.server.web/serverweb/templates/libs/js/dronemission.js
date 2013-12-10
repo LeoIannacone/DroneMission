@@ -105,11 +105,6 @@ function updateReply(data) {
 
 $(document).ready(function(){
 
-    // init map
-    //initMap();
-    
-    
-    
     if (document.location.pathname == '/missions/new') {
         initMap();
         UPDATER = setInterval(
@@ -170,10 +165,5 @@ $(document).ready(function(){
                 }
             });
         });
-        
-        
-        
     }
-
-
 })
