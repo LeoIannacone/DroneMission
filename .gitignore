@@ -1,6 +1,7 @@
 */*.metadata
 *.class
 Docs/#relazione.lyx#
+*~
 
 # REMOVE ALL GENERATED FILES
 workspace/*/src-gen/*
