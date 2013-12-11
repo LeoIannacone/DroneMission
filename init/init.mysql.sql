@@ -1,0 +1,1 @@
+../workspace/it.unibo.droneMission.systems.headquarter.storage/sql/struct.mysql.sql
