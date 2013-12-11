@@ -1,0 +1,7 @@
+Please READ FIRST ../init/*
+
+You MUST exec in sequence following files:
+ $ java -jar updateServer.jar
+ $ java -jar drone.jar
+ $ java -jar headquarter.controlunit.jar
+ $ bash headquarter.webserver.sh
