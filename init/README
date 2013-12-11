@@ -1,0 +1,11 @@
+To install webserver please look at:
+  headquarter.server.web.README_INSTALL
+
+
+To install database MYSQL, please use following credential
+ 
+ * db_name: dronemission
+ * db_user: dronemission
+ * password: estate
+
+next exec init.mysql.sql statements.
