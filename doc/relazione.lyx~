@@ -1,0 +1,7792 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass book
+\use_default_options true
+\maintain_unincluded_children false
+\language italian
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\bullet 0 0 0 4
+\bullet 1 0 8 -1
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Drone mission
+\end_layout
+
+\begin_layout Author
+Carlo Antenucci, Leonardo Iannacone, Gonzalo Junquera
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FloatList algorithm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+Introduzione
+\end_layout
+
+\begin_layout Chapter
+Visione
+\end_layout
+
+\begin_layout Standard
+Lo sviluppo di un prodotto software necessita di un processo di produzione
+ maturo, che, al fine di garantire un'elevata qualità e produttività, necessita
+ di una opportuna organizzazione.
+ Per migliorare il processo produttivo il 
+\shape italic
+Software Engineer Institute
+\shape default
+ (
+\family typewriter
+\shape italic
+\noun on
+SEI
+\family default
+\shape default
+\noun default
+) ha introdotto il sistema 
+\shape italic
+Capability Maturity Model
+\shape default
+ (
+\family typewriter
+CMM
+\family default
+).
+ Tale sistema suddivide le organizzazioni in cinque fasi:
+\end_layout
+
+\begin_layout Description
+Livello
+\begin_inset space \space{}
+\end_inset
+
+1:
+\begin_inset space \space{}
+\end_inset
+
+
+\shape italic
+Initial
+\shape default
+
+\begin_inset space \space{}
+\end_inset
+
+(Chaotic): i processi sono ad-hoc, caotici, o pochi processi sono definiti
+\end_layout
+
+\begin_layout Description
+Livello
+\begin_inset space \space{}
+\end_inset
+
+2:
+\begin_inset space \space{}
+\end_inset
+
+
+\shape italic
+Repeteable
+\shape default
+: i processi di base sono stabiliti e c'è un livello di disciplina a cui
+ attenersi in questi processi
+\end_layout
+
+\begin_layout Description
+Livello
+\begin_inset space \space{}
+\end_inset
+
+3:
+\begin_inset space \space{}
+\end_inset
+
+
+\shape italic
+Defined
+\shape default
+: tutti i processi sono definiti, documentati, standardizzati ed integrati
+ a vicenda
+\end_layout
+
+\begin_layout Description
+Livello
+\begin_inset space \space{}
+\end_inset
+
+4:
+\begin_inset space \space{}
+\end_inset
+
+
+\shape italic
+Managed
+\shape default
+: i processi sono misurati raccogliendo dati dettagliati sui processi e
+ sulla loro qualità
+\end_layout
+
+\begin_layout Description
+Livello
+\begin_inset space \space{}
+\end_inset
+
+5:
+\begin_inset space \space{}
+\end_inset
+
+
+\shape italic
+Optimized
+\shape default
+: è in atto il processo di miglioramento continuo tramite feedback quantitativi
+ e la fornitura di linee guida per nuove idee e tecnologie
+\end_layout
+
+\begin_layout Standard
+La costruzione di un software, inoltre, è spesso legata alle piattaforme
+ operative su cui il prodotto dovrà operare, che in ogni caso hanno una
+ espressività molto maggiore della 
+\emph on
+Macchina di Minsky
+\emph default
+.
+ Per questo motivo, solitamente, le organizzazioni tendono ad utilizzare
+ approcci diversi per la produzione del software.
+ Le possibili strategie prevedono:
+\end_layout
+
+\begin_layout Itemize
+l'elaborazione di una soluzione partendo da un'analisi del problema, che
+ porta alla stesura di un codice ad hoc per quel determinato contesto (
+\shape italic
+Top Down
+\shape default
+)
+\end_layout
+
+\begin_layout Itemize
+lo sviluppo di una soluzione utilizzando le funzionalità messe a disposizione
+ di una tecnologia (
+\shape italic
+Bottom Up
+\shape default
+)
+\end_layout
+
+\begin_layout Itemize
+la realizzazione di un modello del sistema software da realizzare in modo
+ tale da rendere il prodotto che si sta sviluppando indipendente dalla tecnologi
+a e, allo stesso tempo, riutilizzabile in più contesti (
+\shape italic
+Model Driven Software Development
+\shape default
+)
+\end_layout
+
+\begin_layout Standard
+Le figure professionali che entrano in gioco all'interno di un processo
+ di produzione software sono principalmente tre:
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+
+\shape italic
+Project
+\begin_inset space \space{}
+\end_inset
+
+manager
+\shape default
+ è colui che coordina lo svolgimento del progetto.
+ Avvalendosi di consulenze tecniche prenderà decisioni in merito alle risorse
+ necessarie per il progetto e distribuirà i compiti agli altri due soggetti
+ in gioco definendo cosa dovrà essere realizzato e come.
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+
+\shape italic
+System
+\begin_inset space \space{}
+\end_inset
+
+designer
+\shape default
+ è colui che specifica cosa il sistema software deve essere in grado di
+ fare.
+ Il suo compito è quello di specificare la struttura del sistema, i suoi
+ componenti, le sue interfacce ed i suoi moduli.
+ Nell'approccio 
+\shape italic
+Model Driven Software Development
+\shape default
+ il lavoro che svolge consiste nel modellare le entità del sistema su tre
+ dimensioni: struttura, interazione e comportamento.
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+
+\shape italic
+Application
+\begin_inset space \space{}
+\end_inset
+
+designer
+\shape default
+ è colui che specifica come le entità descritte dal system designer interagiscon
+o e si comportano al fine di ottenere quanto richiesto dal committente.
+ Il suo compito è, quindi, quello di definire, utilizzando gli strumenti
+ messi a disposizione dalla tecnologia scelta, ed eventualmente dal system
+ designer stesso, la business logic del sistema software.
+\end_layout
+
+\begin_layout Standard
+Il compito del system designer, quindi, è quello di realizzare un modello
+ concettuale del sistema, definendo come detto le entità che entrano in
+ gioco, le loro interazioni e il loro comportamento, e fornire all'application
+ designer un meta-modello dello stesso.
+\end_layout
+
+\begin_layout Standard
+L'idea di utilizzare un approccio Model Driven, anziché uno Top Down o Bottom
+ Up, consente, quindi, lo sviluppo di un prodotto software, non legato in
+ maniera eccessiva alla tecnologia alla base del sistema, né tanto meno
+ alla business logic.
+ Questo garantisce al sistema sviluppato un alto grado di riutilizzabilità
+ in quanto, una volta definito il modello, sarà sufficiente modificare il
+ comportamento o l'interazione dei componenti per far si che questo si adatti
+ ad un nuovo problema.
+ Inoltre l'approccio Model Driven consente di formalizzare ed esplicitare,
+ attraverso la costruzione di una serie di diagrammi che non lasciano spazio
+ ad ambiguità, le conoscenze utili alla risoluzione del problema da risolvere.
+\end_layout
+
+\begin_layout Chapter
+Obiettivi
+\end_layout
+
+\begin_layout Standard
+L'applicazione intende fornire alla protezione civile un maggiore supporto
+ per l'esplorazione territoriale senza la necessità di mettere a repentaglio
+ vite umane.
+ 
+\end_layout
+
+\begin_layout Chapter
+Requisiti
+\end_layout
+
+\begin_layout Section
+Lo scenario applicativo 
+\end_layout
+
+\begin_layout Standard
+La protezione civile decide di inviare su un luogo diffcilmente accessibile
+ un aeromobile senza pilota (
+\shape italic
+drone
+\shape default
+), capace di operare in modo teleguidato.
+ Il drone è dotato di un insieme di 
+\shape italic
+sensori di stato
+\shape default
+ in grado di rilevare la velocità corrente (
+\shape italic
+speed
+\shape default
+) e il carburante disponibile (
+\shape italic
+fuel
+\shape default
+).
+ Il drone dispone anche di un dispositivo 
+\shape italic
+GPS
+\shape default
+ in grado di determinarne la posizione in termini di latitudine e longitudine.
+ 
+\end_layout
+
+\begin_layout Standard
+Il compito del drone è scattare fotografie del territorio ogni DTF (DTF>0)
+ secondi e inviare le immagini a un server installato presso una unità operativa.
+ Il server provvede a memorizzare le immagini ricevute (in un file o in
+ un database) associandole ai dati dei sensori di stato disponibili al momento
+ dello scatto della foto.
+ Il server provvede inoltre a visualizzare su un display dell'unità operativa
+ i valori di stato ricevuti dal drone in una dashboard detta 
+\shape italic
+DroneControlDashboard
+\shape default
+.
+\end_layout
+
+\begin_layout Standard
+La 
+\shape italic
+DroneControlDashboard
+\shape default
+ viene concepita come un dispositivo composto di due parti: una parte detta
+ 
+\shape italic
+GaugeDisplay
+\shape default
+ e una parte detta 
+\shape italic
+CmdDisplay
+\shape default
+.
+ La parte 
+\shape italic
+GaugeDisplay
+\shape default
+ della 
+\shape italic
+DroneControlDashboard
+\shape default
+ visualizza i dati provenienti dai sensori del drone riconducendoli ciascuno
+ a uno specifico strumento di misura; uno 
+\shape italic
+Speedometer
+\shape default
+ (velocità in km/h) un 
+\shape italic
+Odometer
+\shape default
+ (numero di km percorsi) un 
+\shape italic
+FuelOmeter
+\shape default
+ (livello corrente di carburante in litri) e un 
+\shape italic
+LocTracker
+\shape default
+ (posizione del drone).
+ La 
+\shape italic
+GaugeDisplay
+\shape default
+ può visualizzare i dati in forma digitale e/o grafica; la posizione viene
+ preferibilmente visualizzata fornendo una rappresentazione del drone su
+ una mappa del territorio.
+ La parte 
+\shape italic
+CmdDisplay
+\shape default
+ della 
+\shape italic
+DroneControlDashboard
+\shape default
+ include pulsanti di comando per fissare la valocità di crociera (
+\shape italic
+setSpeed
+\shape default
+) avviare (
+\shape italic
+start
+\shape default
+) e fermare (
+\shape italic
+stop
+\shape default
+) il drone
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Il drone si suppone abbia un sistema di controllo capace di eseguire i comandi
+ di 
+\shape italic
+\size normal
+start
+\shape default
+\size default
+ e di 
+\shape italic
+\size normal
+stop
+\shape default
+\size default
+ in modo opportuno.
+\end_layout
+
+\end_inset
+
+ e per incrementarne (
+\shape italic
+incSpeed
+\shape default
+) e decrementarne (
+\shape italic
+decSpeed
+\shape default
+) la velocità corrente di una quantità prefissata DS (DS>0 km/h).
+ 
+\end_layout
+
+\begin_layout Standard
+I dati dei sensori del drone sono anche resi disponibili sugli smart device
+ in dotazione al responsabile della protezione civile (
+\shape italic
+Chief
+\shape default
+) e al comandante (
+\shape italic
+Commander
+\shape default
+) della unità operativa.
+ Ogni smartdevice provvederà a visualizzare (su richiesta dell'utente) i
+ dati in una dashboard (
+\shape italic
+SmartDeviceDahboard
+\shape default
+) opportunamente definita per lo specifico dispositivo, preferibilmente
+ in modo analogo alla 
+\shape italic
+GaugeDisplay
+\shape default
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Il server deve operare in modo che : 
+\end_layout
+
+\begin_layout Itemize
+la missione del drone possa iniziare solo dopo che il drone ha dato conferma
+ della ricezione del comando 
+\shape italic
+setSpeed
+\shape default
+ che fissa la velocità iniziale di crociera;
+\end_layout
+
+\begin_layout Itemize
+la speed del drone sia sempre compresa tra due valori-limite prestabiliti
+ 
+\family typewriter
+speedMin
+\family default
+ a 
+\family typewriter
+speedMax
+\family default
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Le fasi di decollo e atterraggio sono qui ignorate.
+\end_layout
+
+\end_inset
+
+;
+\end_layout
+
+\begin_layout Itemize
+all'avvio di ogni missione, ogni smartdevice 
+\family typewriter
+Android
+\family default
+ sia messo in grado di generare una 
+\shape italic
+notification
+\shape default
+ all'utente, la cui selezione provvede ad aprire una applicazione che mostri
+ la 
+\shape italic
+SmartDeviceDahboard
+\shape default
+.
+\end_layout
+
+\begin_layout Itemize
+gli smartdevice siano in grado di visualizzare lo stato del drone anche
+ in caso di guasto del server centrale.
+\end_layout
+
+\begin_layout Itemize
+il comando di stop sia inviato in modo automatico non appena il livello
+ del carburante risulta inferiore a un livello prefissato 
+\family typewriter
+MinFuel
+\family default
+.
+\end_layout
+
+\begin_layout Section
+Il lavoro da svolgere 
+\end_layout
+
+\begin_layout Standard
+In questo quadro, si chiede di definire il software da installare sul server
+ della unità operativa e su smartdevice dotati di sistema operativo Android
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Per il primo protoipo lo smartdevice può essere un computer convenzionale.
+\end_layout
+
+\end_inset
+
+.
+ Opzionalmente: si chiede di definire uno strumento capace di visualizzare
+ le informazioni memorizate dal server dopo una missione del drone.
+ Si chiede anche di costruire un opportuno simulatore delle attività del
+ drone con riferimento ai seguenti parametri: 
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Box Doublebox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "90col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+
+\family typewriter
+\series bold
+Parametri per la simulazione del drone 
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+DTF=5 sec, DS=10 km/h, livello fuel iniziale = 30 litri 
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+livello minimo fuel per operatività: MinFuel = 0,5 litri
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+speed di crociera compresa tra: speedMin=60 e speedMax=120 km/h
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+consumo di carburante = (speed * 30) litri/h
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+percorso del drone: in linea retta a una quota fissa di 100m.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Remark 
+\end_layout
+
+\begin_layout Standard
+Si ricorda che l'obiettivo del lavoro non è solo la produzione di un sistema
+ software in grado di soddisfare i requisiti funzioniali ma anche (e in
+ primis) il rapporto tra il prodotto e il processo adotttato per generarlo.
+\end_layout
+
+\begin_layout Chapter
+Analisi dei requisiti
+\end_layout
+
+\begin_layout Section
+Use cases
+\end_layout
+
+\begin_layout Standard
+Dalle specifiche del committente si è capito che questi desidera il sistema
+ fornisca tre funzionalità principali: ricezione di informazioni territoriali,
+ controllo della missione e ricezione di informazioni relative ai sensori
+ di stato del drone.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Img/use_cases.png
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Use case
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Glossario
+\end_layout
+
+\begin_layout Description
+\begin_inset Tabular
+<lyxtabular version="3" rows="11" columns="2">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top" width="4.3cm">
+<column alignment="left" valignment="top" width="8.9cm">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\shape smallcaps
+Termine
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\shape smallcaps
+Significato
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\shape italic
+Centrale Operativa
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Elemento esterno al sistema da sviluppare.
+ Ha il compito di controllare la missione, ricevere dal drone informazioni
+ relative ai suoi sensori e memorizzare le fotografie scattate.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\shape italic
+Smartphone
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Elemento esterno al sistema.
+ Consente al Chief e al Commander di avere informazioni sullo stato del
+ drone.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\shape italic
+Drone
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Elemento esterno al sistema.
+ È un velivolo privo di pilota che ha il compito di esplorare un territorio
+ difficilmente accessibile, di comunicare i dati relativi ai suoi sensori
+ e di inviare ad intervalli ditempo regolari fotograrfie dell'ambiente esplorato.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\shape italic
+Fotografie territoriali
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Immagine jpg, acquisite dal drone tramite una fotocamera, che riposta informazio
+ni relative alle condizioni ambientali del luogo esplorato e chela centale
+ operativa provvederà a memorizzare.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\shape italic
+Sensori
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Elementi attivi del sistema.
+ Inviano alla centrale operativa informazioni sullo stato del drone, quali
+ chilometri percorsi, velocità attuale, quantità di carburante residuo e
+ le coordinate geografiche del punto in cui si trova.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\shape italic
+DroneControlDashboard
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Elemento del sistema che consente alla centrale operativa di visualizzare
+ le informazioni ricevute dal drone (GaugeDisplay) e, allo stesso tempo,
+ di inviare al velivolo comandi (CmdDislpay).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\shape italic
+GaugeDisplay
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Componente della DroneControlDashboard che consente la visualizzazione delle
+ inforamzioni del drone.
+ È composta da una mappa su cui viene visualizzata la sua posizione e da
+ tre strumenti di misura che riportano i dati rilevati dei sensori, sia
+ in forma analogica che digitale.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\shape italic
+Odometer
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Strumento di misura che consente la visualizzazione del numero di chilometri
+ percorsi dal drone.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\shape italic
+Speedometer
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Strumento di misura che consente la visualizzazione della velocità attuale
+ del drone
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\shape italic
+FuelOmeter
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Strumento di misura che consente la visualizzazione della quantità di carburante
+ disponibile nei serbatoi del drone.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="2">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top" width="4.3cm">
+<column alignment="left" valignment="top" width="8.9cm">
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\shape italic
+CmdDisplay
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Elemento del sistema che consente alla centrale operativa di inviare comandi
+ al drone attraverso una serie di pulsanti.
+ I comandi consentono di:
+\end_layout
+
+\begin_layout Itemize
+Iniziare la missione
+\end_layout
+
+\begin_layout Itemize
+Terminare la missione
+\end_layout
+
+\begin_layout Itemize
+Impostare la velocità
+\end_layout
+
+\begin_layout Itemize
+Aumentare la velocità
+\end_layout
+
+\begin_layout Itemize
+Diminuire la velocità
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\shape italic
+Display
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Elemento del sistema in grado di visualizzare i dati provenienti dai sensori
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+\SpecialChar \textcompwordmark{}
+
+\end_layout
+
+\begin_layout Section
+Scenari
+\end_layout
+
+\begin_layout Subsection
+Inizio missione
+\end_layout
+
+\begin_layout Description
+\begin_inset Tabular
+<lyxtabular version="3" rows="8" columns="2">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top" width="4.3cm">
+<column alignment="left" valignment="top" width="8.9cm">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\shape smallcaps
+Campo
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\shape smallcaps
+Descrizione
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+ID(Nome)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Inizio missione
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Descrizione
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Avvio della missione del drone
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Attori
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Operatore
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Precondizioni
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Il drone è fermo e la velocità iniziale è impostata
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Scenario Principale
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+L'operatode, dopo aver impostato la velocità di partenza, avvia la missione
+ e il drone decolla
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Scenari alternativi
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+--
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Postcondizioni
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Il drone è in volo alla velocità impostata
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Fine missione
+\end_layout
+
+\begin_layout Description
+\begin_inset Tabular
+<lyxtabular version="3" rows="8" columns="2">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top" width="4.3cm">
+<column alignment="left" valignment="top" width="8.9cm">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\shape smallcaps
+Campo
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\shape smallcaps
+Descrizione
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+ID(Nome)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Fine missione
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Descrizione
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+La missione termina
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Attori
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Operatore
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Precondizioni
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+La missione è iniziata
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Scenario Principale
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+L'operatore fa terminare la missione e il drone atterra
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Scenari alternativi
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+--
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Postcondizioni
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Il drone è atterrato e la missione è terminata
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Controllo velocità
+\end_layout
+
+\begin_layout Description
+\begin_inset Tabular
+<lyxtabular version="3" rows="8" columns="2">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top" width="4.3cm">
+<column alignment="left" valignment="top" width="8.9cm">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\shape smallcaps
+Campo
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\shape smallcaps
+Descrizione
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+ID(Nome)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Controllo velocità
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Descrizione
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Regolare la velocità del Drone
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Attori
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Operatore
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Precondizioni
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+La missione è iniziata
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Scenario Principale
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+L'operatore aumenta o diminuisce la velocità del Drone a scelta.
+ L'operatore attende dal Drone un messagio che signali il sucesso o il falliment
+o della modifcica.
+ Nel caso di una velocità maggiore di maxSpeed o minore di minSpeed (fallimento)
+ l'operatore imposta un'altra velocità
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Scenari alternativi
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Se l'operatore non riceve alcun messagio di risposta entro un dato intervallo
+ di tempo ripete l'operazione di Controllo velocità
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Postcondizioni
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Il drone ha la velocità impostata dall'operatore
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Visualizzazione dati
+\end_layout
+
+\begin_layout Description
+\begin_inset Tabular
+<lyxtabular version="3" rows="8" columns="2">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top" width="4.3cm">
+<column alignment="left" valignment="top" width="8.9cm">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\shape smallcaps
+Campo
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\shape smallcaps
+Descrizione
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+ID(Nome)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Visualizza Dati
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Descrizione
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Visualizzazione delle informazioni dei sensori del drone
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Attori
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+--
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Precondizioni
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+La missione è iniziata
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Scenario Principale
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+L'operatore o il responsabile visualizzanno le informazioni dei sensori
+ del drone.
+ Nel caso in cui i dati non vengano ricevuti si riptete l'operazione
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Scenari alternativi
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+--
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Postcondizioni
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+L'operatore o il responsabile hanno sul loro dispositivo le informazioni
+ dei sensori
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Memorizzazione dati
+\end_layout
+
+\begin_layout Description
+\begin_inset Tabular
+<lyxtabular version="3" rows="8" columns="2">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top" width="4.3cm">
+<column alignment="left" valignment="top" width="8.9cm">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\shape smallcaps
+Campo
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\shape smallcaps
+Descrizione
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+ID(Nome)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Memorizza Dati
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Descrizione
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Le fotografie scattate dal drone sono inviate ad un server che provvede
+ a memorizzarle insieme alle coordinate geografiche
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Attori
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+--
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Precondizioni
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+La missione è iniziata, il drone ha scattato la foto e l'ha inviata al server
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Scenario Principale
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Le immagini che il drone ha fato sono inviati a un server,dove sono memorizzati
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Scenari alternativi
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Non ci sono nuove immagini per inviare al server
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Postcondizioni
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Il server ha le immagini che il drone ha fato
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Scatta fotografia
+\end_layout
+
+\begin_layout Description
+\begin_inset Tabular
+<lyxtabular version="3" rows="8" columns="2">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top" width="4.3cm">
+<column alignment="left" valignment="top" width="8.9cm">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\shape smallcaps
+Campo
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\shape smallcaps
+Descrizione
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+ID(Nome)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Scatta Foto
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Descrizione
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Il drone scatta una foto del territorio dove ad intervalli di tempo regolari
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Attori
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Tempo
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Precondizioni
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+La missione è iniziata, DFT è maggiore di 0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Scenario Principale
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Il drone è nella latitudine X e longitudine Y e scatta una foto del territorio
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Scenari alternativi
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+--
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Postcondizioni
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+La foto viene inviata al server per la memorizzazione
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Aggiornamento dati
+\end_layout
+
+\begin_layout Description
+\begin_inset Tabular
+<lyxtabular version="3" rows="8" columns="2">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top" width="4.3cm">
+<column alignment="left" valignment="top" width="8.9cm">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\shape smallcaps
+Campo
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\shape smallcaps
+Descrizione
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+ID(Nome)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Aggiorna Dati Sensori
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Descrizione
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+I diversi sensori del drone aggiornano i loro dati
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Attori
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Tempo
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Precondizioni
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+La missione è iniziata
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Scenario Principale
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+I sensori attualizzano i loro dati
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Scenari alternativi
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+--
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Postcondizioni
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+I sensori sono aggiornati
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+(Domain) Model
+\end_layout
+
+\begin_layout Standard
+Analizzando le specifiche richieste seguendo un approccio top-down sono
+ stati individuati nel sistema DroneMission tre soggetti, tra loro interagenti:
+ Drone, HeadQuarter e Smartphone.
+ 
+\end_layout
+
+\begin_layout Standard
+Per modellare tali soggetti, che in seguito verranno analizzati in maniera
+ più approfondita e trattati come sottosistemi in quanto composti anch'essi
+ da soggetti interagenti, si è deciso di utilizzare Contact, un meta­linguaggio
+ alla pari di UML (entrambi sono espressi in termini di MOF) in possesso
+ di maggiore potere espressivo.
+ Attraverso questo meta­linguaggio è possibile non solo definire il comportament
+o del sistema, ma anche, grazie a un motore Prolog, generare il codice (per
+ ora Java) di un prototipo perfettamente funzionante.
+ In questo modo è già possibile testare il progetto totale, avendo solo
+ completato l’analisi.
+ 
+\end_layout
+
+\begin_layout Standard
+L’importanza di questo strumento è estremamente evidente: mentre viene effettuat
+a l’analisi del problema viene automaticamente creata un’implementazione
+ già completamente funzionante.
+ 
+\end_layout
+
+\begin_layout Standard
+La differenza tra un approccio di risoluzione Extreme Programming e uno
+ attraverso Contact risulta quindi palese: mentre nel primo caso ci si concentra
+ totalmente e direttamente nella scrittura di codice e nel miglioramento
+ dello stesso con conseguenti problematiche dovute a una scarsa analisi
+ e frettolosa ricerca di un prototipo funzionante, nel secondo caso lo sforzo
+ e il tempo impiegati in fasi di analisi (che risulta molto più accurata
+ e precisa) vengono ripagati con un abbattimento del tempo impiegato nella
+ programmazione e anche con una forte e stabile struttura d’analisi dedotta
+ univocamente e semplicemente dai requisiti.
+ 
+\end_layout
+
+\begin_layout Standard
+Attraverso l’utilizzo del meta­linguaggio Contact viene fortemente mantenuta
+ una completa tracciabilità di tutte le entità: possiamo infatti ritrovare
+ all’interno del codice gli stessi componenti con i metodi definiti all’interno
+ della specifica del meta­linguaggio.
+ Contact è un meta­linguaggio improntato all’interazione, infatti si può
+ constatare che non si tratta più con POJO, ma con veri e propri Subject,
+ cioè agenti attivi e quindi attori veri e propri del sistema, che comunicano
+ tra loro in modi differenti.
+ 
+\end_layout
+
+\begin_layout Standard
+Infine, con l’utilizzo di questo meta­linguaggio viene il system­designer,
+ che ha il compito di implementare tutti i requisiti richiesti dall’application­
+designer, come per esempio una nuova tipologia di comunicazione, avrà un
+ lavoro molto semplificato e, soprattutto, riusabile: una volta completata
+ la nuova feature, questa sarà presente in tutti i succesivi utilizzi del
+ meta­linguaggio.
+\end_layout
+
+\begin_layout Subsection
+DroneMissionSystem
+\end_layout
+
+\begin_layout Standard
+Come detto il DroneMissionSystem sarà composto da tre sub systems eterogenei
+ e distribuiti, per questo verranno introdotti tre contesti, uno per il
+ drone, uno per la centrale operativa ed il terzo per lo smartdevice:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily},tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+ContactSystem DroneMissionSystem -awt spaceUpdater [host="localhost" port=4010];
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Context subSystemDrone;
+\end_layout
+
+\begin_layout Plain Layout
+
+Context subSystemHeadQuarter;
+\end_layout
+
+\begin_layout Plain Layout
+
+Context subSystemSmartdevice;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Subject smartphone context subSystemSmartdevice -w; 
+\end_layout
+
+\begin_layout Plain Layout
+
+Subject drone context subSystemDrone -w; 
+\end_layout
+
+\begin_layout Plain Layout
+
+Subject headQuarter context subSystemHeadQuarter -w;
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Dopo aver definito quali saranno i sottosistemi che entreranno in gioco
+ si procederà a definire i messaggi che questi si scambieranno e successivamente
+ le loro comunicazioni di alto livello.
+\end_layout
+
+\begin_layout Standard
+I messaggi saranno di diverso tipo a seconda della loro funzionalità: i
+ comandi inviati dalla centrale di controllo saranno visti come Request/Response
+ (una volta inviati, il mittente si metterà in attesa di un risposta da
+ parte del destinatario, con l'esito dell'operazione svolta: 
+\begin_inset Quotes eld
+\end_inset
+
+COMPLETED
+\begin_inset Quotes erd
+\end_inset
+
+ o 
+\begin_inset Quotes eld
+\end_inset
+
+ERROR
+\begin_inset Quotes erd
+\end_inset
+
+) poiché ci si aspetta che all'invio di ogni comando il drone metta in atto
+ la richiesta e risponda con l'esito dell'operazione, le notifiche ed i
+ dati dei sensori inviati dal drone saranno invece dei Signal (verranno
+ inseriti in uno shared-space e potranno essere prelevati dagli altri soggetti
+ in gioco, senza dover specificare chi), mentre per quanto riguarda le foto,
+ queste saranno inviate sotto forma di Dispatch alla centrale di controllo
+ (senza attendere l'unico sotto sistema in grado di riceverla) in quanto,
+ una volta ricevuta ci si aspetta che quest'ultima la memorizzi insieme
+ ai dati dell'istante in cui è stata inviata.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily},tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+//		Highlevel communications
+\end_layout
+
+\begin_layout Plain Layout
+
+//Drone sends photo 
+\end_layout
+
+\begin_layout Plain Layout
+
+sendDataPhoto: drone forward photo to headQuarter;
+\end_layout
+
+\begin_layout Plain Layout
+
+//Headquarter receives photo 
+\end_layout
+
+\begin_layout Plain Layout
+
+receiveDataPhoto: headQuarter serve photo support=TCP [host="localhost"
+ port=4060];
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+//Drone sends data of sensors
+\end_layout
+
+\begin_layout Plain Layout
+
+sendDataSensors: drone emit dataSensor;
+\end_layout
+
+\begin_layout Plain Layout
+
+//Headquarter and Smartphone receive data of sensors 
+\end_layout
+
+\begin_layout Plain Layout
+
+headquarterReceiveDataSensors: headQuarter sense dataSensor; 
+\end_layout
+
+\begin_layout Plain Layout
+
+smartphoneReceiveDataSensors: smartphone sense dataSensor;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+//Drone notifies start/end mission 
+\end_layout
+
+\begin_layout Plain Layout
+
+sendnotify: drone emit notify; 
+\end_layout
+
+\begin_layout Plain Layout
+
+//Smartphone receives notifications about mission
+\end_layout
+
+\begin_layout Plain Layout
+
+smartphoneReceiveNotify: smartphone sense notify;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+//HeadQuarter sends command 
+\end_layout
+
+\begin_layout Plain Layout
+
+sendCommand: headQuarter ask command to drone; 
+\end_layout
+
+\begin_layout Plain Layout
+
+//Drone receives command 
+\end_layout
+
+\begin_layout Plain Layout
+
+receiveCommand: drone accept command support=TCP [host="localhost" port=4050];
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A questo punto è possibile specificare il comportamento di ogni singolo
+ soggetto.
+ Per quanto riguarda il drone, questo, una volta inizializzato, transiterà
+ nello stato ready, in cui attenderà la ricezione del comando setspeed dalla
+ centrale di controllo per transitare nello stato startMission, in cui avvierà
+ la missione e comunicherà agli Smartphone l'avvenuto decollo prima di spostarsi
+ nel nuovo stato onMission.
+ In questo stato il velivolo invierà i dati dei sensori e, ogni DS secondi,
+ un pacchetto con la foto e i dati attualizzati; potrebbe inoltre ricevere
+ dei comandi dalla centrale di controllo, quali setspeed o stop.
+ Alla ricezione di tali messaggi lo stato diventerà commandHandler, in cui,
+ prima si analizza il contenuto del messaggio, poi, a seconda del comando
+ ricevuto il drone transiterà in uno dei due possibli stati: setspeed o
+ endMission.
+ Nel primo si provvederà ad aggiornare la velocità di crociera, mentre nel
+ secondo si notificherà agli smarphone il termine della missione e si provvederà
+ a dar atterrare il drone.
+\end_layout
+
+\begin_layout LyX-Code
+BehaviorOf drone 
+\end_layout
+
+\begin_layout LyX-Code
+{ 
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+var String msgCommand = "" 
+\end_layout
+
+\begin_layout LyX-Code
+var String cmdReply = "" 
+\end_layout
+
+\begin_layout LyX-Code
+var boolean droneCheck 
+\end_layout
+
+\begin_layout LyX-Code
+var String sensorsDatas 
+\end_layout
+
+\begin_layout LyX-Code
+var String dataPhoto
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+action void startMission() 
+\end_layout
+
+\begin_layout LyX-Code
+action boolean isMissionEnding() 
+\end_layout
+
+\begin_layout LyX-Code
+action void endMission() 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// commands 
+\end_layout
+
+\begin_layout LyX-Code
+action String handleCommand(String cmd) 
+\end_layout
+
+\begin_layout LyX-Code
+action boolean isCommandStart(String cmd) 
+\end_layout
+
+\begin_layout LyX-Code
+action String getFailReplyToCommand() 
+\end_layout
+
+\begin_layout LyX-Code
+action String getOkReplyToCommand() 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// notify 
+\end_layout
+
+\begin_layout LyX-Code
+action String getNotifyStart() 
+\end_layout
+
+\begin_layout LyX-Code
+action String getNotifyEnd() 
+\end_layout
+
+\begin_layout LyX-Code
+// sensors 
+\end_layout
+
+\begin_layout LyX-Code
+action String getDataFromSensors() 
+\end_layout
+
+\begin_layout LyX-Code
+action String getDataPhoto()
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_Drone_init initial 
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+println ("----- Drone Initialized -----") 
+\end_layout
+
+\begin_layout LyX-Code
+goToState st_Drone_ready 
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_Drone_ready 
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+println ("----- Waiting setSpeed -----") 
+\end_layout
+
+\begin_layout LyX-Code
+doInOut receiveCommand() 
+\end_layout
+
+\begin_layout LyX-Code
+set msgCommand = code.curInputMsgContent 
+\end_layout
+
+\begin_layout LyX-Code
+set droneCheck = exec isCommandStart(msgCommand) 
+\end_layout
+
+\begin_layout LyX-Code
+if{ droneCheck == true } { goToState st_Drone_startMission } 
+\end_layout
+
+\begin_layout LyX-Code
+replyToRequest command(call getFailReplyToCommand()); 
+\end_layout
+
+\begin_layout LyX-Code
+println ("ERROR: expected 'start' command.
+ Received: " + msgCommand) 
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_Drone_startMission 
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+replyToRequest command(call getOkReplyToCommand()); 
+\end_layout
+
+\begin_layout LyX-Code
+exec startMission() 
+\end_layout
+
+\begin_layout LyX-Code
+doOut sendnotify(call getNotifyStart()) 
+\end_layout
+
+\begin_layout LyX-Code
+goToState st_Drone_onMission 
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_Drone_onMission 
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+// send data sensors 
+\end_layout
+
+\begin_layout LyX-Code
+set sensorsDatas = exec getDataFromSensors() 
+\end_layout
+
+\begin_layout LyX-Code
+doOut sendsensorsDatas(sensorsDatas)
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// send photos 
+\end_layout
+
+\begin_layout LyX-Code
+set dataPhoto = exec getDataPhoto() 
+\end_layout
+
+\begin_layout LyX-Code
+doOut sendDataPhoto(dataPhoto) 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+set droneCheck = exec isMissionEnding() 
+\end_layout
+
+\begin_layout LyX-Code
+if { droneCheck == true } { goToState st_Drone_endMission } 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// received a command 
+\end_layout
+
+\begin_layout LyX-Code
+onMessage? command goToState st_Drone_commandHandler 
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_Drone_commandHandler 
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+doInOut receiveCommand() 
+\end_layout
+
+\begin_layout LyX-Code
+set msgCommand = code.curInputMsgContent 
+\end_layout
+
+\begin_layout LyX-Code
+set cmdReply = exec handleCommand(msgCommand) 
+\end_layout
+
+\begin_layout LyX-Code
+replyToRequest command(cmdReply); 
+\end_layout
+
+\begin_layout LyX-Code
+// get back on mission 
+\end_layout
+
+\begin_layout LyX-Code
+goToState st_Drone_onMission 
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_Drone_endMission 
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+// send last data sensors 
+\end_layout
+
+\begin_layout LyX-Code
+set sensorsDatas = exec getDataFromSensors() 
+\end_layout
+
+\begin_layout LyX-Code
+doOut sendsensorsDatas(sensorsDatas) 
+\end_layout
+
+\begin_layout LyX-Code
+exec endMission() 
+\end_layout
+
+\begin_layout LyX-Code
+doOut sendnotify(exec getNotifyEnd()) 
+\end_layout
+
+\begin_layout LyX-Code
+transitToEnd 
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate 
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+Per quanto concerne invece HeadQuarter, anch'esso dopo l'inizializzazione
+ transiterà nello stato ready, in cui non farà altro che inviare al drone
+ il comando setspeed con la velocità di crociera ed attendere l'arrivo di
+ una risposta prima di spostarsi nello stato onMission.
+ Qui si controllerà se bisogna inviare qualche comando al drone, in caso
+ di risposta affermativa verrà eseguita l'operazione.
+ Anche qui, se il messaggio inviato è stop, vi sarà un transito verso lo
+ stato endMission, altrimenti si rimarrà nello stato analizzando la presenza
+ di eventuali messaggi da parte del drone: se nello shared-space sono presenti
+ i dati dei sensori si transiterà nello stato receivedSensorsData che, dopo
+ aver acquisito il messaggio (lasciandolo a disposizione di altri dispositivi),
+ provvederà all'aggiornamento dei dati e tornerà su onMission; se invece
+ verrà ricevuto un messaggio di tipo photo si andrà nello stato receivedPhoto
+ che provvederà, prima di tornare in onMission, a recuperare il messaggio
+ e memorizzarlo.
+\end_layout
+
+\begin_layout LyX-Code
+BehaviorOf headQuarter
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+var String command
+\end_layout
+
+\begin_layout LyX-Code
+var String sensorsDatasReceived
+\end_layout
+
+\begin_layout LyX-Code
+var String photoReceived
+\end_layout
+
+\begin_layout LyX-Code
+var String commandAnswer
+\end_layout
+
+\begin_layout LyX-Code
+var boolean tmpCheck
+\end_layout
+
+\begin_layout LyX-Code
+var boolean missionEnd
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+action String getCommandStart()
+\end_layout
+
+\begin_layout LyX-Code
+action String getCommandToSend()
+\end_layout
+
+\begin_layout LyX-Code
+action boolean replyIsOk(String reply)
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+action void updateDashboard(String sensorsDatasReceived)
+\end_layout
+
+\begin_layout LyX-Code
+action void storeSensorsData(String sensorsDatasReceived)
+\end_layout
+
+\begin_layout LyX-Code
+action void storePhotoData(String photoReceived)
+\end_layout
+
+\begin_layout LyX-Code
+action void showPicturePackage(String photoReceived)
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+action boolean missionIsGoingToEnd()
+\end_layout
+
+\begin_layout LyX-Code
+action void shutdown()
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_HeadQuarter_init initial
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+println ("----- HeadQuarter Initialized -----") 
+\end_layout
+
+\begin_layout LyX-Code
+goToState st_HeadQuarter_ready
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate
+\end_layout
+
+\begin_layout LyX-Code
+state st_HeadQuarter_ready
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+println ("----- Ready to send command -----")
+\end_layout
+
+\begin_layout LyX-Code
+doOutIn sendCommand(exec getCommandStart())
+\end_layout
+
+\begin_layout LyX-Code
+acquireAnswerFor command
+\end_layout
+
+\begin_layout LyX-Code
+set commandAnswer = code.curReplyContent
+\end_layout
+
+\begin_layout LyX-Code
+println("DRONE REPLY: " + commandAnswer)
+\end_layout
+
+\begin_layout LyX-Code
+set tmpCheck = exec replyIsOk(commandAnswer)
+\end_layout
+
+\begin_layout LyX-Code
+if { tmpCheck == true } { goToState st_HeadQuarter_onMission }
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_HeadQuarter_onMission
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+set missionEnd = exec missionIsGoingToEnd()
+\end_layout
+
+\begin_layout LyX-Code
+if { missionEnd == true } { 
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+goToState st_HeadQuarter_endMission
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+// get sensors data
+\end_layout
+
+\begin_layout LyX-Code
+onMessage? sensorsData goToState st_HeadQuarter_receivedSensorsData
+\end_layout
+
+\begin_layout LyX-Code
+// get photos
+\end_layout
+
+\begin_layout LyX-Code
+onMessage? photo goToState st_HeadQuarter_receivedPhoto
+\end_layout
+
+\begin_layout LyX-Code
+// check if command is clicked in Dashboard and send it
+\end_layout
+
+\begin_layout LyX-Code
+set command = exec getCommandToSend()
+\end_layout
+
+\begin_layout LyX-Code
+doOutIn sendCommand(command)
+\end_layout
+
+\begin_layout LyX-Code
+acquireAnswerFor command
+\end_layout
+
+\begin_layout LyX-Code
+set commandAnswer = code.curReplyContent
+\end_layout
+
+\begin_layout LyX-Code
+set tmpCheck = exec replyIsOk(commandAnswer)
+\end_layout
+
+\begin_layout LyX-Code
+if { tmpCheck == false } { println("DRONE CMD FAILED: " + commandAnswer)
+ }
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_HeadQuarter_receivedSensorsData
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+// get sensors data
+\end_layout
+
+\begin_layout LyX-Code
+doPerceive headquarterReceivesensorsDatas()
+\end_layout
+
+\begin_layout LyX-Code
+set sensorsDatasReceived = code.curInputMsgContent
+\end_layout
+
+\begin_layout LyX-Code
+// update Dashboard
+\end_layout
+
+\begin_layout LyX-Code
+exec updateDashboard(sensorsDatasReceived)
+\end_layout
+
+\begin_layout LyX-Code
+exec storeSensorsData(sensorsDatasReceived)
+\end_layout
+
+\begin_layout LyX-Code
+goToState st_HeadQuarter_onMission
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_HeadQuarter_receivedPhoto
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+// get photo data
+\end_layout
+
+\begin_layout LyX-Code
+doIn receiveDataPhoto()
+\end_layout
+
+\begin_layout LyX-Code
+set photoReceived = code.curInputMsgContent
+\end_layout
+
+\begin_layout LyX-Code
+// store info
+\end_layout
+
+\begin_layout LyX-Code
+call storePhotoData(photoReceived)
+\end_layout
+
+\begin_layout LyX-Code
+call showPicturePackage(photoReceived)
+\end_layout
+
+\begin_layout LyX-Code
+goToState st_HeadQuarter_onMission
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_HeadQuarter_endMission
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+call shutdown()
+\end_layout
+
+\begin_layout LyX-Code
+transitToEnd
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+Lo Smartphone, invece, uscirà dallo stato di init dopo aver ricevuto una
+ notifica e andrà in missionStart che notificherà all'utente l'avvio della
+ missione e transiterà in waitingForData.
+ In questo stato si attenderanno messaggi provenienti dal drone contenenti
+ o i dati dei sensori, o una nuova notifica, questa volta di fine missione.
+ Alla ricezione dei dati relativi ai sensori lo smartphone transiterà in
+ receivedData, dove provvederà al recupero e alla visualizzazione dei valori
+ forniti dal drone, mentre nel caso in cui dovesse ricevere la notifica
+ transiterà in notifyHandler che provvederà a far terminare la sessione
+ nel caso in cui questa sia uno stop.
+\end_layout
+
+\begin_layout LyX-Code
+BehaviorOf smartdevice 
+\end_layout
+
+\begin_layout LyX-Code
+{
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+var String notifyContent
+\end_layout
+
+\begin_layout LyX-Code
+var String dataDroneReceived 
+\end_layout
+
+\begin_layout LyX-Code
+var boolean tmpNotify
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+action void notifyUserMissionStarted()
+\end_layout
+
+\begin_layout LyX-Code
+action void updateGauges(String data)
+\end_layout
+
+\begin_layout LyX-Code
+action boolean isNotifyStart(String notify)
+\end_layout
+
+\begin_layout LyX-Code
+action void missionFinished()
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_Smartdevice_init initial
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+onMessage notify transitTo st_Smartdevice_missionStart
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_Smartdevice_missionStart
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+call notifyUserMissionStarted()
+\end_layout
+
+\begin_layout LyX-Code
+goToState st_Smartdevice_waitingForData
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_Smartdevice_waitingForData
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+onMessage? sensorsData goToState st_Smartdevice_receivedData
+\end_layout
+
+\begin_layout LyX-Code
+onMessage? notify goToState st_Smartdevice_endMission
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_Smartdevice_receivedData
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+// get data from drone
+\end_layout
+
+\begin_layout LyX-Code
+doPerceive smartdeviceReceivesensorsDatas()
+\end_layout
+
+\begin_layout LyX-Code
+set dataDroneReceived = code.curInputMsgContent
+\end_layout
+
+\begin_layout LyX-Code
+call updateGauges(dataDroneReceived)
+\end_layout
+
+\begin_layout LyX-Code
+goToState st_Smartdevice_waitingForData
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_Smartdevice_notifyHandler
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+doPerceive smartdeviceReceiveNotify()
+\end_layout
+
+\begin_layout LyX-Code
+set notifyContent = code.curInputMsgContent
+\end_layout
+
+\begin_layout LyX-Code
+set tmpNotify = exec isNotifyStart(notifyContent)
+\end_layout
+
+\begin_layout LyX-Code
+if { tmpNotify == true } { goToState st_Smartdevice_missionStart }
+\end_layout
+
+\begin_layout LyX-Code
+if { tmpNotify == false } { goToState st_Smartdevice_endMission }
+\end_layout
+
+\begin_layout LyX-Code
+goToState st_Smartdevice_waitingForData
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_Smartdevice_endMission
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+call missionFinished()
+\end_layout
+
+\begin_layout LyX-Code
+transitToEnd
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Section
+Test plan
+\end_layout
+
+\begin_layout Standard
+È possibile sfruttare il codice autogenerato da contact per avere un primo
+ test preliminare.
+ È sufficiente definire i metodi e le classi mancanti per dare al sistema
+ un minimo di logica.
+ Verrà utilizzata anche una classe statica Messages che dichiara i tipo
+ di messaggi scambiati fra le varie entità del sistema.
+ Tale classe verrà poi ampliata successivamente in un package a parte per
+ descrivere in maniera completa ed esaustiva la struttura dei dati.
+\end_layout
+
+\begin_layout Standard
+I Gauge sono invece già forniti nel pacchetto it.unibo.droneMission.gauge,
+ ampliamente analizzati e sviluppati già in altri progetti (leggi lezione).
+\end_layout
+
+\begin_layout LyX-Code
+public class Messages {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+public static String NOTIFY_START = "start";
+\end_layout
+
+\begin_layout LyX-Code
+public static String NOTIFY_END = "end";
+\end_layout
+
+\begin_layout LyX-Code
+public static String REPLY_OK = "ok";
+\end_layout
+
+\begin_layout LyX-Code
+public static String REPLY_NO = "no";
+\end_layout
+
+\begin_layout LyX-Code
+public static String COMMAND_SETSPEED = "setspeed";
+\end_layout
+
+\begin_layout LyX-Code
+public static String COMMAND_START = "start";
+\end_layout
+
+\begin_layout LyX-Code
+public static String COMMAND_STOP = "stop";
+\end_layout
+
+\begin_layout LyX-Code
+public static String SENSORS_LAST = "0";
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+Mentre ecco un primo prototipo del simulatore del drone Drone:
+\end_layout
+
+\begin_layout LyX-Code
+public class Drone extends DroneSupport {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+private int num_sensors_sent;
+\end_layout
+
+\begin_layout LyX-Code
+private int MAX_SENSORS_SENT = 20;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public Drone(String s) throws Exception{
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+super(s);
+\end_layout
+
+\begin_layout LyX-Code
+num_sensors_sent = 0;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+// contact clean message
+\end_layout
+
+\begin_layout LyX-Code
+private static String cleanMessage(String msgString) {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+return msgString.replace("
+\backslash
+"","").replace("'","");
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+protected void startMission() throws Exception {
+\end_layout
+
+\begin_layout LyX-Code
+env.println("START MISSION");
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected void endMission() throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+env.println("STOP MISSION");
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected String getDataFromSensors() throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+String result = "";
+\end_layout
+
+\begin_layout LyX-Code
+if (num_sensors_sent < MAX_SENSORS_SENT) {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+int odomenter = (int)(Math.random() * 100);
+\end_layout
+
+\begin_layout LyX-Code
+int speedometer = (int)(Math.random() * 100);
+\end_layout
+
+\begin_layout LyX-Code
+int fuel = (int)(Math.random() * 100);
+\end_layout
+
+\begin_layout LyX-Code
+result = String.format("odomoter:%s;speedometer:%s;fuel:%s", odomenter, speedomet
+er, fuel);
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+else
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+result = Messages.SENSORS_LAST;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+num_sensors_sent++;
+\end_layout
+
+\begin_layout LyX-Code
+env.println("Sending sensor: " + result);
+\end_layout
+
+\begin_layout LyX-Code
+return result;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected String getDataPhoto() throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+String photo = "photoX;dataY;timeZ";
+\end_layout
+
+\begin_layout LyX-Code
+env.println("Sending photo: " + photo);
+\end_layout
+
+\begin_layout LyX-Code
+return photo;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected String handleCommand(String cmd) throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+cmd = cleanCommand(cmd);
+\end_layout
+
+\begin_layout LyX-Code
+if(cmd.startsWith(Messages.COMMAND_SETSPEED) || cmd.startsWith(Messages.COMMAND_STAR
+T)) {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+env.println("COMMAND handler OK: " + cmd);
+\end_layout
+
+\begin_layout LyX-Code
+return Messages.REPLY_OK;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+else {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+env.println("COMMAND handler FAIL: " + cmd);
+\end_layout
+
+\begin_layout LyX-Code
+return Messages.REPLY_NO;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected boolean isCommandStart(String cmd) throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+env.println(cmd + " " + Messages.COMMAND_START);
+\end_layout
+
+\begin_layout LyX-Code
+return cleanMessage(cmd).equalsIgnoreCase(Messages.COMMAND_START);
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected String getFailReplyToCommand() throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+return Messages.REPLY_NO;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected String getOkReplyToCommand() throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+return Messages.REPLY_OK;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected String getNotifyStart() throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+return Messages.NOTIFY_START;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected String getNotifyEnd() throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+return Messages.NOTIFY_END;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected boolean isMissionEnding() throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+return num_sensors_sent >= MAX_SENSORS_SENT;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+Ecco il prototipo dell'HeadQuarter, la centrale operativa:
+\end_layout
+
+\begin_layout LyX-Code
+public class HeadQuarter extends HeadQuarterSupport {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+// Just for testing purpose
+\end_layout
+
+\begin_layout LyX-Code
+private int commandCounter;
+\end_layout
+
+\begin_layout LyX-Code
+private String sensors_received; 
+\end_layout
+
+\begin_layout LyX-Code
+private int MAX_CMD = 3;
+\end_layout
+
+\begin_layout LyX-Code
+public HeadQuarter(String s) throws Exception{
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+super(s);
+\end_layout
+
+\begin_layout LyX-Code
+commandCounter = 0;
+\end_layout
+
+\begin_layout LyX-Code
+sensors_received = "";
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected String getCommandToSend() throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+String cmd;
+\end_layout
+
+\begin_layout LyX-Code
+if (commandCounter >= MAX_CMD) {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+cmd = Messages.COMMAND_STOP;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+else {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+commandCounter += 1;
+\end_layout
+
+\begin_layout LyX-Code
+cmd = Messages.COMMAND_SETSPEED + " " + ((int) (Math.round(Math.random() *
+ 100)) % 60 + 60); 
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+return cmd;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected void updateDashboard(String dataSensorsReceived)
+\end_layout
+
+\begin_layout LyX-Code
+throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+env.println("DATA RECEIVED: " +dataSensorsReceived);
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected void storePhotoData(String photoReceived) throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+env.println("PHOTO RECEIVED: " +photoReceived);
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected void shutdown() throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+env.println("MISSION END - SHUTDOWN."); 
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected String getCommandStart() throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+return Messages.COMMAND_START;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected boolean replyIsOk(String reply) throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+return reply.equalsIgnoreCase(Messages.REPLY_OK);
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected void storeSensorsData(String sensorsDatasReceived)
+\end_layout
+
+\begin_layout LyX-Code
+throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+sensors_received = sensorsDatasReceived;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected void showPicturePackage(String photoReceived)
+\end_layout
+
+\begin_layout LyX-Code
+throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+env.println("PHOTO RECEIVED: " +photoReceived);
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected boolean missionIsGoingToEnd() throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+return sensors_received.equalsIgnoreCase(Messages.SENSORS_LAST);
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+Ecco invece il prototipo de lo Smartdevice:
+\end_layout
+
+\begin_layout LyX-Code
+public class Smartdevice extends SmartdeviceSupport {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+public Smartdevice(String s) throws Exception{
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+super(s);
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected void notifyUserMissionStarted() throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+env.println("MISSION_STARTED");
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected void missionFinished() throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+env.println("MISSION END"); 
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected void updateGauges(String data) throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+env.println("DATA DRONE: " + data);
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected boolean isNotifyStart(String notify) throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+return notify == Messages.NOTIFY_START;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Chapter
+Analisi del problema
+\end_layout
+
+\begin_layout Section
+Logic architecture
+\end_layout
+
+\begin_layout Standard
+Il sistema tutto viene suddiviso in tre sottisistemi Drone - HeadQuarter
+ - SmartDevice che verranno poi analizzati uno ad uno:
+\end_layout
+
+\begin_layout LyX-Code
+Context subSystemDrone; 
+\end_layout
+
+\begin_layout LyX-Code
+Context subSystemHeadQuarter; 
+\end_layout
+
+\begin_layout LyX-Code
+Context subSystemSmartDevice; 
+\end_layout
+
+\begin_layout Standard
+Viene subito naturale definire anche una univoca e comune rappresentazione
+ dei dati che le varie entità (o Subject) dei sottosistemi andranno a scambiare.
+ 
+\end_layout
+
+\begin_layout Subsection
+Rappresentazione dei dati
+\end_layout
+
+\begin_layout Standard
+È necessario definire un modello unico di rappresentazione dei dati affinché
+ le varie unità riescano a interpretare correttamente le informazioni scambiate.
+\end_layout
+
+\begin_layout Standard
+Constatato che lo scambio di messaggi in Contact avviene tramite l'utilizzo
+ di stringhe, si è scelto di rappresentare i dati attraverso il formato
+ JSON.
+ Ogni messaggio (IMessage) sarà poi trasformato in classe (o instanza) attravers
+o l'utilizzo di Factory.
+\end_layout
+
+\begin_layout LyX-Code
+package it.unibo.droneMission.interfaces.messages;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public interface IMessage {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+public String toJSON(); 
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+Analizzando i requisiti, emergono diversi tipi di dati che le entità dei
+ sottosistemi si scambiano:
+\end_layout
+
+\begin_layout LyX-Code
+ICommand         -- comandi inviati al drone
+\end_layout
+
+\begin_layout LyX-Code
+IReply           -- le risposte dei comandi che il drone manda indietro
+\end_layout
+
+\begin_layout LyX-Code
+INotify          -- le notifiche inviate dal drone
+\end_layout
+
+\begin_layout LyX-Code
+ISensorsData     -- i dati dei sensori del drone
+\end_layout
+
+\begin_layout LyX-Code
+IPicturePackage  -- le foto con allegato i dati dei sensori
+\end_layout
+
+\begin_layout Standard
+È utile sottolineare che, per motivi di overhead nella comunicazione, si
+ è scelto di utlizzare un unico 
+\begin_inset Quotes eld
+\end_inset
+
+pacchetto
+\begin_inset Quotes erd
+\end_inset
+
+ di informazione (ISensorsData) che collezioni tutti i dati dei sensori
+ del drone e li invii alla centrale di controllo.
+ Un altro approccio sarebbe stato quello di inviare singolarmente lo stato
+ interno di ogni sensore, ma questo avrebbe aumentato enormemente il numero
+ di messaggi scambiati (e di costo, in termini di comunicazione) senza alcun
+ vantaggio apparente.
+\end_layout
+
+\begin_layout Standard
+È necessario anche far notare che IPicturePackage non è solo la rappresentazione
+ della fotografia che il drone ha scattato, ma contiene anche i dati dei
+ sensori al momento dello scatto, così come richiesto dal richiedente.
+\end_layout
+
+\begin_layout Standard
+ICommand, IReply e INotify sono invece dei IMessage con tipo (in questo
+ singolo caso, solo intero IMessageTypeAsInt) e un valore, un intero per
+ IComand (IMessageTypeAsInt) e una stringa per IReply e INotify (IMessageValueAs
+String).
+\end_layout
+
+\begin_layout Standard
+In aggiunta, si è scelto di aggiungere un timestamp ai vari messaggi in
+ modo da poter ricostruire in qualisiasi momento la cronologia dell'interazione:
+\end_layout
+
+\begin_layout LyX-Code
+package it.unibo.droneMission.interfaces.messages;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public interface IMessageWithTime extends IMessage {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+public long getTime();
+\end_layout
+
+\begin_layout LyX-Code
+public void setTime(long time); 
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+Ed ecco quindi il modello UML dei messaggi:
+\end_layout
+
+\begin_layout Standard
+#FIX_ME - qui UML interfaces.messages
+\end_layout
+
+\begin_layout Subsection
+Sottosistema Drone
+\end_layout
+
+\begin_layout Standard
+#FIX_ME: QUI CI ANDREBBE LA DESCRIZIONE DEL DRONE E DEI GAUGES
+\end_layout
+
+\begin_layout Subsection
+Sottosistema HeadQuarter
+\end_layout
+
+\begin_layout Standard
+La centrale operativa avrà dunque il compito di controllare il drone e di
+ registrare (mostrandole agli operatori) le informazioni che esso invia.
+\end_layout
+
+\begin_layout Subsubsection
+Struttura
+\end_layout
+
+\begin_layout Standard
+Analizzando la centrale operativa, si decide di suddividere il Subject headquart
+er in quattro nuove entità:
+\end_layout
+
+\begin_layout LyX-Code
+// Utente che visualizza informazioni
+\end_layout
+
+\begin_layout LyX-Code
+Subject uiLog context subSystemHeadQuarter;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// Utente che invia comandi al drone 
+\end_layout
+
+\begin_layout LyX-Code
+Subject uiCommand context subSystemHeadQuarter; 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// Server che interagisce con utente
+\end_layout
+
+\begin_layout LyX-Code
+Subject server context subSystemHeadQuarter;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// Unità che interagisce con drone
+\end_layout
+
+\begin_layout LyX-Code
+Subject controlUnit context subSystemHeadQuarter;  
+\end_layout
+
+\begin_layout Subsubsection
+Interazione
+\end_layout
+
+\begin_layout Standard
+Segue la parte della comunicazione fra i vari Subject.
+\end_layout
+
+\begin_layout Standard
+L'utente Log che vuole visualizzare i dati relativi ad una missione o le
+ immagini o i dati dei sensori (passati o correnti) invia una Request (resta
+ in attesa quindi di una risposta) al Server
+\end_layout
+
+\begin_layout LyX-Code
+// User log messages 
+\end_layout
+
+\begin_layout LyX-Code
+Request showMeMission; 
+\end_layout
+
+\begin_layout LyX-Code
+Request showMeSensorsData; 
+\end_layout
+
+\begin_layout LyX-Code
+Request showMePicturePackage;
+\end_layout
+
+\begin_layout LyX-Code
+Request showMeNotifies;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// show me mission
+\end_layout
+
+\begin_layout LyX-Code
+sendShowMeMission: uiLog demand showMeMission to server; 
+\end_layout
+
+\begin_layout LyX-Code
+receiveShowMeMission: server grant showMeMission;
+\end_layout
+
+\begin_layout LyX-Code
+// show me sensors data
+\end_layout
+
+\begin_layout LyX-Code
+sendShowMeSensorsData: uiLog demand showMeSensorsData to server; 
+\end_layout
+
+\begin_layout LyX-Code
+receiveShowMeSensorsData: server grant showMeSensorsData;
+\end_layout
+
+\begin_layout LyX-Code
+// show me picture package
+\end_layout
+
+\begin_layout LyX-Code
+sendShowMePackagepicturePackage: uiLog demand showMePicturePackage to server;
+ receiveShowMePackagepicturePackage: server grant showMePicturePackage;
+ 
+\end_layout
+
+\begin_layout LyX-Code
+// show me notifies
+\end_layout
+
+\begin_layout LyX-Code
+sendShowMeNotifies: uiLog demand showMeNotifies to server; 
+\end_layout
+
+\begin_layout LyX-Code
+receiveShowMeNotifies: server grant showMeNotifies; 
+\end_layout
+
+\begin_layout Standard
+Per quanto riguarda invece l'invio dei comandi, l'utente Command invia al
+ Server una Request newCommand che verrà inoltrata poi alla unitControl
+ attraverso una nuova Request forwardCommand.
+ Questa scelta è stata effettuata al fine di dividere le responsabilità
+ dei vari Subject, in particolare solo alla controlUnit viene affidato il
+ compito di interagire con il drone
+\end_layout
+
+\begin_layout LyX-Code
+// User command 
+\end_layout
+
+\begin_layout LyX-Code
+Request newCommand;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// Server forward command to drone through controlUnit 
+\end_layout
+
+\begin_layout LyX-Code
+Request forwardCommand; 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// UI send command 
+\end_layout
+
+\begin_layout LyX-Code
+sendUINewCommand: uiCommand demand newCommand to server; 
+\end_layout
+
+\begin_layout LyX-Code
+receiveUINewCommand: server grant newCommand;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// server sends command to drone handler 
+\end_layout
+
+\begin_layout LyX-Code
+sendForwardCommand: server demand forwardCommand to controlUnit; 
+\end_layout
+
+\begin_layout LyX-Code
+receiveForwardCommand: controlUnit grant forwardCommand;
+\end_layout
+
+\begin_layout Standard
+La controlUnit interagisce con il drone attraverso le scelte prese in fase
+ di analisi dei requisiti:
+\end_layout
+
+\begin_layout LyX-Code
+// messages between drone and controlUnit
+\end_layout
+
+\begin_layout LyX-Code
+Dispatch picturePackage;  
+\end_layout
+
+\begin_layout LyX-Code
+Request command; 
+\end_layout
+
+\begin_layout LyX-Code
+Signal sensorsData;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// drone sends sensors data
+\end_layout
+
+\begin_layout LyX-Code
+sendSensorsDatas: drone emit sensorsData;
+\end_layout
+
+\begin_layout LyX-Code
+controlUnitReceiveSensorsDatas: controlUnit sense sensorsData; 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// controlUnit sends command 
+\end_layout
+
+\begin_layout LyX-Code
+sendCommand: controlUnit demand command to drone; 
+\end_layout
+
+\begin_layout LyX-Code
+receiveCommand: drone grant command;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// drone sends picturePackage 
+\end_layout
+
+\begin_layout LyX-Code
+sendDatapicturePackage: drone forward picturePackage to controlUnit;   
+\end_layout
+
+\begin_layout LyX-Code
+receiveDatapicturePackage: controlUnit serve picturePackage;
+\end_layout
+
+\begin_layout Standard
+È utile sottolineare che nel codice riportarto è sottointesa l'idea che
+ i Subject drone e controlUnit possono essere eseguiti su JVM diverse.
+ A tal fine è sufficiente specificare il relativo al supporto.
+ In fase di progettazione verrà utilizzato TCP, ad esempio support=TCP [host="lo
+calhost" port=4050].
+\end_layout
+
+\begin_layout Subsubsection
+Comportamento
+\end_layout
+
+\begin_layout Standard
+Seque la descrizione del comportamento della controlUnit, l'entità responsabile
+ dell'interazione con il drone.
+\end_layout
+
+\begin_layout LyX-Code
+BehaviorOf controlUnit { 
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+var String cmd
+\end_layout
+
+\begin_layout LyX-Code
+var String rpl
+\end_layout
+
+\begin_layout LyX-Code
+var String sensorsDatasReceived
+\end_layout
+
+\begin_layout LyX-Code
+var String picturePackageReceived
+\end_layout
+
+\begin_layout LyX-Code
+var boolean tmpCheck
+\end_layout
+
+\begin_layout LyX-Code
+// init
+\end_layout
+
+\begin_layout LyX-Code
+action void init()
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// store mission starts
+\end_layout
+
+\begin_layout LyX-Code
+action void storeMissionStarted()
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// store info from drone
+\end_layout
+
+\begin_layout LyX-Code
+action void storeDataSensors(String sensorsDatasReceived)
+\end_layout
+
+\begin_layout LyX-Code
+action void storePicturePackage(String picturePackageReceived)
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// check commands to send
+\end_layout
+
+\begin_layout LyX-Code
+action boolean checkCommandStart(String command)
+\end_layout
+
+\begin_layout LyX-Code
+action boolean checkReplyCommandStart(String reply)
+\end_layout
+
+\begin_layout LyX-Code
+action String getWrongStartCommandReply()
+\end_layout
+
+\begin_layout LyX-Code
+action void storeCommandAndReply(String c, String r)
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// shutdown
+\end_layout
+
+\begin_layout LyX-Code
+action boolean checkEndMission()
+\end_layout
+
+\begin_layout LyX-Code
+action void shutdown()
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_controlUnit_init initial
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+showMsg("Control Unit - initial")
+\end_layout
+
+\begin_layout LyX-Code
+exec init()
+\end_layout
+
+\begin_layout LyX-Code
+goToState st_controlUnit_ready
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_controlUnit_ready
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+doInOut receiveForwardCommand()
+\end_layout
+
+\begin_layout LyX-Code
+set tmpCheck = exec checkCommandStart(code.curInputMsgContent)
+\end_layout
+
+\begin_layout LyX-Code
+if { tmpCheck == true } {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+goToState st_controlUnit_startMission
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+if { tmpCheck == false } {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+goToState st_controlUnit_wrongStartCommand
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_controlUnit_startMission
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+set cmd = code.curInputMsgContent
+\end_layout
+
+\begin_layout LyX-Code
+doOutIn sendCommand(cmd)
+\end_layout
+
+\begin_layout LyX-Code
+acquireAnswerFor command
+\end_layout
+
+\begin_layout LyX-Code
+set rpl = code.curReplyContent
+\end_layout
+
+\begin_layout LyX-Code
+replyToRequest forwardCommand(rpl)
+\end_layout
+
+\begin_layout LyX-Code
+set tmpCheck = exec checkReplyCommandStart(rpl)
+\end_layout
+
+\begin_layout LyX-Code
+if { tmpCheck == false } {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+goToState st_controlUnit_ready 
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+call storeMissionStarted()
+\end_layout
+
+\begin_layout LyX-Code
+call storeCommandAndReply(cmd, rpl)
+\end_layout
+
+\begin_layout LyX-Code
+goToState st_controlUnit_onMission
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// in case of wrong start command received
+\end_layout
+
+\begin_layout LyX-Code
+state st_controlUnit_wrongStartCommand
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+set cmd = code.curInputMsgContent
+\end_layout
+
+\begin_layout LyX-Code
+set rpl = exec getWrongStartCommandReply()
+\end_layout
+
+\begin_layout LyX-Code
+replyToRequest forwardCommand(rpl)
+\end_layout
+
+\begin_layout LyX-Code
+goToState st_controlUnit_ready
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_controlUnit_sendCommand
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+doInOut receiveForwardCommand()
+\end_layout
+
+\begin_layout LyX-Code
+set cmd = code.curInputMsgContent
+\end_layout
+
+\begin_layout LyX-Code
+doOutIn sendCommand(cmd)
+\end_layout
+
+\begin_layout LyX-Code
+acquireAnswerFor command
+\end_layout
+
+\begin_layout LyX-Code
+set rpl = code.curReplyContent
+\end_layout
+
+\begin_layout LyX-Code
+call storeCommandAndReply(cmd, rpl)
+\end_layout
+
+\begin_layout LyX-Code
+replyToRequest forwardCommand(rpl)
+\end_layout
+
+\begin_layout LyX-Code
+goToState st_controlUnit_onMission
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_controlUnit_onMission
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+// check if there are commands to send
+\end_layout
+
+\begin_layout LyX-Code
+onMessage? forwardCommand goToState st_controlUnit_sendCommand
+\end_layout
+
+\begin_layout LyX-Code
+// get sensors data
+\end_layout
+
+\begin_layout LyX-Code
+onMessage? sensorsData goToState st_controlUnit_receivedSensorsData
+\end_layout
+
+\begin_layout LyX-Code
+// get picturePackages
+\end_layout
+
+\begin_layout LyX-Code
+onMessage? picturePackage goToState st_controlUnit_receivedpicturePackage
+\end_layout
+
+\begin_layout LyX-Code
+// check if end mission
+\end_layout
+
+\begin_layout LyX-Code
+set tmpCheck = exec checkEndMission()
+\end_layout
+
+\begin_layout LyX-Code
+if { tmpCheck == true } {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+goToState st_controlUnit_endMission
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate
+\end_layout
+
+\begin_layout LyX-Code
+state st_controlUnit_receivedSensorsData
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+doPerceive controlUnitReceiveSensorsDatas()
+\end_layout
+
+\begin_layout LyX-Code
+set sensorsDatasReceived = code.curInputMsgContent
+\end_layout
+
+\begin_layout LyX-Code
+call storeDataSensors(sensorsDatasReceived)
+\end_layout
+
+\begin_layout LyX-Code
+goToState st_controlUnit_onMission
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate
+\end_layout
+
+\begin_layout LyX-Code
+state st_controlUnit_receivedpicturePackage
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+doIn receiveDatapicturePackage()
+\end_layout
+
+\begin_layout LyX-Code
+set picturePackageReceived = code.curInputMsgContent
+\end_layout
+
+\begin_layout LyX-Code
+call storePicturePackage(picturePackageReceived)
+\end_layout
+
+\begin_layout LyX-Code
+goToState st_controlUnit_onMission
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_controlUnit_endMission
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+call shutdown()
+\end_layout
+
+\begin_layout LyX-Code
+//goToState st_controlUnit_init // just for test
+\end_layout
+
+\begin_layout LyX-Code
+transitToEnd
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+Ecco invece l'analisi completa del comportamento del server
+\end_layout
+
+\begin_layout LyX-Code
+BehaviorOf server { 
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+var String command 	
+\end_layout
+
+\begin_layout LyX-Code
+var String reply 	
+\end_layout
+
+\begin_layout LyX-Code
+var String sensorsData 	
+\end_layout
+
+\begin_layout LyX-Code
+var String picturePackage 	
+\end_layout
+
+\begin_layout LyX-Code
+var String mission
+\end_layout
+
+\begin_layout LyX-Code
+	
+\end_layout
+
+\begin_layout LyX-Code
+action String showReplyToCommand(String reply)
+\end_layout
+
+\begin_layout LyX-Code
+action String getSensorsData(String mission_id) 	
+\end_layout
+
+\begin_layout LyX-Code
+action String getPicturePackage(String  mission_id) 	
+\end_layout
+
+\begin_layout LyX-Code
+action String getNotifies(String mission_id) 	
+\end_layout
+
+\begin_layout LyX-Code
+action String getMission(String mission_id)
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_Server_init initial
+\end_layout
+
+\begin_layout LyX-Code
+	goToState st_Server_Handler 	
+\end_layout
+
+\begin_layout LyX-Code
+endstate 
+\end_layout
+
+\begin_layout LyX-Code
+	
+\end_layout
+
+\begin_layout LyX-Code
+state st_Server_Handler 		
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+onMessage? newCommand goToState st_Server_forwardCommand 		
+\end_layout
+
+\begin_layout LyX-Code
+onMessage? showMeMission goToState st_Server_showMission 		
+\end_layout
+
+\begin_layout LyX-Code
+onMessage? showMePicturePackage goToState st_Server_showPicturePackage 		
+\end_layout
+
+\begin_layout LyX-Code
+onMessage? showMeSensorsData goToState st_Server_showSensorsData 	
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate 
+\end_layout
+
+\begin_layout LyX-Code
+	
+\end_layout
+
+\begin_layout LyX-Code
+state st_Server_showMission 		
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+doInOut receiveShowMeMission() 		
+\end_layout
+
+\begin_layout LyX-Code
+set mission = exec getMission(code.curInputMsgContent) 		
+\end_layout
+
+\begin_layout LyX-Code
+replyToRequest showMeMission(mission) 		
+\end_layout
+
+\begin_layout LyX-Code
+goToState st_Server_Handler 	
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_Server_showPicturePackage 		
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+doInOut receiveShowMePackagepicturePackage() 		
+\end_layout
+
+\begin_layout LyX-Code
+set picturePackage = exec getPicturePackage(code.curInputMsgContent) 		
+\end_layout
+
+\begin_layout LyX-Code
+replyToRequest showMePicturePackage(picturePackage) 		
+\end_layout
+
+\begin_layout LyX-Code
+goToState st_Server_Handler 	
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_Server_showSensorsData 		
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+doInOut receiveShowMeSensorsData() 		
+\end_layout
+
+\begin_layout LyX-Code
+set sensorsData = exec getSensorsData(code.curInputMsgContent) 		
+\end_layout
+
+\begin_layout LyX-Code
+replyToRequest showMeMission(sensorsData) 		
+\end_layout
+
+\begin_layout LyX-Code
+goToState st_Server_Handler 	
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+state st_Server_forwardCommand 		
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+doInOut receiveUINewCommand() 		
+\end_layout
+
+\begin_layout LyX-Code
+set command = code.curInputMsgContent 		
+\end_layout
+
+\begin_layout LyX-Code
+doOutIn sendForwardCommand(command) 		
+\end_layout
+
+\begin_layout LyX-Code
+acquireAnswerFor forwardCommand 		
+\end_layout
+
+\begin_layout LyX-Code
+set reply = code.curInputMsgContent 		
+\end_layout
+
+\begin_layout LyX-Code
+exec showReplyToCommand(reply) 		
+\end_layout
+
+\begin_layout LyX-Code
+goToState st_Server_Handler 	
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+endstate
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+È utile ricordare che tutte le operzione di Get e Store saranno implementate
+ in fase di progettazione attraverso una nuova entità detta Storage che
+ sarà responsabile della persistenza dei dati.
+\end_layout
+
+\begin_layout Standard
+L'entità Storage dovrà implementare la seguente interfaccia:
+\end_layout
+
+\begin_layout LyX-Code
+public interface IStorage {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+// init storage 	
+\end_layout
+
+\begin_layout LyX-Code
+public void init();
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// mission 	
+\end_layout
+
+\begin_layout LyX-Code
+public void startMission(); 	
+\end_layout
+
+\begin_layout LyX-Code
+public void endMission(); 	
+\end_layout
+
+\begin_layout LyX-Code
+public boolean isOnMission(); 	
+\end_layout
+
+\begin_layout LyX-Code
+public int getCurrentMissionID(); 	
+\end_layout
+
+\begin_layout LyX-Code
+public IMission getMission(int id);
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// commands 	
+\end_layout
+
+\begin_layout LyX-Code
+public void storeCommandAndReply(ICommand command, IReply reply); 	
+\end_layout
+
+\begin_layout LyX-Code
+public LinkedHashMap<ICommand, IReply> getLatestCommands(int n); 	
+\end_layout
+
+\begin_layout LyX-Code
+public LinkedHashMap<ICommand, IReply> getCommandsByMission(int missionID);
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// notify 	
+\end_layout
+
+\begin_layout LyX-Code
+public void storeNotify(INotify notify); 	
+\end_layout
+
+\begin_layout LyX-Code
+public INotify getLatestNotify(); 	
+\end_layout
+
+\begin_layout LyX-Code
+public List<INotify> getLatestNotifies(int n); 	
+\end_layout
+
+\begin_layout LyX-Code
+public List<INotify> getNotifiesByMission(int missionID); 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// sensors data 	
+\end_layout
+
+\begin_layout LyX-Code
+public void storeSensorsData(ISensorsData data); 	
+\end_layout
+
+\begin_layout LyX-Code
+public ISensorsData getLatestSensorsData(); 	
+\end_layout
+
+\begin_layout LyX-Code
+public List<ISensorsData> getLatestSensorsDatas(int n); 	
+\end_layout
+
+\begin_layout LyX-Code
+public List<ISensorsData> getSensorsDatasByMission(int missionID); 
+\end_layout
+
+\begin_layout LyX-Code
+	
+\end_layout
+
+\begin_layout LyX-Code
+// picture package 	
+\end_layout
+
+\begin_layout LyX-Code
+public void storePicturePackage(IPicturePackage pack); 	
+\end_layout
+
+\begin_layout LyX-Code
+public IPicturePackage getLatestPicturePackage(); 	
+\end_layout
+
+\begin_layout LyX-Code
+public List<IPicturePackage> getLatestPicturePackages(int n); 	
+\end_layout
+
+\begin_layout LyX-Code
+public List<IPicturePackage> getPicturePackagesByMission(int missionID);
+ 
+\end_layout
+
+\begin_layout LyX-Code
+	
+\end_layout
+
+\begin_layout LyX-Code
+// general file 	
+\end_layout
+
+\begin_layout LyX-Code
+public void storeFile(IFile file); 	
+\end_layout
+
+\begin_layout LyX-Code
+public IFile getFile(String filename); 	
+\end_layout
+
+\begin_layout LyX-Code
+public IFile getFile(long time); 	
+\end_layout
+
+\begin_layout LyX-Code
+public List<IFile> getLatestFiles(int n); 
+\end_layout
+
+\begin_layout LyX-Code
+	
+\end_layout
+
+\begin_layout LyX-Code
+// for debugging purpose 	
+\end_layout
+
+\begin_layout LyX-Code
+public void setDebug(int level); 	
+\end_layout
+
+\begin_layout LyX-Code
+public void debug(String s, int level); 
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+Si sceglie di accorpare ICommand e IReply (strettamente connessi) attraverso
+ un LinkedHashMap in modo da mantenere un'ordine preciso dei comandi inviati,
+ in altre parole una lista ordinata cronologicamente.
+\end_layout
+
+\begin_layout Standard
+L'interfaccia IMission è ora definita come segue e rappresenta una completa
+ missione del drone con riferimento ai dati interni, alle fotografie scattate,
+ alle notifiche ricevute e ai comandi inviati:
+\end_layout
+
+\begin_layout LyX-Code
+public interface IMission {	
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+// mission ID 	
+\end_layout
+
+\begin_layout LyX-Code
+public void setId(long id); 	
+\end_layout
+
+\begin_layout LyX-Code
+public long getId();
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// start mission time 	
+\end_layout
+
+\begin_layout LyX-Code
+public long getStartTime(); 	
+\end_layout
+
+\begin_layout LyX-Code
+public void setStartTime(long startTime);
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// end mission time 	
+\end_layout
+
+\begin_layout LyX-Code
+public long getEndTime(); 	
+\end_layout
+
+\begin_layout LyX-Code
+public void setEndTime(long endTime);
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// Commands and replies  	
+\end_layout
+
+\begin_layout LyX-Code
+public void setCommands(LinkedHashMap<ICommand, IReply> commands); 	
+\end_layout
+
+\begin_layout LyX-Code
+public LinkedHashMap<ICommand, IReply> getCommands();
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// notifies 	
+\end_layout
+
+\begin_layout LyX-Code
+public List<INotify> getNotifies(); 	
+\end_layout
+
+\begin_layout LyX-Code
+public void setNotifies(List<INotify> notifies);
+\end_layout
+
+\begin_layout LyX-Code
+	
+\end_layout
+
+\begin_layout LyX-Code
+// picture packages 	
+\end_layout
+
+\begin_layout LyX-Code
+public List<IPicturePackage> getPicturePackages(); 	
+\end_layout
+
+\begin_layout LyX-Code
+public void setPicturePackages(List<IPicturePackage> picturePackages);
+\end_layout
+
+\begin_layout LyX-Code
+	
+\end_layout
+
+\begin_layout LyX-Code
+// sensors data 	
+\end_layout
+
+\begin_layout LyX-Code
+List<ISensorsData> getSensorsDatas(); 	
+\end_layout
+
+\begin_layout LyX-Code
+void setSensorsDatas(List<ISensorsData> sensorsDatas);
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout Subsection
+Sottosistema SmartDevice
+\end_layout
+
+\begin_layout Section
+Abstraction gap
+\end_layout
+
+\begin_layout Section
+Risk analysis
+\end_layout
+
+\begin_layout Standard
+Dopo aver analizzato i requisiti e aver definito quella che sarà l'architettura
+ logica del sistema il system designer avrà la possibilità di scegliere
+ quelle che secondo lui sono le soluzioni migliori ad alcuni problemi che
+ il committente non ha specificato chiaramente nei requisiti.
+ In questo contesto rientra tutto ciò che concerne le modalità di comunicazione:
+\end_layout
+
+\begin_layout Itemize
+i comandi inviati dalla centrale operativa vengono gestiti come una request-resp
+onse, operando una comunicazione diretta tra i due sotto sistemi in cui,
+ dopo aver inviato un comando, il quartier generale, prima di eseguire altre
+ operazioni, si metterà in attesa di una risposta da parte del drone, che
+ potrà confermare la ricezione e l'esecuzione del comando, segnalare un
+ errore, o comunicare che il comando non può essere eseguito;
+\end_layout
+
+\begin_layout Itemize
+le notifiche di avvio e fine missione, inviate dal drone agli smart device,
+ sono gestite come dei segnali (comunicazione uno a molti, in cui non si
+ conoscono gli effettivi destinatari né il loro numero); le notifiche vengono
+ inserite in uno shared space (condiviso da tutti i sottosistemi) da dove
+ i destinatari che saranno sconosciuti al mittente le estrarranno;
+\end_layout
+
+\begin_layout Itemize
+come le notifiche di avvio e fine missione, anche i dati dei sensori verranno
+ inviati sotto forma di segnale per lo stesso motivo, inoltre, per ottimizzare
+ il dispendio di risorse di comunicazione, tali dati verranno inviati in
+ un unico messaggio sfruttando la codifica JSon (potrebbero essere previste
+ ulteriori forme di codifica, quali ad esempio XML o Prolog);
+\end_layout
+
+\begin_layout Chapter
+Piano di lavoro
+\end_layout
+
+\begin_layout Standard
+Dopo aver analizzato i requisiti e il problema, ed ottenuti dal system designer
+ le specifiche, definite in modo generale e non ambiguo grazie all'utilizzo
+ di Contact, dei tre sottosistemi è possibile suddividere il lavoro da assegnare
+ ai team di application design, ognuno dei quali dovrà attenersi alle specifiche
+ e sarà guidato nel suo lavoro di implementazione sia dalle classi generate
+ dal motore Contact, sia dai Test Plan definiti nell'analisi dei requisiti:
+ Contact definirà le modalità di interazione tra i sottosistemi, garantendo
+ quindi che i messaggi inviati e ricevuti saranno sicuramente comprensibili
+ a prescidere da come verrà implementata una entità rispetto all'altra,
+ mentre i test plan garantiranno la correttezza del comportamente di ogni
+ singola entità al fine di garantire la coerenza generale del sistema.
+ In questo modo, quindi, si semplifica il lavoro dell'application designer
+ che, una volta ricevute le specifiche Contact, non dovrà fare altro che
+ implementare i metodi del sottosistema a lui assegnato senza preoccuparsi
+ di come verranno implementati gli altri o di come il suo sottosistema di
+ competenza dovrà relazionarsi con il sistema globale.
+\end_layout
+
+\begin_layout Standard
+Nel caso in esame, a ciascuno dei tre team di application designer, verrà
+ assegnato un sottosistema.
+ 
+\end_layout
+
+\begin_layout Chapter
+Progetto
+\end_layout
+
+\begin_layout Section
+Struttura
+\end_layout
+
+\begin_layout Section
+Interazione
+\end_layout
+
+\begin_layout Section
+Behavior
+\end_layout
+
+\begin_layout Chapter
+Implementazione
+\end_layout
+
+\begin_layout Section
+Head Quarter
+\end_layout
+
+\begin_layout Standard
+Si decide di dividere l'implementazione del Context HeadQuarter in tre diversi
+ progetti:
+\end_layout
+
+\begin_layout Itemize
+systems.headquarter.storage
+\end_layout
+
+\begin_layout Itemize
+systems.headquarter.server
+\end_layout
+
+\begin_layout Itemize
+systems.headquarter.controlunit
+\end_layout
+
+\begin_layout Subsection
+Storage
+\end_layout
+
+\begin_layout Standard
+Lo Storage è l'unità che si occuperà di registrare e di rendere disponibili
+ su richiesta i dati delle missioni.
+ Partendo dall'interfaccia IStorage si decide di estenderla in una nuova
+ interfaccia IDataBase:
+\end_layout
+
+\begin_layout LyX-Code
+package it.unibo.droneMission.interfaces.headquarter;
+\end_layout
+
+\begin_layout LyX-Code
+import java.sql.ResultSet;
+\end_layout
+
+\begin_layout LyX-Code
+import java.util.Hashtable;
+\end_layout
+
+\begin_layout LyX-Code
+public interface IDataBase extends IStorage {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+public void connect();
+\end_layout
+
+\begin_layout LyX-Code
+public void disconnect();
+\end_layout
+
+\begin_layout LyX-Code
+public boolean isConnected();
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public void setUsername(String username);
+\end_layout
+
+\begin_layout LyX-Code
+public String getUsername();
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public void setPassword(String password);
+\end_layout
+
+\begin_layout LyX-Code
+public String getPassword();
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public void setHostname(String hostname);
+\end_layout
+
+\begin_layout LyX-Code
+public String getHostname();
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public void setPort(int port);
+\end_layout
+
+\begin_layout LyX-Code
+public int getPort();
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public void setDatabaseName(String dbname);
+\end_layout
+
+\begin_layout LyX-Code
+public String getDatabaseName();
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+// common db interaction
+\end_layout
+
+\begin_layout LyX-Code
+public void select(String column);
+\end_layout
+
+\begin_layout LyX-Code
+public void select(String[] columns);
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public void from(String table);
+\end_layout
+
+\begin_layout LyX-Code
+public void from(String[] tables);
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public void where(String key, String value);
+\end_layout
+
+\begin_layout LyX-Code
+public void where(Hashtable<String, String> set);
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public void orderBy(String column, String direction);
+\end_layout
+
+\begin_layout LyX-Code
+public void limit(int n);
+\end_layout
+
+\begin_layout LyX-Code
+public void offset(int n);
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public int update(Hashtable<String, String> set);
+\end_layout
+
+\begin_layout LyX-Code
+public int insert(Hashtable<String, String> set);
+\end_layout
+
+\begin_layout LyX-Code
+public ResultSet get();
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+L'interfaccia descrive le generiche operazioni di interazione con un database
+ SQL.
+ Nell'implementazione viene scelto MySQL, la gestione della connessione
+ è affidata al connettore già sviluppato e disponibile nel pacchetto mysql-conne
+ctor-java-5.1.16.jar.
+\end_layout
+
+\begin_layout Standard
+L'implementazione dello Storage avviene tramite l'estensione di diverse
+ classi:
+\end_layout
+
+\begin_layout Enumerate
+public abstract class Storage implements IStorage { }
+\end_layout
+
+\begin_layout Enumerate
+public abstract class DataBase extends Storage implements IDataBase { }
+\end_layout
+
+\begin_layout Enumerate
+public class MySQL extends DataBase { } // Singleton
+\end_layout
+
+\begin_layout Standard
+L'instanza finale di un oggetto MySQL verrà fornità attraverso una Factory
+ che, in questo progetto, vede la seguente implementazione:
+\end_layout
+
+\begin_layout LyX-Code
+package it.unibo.droneMission.systems.headquarter.storage;
+\end_layout
+
+\begin_layout LyX-Code
+import it.unibo.droneMission.interfaces.headquarter.IStorage;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public class FactoryStorage {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+public static int MYSQL = 1;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public static IStorage getInstance(int databaseType) throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+if (databaseType == MYSQL)
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+try {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+MySQL db = MySQL.getInstance();
+\end_layout
+
+\begin_layout LyX-Code
+if (!db.isConnected()) {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+db.setDatabaseName("dronemission");
+\end_layout
+
+\begin_layout LyX-Code
+db.setUsername("dronemission");
+\end_layout
+
+\begin_layout LyX-Code
+db.setPassword("estate");
+\end_layout
+
+\begin_layout LyX-Code
+db.setHostname("127.0.0.1");
+\end_layout
+
+\begin_layout LyX-Code
+db.connect();
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+return db;
+\end_layout
+
+\begin_layout LyX-Code
+} catch (Exception e) {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+e.printStackTrace();
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout LyX-Code
+else
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+throw new Exception("Type storage: " + databaseType + " is not valid.");
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+return null;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout Subsection
+Server
+\end_layout
+
+\begin_layout Standard
+Il subject Server è l'unità che si occupa di interagire con l'utente, inoltrando
+ i comandi alla ControlUnit e fornendo i log delle varie missioni (compreso
+ i dati in tempo reale della missione corrente).
+\end_layout
+
+\begin_layout Standard
+Si decide di implementare il Server sfruttando tecnologie web già esistenti.
+ In questo modo i subject UILog e UICommand prenderano la forma di semplici
+ browser web.
+\end_layout
+
+\begin_layout Standard
+Ll server verrà quindi suddiviso in due sottoprogetti:
+\end_layout
+
+\begin_layout Itemize
+systems.headquarter.server: codice autogenerato da contact (no Behaviour,
+ solo comunicazione)
+\end_layout
+
+\begin_layout Itemize
+system.headquarter.server.web: project DJango per definire il contenitore web.
+\end_layout
+
+\begin_layout Subsubsection
+system.headquarter.server
+\end_layout
+
+\begin_layout Standard
+La prima parte del server vede l'implementazione della comunicazione con
+ l'unità di controllo in modo da avere un canale di interazione già pronto.
+ Viene eliminato il Behaviour dalla specifica contact e viene implementato
+ il Server come segue:
+\end_layout
+
+\begin_layout LyX-Code
+package it.unibo.contact.headquarter_server;
+\end_layout
+
+\begin_layout LyX-Code
+public class Server extends ServerSupport {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+public Server(String name) throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+super(name);
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+public void doJob() throws Exception {
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+In pratica, una classe vuota.
+ Il Container SubSystemHeadQuarterMain viene invece esteso in modo da avere
+ un metodo publico capace di inoltrare i comandi attraverso il Subject Server
+ all'unità di controllo:
+\end_layout
+
+\begin_layout LyX-Code
+public class ServerStandAlone extends SubSystemHeadQuarterMain {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public ServerStandAlone() {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+super();
+\end_layout
+
+\begin_layout LyX-Code
+initProperty();
+\end_layout
+
+\begin_layout LyX-Code
+init();
+\end_layout
+
+\begin_layout LyX-Code
+configure();
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public void doJob() {}
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public IReply forwardCommand(ICommand command) {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+String cmd = Utils.adaptJSONToContact(command.toJSON());
+\end_layout
+
+\begin_layout LyX-Code
+try {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+server.curAcquireOneReply = server.hl_server_demand_forwardCommand_controlUnit(cmd
+);
+\end_layout
+
+\begin_layout LyX-Code
+server.curReply = server.curAcquireOneReply.acquireReply();
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+} catch (Exception e) {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+e.printStackTrace();
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+server.curReplyContent = server.curReply.msgContent();
+\end_layout
+
+\begin_layout LyX-Code
+String reply = server.curReplyContent;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+IReply r = Factory.createReply(Utils.cleanJSONFromContact(reply));
+\end_layout
+
+\begin_layout LyX-Code
+return r;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Subsubsection
+systems.headquarter.server.web
+\end_layout
+
+\begin_layout Standard
+Per gestire l'interazione con l'utente si decide di sviluppare il Server
+ come un contenitore web.
+\end_layout
+
+\begin_layout Standard
+Dopo un'attenta e approfondita ricerca si decide di utilizzare tecnologie
+ già esistenti.
+ In particolare si sceglie di implementare il server.web in DJango (un framework
+ web scritto in Python) compatibile con Jython (un'implementazione del linguaggi
+o python scritto in Java, compatibile quindi con l'altra parte del progetto
+ Server).
+\end_layout
+
+\begin_layout Standard
+Vengono definiti gli url come seguono:
+\end_layout
+
+\begin_layout LyX-Code
+urlpatterns = patterns('',
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+(r'^libs/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDI
+A_ROOT}),
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+# ajax
+\end_layout
+
+\begin_layout LyX-Code
+(r'ajax/commands/send/type/(?P<type>
+\backslash
+d+)/value/(?P<value>
+\backslash
+d+)$', 'headquarter.views.send_command'),
+\end_layout
+
+\begin_layout LyX-Code
+(r'^ajax/sensors/latest$', 'headquarter.views.latest_sensors'),
+\end_layout
+
+\begin_layout LyX-Code
+(r'^ajax/pictures/latest$', 'headquarter.views.latest_picture'),
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+# mission
+\end_layout
+
+\begin_layout LyX-Code
+(r'^missions/(?P<id>
+\backslash
+d+)/$', 'headquarter.views.get_mission'),
+\end_layout
+
+\begin_layout LyX-Code
+(r'^missions/new$', 'headquarter.views.new_mission'),
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+# pictures
+\end_layout
+
+\begin_layout LyX-Code
+(r'^pictures/(?P<path>.*)$', 'django.views.static.serve',
+\end_layout
+
+\begin_layout LyX-Code
+{'document_root': storage.FILE_PATH, 'show_indexes': True}),
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+# index
+\end_layout
+
+\begin_layout LyX-Code
+(r'^$', 'headquarter.views.index'),
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+)
+\end_layout
+
+\begin_layout Standard
+Il Server e lo Storage vengono inizializzati nel file models (che in un
+ classico progetto DJango si occuperebbe della descrizione del Database):
+\end_layout
+
+\begin_layout LyX-Code
+from it.unibo.droneMission.systems.headquarter.storage import FactoryStorage
+\end_layout
+
+\begin_layout LyX-Code
+from it.unibo.contact.headquarter_server import ServerStandAlone
+\end_layout
+
+\begin_layout LyX-Code
+server = ServerStandAlone()
+\end_layout
+
+\begin_layout LyX-Code
+storage = FactoryStorage.getInstance(FactoryStorage.MYSQL)
+\end_layout
+
+\begin_layout Standard
+Mentre le view sono così definite:
+\end_layout
+
+\begin_layout LyX-Code
+from django.shortcuts import render_to_response
+\end_layout
+
+\begin_layout LyX-Code
+from headquarter.models import server, storage
+\end_layout
+
+\begin_layout LyX-Code
+import time
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+# time / 1000.0:
+\end_layout
+
+\begin_layout LyX-Code
+# java takes in account milliseconds, python uses
+\end_layout
+
+\begin_layout LyX-Code
+# float for them
+\end_layout
+
+\begin_layout LyX-Code
+def get_time(java_time):
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+date = java_time / 1000.0
+\end_layout
+
+\begin_layout LyX-Code
+return time.strftime("%d %b %Y %H:%M:%S", time.gmtime(date)) 
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+# here format fucntions
+\end_layout
+
+\begin_layout LyX-Code
+# ...
+\end_layout
+
+\begin_layout LyX-Code
+# 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+def latest_sensors(request):
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+sensors = storage.getLatestSensorsData()
+\end_layout
+
+\begin_layout LyX-Code
+f_s = {}
+\end_layout
+
+\begin_layout LyX-Code
+if sensors is not None:
+\end_layout
+
+\begin_layout LyX-Code
+f_s = format_sensors(sensors)
+\end_layout
+
+\begin_layout LyX-Code
+return render_to_response('ajax/sensors_latest.html', f_s)
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+def index(request):
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+missions = storage.getPastMissions()
+\end_layout
+
+\begin_layout LyX-Code
+info = {}
+\end_layout
+
+\begin_layout LyX-Code
+info["missions"] = []
+\end_layout
+
+\begin_layout LyX-Code
+for m in missions:
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+formatted = {}
+\end_layout
+
+\begin_layout LyX-Code
+formatted["id"] = m.getId()
+\end_layout
+
+\begin_layout LyX-Code
+# ....
+ format mission in formatted
+\end_layout
+
+\begin_layout LyX-Code
+info["missions"].insert(0, formatted)
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+return render_to_response('index.html', info)
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+def get_mission(request, id):
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+mission = storage.getMission(int(id))
+\end_layout
+
+\begin_layout LyX-Code
+info = {}
+\end_layout
+
+\begin_layout LyX-Code
+# ....
+ format mission info info
+\end_layout
+
+\begin_layout LyX-Code
+return render_to_response('mission.html',info)
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+def new_mission(request):
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+info = {}
+\end_layout
+
+\begin_layout LyX-Code
+info["commands"] = {}
+\end_layout
+
+\begin_layout LyX-Code
+info["commands"]["start"] = {}
+\end_layout
+
+\begin_layout LyX-Code
+info["commands"]["start"]["type"] = TypesCommand.START_MISSION
+\end_layout
+
+\begin_layout LyX-Code
+info["commands"]["start"]["value"] = 0
+\end_layout
+
+\begin_layout LyX-Code
+info["commands"]["speed_set"] = {}
+\end_layout
+
+\begin_layout LyX-Code
+info["commands"]["speed_set"]["type"] = TypesCommand.SPEED_SET
+\end_layout
+
+\begin_layout LyX-Code
+info["commands"]["speed_set"]["value"] = 0
+\end_layout
+
+\begin_layout LyX-Code
+info["commands"]["speed_increase"] = {}
+\end_layout
+
+\begin_layout LyX-Code
+info["commands"]["speed_increase"]["type"] = TypesCommand.SPEED_INCREASE
+\end_layout
+
+\begin_layout LyX-Code
+info["commands"]["speed_increase"]["value"] = 0
+\end_layout
+
+\begin_layout LyX-Code
+info["commands"]["speed_decrease"] = {}
+\end_layout
+
+\begin_layout LyX-Code
+info["commands"]["speed_decrease"]["type"] = TypesCommand.SPEED_DECREASE
+\end_layout
+
+\begin_layout LyX-Code
+info["commands"]["speed_decrease"]["value"] = 0
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+# reset internall mission ID
+\end_layout
+
+\begin_layout LyX-Code
+storage.resetCurrentMissionID()
+\end_layout
+
+\begin_layout LyX-Code
+return render_to_response('new-mission.html', info)
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+def send_command(request, type, value):
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+c = Command(int(type))
+\end_layout
+
+\begin_layout LyX-Code
+c.setValue(int(value))
+\end_layout
+
+\begin_layout LyX-Code
+reply = server.forwardCommand(c)
+\end_layout
+
+\begin_layout LyX-Code
+info = format_reply(reply)
+\end_layout
+
+\begin_layout LyX-Code
+return render_to_response('ajax/send-command.html', info)
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+In questo modo è possibile avere una pagina mission/new auto-aggiornabile
+ attraverso l'uso di AJAX.
+ A tal fine sono stati sviluppati alcuni metodi javascript in modo da offrire
+ all'utente un interazione real-time con il drone.
+\end_layout
+
+\begin_layout Standard
+Come da specifica, il commitente vuole visualizzare la posizione del drone
+ direttamente sulla pagina web.
+ Per far questo si è scelto di utilizzare, anche questa volta, tecnologie
+ già ampliamente sviluppate.
+ Nell'ambito web si decide di utilizzare Google Maps, che con semplici metodi
+ javascript è in grado di gestire la geolocalizzazione di oggetto date le
+ sue coordinate.
+ Ecco un'implementazione base:
+\end_layout
+
+\begin_layout LyX-Code
+function initMap() {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+google.maps.visualRefresh = true;
+\end_layout
+
+\begin_layout LyX-Code
+function initialize() {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+var mapOptions = {
+\end_layout
+
+\begin_layout LyX-Code
+zoom: 8,
+\end_layout
+
+\begin_layout LyX-Code
+center: new google.maps.LatLng(44.435505,10.976787),
+\end_layout
+
+\begin_layout LyX-Code
+mapTypeId: google.maps.MapTypeId.ROADMAP,
+\end_layout
+
+\begin_layout LyX-Code
+streetViewControl: false,
+\end_layout
+
+\begin_layout LyX-Code
+draggable: false,
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+};
+\end_layout
+
+\begin_layout LyX-Code
+map = new google.maps.Map(document.getElementById('map'),
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+mapOptions);
+\end_layout
+
+\begin_layout LyX-Code
+var image = '/libs/img/drone-icon.png';
+\end_layout
+
+\begin_layout LyX-Code
+var myLatLng = new google.maps.LatLng(0,0);
+\end_layout
+
+\begin_layout LyX-Code
+droneIcon = new google.maps.Marker({
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+position: myLatLng,
+\end_layout
+
+\begin_layout LyX-Code
+map: map,
+\end_layout
+
+\begin_layout LyX-Code
+icon: image
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}); 
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+google.maps.event.addDomListener(window, 'load', initialize);
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+L'aggiornamento automatico della mappa e della posizione del drone verrà
+ assegnato al seguente metodo chiamato ciclicamente attraverso un set_timeout:
+\end_layout
+
+\begin_layout LyX-Code
+function updateMap(latitude, longitude) {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+myLatLng = new google.maps.LatLng(latitude,longitude);
+\end_layout
+
+\begin_layout LyX-Code
+map.setCenter(myLatLng);
+\end_layout
+
+\begin_layout LyX-Code
+droneIcon.setPosition(myLatLng);
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Subsection
+Control Unit
+\end_layout
+
+\begin_layout Standard
+L'unità di controllo, ovvero quell'entità responsabile dell'interazione
+ con l'utente, viene implementata estendo il codice autogenerato da contact.
+ Questa la classe che estente il supporto:
+\end_layout
+
+\begin_layout LyX-Code
+public class ControlUnit extends ControlUnitSupport {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+private IStorage storage;
+\end_layout
+
+\begin_layout LyX-Code
+private double fuelLevel;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public ControlUnit(String name) throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+super(name);
+\end_layout
+
+\begin_layout LyX-Code
+storage = FactoryStorage.getInstance(FactoryStorage.MYSQL);
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+protected void init() {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+fuelLevel = Fuelometer.MAX;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+private void setFuelLevelFromGauges(ISensorsData s) {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+List<IGauge> gauges = s.getGauges();
+\end_layout
+
+\begin_layout LyX-Code
+for (IGauge g : gauges) {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+if (g.getClass() == Fuelometer.class) {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+fuelLevel = g.getVal().valAsDouble();
+\end_layout
+
+\begin_layout LyX-Code
+break;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected void storeDataSensors(String sensorsDatasReceived)
+\end_layout
+
+\begin_layout LyX-Code
+throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+sensorsDatasReceived = Utils.cleanJSONFromContact(sensorsDatasReceived);
+\end_layout
+
+\begin_layout LyX-Code
+ISensorsData s = Factory.createSensorsData(sensorsDatasReceived);
+\end_layout
+
+\begin_layout LyX-Code
+String val = "";
+\end_layout
+
+\begin_layout LyX-Code
+for (IGauge g : s.getGauges())
+\end_layout
+
+\begin_layout LyX-Code
+val += " " + g.getCurValRepDisplayed(); 
+\end_layout
+
+\begin_layout LyX-Code
+env.println("Received Sensors:" + val);
+\end_layout
+
+\begin_layout LyX-Code
+setFuelLevelFromGauges(s);
+\end_layout
+
+\begin_layout LyX-Code
+storage.storeSensorsData(s); 
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected void storePicturePackage(String picturePackageReceived)
+\end_layout
+
+\begin_layout LyX-Code
+throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+picturePackageReceived = Utils.cleanJSONFromContact(picturePackageReceived);
+\end_layout
+
+\begin_layout LyX-Code
+IPicturePackage p = Factory.createPicturePackage(picturePackageReceived);
+\end_layout
+
+\begin_layout LyX-Code
+env.println("Received picture: " + p.getFile().getName());
+\end_layout
+
+\begin_layout LyX-Code
+storage.storePicturePackage(p);
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected boolean checkCommandStart(String command) throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+command = Utils.cleanJSONFromContact(command);
+\end_layout
+
+\begin_layout LyX-Code
+ICommand c = Factory.createCommand(command);
+\end_layout
+
+\begin_layout LyX-Code
+return c.getType() == TypesCommand.START_MISSION || c.getType() == TypesCommand.SPEE
+D_SET;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected boolean checkReplyCommandStart(String reply) throws Exception
+ {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+reply = Utils.cleanJSONFromContact(reply);
+\end_layout
+
+\begin_layout LyX-Code
+IReply r = Factory.createReply(reply);
+\end_layout
+
+\begin_layout LyX-Code
+return r.getType() == TypesReply.REPLY_OK;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+};
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected String getWrongStartCommandReply() throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+Reply r = new Reply(TypesReply.REPLY_FAIL);
+\end_layout
+
+\begin_layout LyX-Code
+r.setValue("Wrong start mission command");
+\end_layout
+
+\begin_layout LyX-Code
+return Utils.adaptJSONToContact(r.toJSON());
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected void storeCommandAndReply(String c, String r) throws Exception
+ {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+c = Utils.cleanJSONFromContact(c);
+\end_layout
+
+\begin_layout LyX-Code
+r = Utils.cleanJSONFromContact(r);
+\end_layout
+
+\begin_layout LyX-Code
+ICommand command = Factory.createCommand(c);
+\end_layout
+
+\begin_layout LyX-Code
+IReply reply = Factory.createReply(r);
+\end_layout
+
+\begin_layout LyX-Code
+env.println("Forwarding: " + command.toString() + " " + reply.toString());
+\end_layout
+
+\begin_layout LyX-Code
+storage.storeCommandAndReply(command, reply);
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected boolean checkEndMission() throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+return fuelLevel <= Fuelometer.MIN;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected void shutdown() throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+if (storage.isOnMission()) {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+env.println("MISSION END");
+\end_layout
+
+\begin_layout LyX-Code
+storage.endMission();
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+@Override
+\end_layout
+
+\begin_layout LyX-Code
+protected void storeMissionStarted() throws Exception {
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+env.println("MISSION START");
+\end_layout
+
+\begin_layout LyX-Code
+storage.startMission();
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Chapter
+Installazione
+\end_layout
+
+\begin_layout Section
+Head Quarter
+\end_layout
+
+\begin_layout Subsection
+Storage
+\end_layout
+
+\begin_layout Standard
+È necessario creare un database MySQL sulla macchina che ospiterà il Server
+ e la ControlUnit.
+ Il context HeadQuarter è stato pensato per girare anche su diverse macchine,
+ ma bisognerà gli indirizzi della FactoryStorage affinché i vari subject
+ possanno contattare corretamente il database.
+\end_layout
+
+\begin_layout Standard
+La control unit e il server si connettono al database con le seguenti credenzial
+i:
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+nome_db
+\emph default
+: 
+\series bold
+dronemission
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+user
+\emph default
+: 
+\series bold
+dronemission
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+password
+\emph default
+: 
+\series bold
+estate
+\end_layout
+
+\begin_layout Standard
+La struttura del database è descritta nel file 
+\series bold
+init/init.mysql.sql
+\series default
+.
+\end_layout
+
+\begin_layout Standard
+Notare che i file ricevuti dal drone sono salvati nella directory 
+\series bold
+/media/dronemission
+\series default
+.
+\end_layout
+
+\begin_layout Subsection
+Server Web
+\end_layout
+
+\begin_layout Standard
+L'installazione del server web è descritta nel file 
+\series bold
+init/headquarter.server.web.README_INSTALL
+\series default
+.
+ 
+\end_layout
+
+\begin_layout Standard
+In base alle proprie esigenze, sarà necessario aggiornare i vari path riportati
+ nel file.
+\end_layout
+
+\begin_layout Chapter
+Esecuzione
+\end_layout
+
+\begin_layout Standard
+Nella directory 
+\series bold
+bin
+\series default
+ sono riportati i vari jar e file eseguibili per le applicazioni.
+\end_layout
+
+\begin_layout Standard
+È necessario avviare in sequenza i seguenti file:
+\end_layout
+
+\begin_layout Enumerate
+java -jar updateServer.jar
+\end_layout
+
+\begin_layout Enumerate
+java -jar drone.jar
+\end_layout
+
+\begin_layout Enumerate
+java -jar headquarter.controlunit.jar
+\end_layout
+
+\begin_layout Enumerate
+bash headquarter.webserver.sh
+\end_layout
+
+\begin_layout Chapter
+Testing
+\end_layout
+
+\begin_layout Chapter
+Deployment
+\end_layout
+
+\begin_layout Chapter
+Maintenance
+\end_layout
+
+\end_body
+\end_document
