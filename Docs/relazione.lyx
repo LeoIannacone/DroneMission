@@ -7656,6 +7656,128 @@ storage.startMission();
 \end_layout
 
 \begin_layout Chapter
+Installazione
+\end_layout
+
+\begin_layout Section
+Head Quarter
+\end_layout
+
+\begin_layout Subsection
+Storage
+\end_layout
+
+\begin_layout Standard
+È necessario creare un database MySQL sulla macchina che ospiterà il Server
+ e la ControlUnit.
+ Il context HeadQuarter è stato pensato per girare anche su diverse macchine,
+ ma bisognerà gli indirizzi della FactoryStorage affinché i vari subject
+ possanno contattare corretamente il database.
+\end_layout
+
+\begin_layout Standard
+La control unit e il server si connettono al database con le seguenti credenzial
+i:
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+nome_db
+\emph default
+: 
+\series bold
+dronemission
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+user
+\emph default
+: 
+\series bold
+dronemission
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+password
+\emph default
+: 
+\series bold
+estate
+\end_layout
+
+\begin_layout Standard
+La struttura del database è descritta nel file 
+\series bold
+init/init.mysql.sql
+\series default
+.
+\end_layout
+
+\begin_layout Standard
+Notare che le fotografie ricevute dal drone saranno salvate nella directory
+ 
+\series bold
+/media/dronemission
+\series default
+.
+\end_layout
+
+\begin_layout Subsection
+Server Web
+\end_layout
+
+\begin_layout Standard
+L'installazione del server web è descritta nel file 
+\series bold
+init/headquarter.server.web.README_INSTALL
+\series default
+.
+ 
+\end_layout
+
+\begin_layout Standard
+In base alle proprie esigenze, sarà necessario aggiornare i vari path riportati
+ nel file.
+\end_layout
+
+\begin_layout Chapter
+Esecuzione
+\end_layout
+
+\begin_layout Standard
+Nella directory 
+\series bold
+bin
+\series default
+ sono riportati i vari jar e file eseguibili per le applicazioni.
+\end_layout
+
+\begin_layout Standard
+È necessario avviare in sequenza i seguenti file:
+\end_layout
+
+\begin_layout Enumerate
+java -jar updateServer.jar
+\end_layout
+
+\begin_layout Enumerate
+java -jar drone.jar
+\end_layout
+
+\begin_layout Enumerate
+java -jar headquarter.controlunit.jar
+\end_layout
+
+\begin_layout Enumerate
+bash headquarter.webserver.sh
+\end_layout
+
+\begin_layout Chapter
 Testing
 \end_layout
 
