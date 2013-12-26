@@ -6083,6 +6083,204 @@ void setSensorsDatas(List<ISensorsData> sensorsDatas);
 Sottosistema SmartDevice
 \end_layout
 
+\begin_layout Standard
+Il sottosistema SmartDevice, invece, non necessita di particolari accorgimenti
+ rispetto a quanto prodotto nell'analisi dei requisiti: la struttura rimane
+ invariata (fatta eccezione per la definizione di external dei subject drone
+ e headQuarter e la rimozione dell'implementazione grafica), quindi non
+ sarà necessario modificare l'interazione (il subject Smartdevice riceve
+ solo delle notify da parte del Drone).
+ Mentre, per quanto riguarda il comportamento del sottosistema, si è previsto
+ che, una volta ricevuta dal drone la notifica della fine della missione
+ il sottosistema tornerà nello stato di ready, mettendosi in attesa dell'inizio
+ di una nuova missione:
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+BehaviorOf smartdevice { 
+\end_layout
+
+\begin_layout LyX-Code
+	var String notifyContent
+\end_layout
+
+\begin_layout LyX-Code
+	var String dataDroneReceived 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+	action void notifyUserMissionStarted()
+\end_layout
+
+\begin_layout LyX-Code
+	action void updateGauges(String data) 
+\end_layout
+
+\begin_layout LyX-Code
+	action void missionFinished() 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+	state st_Smartdevice_init initial
+\end_layout
+
+\begin_layout LyX-Code
+		showMsg("waiting for Start Mission")
+\end_layout
+
+\begin_layout LyX-Code
+		onMessage notify transitTo st_Smartdevice_missionStart
+\end_layout
+
+\begin_layout LyX-Code
+	endstate 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+	state st_Smartdevice_missionStart
+\end_layout
+
+\begin_layout LyX-Code
+		exec notifyUserMissionStarted()
+\end_layout
+
+\begin_layout LyX-Code
+		goToState st_Smartdevice_waitingForData
+\end_layout
+
+\begin_layout LyX-Code
+	endstate
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+	state st_Smartdevice_waitingForData
+\end_layout
+
+\begin_layout LyX-Code
+		onMessage? sensorsData goToState st_Smartdevice_receivedData
+\end_layout
+
+\begin_layout LyX-Code
+		onMessage? notify goToState st_Smartdevice_endMission
+\end_layout
+
+\begin_layout LyX-Code
+	endstate 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+	state st_Smartdevice_receivedData
+\end_layout
+
+\begin_layout LyX-Code
+		// get data from drone
+\end_layout
+
+\begin_layout LyX-Code
+		doPerceive smartdeviceReceivesensorsDatas()
+\end_layout
+
+\begin_layout LyX-Code
+		set dataDroneReceived = code.curInputMsgContent
+\end_layout
+
+\begin_layout LyX-Code
+		exec updateGauges(dataDroneReceived)
+\end_layout
+
+\begin_layout LyX-Code
+		goToState st_Smartdevice_waitingForData
+\end_layout
+
+\begin_layout LyX-Code
+	endstate 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+	state st_Smartdevice_notifyHandler
+\end_layout
+
+\begin_layout LyX-Code
+		doPerceive smartdeviceReceiveNotify() 
+\end_layout
+
+\begin_layout LyX-Code
+		set notifyContent = code.curInputMsgContent
+\end_layout
+
+\begin_layout LyX-Code
+		if {notifyContent == "start"} { goToState st_Smartdevice_missionStart
+ }
+\end_layout
+
+\begin_layout LyX-Code
+		if {notifyContent == "end" } { goToState st_Smartdevice_endMission }
+\end_layout
+
+\begin_layout LyX-Code
+		goToState st_Smartdevice_waitingForData 
+\end_layout
+
+\begin_layout LyX-Code
+	endstate 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+	state st_Smartdevice_endMission
+\end_layout
+
+\begin_layout LyX-Code
+		call missionFinished()
+\end_layout
+
+\begin_layout LyX-Code
+		goToState st_Smartdevice_init 
+\end_layout
+
+\begin_layout LyX-Code
+	endstate
+\end_layout
+
+\begin_layout LyX-Code
+} 
+\end_layout
+
 \begin_layout Section
 Abstraction gap
 \end_layout
@@ -7653,6 +7851,346 @@ storage.startMission();
 \end_deeper
 \begin_layout LyX-Code
 }
+\end_layout
+
+\begin_layout Section
+SmartDevice
+\end_layout
+
+\begin_layout Standard
+L'applicativo per lo SmartDevice è stato realizzato in un unico progetto,
+ scomponendolo però al suo interno in due package da implementare:
+\end_layout
+
+\begin_layout Itemize
+it.unibo.contact.DroneSmartDashboard
+\end_layout
+
+\begin_layout Itemize
+it.unibo.droneMission.smartDevice.android
+\end_layout
+
+\begin_layout Standard
+e importando al suo interno i package dei progetti che implementano i messaggi
+ (it.unibo.droneMission.messages), le interfacce (it.unibo.droneMission.interfaces.mess
+ages e it.unibo.droneMission.interfaces.gauges) e l'implementazione dei gauges
+ (it.unibo.droneMission.gauge), necessaria per ricostruire i dati comunicati
+ dal drone attraverso la stringa JSON.
+\end_layout
+
+\begin_layout Standard
+Inoltre si fa presente che all'interno del pacchetto, nella directory libs,
+ vengono copiate tutte le librerie necessarie affiché l'applicazione possa
+ funzionare: saranno presenti, oltre alla libreria di supporto di Android
+ (android-support-v4.jar) anche la libreria JSON (gson-2.2.4.jar), le interfacce
+ e le librerie di supporto per xtext e per prolog (it.unibo.interfaces_1.6.12.jar,
+ it.unibo.tuprolog_1.0.1.jar e org.eclipse.xtext.xbase.lib_2.2.1.v201112130541.jar).
+\end_layout
+
+\begin_layout Standard
+Il primo package conterrà la business logic del dell'applicazione, mentre
+ nel secondo è contenuta l'implementazione dell'activity.
+ Entrambi i package avranno al loro interno anche tutte le classi di supporto
+ prodotte rispettivamente da contact (utilizzando le specifiche del riportate
+ nel capitolo precedente) e da AAASL, che sulla falsa riga di contact stesso,
+ genera in automatico, a partire da un file .android, tutto ciò che è necessario
+ per renedere l'applicativo funzionante in Android come ad esempio il file
+ AndroidManifest.xml, le classi di supporto per la comunicazione etc.
+ Il file DroneSmardDashboard.android creato dall'application designer è il
+ seguente:
+\end_layout
+
+\begin_layout LyX-Code
+AndroidSystem DroneSmartDashboard
+\end_layout
+
+\begin_layout LyX-Code
+	avd 15
+\end_layout
+
+\begin_layout LyX-Code
+	permissions INTERNET
+\end_layout
+
+\begin_layout LyX-Code
+	package it.unibo.droneMission.smartDevice.android
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+action notifyReceived category "android.intent.category.DEFAULT"	 
+\end_layout
+
+\begin_layout LyX-Code
+action startMission category "android.intent.category.DEFAULT" 
+\end_layout
+
+\begin_layout LyX-Code
+action updateValues category "android.intent.category.DEFAULT" 
+\end_layout
+
+\begin_layout LyX-Code
+action endMission category "android.intent.category.DEFAULT"
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+Activity SmartDashboard launchable
+\end_layout
+
+\begin_layout LyX-Code
+	action startMission
+\end_layout
+
+\begin_layout LyX-Code
+	action endMission
+\end_layout
+
+\begin_layout LyX-Code
+	action updateValues
+\end_layout
+
+\begin_layout LyX-Code
+	action notifyReceived
+\end_layout
+
+\begin_layout LyX-Code
+	useLayout layout ;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+<Layout> name layout as
+\end_layout
+
+\begin_layout LyX-Code
+ 	<LinearLayout>
+\end_layout
+
+\begin_layout LyX-Code
+		orientation VERTICAL
+\end_layout
+
+\begin_layout LyX-Code
+		width FILL_PARENT 
+\end_layout
+
+\begin_layout LyX-Code
+		height FILL_PARENT
+\end_layout
+
+\begin_layout LyX-Code
+		<TextView> output
+\end_layout
+
+\begin_layout LyX-Code
+			width FILL_PARENT 
+\end_layout
+
+\begin_layout LyX-Code
+			height FILL_PARENT 
+\end_layout
+
+\begin_layout LyX-Code
+			text "" 
+\end_layout
+
+\begin_layout LyX-Code
+			size 6 
+\end_layout
+
+\begin_layout LyX-Code
+			background WHITE
+\end_layout
+
+\begin_layout LyX-Code
+			textColor BLACK 
+\end_layout
+
+\begin_layout LyX-Code
+			useOutputForActivity SmartDashboard 
+\end_layout
+
+\begin_layout LyX-Code
+		</TextView> 
+\end_layout
+
+\begin_layout LyX-Code
+	</LinearLayout>
+\end_layout
+
+\begin_layout LyX-Code
+</Layout>
+\end_layout
+
+\begin_layout Standard
+Analizzando il file nello specifico si può notare che il primo blocco di
+ codice specifica il nome che prenderà l'applicazione, le API da utilizzare,
+ i permessi che richiesti ed infine il nome del package all'interno del
+ quale generare le classi di supporto
+\end_layout
+
+\begin_layout LyX-Code
+AndroidSystem DroneSmartDashboard
+\end_layout
+
+\begin_layout LyX-Code
+	avd 15
+\end_layout
+
+\begin_layout LyX-Code
+	permissions INTERNET
+\end_layout
+
+\begin_layout LyX-Code
+	package it.unibo.droneMission.smartDevice.android
+\end_layout
+
+\begin_layout Standard
+Il secondo blocco invece contiene la definizione delle Actions, che saranno
+ utilizzate dall'activity, categorizzandole attraverso un intent filter.
+\end_layout
+
+\begin_layout LyX-Code
+action notifyReceived category "android.intent.category.DEFAULT"	 
+\end_layout
+
+\begin_layout LyX-Code
+action startMission category "android.intent.category.DEFAULT" 
+\end_layout
+
+\begin_layout LyX-Code
+action updateValues category "android.intent.category.DEFAULT" 
+\end_layout
+
+\begin_layout LyX-Code
+action endMission category "android.intent.category.DEFAULT"
+\end_layout
+
+\begin_layout Standard
+Si procede quindi a definire l'unica activity dell'applicazione, alla quale
+ saranno associate le Actions definite nel blocco precedente e il layout
+ definito subito dopo.
+\end_layout
+
+\begin_layout LyX-Code
+Activity SmartDashboard launchable
+\end_layout
+
+\begin_layout LyX-Code
+	action startMission
+\end_layout
+
+\begin_layout LyX-Code
+	action endMission
+\end_layout
+
+\begin_layout LyX-Code
+	action updateValues
+\end_layout
+
+\begin_layout LyX-Code
+	action notifyReceived
+\end_layout
+
+\begin_layout LyX-Code
+	useLayout layout ;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+<Layout> name layout as
+\end_layout
+
+\begin_layout LyX-Code
+ 	<LinearLayout>
+\end_layout
+
+\begin_layout LyX-Code
+		orientation VERTICAL
+\end_layout
+
+\begin_layout LyX-Code
+		width FILL_PARENT 
+\end_layout
+
+\begin_layout LyX-Code
+		height FILL_PARENT
+\end_layout
+
+\begin_layout LyX-Code
+		<TextView> output
+\end_layout
+
+\begin_layout LyX-Code
+			width FILL_PARENT 
+\end_layout
+
+\begin_layout LyX-Code
+			height FILL_PARENT 
+\end_layout
+
+\begin_layout LyX-Code
+			text "" 
+\end_layout
+
+\begin_layout LyX-Code
+			size 6 
+\end_layout
+
+\begin_layout LyX-Code
+			background WHITE
+\end_layout
+
+\begin_layout LyX-Code
+			textColor BLACK 
+\end_layout
+
+\begin_layout LyX-Code
+			useOutputForActivity SmartDashboard 
+\end_layout
+
+\begin_layout LyX-Code
+		</TextView> 
+\end_layout
+
+\begin_layout LyX-Code
+	</LinearLayout>
+\end_layout
+
+\begin_layout LyX-Code
+</Layout>
+\end_layout
+
+\begin_layout Standard
+Il layout, in questo caso sarà molto semplice e minimale in quanto l'activity
+ non dovrà far altro che visualizzare sul display i dati, per tanto avremo
+ una TextView a tutto schermo di colore bianco sulla quale verranno di volta
+ in volta visualizzati gli ultimi dati ricevuti dal drone.
+\end_layout
+
+\begin_layout Subsection
+DroneSmartDashboard
+\end_layout
+
+\begin_layout Subsection
+smartDevice.android
+\end_layout
+
+\begin_layout Standard
+
 \end_layout
 
 \begin_layout Chapter
