@@ -23,4 +23,9 @@ public class Smartdevice extends SmartdeviceSupport {
 		env.println("DATA DRONE: " + data);
 	}
 
+	@Override
+	protected boolean isNotifyStart(String notify) throws Exception {
+		return notify == Messages.NOTIFY_START;
+	}
+
 }
