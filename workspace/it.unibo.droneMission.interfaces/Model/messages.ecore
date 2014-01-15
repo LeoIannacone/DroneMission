@@ -3,7 +3,7 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="messages"
     nsURI="http:///it/unibo/droneMission/interfaces/messages.ecore" nsPrefix="it.unibo.droneMission.interfaces.messages">
-  <eClassifiers xsi:type="ecore:EClass" name="ICommand" eSuperTypes="#//IMessageTypeAsInt #//IMessageValueAsInt"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ICommand" eSuperTypes="#//IMessageTypeAsInt #//IMessageValueAsInt #//IMessageWithTime"/>
   <eClassifiers xsi:type="ecore:EClass" name="IFile" eSuperTypes="#//IMessage">
     <eOperations name="setName">
       <eParameters name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -11,19 +11,11 @@
     <eOperations name="setCreationTime">
       <eParameters name="time" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
     </eOperations>
-    <eOperations name="setLastModificationTime">
-      <eParameters name="time" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
-    </eOperations>
-    <eOperations name="setData">
-      <eParameters name="file" eType="#//InputStream"/>
-    </eOperations>
     <eOperations name="setData">
       <eParameters name="base64" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="creationTime" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lastModificationTime" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="data" eType="#//InputStream"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataAsBase64" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="IMessage">
@@ -51,9 +43,26 @@
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="INotify" eSuperTypes="#//IMessageTypeAsInt #//IMessageValueAsString"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IReply" eSuperTypes="#//IMessageTypeAsInt #//IMessageValueAsString"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ISensorsData" eSuperTypes="#//IMessage">
+  <eClassifiers xsi:type="ecore:EClass" name="IMessageWithTime" eSuperTypes="#//IMessage">
+    <eOperations name="setTime">
+      <eParameters name="time" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="time" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="INotify" eSuperTypes="#//IMessageTypeAsInt #//IMessageValueAsString #//IMessageWithTime"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IPicturePackage" eSuperTypes="#//IMessage">
+    <eOperations name="setFile">
+      <eParameters name="file" eType="#//IFile"/>
+    </eOperations>
+    <eOperations name="setSensorsData">
+      <eParameters name="sensors" eType="#//ISensorsData"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="file" eType="#//IFile"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sensorsData" eType="#//ISensorsData"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IReply" eSuperTypes="#//IMessageTypeAsInt #//IMessageValueAsString #//IMessageWithTime"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ISensor" eSuperTypes="#//IMessageValueAsString #//IMessageTypeAsInt"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ISensorsData" eSuperTypes="#//IMessage #//IMessageWithTime">
     <eOperations name="addGauge">
       <eParameters name="gauge" eType="ecore:EClass gauges.ecore#//IGauge"/>
     </eOperations>
@@ -83,5 +92,10 @@
     <eLiterals name="REPLY_NO" value="1"/>
     <eLiterals name="REPLY_FAIL" value="2"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EDataType" name="InputStream" instanceClassName="java.io.InputStream"/>
+  <eClassifiers xsi:type="ecore:EEnum" name="TypesSensor">
+    <eLiterals name="ODOMETER"/>
+    <eLiterals name="SPEEDOMETER" value="1"/>
+    <eLiterals name="FUELOMETER" value="2"/>
+    <eLiterals name="LOCTRACKER" value="3"/>
+  </eClassifiers>
 </ecore:EPackage>
