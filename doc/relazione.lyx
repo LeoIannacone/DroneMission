@@ -88,16 +88,18 @@ LatexCommand tableofcontents
 
 \end_layout
 
-\begin_layout Standard
-\begin_inset FloatList algorithm
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Chapter
 Introduzione
+\end_layout
+
+\begin_layout Standard
+Al fine di valutare l'apprendimento dell'approccio di realizzazione di sistemi
+ software introdotto durante il corso di Ingegneria dei Sistami Software
+ M, nel quale non ci si limita ad analizzare i requisiti forniti e quindi
+ iniziare subito l'implementazione, ma si arriverà alla realizzazione del
+ progetto mediante una serie di analisi successive.
+ il docente ha proposto lo svolgimento di un progetto riguardante i temi
+ trattati.
 \end_layout
 
 \begin_layout Chapter
@@ -347,10 +349,39 @@ Obiettivi
 \end_layout
 
 \begin_layout Standard
-L'applicazione intende fornire alla protezione civile un maggiore supporto
- per l'esplorazione territoriale senza la necessità di mettere a repentaglio
- vite umane.
+Al fine di verificare la qualità e bontà dell’approccio sopra citato, sono
+ state applicate tecniche di produzione software per la realizzazione di
+ un progetto esemplificativo riguardante l’attività di un drone ed il suo
+ controllo remoto, che si compone di tre diverse parti, in esecuzione su
+ sistemi eterogenei loosely coupled, ma fortemente interagenti tra di loro.
  
+\end_layout
+
+\begin_layout Standard
+Partendo dall’analisi dei requisiti si vuole estrarre un modello definito
+ e univoco attraverso specifiche non ambigue, focalizzandosi sull’interazione
+ tra i tre diversi agenti (entità attive) e modellare il loro comportamento
+ interno.
+ 
+\end_layout
+
+\begin_layout Standard
+Il progetto da realizzare prevede, come detto, tre componenti distinti in
+ esecuzione su sistemi eterogenei:
+\end_layout
+
+\begin_layout Itemize
+Sistema software per il controllo di un drone teleguitado (Quartier Generale
+ - HeadQuarter)
+\end_layout
+
+\begin_layout Itemize
+Un applicativo per smartphone/tablet su cui visualizzare lo stato dei sensori
+ del drone (SmartDevice)
+\end_layout
+
+\begin_layout Itemize
+Un software che simuli il comportamento del drone (Drone)
 \end_layout
 
 \begin_layout Chapter
