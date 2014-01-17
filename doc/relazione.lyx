@@ -7604,8 +7604,8 @@ Control Unit
 
 \begin_layout Standard
 L'unità di controllo, ovvero quell'entità responsabile dell'interazione
- con l'utente, viene implementata estendo il codice autogenerato da contact.
- Questa la classe che estente il supporto:
+ con l'utente, viene implementata estendendo il codice autogenerato da contact.
+ Questa la classe che estende il supporto:
 \end_layout
 
 \begin_layout LyX-Code
@@ -8316,15 +8316,500 @@ Il layout, in questo caso sarà molto semplice e minimale in quanto l'activity
 \end_layout
 
 \begin_layout Subsection
-DroneSmartDashboard
-\end_layout
-
-\begin_layout Subsection
 smartDevice.android
 \end_layout
 
 \begin_layout Standard
+Il pacchetto smartDevice.android contiene, oltre alle classi generate automaticam
+ente da AAASL, solo l'implementazione della classe SmartDashboard che estende
+ l'activity standard generata.
+ In questa classe verrà ridefinito soltanto il metodo onCreate, nel quale
+ si associa l'activity stessa alla classe che implementa il main dell'applicazio
+ne (DroneSmartDashboard) definita utilizzando contact:
+\end_layout
 
+\begin_layout LyX-Code
+package it.unibo.droneMission.smartDevice.android;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+import it.unibo.contact.DroneSmartDashboard.DroneSmartDashboard; 
+\end_layout
+
+\begin_layout LyX-Code
+import android.os.Bundle; 
+\end_layout
+
+\begin_layout LyX-Code
+import android.view.View; 
+\end_layout
+
+\begin_layout LyX-Code
+import android.widget.TextView;
+\end_layout
+
+\begin_layout LyX-Code
+public class SmartDashboard extends SmartDashboardSupport { 
+\end_layout
+
+\begin_layout LyX-Code
+	protected DroneSmartDashboard contactSystem;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+	@Override
+\end_layout
+
+\begin_layout LyX-Code
+	protected void onCreate(Bundle savedInstanceState) {
+\end_layout
+
+\begin_layout LyX-Code
+		// TODO Auto-generated method stub 
+\end_layout
+
+\begin_layout LyX-Code
+		super.onCreate(savedInstanceState);	
+\end_layout
+
+\begin_layout LyX-Code
+		try {
+\end_layout
+
+\begin_layout LyX-Code
+			contactSystem = new DroneSmartDashboard(this);
+\end_layout
+
+\begin_layout LyX-Code
+			contactSystem.doJob();
+\end_layout
+
+\begin_layout LyX-Code
+		} catch (Exception e) {
+\end_layout
+
+\begin_layout LyX-Code
+			// TODO Auto-generated catch block 
+\end_layout
+
+\begin_layout LyX-Code
+			e.printStackTrace(); 
+\end_layout
+
+\begin_layout LyX-Code
+		} 
+\end_layout
+
+\begin_layout LyX-Code
+	}
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Subsection
+DroneSmartDashboard
+\end_layout
+
+\begin_layout Standard
+Il package DroneSmartDashboard è quello che contiene il core del sistema
+ smartDevice.
+ Al suo interno sono presenti tutte le classi generate a partire dalla specifica
+ contact e quelle che implementano il reale comportamento dell'applicazione.
+\end_layout
+
+\begin_layout Standard
+La classe DroneSmartDashboard estende la classe main dell'applicativo, definendo
+ un nuovo costruttore (che ha come parametro un'activity di tipo SmartDashboard)
+ e si ridefinisce il mtodo per la configurazione dei Subject in gioco:
+\end_layout
+
+\begin_layout LyX-Code
+import it.unibo.droneMission.smartDevice.android.SmartDashboard;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public class DroneSmartDashboard extends DroneSmartDashboardMain {
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+	protected SmartDashboard ba; 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+	public DroneSmartDashboard(SmartDashboard smartDashboard) { 
+\end_layout
+
+\begin_layout LyX-Code
+		super();
+\end_layout
+
+\begin_layout LyX-Code
+		this.ba=smartDashboard;		
+\end_layout
+
+\begin_layout LyX-Code
+	}
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+	public DroneSmartDashboard() {
+\end_layout
+
+\begin_layout LyX-Code
+	}
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+	@Override 
+\end_layout
+
+\begin_layout LyX-Code
+	protected void configureSubjects(){
+\end_layout
+
+\begin_layout LyX-Code
+		try { 
+\end_layout
+
+\begin_layout LyX-Code
+			smartdevice = new Smartdevice(ba);
+\end_layout
+
+\begin_layout LyX-Code
+			smartdevice.setName("Smart Dashboard"); 
+\end_layout
+
+\begin_layout LyX-Code
+			smartdevice.setEnv(env);
+\end_layout
+
+\begin_layout LyX-Code
+			smartdevice.initInputSupports();
+\end_layout
+
+\begin_layout LyX-Code
+			registerObservers();
+\end_layout
+
+\begin_layout LyX-Code
+		} catch (Exception e) { 
+\end_layout
+
+\begin_layout LyX-Code
+			e.printStackTrace();
+\end_layout
+
+\begin_layout LyX-Code
+		} 
+\end_layout
+
+\begin_layout LyX-Code
+	}
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+	@Override 
+\end_layout
+
+\begin_layout LyX-Code
+	protected void start(){ 
+\end_layout
+
+\begin_layout LyX-Code
+		smartdevice.start(); 
+\end_layout
+
+\begin_layout LyX-Code
+	}
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+La classe Smartdevice, invece, definisce il comportamento dell'applicazione:
+\end_layout
+
+\begin_layout LyX-Code
+import java.sql.Time;
+\end_layout
+
+\begin_layout LyX-Code
+import it.unibo.droneMission.interfaces.gauges.IGauge;
+\end_layout
+
+\begin_layout LyX-Code
+import it.unibo.droneMission.messages.*;
+\end_layout
+
+\begin_layout LyX-Code
+import it.unibo.droneMission.smartDevice.android.SmartDashboard;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+public class Smartdevice extends SmartdeviceSupport { 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+	protected SmartDashboard ba;
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+	public Smartdevice(String name) throws Exception {
+\end_layout
+
+\begin_layout LyX-Code
+		super(name);
+\end_layout
+
+\begin_layout LyX-Code
+	}
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+	public Smartdevice(SmartDashboard b) throws Exception {
+\end_layout
+
+\begin_layout LyX-Code
+		super("SmartDashboard");
+\end_layout
+
+\begin_layout LyX-Code
+		this.ba=b; 
+\end_layout
+
+\begin_layout LyX-Code
+		this.view = ba.getOutputView(); 
+\end_layout
+
+\begin_layout LyX-Code
+	}
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+	@Override 
+\end_layout
+
+\begin_layout LyX-Code
+	protected void notifyUserMissionStarted() throws Exception { 
+\end_layout
+
+\begin_layout LyX-Code
+		view.addOutput("Received 
+\backslash
+"Mission Started
+\backslash
+" from Drone"); 
+\end_layout
+
+\begin_layout LyX-Code
+	}
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+	@Override
+\end_layout
+
+\begin_layout LyX-Code
+	protected void updateGauges(String data) throws Exception { 
+\end_layout
+
+\begin_layout LyX-Code
+		String s = Utils.cleanJSONFromContact(data); 
+\end_layout
+
+\begin_layout LyX-Code
+		SensorsData sensorsData = Factory.createSensorsData(s); 
+\end_layout
+
+\begin_layout LyX-Code
+		Time time = new Time(sensorsData.getTime()); 
+\end_layout
+
+\begin_layout LyX-Code
+		view.setOutput(""); 
+\end_layout
+
+\begin_layout LyX-Code
+		view.addOutput("Sensors data updated at "+ time.toString() + "
+\backslash
+n"); 
+\end_layout
+
+\begin_layout LyX-Code
+		for(IGauge g : sensorsData.getGauges()) {
+\end_layout
+
+\begin_layout LyX-Code
+			int t = Utils.getGaugeType(g);
+\end_layout
+
+\begin_layout LyX-Code
+			String type = Utils.getGaugeName(t); 
+\end_layout
+
+\begin_layout LyX-Code
+			if (type.equals("Fuelometer")) 
+\end_layout
+
+\begin_layout LyX-Code
+				view.addOutput("Fuel: "+g.getCurValRepDisplayed()+ " l ("+ Double.parseDouble(g.
+getCurValRepDisplayed().toString())/30*100 + "%)
+\backslash
+n");
+\end_layout
+
+\begin_layout LyX-Code
+			if (type.equals("Speedometer")) 
+\end_layout
+
+\begin_layout LyX-Code
+				view.addOutput("Speed: "+g.getCurValRepDisplayed()+"
+\backslash
+n"); 
+\end_layout
+
+\begin_layout LyX-Code
+			if (type.equals("Odometer")) 
+\end_layout
+
+\begin_layout LyX-Code
+				view.addOutput("Odo: "+g.getCurValRepDisplayed()+" km
+\backslash
+n"); 
+\end_layout
+
+\begin_layout LyX-Code
+			if (type.equals("Loctracker")){ 
+\end_layout
+
+\begin_layout LyX-Code
+				String loc[] = g.getCurValRepDisplayed().split("-"); 
+\end_layout
+
+\begin_layout LyX-Code
+				view.addOutput("Latitude: "+loc[0].replace("Lat: ", "")+"
+\backslash
+n"); 
+\end_layout
+
+\begin_layout LyX-Code
+				view.addOutput("Longitude: "+loc[1].replace("Lng: ", "")+"
+\backslash
+n");
+\end_layout
+
+\begin_layout LyX-Code
+			}
+\end_layout
+
+\begin_layout LyX-Code
+		}
+\end_layout
+
+\begin_layout LyX-Code
+	}
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+	@Override
+\end_layout
+
+\begin_layout LyX-Code
+	protected void missionFinished() throws Exception { 
+\end_layout
+
+\begin_layout LyX-Code
+		view.addOutput("
+\backslash
+nReceived 
+\backslash
+"Mission Ended
+\backslash
+" from Drone");
+\end_layout
+
+\begin_layout LyX-Code
+		Thread.sleep(5000);
+\end_layout
+
+\begin_layout LyX-Code
+		view.setOutput("");
+\end_layout
+
+\begin_layout LyX-Code
+	} 
+\end_layout
+
+\begin_layout LyX-Code
+}
 \end_layout
 
 \begin_layout Chapter
