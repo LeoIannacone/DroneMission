@@ -2641,7 +2641,7 @@ I sensori sono aggiornati
 \begin_layout Standard
 Analizzando le specifiche richieste seguendo un approccio top-down sono
  stati individuati nel sistema DroneMission tre soggetti, tra loro interagenti:
- Drone, HeadQuarter e Smartphone.
+ Drone, HeadQuarter e Smartdevice.
  
 \end_layout
 
@@ -2692,12 +2692,115 @@ Attraverso l’utilizzo del meta­linguaggio Contact viene fortemente mantenuta
 \end_layout
 
 \begin_layout Standard
-Infine, con l’utilizzo di questo meta­linguaggio viene il system­designer,
- che ha il compito di implementare tutti i requisiti richiesti dall’application­
-designer, come per esempio una nuova tipologia di comunicazione, avrà un
- lavoro molto semplificato e, soprattutto, riusabile: una volta completata
- la nuova feature, questa sarà presente in tutti i succesivi utilizzi del
- meta­linguaggio.
+Infine, con l’utilizzo di questo meta­linguaggio il system­designer, che
+ ha il compito di implementare tutti i requisiti richiesti dall’application­desi
+gner, come per esempio una nuova tipologia di comunicazione, avrà un lavoro
+ molto semplificato e, soprattutto, riusabile: una volta completata la nuova
+ feature, questa sarà presente in tutti i succesivi utilizzi del meta­linguaggio.
+\end_layout
+
+\begin_layout Standard
+Tuttavia il dominio non è composto soltanto dagli attori definiti mediante
+ contact, ma anche da elementi statici, quali i vari tipi di messaggi, gli
+ strumenti di misura (gauges) e i meccanismi di gestione dello storage e
+ del database, mediante il quale il server della centrale operativa memorizza
+ tutte le informazioni relative alle missioni svolte.
+ Queste entità del sistema sono state definite mediante interfacce e, successiva
+mente, sfruttando le potenzialità di EMF sono stati generati i modelli UML
+ delle varie classi di oggetti:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Img/gauges_ecore.tiff
+	width 90col%
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Modello UML dei gauge
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Img/messages_ecore.tiff
+	width 90col%
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Modello UML dei messaggi
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Img/headquarter_ecore.tiff
+	width 90col%
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Modello UML del quartier generale
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
