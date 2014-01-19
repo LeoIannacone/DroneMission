@@ -3,6 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="/it.unibo.droneMission.interfaces"/>
-	<classpathentry kind="src" path="/it.unibo.droneMission.display"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/it.unibo.droneMission.display"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

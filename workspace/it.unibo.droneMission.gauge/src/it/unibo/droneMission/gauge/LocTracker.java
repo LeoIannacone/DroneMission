@@ -2,9 +2,11 @@ package it.unibo.droneMission.gauge;
 
 import java.util.Observer;
 
-import it.unibo.droneMission.interfaces.IGaugeValue;
-import it.unibo.droneMission.interfaces.IGaugeValueDouble;
-import it.unibo.droneMission.interfaces.ILocTracker;
+import com.sun.org.apache.xml.internal.serializer.utils.Utils;
+
+import it.unibo.droneMission.interfaces.gauges.IGaugeValue;
+import it.unibo.droneMission.interfaces.gauges.IGaugeValueDouble;
+import it.unibo.droneMission.interfaces.gauges.ILocTracker;
 
 public class LocTracker implements ILocTracker {
 	
@@ -17,6 +19,8 @@ public class LocTracker implements ILocTracker {
 	}
 	
 	public LocTracker(GaugeValueDouble la, GaugeValueDouble lo){
+		latitude = new GaugeValueDouble(LocTracker.INITLAT);
+		longitude = new GaugeValueDouble(LocTracker.INITLON);
 		latitude.set(la.valAsDouble());
 		longitude.set(lo.valAsDouble());
 	}
@@ -42,8 +46,7 @@ public class LocTracker implements ILocTracker {
 
 	@Override
 	public String getCurValRepDisplayed() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Lat: " + latitude.valAsString() + " - Lng: " + longitude.valAsString();
 	}
 
 	@Override
@@ -85,5 +88,12 @@ public class LocTracker implements ILocTracker {
 		// TODO Auto-generated method stub
 		return longitude;
 	}
+	
+
+	@Override
+	public String toString() {
+		return this.latitude.valAsString()+";"+this.longitude.valAsString();
+		
+}
 
 }

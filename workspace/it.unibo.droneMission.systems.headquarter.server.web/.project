@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>it.unibo.droneMission.systems.headquarter.server.web</name>
+	<comment></comment>
+	<projects>
+		<project>it.unibo.droneMission.gauge</project>
+		<project>it.unibo.droneMission.interfaces</project>
+		<project>it.unibo.droneMission.messages</project>
+		<project>it.unibo.droneMission.systems.headquarter.server</project>
+		<project>it.unibo.droneMission.systems.headquarter.storage</project>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.python.pydev.PyDevBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.python.pydev.pythonNature</nature>
+		<nature>org.python.pydev.django.djangoNature</nature>
+	</natures>
+</projectDescription>

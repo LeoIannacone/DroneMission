@@ -1,0 +1,3 @@
+Creare database MySQL "dronemission" e dare in pasto struct.mysql.sql
+
+Installare libmysql-java per avere le class JDBC (java database connector).

@@ -1,0 +1,50 @@
+{% include "header.html" %}
+
+<div id="body">
+
+<div id="controls" class="row">
+
+	<div class="span6">
+		<div class="inner">
+			<div id="commands">
+				<h3>Commands</h3>
+				<a id="start" class="btn btn-success btn-large">Start Mission</a>		
+    			<div id="speed">
+    			    <div class="btn-group btn-group-vertical">
+            			    <a id="increase" class="btn btn-mini disabled"><i class="icon-chevron-up"></i></a>
+            			    <a id="decrease" class="btn btn-mini disabled"><i class="icon-chevron-down"></i></a>
+            			</div>
+    			    <div class="input-append input-prepend">
+            		    <span id="current-speed" class="add-on">0</span>
+            		    <input type="number" class="set disabled" type="text">
+            		    <span class="add-on">Km/h</span>
+            		</div>
+    				<a id="send" class="btn btn-large disabled">Send</a>
+        		</div>
+    		    <div id="reply"></div>
+			</div> <!-- #commands -->
+			
+			<div id="pictures">
+				<h3>Pictures</h3>
+			    <div class="content"></div>
+			</div>
+		</div>
+	</div> <!-- left sidebar -->
+	
+	<div id="sensors" class="span6">
+		<div class="inner">
+			<div class="gauges">
+				<h3>Drone Sensors</h3>
+				<div class="content"></div>
+			</div>
+			
+			<div class="position">
+				<h3>Current Position</h3>
+				<div id="map"></map>
+			</div>
+		</div>
+	</div> <!-- #sensors - right sidebar -->
+
+</div> <!-- #controls -->
+
+</div> <!-- #body -->

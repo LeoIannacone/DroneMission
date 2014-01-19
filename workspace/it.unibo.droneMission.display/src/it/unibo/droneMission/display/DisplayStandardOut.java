@@ -2,7 +2,7 @@ package it.unibo.droneMission.display;
 
 import java.util.Observable;
 
-import it.unibo.droneMission.interfaces.IDisplay;
+import it.unibo.droneMission.interfaces.gauges.IDisplay;
 
 public class DisplayStandardOut implements IDisplay{
 	

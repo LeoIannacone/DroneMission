@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="headquarter"
+    nsURI="http:///it/unibo/droneMission/interfaces/headquarter.ecore" nsPrefix="it.unibo.droneMission.interfaces.headquarter">
+  <eClassifiers xsi:type="ecore:EClass" name="IDataBase" eSuperTypes="#//IStorage">
+    <eOperations name="connect"/>
+    <eOperations name="disconnect"/>
+    <eOperations name="setUsername">
+      <eParameters name="username" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eOperations name="setPassword">
+      <eParameters name="password" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eOperations name="setHostname">
+      <eParameters name="hostname" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eOperations name="setPort">
+      <eParameters name="port" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eOperations>
+    <eOperations name="setDatabaseName">
+      <eParameters name="dbname" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eOperations name="select">
+      <eParameters name="column" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eOperations name="select">
+      <eParameters name="columns" eType="#//StringArray"/>
+    </eOperations>
+    <eOperations name="from">
+      <eParameters name="table" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eOperations name="from">
+      <eParameters name="tables" eType="#//StringArray"/>
+    </eOperations>
+    <eOperations name="where">
+      <eParameters name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eParameters name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eOperations name="where">
+      <eParameters name="set">
+        <eGenericType eClassifier="#//Hashtable">
+          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        </eGenericType>
+      </eParameters>
+    </eOperations>
+    <eOperations name="orderBy">
+      <eParameters name="column" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eParameters name="direction" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eOperations name="limit">
+      <eParameters name="n" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eOperations>
+    <eOperations name="offset">
+      <eParameters name="n" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eOperations>
+    <eOperations name="update" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+      <eParameters name="set">
+        <eGenericType eClassifier="#//Hashtable">
+          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        </eGenericType>
+      </eParameters>
+    </eOperations>
+    <eOperations name="insert" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+      <eParameters name="set">
+        <eGenericType eClassifier="#//Hashtable">
+          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        </eGenericType>
+      </eParameters>
+    </eOperations>
+    <eOperations name="get" eType="#//ResultSet"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="connected" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="username" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="password" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hostname" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="port" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="databaseName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IStorage">
+    <eOperations name="init"/>
+    <eOperations name="startMission"/>
+    <eOperations name="endMission"/>
+    <eOperations name="resetCurrentMissionID"/>
+    <eOperations name="getMission" eType="#//IMission">
+      <eParameters name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eOperations>
+    <eOperations name="storeCommandAndReply">
+      <eParameters name="command" eType="ecore:EClass messages.ecore#//ICommand"/>
+      <eParameters name="reply" eType="ecore:EClass messages.ecore#//IReply"/>
+    </eOperations>
+    <eOperations name="getLatestCommands">
+      <eGenericType eClassifier="#//LinkedHashMap">
+        <eTypeArguments eClassifier="ecore:EClass messages.ecore#//ICommand"/>
+        <eTypeArguments eClassifier="ecore:EClass messages.ecore#//IReply"/>
+      </eGenericType>
+      <eParameters name="n" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eOperations>
+    <eOperations name="getCommandsByMission">
+      <eGenericType eClassifier="#//LinkedHashMap">
+        <eTypeArguments eClassifier="ecore:EClass messages.ecore#//ICommand"/>
+        <eTypeArguments eClassifier="ecore:EClass messages.ecore#//IReply"/>
+      </eGenericType>
+      <eParameters name="missionID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eOperations>
+    <eOperations name="storeNotify">
+      <eParameters name="notify" eType="ecore:EClass messages.ecore#//INotify"/>
+    </eOperations>
+    <eOperations name="getLatestNotifies" upperBound="-1" eType="ecore:EClass messages.ecore#//INotify">
+      <eParameters name="n" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eOperations>
+    <eOperations name="getNotifiesByMission" upperBound="-1" eType="ecore:EClass messages.ecore#//INotify">
+      <eParameters name="missionID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eOperations>
+    <eOperations name="storeSensorsData">
+      <eParameters name="data" eType="ecore:EClass messages.ecore#//ISensorsData"/>
+    </eOperations>
+    <eOperations name="getLatestSensorsDatas" upperBound="-1" eType="ecore:EClass messages.ecore#//ISensorsData">
+      <eParameters name="n" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eOperations>
+    <eOperations name="getSensorsDatasByMission" upperBound="-1" eType="ecore:EClass messages.ecore#//ISensorsData">
+      <eParameters name="missionID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eOperations>
+    <eOperations name="storePicturePackage">
+      <eParameters name="pack" eType="ecore:EClass messages.ecore#//IPicturePackage"/>
+    </eOperations>
+    <eOperations name="getLatestPicturePackages" upperBound="-1" eType="ecore:EClass messages.ecore#//IPicturePackage">
+      <eParameters name="n" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eOperations>
+    <eOperations name="getPicturePackagesByMission" upperBound="-1" eType="ecore:EClass messages.ecore#//IPicturePackage">
+      <eParameters name="missionID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eOperations>
+    <eOperations name="storeFile" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eParameters name="file" eType="ecore:EClass messages.ecore#//IFile"/>
+    </eOperations>
+    <eOperations name="getFile" eType="ecore:EClass messages.ecore#//IFile">
+      <eParameters name="filename" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eOperations name="getFile" eType="ecore:EClass messages.ecore#//IFile">
+      <eParameters name="time" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+    </eOperations>
+    <eOperations name="getLatestFiles" upperBound="-1" eType="ecore:EClass messages.ecore#//IFile">
+      <eParameters name="n" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eOperations>
+    <eOperations name="setDebug">
+      <eParameters name="level" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eOperations>
+    <eOperations name="debug">
+      <eParameters name="s" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eParameters name="level" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="onMission" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="currentMissionID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="pastMissions" upperBound="-1"
+        eType="#//IMission"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="latestNotify" eType="ecore:EClass messages.ecore#//INotify"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="latestSensorsData" eType="ecore:EClass messages.ecore#//ISensorsData"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="latestPicturePackage" eType="ecore:EClass messages.ecore#//IPicturePackage"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="StringArray" instanceClassName="java.lang.String[]"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="Hashtable" instanceClassName="java.util.Hashtable">
+    <eTypeParameters name="T"/>
+    <eTypeParameters name="T1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="ResultSet" instanceClassName="java.sql.ResultSet"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="IMission" instanceClassName="it.unibo.droneMission.interfaces.headquarter.IMission"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="LinkedHashMap" instanceClassName="java.util.LinkedHashMap">
+    <eTypeParameters name="T"/>
+    <eTypeParameters name="T1"/>
+  </eClassifiers>
+</ecore:EPackage>

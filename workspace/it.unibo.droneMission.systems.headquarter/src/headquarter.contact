@@ -1,0 +1,247 @@
+ContactSystem HeadQuarter -awt -o spaceUpdater [host="localhost" port=8070];
+
+Context subSystemDrone -w;
+Context subSystemHeadQuarter -w;
+Context subSystemSmartDevice -w;
+Context subSubSystemHeadQuarterServer -w;
+
+//		Subsystems -w (window)
+Subject smartdevice context subSystemSmartDevice external;
+Subject drone context subSystemDrone external;
+//Subject headQuarter context subSystemHeadQuarter;
+
+Subject server context subSubSystemHeadQuarterServer;
+Subject uiLog context subSystemHeadQuarter external;
+Subject uiCommand context subSystemHeadQuarter external;
+Subject controlUnit context subSystemHeadQuarter; 
+
+//		Messages
+Dispatch picturePackage; 
+Request command;
+Signal sensorsData;
+Signal notify;
+
+// User log messages
+Request showMeMission;
+Request showMeSensorsData;
+Request showMePicturePackage;
+Request showMeNotifies;
+
+// User command
+Request newCommand;
+
+// Server forward command to drone through controlUnit
+Request forwardCommand;
+
+//		Highlevel communications
+//Drone sends picturePackage
+sendDatapicturePackage: drone forward picturePackage to controlUnit;  
+//Headquarter receives picturePackage
+receiveDatapicturePackage: controlUnit serve picturePackage support=TCP [host="localhost" port=4060];
+
+//Drone sends data of sensors
+sendSensorsDatas: drone emit sensorsData;
+//Headquarter and smartdevice receive data of sensors
+controlUnitReceiveSensorsDatas: controlUnit sense sensorsData;
+smartdeviceReceivesensorsDatas: smartdevice sense sensorsData;
+
+//Drone notifies start/end mission
+sendnotify: drone emit notify;
+//smartdevice receives notifications about mission
+smartdeviceReceiveNotify: smartdevice sense notify;
+
+//HeadQuarter sends command
+sendCommand: controlUnit demand command to drone;
+//Drone receives command
+receiveCommand: drone grant command support=TCP [host="localhost" port=4050];
+
+// User communication
+// show me something
+sendShowMeMission: uiLog demand showMeMission to server;
+receiveShowMeMission: server grant showMeMission;
+
+sendShowMeSensorsData: uiLog demand showMeSensorsData to server;
+receiveShowMeSensorsData: server grant showMeSensorsData;
+
+sendShowMePackagepicturePackage: uiLog demand showMePicturePackage to server;
+receiveShowMePackagepicturePackage: server grant showMePicturePackage;
+
+sendShowMeNotifies: uiLog demand showMeNotifies to server;
+receiveShowMeNotifies: server grant showMeNotifies;
+
+// UI send command
+sendUINewCommand: uiCommand demand newCommand to server;
+receiveUINewCommand: server grant newCommand;
+
+// server sends command to drone handler
+sendForwardCommand: server demand forwardCommand to controlUnit;
+receiveForwardCommand: controlUnit grant forwardCommand support=TCP [host="localhost" port=4060];
+
+BehaviorOf controlUnit {
+	
+	var String cmd
+	var String rpl
+	var String sensorsDatasReceived
+	var String picturePackageReceived
+	
+	var boolean tmpCheck
+	
+	// store mission starts
+	action void storeMissionStarted()
+	
+	// store info from drone
+	action void storeDataSensors(String sensorsDatasReceived)
+	action void storePicturePackage(String picturePackageReceived)
+	
+	// check commands to send
+	action boolean checkCommandStart(String command)
+	action String getWrongStartCommandReply()
+	action void storeCommandAndReply(String c, String r)
+	
+	// shutdown
+	action boolean checkEndMission()
+	action void shutdown()
+	
+	state st_controlUnit_init initial
+		showMsg("Control Unit - initial")
+		goToState st_controlUnit_ready
+	endstate
+	
+	state st_controlUnit_ready
+		doInOut receiveForwardCommand()
+		set tmpCheck = exec checkCommandStart(code.curInputMsgContent)
+		if { tmpCheck == true } {
+			goToState st_controlUnit_startMission
+		}
+		if { tmpCheck == false } {
+			goToState st_controlUnit_wrongStartCommand
+		}
+	endstate
+	
+	state st_controlUnit_startMission
+		set cmd = code.curInputMsgContent
+		doOutIn sendCommand(cmd)
+		acquireAnswerFor command
+		set rpl = code.curReplyContent
+		replyToRequest forwardCommand(rpl)
+		call storeMissionStarted()
+		call storeCommandAndReply(cmd, rpl)
+		goToState st_controlUnit_onMission
+	endstate
+	
+	// in case of wrong start command received
+	state st_controlUnit_wrongStartCommand
+		set cmd = code.curInputMsgContent
+		set rpl = exec getWrongStartCommandReply()
+		replyToRequest forwardCommand(rpl)
+		goToState st_controlUnit_ready
+	endstate
+	
+	state st_controlUnit_sendCommand
+		doInOut receiveForwardCommand()
+		set cmd = code.curInputMsgContent
+		doOutIn sendCommand(cmd)
+		acquireAnswerFor command
+		set rpl = code.curReplyContent
+		call storeCommandAndReply(cmd, rpl)
+		replyToRequest forwardCommand(rpl)
+		goToState st_controlUnit_onMission
+	endstate
+	
+	state st_controlUnit_onMission
+		// check if there are commands to send
+		onMessage? forwardCommand goToState st_controlUnit_sendCommand
+				
+		// get sensors data
+		onMessage? sensorsData goToState st_controlUnit_receivedSensorsData
+		
+		// get picturePackages
+		onMessage? picturePackage goToState st_controlUnit_receivedpicturePackage
+		
+		// check if end mission
+		set tmpCheck = exec checkEndMission()
+		if { tmpCheck == true } {
+			goToState st_controlUnit_endMission
+		}
+		
+	endstate
+	
+	state st_controlUnit_receivedSensorsData
+		doPerceive controlUnitReceiveSensorsDatas()
+		set sensorsDatasReceived = code.curInputMsgContent
+		call storeDataSensors(sensorsDatasReceived)
+		goToState st_controlUnit_onMission
+	endstate
+	
+	state st_controlUnit_receivedpicturePackage
+		doIn receiveDatapicturePackage()
+		set picturePackageReceived = code.curInputMsgContent
+		call storePicturePackage(picturePackageReceived)
+		goToState st_controlUnit_onMission
+	endstate
+	
+	state st_controlUnit_endMission
+		call shutdown()
+		transitToEnd
+	endstate
+}
+
+/*
+BehaviorOf server {
+	
+	var String command
+	var String reply
+	var String sensorsData
+	var String picturePackage
+	var String mission
+
+	action String showReplyToCommand(String reply)
+	action String getSensorsData(String mission_id)
+	action String getPicturePackage(String  mission_id)
+	action String getNotifies(String mission_id)
+	action String getMission(String mission_id)
+	
+	state st_Server_init initial 
+		showMsg("Server - initial")
+		goToState st_Server_Handler
+	endstate
+	
+	state st_Server_Handler
+		onMessage? newCommand goToState st_Server_forwardCommand
+		onMessage? showMeMission goToState st_Server_showMission
+		onMessage? showMePicturePackage goToState st_Server_showPicturePackage
+		onMessage? showMeSensorsData goToState st_Server_showSensorsData
+	endstate
+	
+	state st_Server_showMission
+		doInOut receiveShowMeMission()
+		set mission = exec getMission(code.curInputMsgContent)
+		replyToRequest showMeMission(mission)
+		goToState st_Server_Handler
+	endstate
+	
+	state st_Server_showPicturePackage
+		doInOut receiveShowMePackagepicturePackage()
+		set picturePackage = exec getPicturePackage(code.curInputMsgContent)
+		replyToRequest showMePicturePackage(picturePackage)
+		goToState st_Server_Handler
+	endstate
+	
+	state st_Server_showSensorsData
+		doInOut receiveShowMeSensorsData()
+		set sensorsData = exec getSensorsData(code.curInputMsgContent)
+		replyToRequest showMeMission(sensorsData)
+		goToState st_Server_Handler
+	endstate
+	
+	state st_Server_forwardCommand
+		doInOut receiveUINewCommand()
+		set command = code.curInputMsgContent
+		doOutIn sendForwardCommand(command)
+		acquireAnswerFor forwardCommand
+		set reply = code.curInputMsgContent
+		exec showReplyToCommand(reply)
+		goToState st_Server_Handler
+	endstate
+		
+}*/

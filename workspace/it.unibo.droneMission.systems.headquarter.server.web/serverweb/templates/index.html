@@ -1,0 +1,25 @@
+{% include "header.html" %}
+
+<div id="body" class="row">
+<div class="span12 inner">
+    <h1>Head Quarter</h1>
+</div>
+
+<div class="span6">
+    <div class="inner">
+        <div class="alert alert-info">Select which mission you want to see</div>
+        <ul>
+        {% for m in missions %}
+            <li><a href="/missions/{{ m.id }}">#{{ m.id }} - {{ m.start }}</a></li>
+        {% endfor %} 
+        </ul>
+    </div>
+</div>
+
+<div class="span6">
+    <div class="inner">
+        <a href="/missions/new" class="btn btn-large btn-primary">Start a new mission</a>
+    </div>
+</div>
+
+</div> <!-- #body -->

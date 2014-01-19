@@ -1,0 +1,36 @@
+AndroidSystem DroneSmartDashboard
+	avd 15
+	permissions INTERNET
+	package it.unibo.droneMission.smartDevice.android
+
+action notifyReceived category "android.intent.category.DEFAULT"	
+action startMission category "android.intent.category.DEFAULT"
+action updateValues category "android.intent.category.DEFAULT"
+action endMission category "android.intent.category.DEFAULT"
+
+
+Activity SmartDashboard launchable
+	action startMission
+	action endMission
+	action updateValues
+	action notifyReceived
+	useLayout layout
+;
+
+<Layout> name layout as 
+	<LinearLayout>
+		orientation VERTICAL
+		width FILL_PARENT
+		height FILL_PARENT
+		<TextView> output
+			width FILL_PARENT
+			height FILL_PARENT
+			text ""
+			size 6
+			background WHITE
+			textColor BLACK
+			useOutputForActivity SmartDashboard
+		</TextView>
+	</LinearLayout>
+</Layout>
+	
