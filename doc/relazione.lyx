@@ -37,7 +37,7 @@
 \pdf_backref false
 \pdf_pdfusetitle true
 \papersize default
-\use_geometry false
+\use_geometry true
 \use_amsmath 1
 \use_esint 1
 \use_mhchem 1
@@ -52,6 +52,10 @@
 \shortcut idx
 \color #008000
 \end_index
+\leftmargin 3cm
+\topmargin 2cm
+\rightmargin 3cm
+\bottommargin 2cm
 \secnumdepth 3
 \tocdepth 3
 \paragraph_separation indent
@@ -8038,6 +8042,7 @@ Il primo package conterrà la business logic del dell'applicazione, mentre
 AndroidSystem DroneSmartDashboard
 \end_layout
 
+\begin_deeper
 \begin_layout LyX-Code
 	avd 15
 \end_layout
@@ -8050,6 +8055,7 @@ AndroidSystem DroneSmartDashboard
 	package it.unibo.droneMission.smartDevice.android
 \end_layout
 
+\end_deeper
 \begin_layout LyX-Code
 
 \end_layout
@@ -8078,6 +8084,7 @@ action endMission category "android.intent.category.DEFAULT"
 Activity SmartDashboard launchable
 \end_layout
 
+\begin_deeper
 \begin_layout LyX-Code
 	action startMission
 \end_layout
@@ -8102,14 +8109,17 @@ Activity SmartDashboard launchable
 
 \end_layout
 
+\end_deeper
 \begin_layout LyX-Code
 <Layout> name layout as
 \end_layout
 
+\begin_deeper
 \begin_layout LyX-Code
  	<LinearLayout>
 \end_layout
 
+\begin_deeper
 \begin_layout LyX-Code
 		orientation VERTICAL
 \end_layout
@@ -8126,6 +8136,7 @@ Activity SmartDashboard launchable
 		<TextView> output
 \end_layout
 
+\begin_deeper
 \begin_layout LyX-Code
 			width FILL_PARENT 
 \end_layout
@@ -8154,14 +8165,17 @@ Activity SmartDashboard launchable
 			useOutputForActivity SmartDashboard 
 \end_layout
 
+\end_deeper
 \begin_layout LyX-Code
 		</TextView> 
 \end_layout
 
+\end_deeper
 \begin_layout LyX-Code
 	</LinearLayout>
 \end_layout
 
+\end_deeper
 \begin_layout LyX-Code
 </Layout>
 \end_layout
@@ -8177,6 +8191,7 @@ Analizzando il file nello specifico si può notare che il primo blocco di
 AndroidSystem DroneSmartDashboard
 \end_layout
 
+\begin_deeper
 \begin_layout LyX-Code
 	avd 15
 \end_layout
@@ -8189,6 +8204,7 @@ AndroidSystem DroneSmartDashboard
 	package it.unibo.droneMission.smartDevice.android
 \end_layout
 
+\end_deeper
 \begin_layout Standard
 Il secondo blocco invece contiene la definizione delle Actions, che saranno
  utilizzate dall'activity, categorizzandole attraverso un intent filter.
@@ -8220,6 +8236,7 @@ Si procede quindi a definire l'unica activity dell'applicazione, alla quale
 Activity SmartDashboard launchable
 \end_layout
 
+\begin_deeper
 \begin_layout LyX-Code
 	action startMission
 \end_layout
@@ -8240,6 +8257,7 @@ Activity SmartDashboard launchable
 	useLayout layout ;
 \end_layout
 
+\end_deeper
 \begin_layout LyX-Code
 
 \end_layout
@@ -8248,10 +8266,12 @@ Activity SmartDashboard launchable
 <Layout> name layout as
 \end_layout
 
+\begin_deeper
 \begin_layout LyX-Code
  	<LinearLayout>
 \end_layout
 
+\begin_deeper
 \begin_layout LyX-Code
 		orientation VERTICAL
 \end_layout
@@ -8268,6 +8288,7 @@ Activity SmartDashboard launchable
 		<TextView> output
 \end_layout
 
+\begin_deeper
 \begin_layout LyX-Code
 			width FILL_PARENT 
 \end_layout
@@ -8296,14 +8317,17 @@ Activity SmartDashboard launchable
 			useOutputForActivity SmartDashboard 
 \end_layout
 
+\end_deeper
 \begin_layout LyX-Code
 		</TextView> 
 \end_layout
 
+\end_deeper
 \begin_layout LyX-Code
 	</LinearLayout>
 \end_layout
 
+\end_deeper
 \begin_layout LyX-Code
 </Layout>
 \end_layout
@@ -8356,6 +8380,7 @@ import android.widget.TextView;
 public class SmartDashboard extends SmartDashboardSupport { 
 \end_layout
 
+\begin_deeper
 \begin_layout LyX-Code
 	protected DroneSmartDashboard contactSystem;
 \end_layout
@@ -8372,6 +8397,7 @@ public class SmartDashboard extends SmartDashboardSupport {
 	protected void onCreate(Bundle savedInstanceState) {
 \end_layout
 
+\begin_deeper
 \begin_layout LyX-Code
 		// TODO Auto-generated method stub 
 \end_layout
@@ -8384,6 +8410,7 @@ public class SmartDashboard extends SmartDashboardSupport {
 		try {
 \end_layout
 
+\begin_deeper
 \begin_layout LyX-Code
 			contactSystem = new DroneSmartDashboard(this);
 \end_layout
@@ -8392,10 +8419,12 @@ public class SmartDashboard extends SmartDashboardSupport {
 			contactSystem.doJob();
 \end_layout
 
+\end_deeper
 \begin_layout LyX-Code
 		} catch (Exception e) {
 \end_layout
 
+\begin_deeper
 \begin_layout LyX-Code
 			// TODO Auto-generated catch block 
 \end_layout
@@ -8404,14 +8433,17 @@ public class SmartDashboard extends SmartDashboardSupport {
 			e.printStackTrace(); 
 \end_layout
 
+\end_deeper
 \begin_layout LyX-Code
 		} 
 \end_layout
 
+\end_deeper
 \begin_layout LyX-Code
 	}
 \end_layout
 
+\end_deeper
 \begin_layout LyX-Code
 }
 \end_layout
@@ -8445,10 +8477,7 @@ import it.unibo.droneMission.smartDevice.android.SmartDashboard;
 public class DroneSmartDashboard extends DroneSmartDashboardMain {
 \end_layout
 
-\begin_layout LyX-Code
-
-\end_layout
-
+\begin_deeper
 \begin_layout LyX-Code
 	protected SmartDashboard ba; 
 \end_layout
@@ -8461,6 +8490,7 @@ public class DroneSmartDashboard extends DroneSmartDashboardMain {
 	public DroneSmartDashboard(SmartDashboard smartDashboard) { 
 \end_layout
 
+\begin_deeper
 \begin_layout LyX-Code
 		super();
 \end_layout
@@ -8469,6 +8499,7 @@ public class DroneSmartDashboard extends DroneSmartDashboardMain {
 		this.ba=smartDashboard;		
 \end_layout
 
+\end_deeper
 \begin_layout LyX-Code
 	}
 \end_layout
@@ -8497,10 +8528,12 @@ public class DroneSmartDashboard extends DroneSmartDashboardMain {
 	protected void configureSubjects(){
 \end_layout
 
+\begin_deeper
 \begin_layout LyX-Code
 		try { 
 \end_layout
 
+\begin_deeper
 \begin_layout LyX-Code
 			smartdevice = new Smartdevice(ba);
 \end_layout
@@ -8521,18 +8554,22 @@ public class DroneSmartDashboard extends DroneSmartDashboardMain {
 			registerObservers();
 \end_layout
 
+\end_deeper
 \begin_layout LyX-Code
 		} catch (Exception e) { 
 \end_layout
 
+\begin_deeper
 \begin_layout LyX-Code
 			e.printStackTrace();
 \end_layout
 
+\end_deeper
 \begin_layout LyX-Code
 		} 
 \end_layout
 
+\end_deeper
 \begin_layout LyX-Code
 	}
 \end_layout
@@ -8549,18 +8586,17 @@ public class DroneSmartDashboard extends DroneSmartDashboardMain {
 	protected void start(){ 
 \end_layout
 
+\begin_deeper
 \begin_layout LyX-Code
 		smartdevice.start(); 
 \end_layout
 
+\end_deeper
 \begin_layout LyX-Code
 	}
 \end_layout
 
-\begin_layout LyX-Code
-
-\end_layout
-
+\end_deeper
 \begin_layout LyX-Code
 }
 \end_layout
@@ -8593,6 +8629,7 @@ import it.unibo.droneMission.smartDevice.android.SmartDashboard;
 public class Smartdevice extends SmartdeviceSupport { 
 \end_layout
 
+\begin_deeper
 \begin_layout LyX-Code
 
 \end_layout
@@ -8609,10 +8646,12 @@ public class Smartdevice extends SmartdeviceSupport {
 	public Smartdevice(String name) throws Exception {
 \end_layout
 
+\begin_deeper
 \begin_layout LyX-Code
 		super(name);
 \end_layout
 
+\end_deeper
 \begin_layout LyX-Code
 	}
 \end_layout
@@ -8625,6 +8664,7 @@ public class Smartdevice extends SmartdeviceSupport {
 	public Smartdevice(SmartDashboard b) throws Exception {
 \end_layout
 
+\begin_deeper
 \begin_layout LyX-Code
 		super("SmartDashboard");
 \end_layout
@@ -8637,6 +8677,7 @@ public class Smartdevice extends SmartdeviceSupport {
 		this.view = ba.getOutputView(); 
 \end_layout
 
+\end_deeper
 \begin_layout LyX-Code
 	}
 \end_layout
@@ -8653,6 +8694,7 @@ public class Smartdevice extends SmartdeviceSupport {
 	protected void notifyUserMissionStarted() throws Exception { 
 \end_layout
 
+\begin_deeper
 \begin_layout LyX-Code
 		view.addOutput("Received 
 \backslash
@@ -8661,6 +8703,7 @@ public class Smartdevice extends SmartdeviceSupport {
 " from Drone"); 
 \end_layout
 
+\end_deeper
 \begin_layout LyX-Code
 	}
 \end_layout
@@ -8677,6 +8720,7 @@ public class Smartdevice extends SmartdeviceSupport {
 	protected void updateGauges(String data) throws Exception { 
 \end_layout
 
+\begin_deeper
 \begin_layout LyX-Code
 		String s = Utils.cleanJSONFromContact(data); 
 \end_layout
@@ -8703,6 +8747,7 @@ n");
 		for(IGauge g : sensorsData.getGauges()) {
 \end_layout
 
+\begin_deeper
 \begin_layout LyX-Code
 			int t = Utils.getGaugeType(g);
 \end_layout
@@ -8715,37 +8760,47 @@ n");
 			if (type.equals("Fuelometer")) 
 \end_layout
 
+\begin_deeper
 \begin_layout LyX-Code
-				view.addOutput("Fuel: "+g.getCurValRepDisplayed()+ " l ("+ Double.parseDouble(g.
-getCurValRepDisplayed().toString())/30*100 + "%)
+				view.addOutput("Fuel: "+g.getCurValRepDisplayed()+ " l ("+
+\end_layout
+
+\begin_layout LyX-Code
+					Double.parseDouble(g.getCurValRepDisplayed().toString())/30*100 + "%)
 \backslash
 n");
 \end_layout
 
+\end_deeper
 \begin_layout LyX-Code
 			if (type.equals("Speedometer")) 
 \end_layout
 
+\begin_deeper
 \begin_layout LyX-Code
 				view.addOutput("Speed: "+g.getCurValRepDisplayed()+"
 \backslash
 n"); 
 \end_layout
 
+\end_deeper
 \begin_layout LyX-Code
 			if (type.equals("Odometer")) 
 \end_layout
 
+\begin_deeper
 \begin_layout LyX-Code
 				view.addOutput("Odo: "+g.getCurValRepDisplayed()+" km
 \backslash
 n"); 
 \end_layout
 
+\end_deeper
 \begin_layout LyX-Code
 			if (type.equals("Loctracker")){ 
 \end_layout
 
+\begin_deeper
 \begin_layout LyX-Code
 				String loc[] = g.getCurValRepDisplayed().split("-"); 
 \end_layout
@@ -8762,14 +8817,17 @@ n");
 n");
 \end_layout
 
+\end_deeper
 \begin_layout LyX-Code
 			}
 \end_layout
 
+\end_deeper
 \begin_layout LyX-Code
 		}
 \end_layout
 
+\end_deeper
 \begin_layout LyX-Code
 	}
 \end_layout
@@ -8786,6 +8844,7 @@ n");
 	protected void missionFinished() throws Exception { 
 \end_layout
 
+\begin_deeper
 \begin_layout LyX-Code
 		view.addOutput("
 \backslash
@@ -8804,10 +8863,12 @@ nReceived
 		view.setOutput("");
 \end_layout
 
+\end_deeper
 \begin_layout LyX-Code
 	} 
 \end_layout
 
+\end_deeper
 \begin_layout LyX-Code
 }
 \end_layout
@@ -8902,6 +8963,33 @@ In base alle proprie esigenze, sarà necessario aggiornare i vari path riportati
  nel file.
 \end_layout
 
+\begin_layout Section
+Smart Device
+\end_layout
+
+\begin_layout Standard
+Per quanto riguarda l'installazione dell'applicativo per smartphone/tablet
+ sarà sufficiente installare su un device android l'apk generato, presente
+ nella directory bin del progetto.
+ 
+\end_layout
+
+\begin_layout Standard
+Allo stato attuale manca la possibilità di definire 
+\begin_inset Quotes eld
+\end_inset
+
+in-app
+\begin_inset Quotes erd
+\end_inset
+
+ l'indirizzo ip a cui lo smartdevice deve collegarsi, per tanto, al fine
+ di poter utilizzare l'app è necessario installare l'apk su un virtual device
+ in locale con lo space updater e il server.
+ Una possibile alternativa è quella di modificare il codice contact modificando
+ soltanto l'indirizzo dello sharedSpace.
+\end_layout
+
 \begin_layout Chapter
 Esecuzione
 \end_layout
@@ -8916,6 +9004,10 @@ bin
 
 \begin_layout Standard
 È necessario avviare in sequenza i seguenti file:
+\end_layout
+
+\begin_layout Enumerate
+installare l'apk su un virtual device in locale e avviare l'app
 \end_layout
 
 \begin_layout Enumerate
