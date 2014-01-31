@@ -4,7 +4,7 @@ Docs/#relazione.lyx#
 *~
 
 # REMOVE ALL GENERATED FILES
-workspace/*/src-gen/*
+#workspace/*/src-gen/*
 
 # REMOVE ALL BIN FILES
 workspace/*/bin/*
